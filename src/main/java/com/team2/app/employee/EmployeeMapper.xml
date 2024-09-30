@@ -7,7 +7,12 @@
 <mapper namespace="com.team2.app.employee.EmployeeMapper">
 	<select id="login" parameterType="EmployeeVO"
 		resultType="EmployeeVO">
-		SELECT * FROM EMPLOYEE
+		SELECT *
+		FROM EMPLOYEE E
+			INNER JOIN
+			EMP_ROLE ER
+			INNER JOIN
+			ROLE R
 		WHERE EMP_NUM = #{empNum}
 	</select>
 	

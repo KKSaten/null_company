@@ -23,7 +23,7 @@ public class EmployeeContoller {
 
 	@GetMapping("join")
 	public void join() throws Exception {
-
+		
 	}
 	
 	@PostMapping("join")
