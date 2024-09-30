@@ -28,7 +28,7 @@
     </script>
     
     <style>
-        .no_dot {list-style-type: none }
+      .no_dot {list-style-type: none }
     	.custom-list1 {width: 1000px !important}
     	.custom-list2 {font-size:40px !important}
     	.custom-list2 {margin-top: 60px !important}
@@ -45,5 +45,6 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../../resources/css/plugins.min.css" />
+    <link rel="stylesheet" href="../../resources/css/kaiadmin.min.css" />
     <link rel="stylesheet" href="../../resources/css/kaiadmin.min.css" />
 
