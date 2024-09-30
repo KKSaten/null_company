@@ -11,9 +11,16 @@ public class NoticeService {
 	@Autowired
 	private NoticeMapper noticeMapper;
 	
+	
+	
 	public List<NoticeVO> getList() throws Exception{
 		
 		return noticeMapper.getList();
+	}
+	
+	public NoticeVO getPost(NoticeVO noticeVO) throws Exception{
+		
+		return noticeMapper.getPost(noticeVO);
 	}
 
 }

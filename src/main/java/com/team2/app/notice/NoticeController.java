@@ -24,4 +24,12 @@ public class NoticeController {
 		
 		model.addAttribute("list", list);
 	}
+	
+	@GetMapping("post")
+	public void getPost(Model model, NoticeVO noticeVO) throws Exception{
+		
+		noticeVO = noticeService.getPost(noticeVO);
+		
+		model.addAttribute("noticeVO", noticeVO);
+	}
 }
