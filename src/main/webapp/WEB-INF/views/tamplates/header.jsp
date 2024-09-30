@@ -26,6 +26,10 @@
         },
         });
     </script>
+    
+    <style>
+    	.no_dot {list-style-type: none;}
+    </style>
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css" />
