@@ -3,15 +3,18 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.team2.app.employee.EmployeeMapper">
-	<select id="login" parameterType="EmployeeVO" resultType="EmployeeVO">
+	<select id="login" parameterType="EmployeeVO"
+		resultType="EmployeeVO">
 		SELECT * FROM EMPLOYEE
 		WHERE EMP_NUM = #{empNum}
 	</select>
-	
+
 	<update id="chpass" parameterType="EmployeeVO">
 		UPDATE EMPLOYEE
-		SET EMP_PWD=#{empPwd}
+		SET EMP_PWD =
+		#{empPwd}
+		WHERE EMP_NUM = #{empNum}
 	</update>
 </mapper>
