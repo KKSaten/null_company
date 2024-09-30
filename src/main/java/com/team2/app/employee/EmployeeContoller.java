@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpSession;
@@ -16,29 +17,38 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EmployeeContoller {
 
+	@GetMapping("join")
+	public void join() throws Exception {
+
+	}
+	
+	@PostMapping("join")
+	public void join(EmployeeVO employeeVO) throws Exception {
+		
+	}
+
 	@GetMapping("login")
 	public void login() throws Exception {
-		
 	}
-	
+
 	@GetMapping("mypage")
-	public void check (HttpSession session) {
+	public void mypage(HttpSession session) {
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
-		
+
 		SecurityContext sc = SecurityContextHolder.getContext();
 		log.info("========= sc =========");
-		log.info("sc: {}",sc);
-		
+		log.info("sc: {}", sc);
+
 		Authentication ac = sc.getAuthentication();
 		log.info("========= ac =========");
-		log.info("sc: {}",ac);
-		
-		
+		log.info("sc: {}", ac);
+
 		EmployeeVO employeeVO = (EmployeeVO) ac.getPrincipal();
 		log.info("========= memberVO =========");
-		log.info("MemberVO: {}", employeeVO); 
-		log.info("Name: {}", ac.getName()); //username
-		log.info("Detail: {}", ac.getDetails()); //sessionID
+		log.info("MemberVO: {}", employeeVO);
+		log.info("Name: {}", ac.getName()); // username
+		log.info("Detail: {}", ac.getDetails()); // sessionID
+
 	}
-	
+
 }
