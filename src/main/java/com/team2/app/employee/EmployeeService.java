@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +22,21 @@ public class EmployeeService implements UserDetailsService {
 
 	@Autowired
 	EmployeeMapper employeeMapper;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	public int join (EmployeeVO employeeVO) throws Exception {
+		
+		//비밀번호 암호화
+		String pwd = passwordEncoder.encode(employeeVO.getEmpPwd());
+		employeeVO.setEmpPwd(pwd);
+		
+		//DB insert쿼리
+		int result = employeeMapper.join(employeeVO);
+		
+		return result;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String empNum) throws UsernameNotFoundException {

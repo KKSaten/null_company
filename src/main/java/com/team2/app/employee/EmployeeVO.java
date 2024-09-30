@@ -17,8 +17,8 @@ public class EmployeeVO implements UserDetails {
 	private String empRegistry;
 	private String empGender;
 	private String empAddress;
-	private Long departmentNum;
-	private Long prositionNum;
+	private Long deptNum;
+	private Long posNum;
 	private Date hiredate;
 	private Date outdate;
 	private boolean enabled;
