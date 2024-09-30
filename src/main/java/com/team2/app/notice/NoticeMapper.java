@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface NoticeMapper {
 
 	List<NoticeVO> getList() throws Exception;
+	
+	NoticeVO getPost(NoticeVO noticeVO) throws Exception;
 }
