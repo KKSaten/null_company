@@ -10,6 +10,11 @@
 		SELECT * FROM EMPLOYEE
 		WHERE EMP_NUM = #{empNum}
 	</select>
+	
+	<insert id="join" parameterType="EmployeeVO">
+		INSERT INTO EMPLOYEE (EMP_NUM, EMP_PWD, EMP_NAME, EMP_REGISTRY, EMP_GENDER, EMP_ADDRESS, DEPT_NUM, POS_NUM)
+		VALUES (#{empNum}, #{empPwd}, #{empName}, #{empRegistry}, #{empGender}, #{empAddress}, #{deptNum}, #{posNum})
+	</insert>
 
 	<update id="chpass" parameterType="EmployeeVO">
 		UPDATE EMPLOYEE
