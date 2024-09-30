@@ -56,7 +56,7 @@
     
       <c:if test="${isClockedIn}">
       <li>
-        <a id="checkout" type="button" class="dropdown-item">퇴근하기</a>
+        <a href="./commute/checkIn" id="checkout" type="button" class="dropdown-item">퇴근하기</a>
       </li>
     </c:if>
   </ul>
@@ -85,7 +85,7 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="/">
+                            <a data-bs-toggle="collapse" href="/notice/list">
                           <i class="fas fa-bullhorn"></i>
                             <p>공지사항</p>
                             
@@ -106,14 +106,34 @@
                             </li>
                             
                          <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="/">
+                            <a data-bs-toggle="collapse" href="/commute/list">
                             <i class="fas fa-history"></i>
-                            <p>출퇴근</p>
+                            <p>근태관리</p>
                             
                             </a></li>
-                                     
+                           <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#commute">
+                      <i class="fas fa-exchange-alt"></i>
+                            <p>인사 발령</p>
+                            <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="commute">
+	                            <ul class="nav nav-collapse">
+	                                <li>
+	                                <a href="/approval/approvalDocbox">
+	                                    <span class="sub-item">결재 문서함</span>
+	                                </a>
+	                                </li>
+	                                <li>
+	                                <a href="/">
+	                                    <span class="sub-item">추후 수정</span>
+	                                </a>
+	                                </li>                                
+	                            </ul>
+                            </div>
+                        </li>                
                          <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="/">
+                            <a data-bs-toggle="collapse" href="/vacation/list">
                            <i class="fas fa-plane"></i>
                             <p>휴가</p>
                             </a>        
