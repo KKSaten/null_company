@@ -12,12 +12,12 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="main-panel">
-            <div class="main-header">
-                <c:import url="../templates/sidebar.jsp"></c:import>
-                <c:import url="../templates/topbar.jsp"></c:import>
-            </div>
+	<div class="wrapper">
+		<div class="main-panel">
+			<div class="main-header">
+				<c:import url="../templates/sidebar.jsp"></c:import>
+				<c:import url="../templates/topbar.jsp"></c:import>
+			</div>
 
 			<div class="container custom-list1">
 				<div class="page-inner">
@@ -28,18 +28,20 @@
 									<li class="no_dot">공지사항</li>
 								</ul>
 							</div>
+							<div>
+								<ul class="no_dot">
+									<li class="custom-post1">${noticeVO.noticeTitle}</li>
+									<li class="custom-list4">인사팀, ${noticeVO.noticeDate}</li>
+									<li class="custom-list4">조회수 ${noticeVO.noticeHit}</li>
+								</ul>
+								<br>
+							</div>
 						</div>
 						<div class="card-body">
 							<table class="table mt-3">
+								<thead>
+								</thead>
 								<tbody>
-									<c:forEach items="${list }" var="noticeVO">
-										<ul class="no_dot" onclick="location.href='/notice/post?noticeNum=${noticeVO.noticeNum}'">
-											<li class="custom-list3"><i class="fas fa-comments"></i> ${noticeVO.noticeTitle}</li>
-											<li class="custom-list4">인사팀, ${noticeVO.noticeDate}</li>
-											<li class="custom-list4">조회수 ${noticeVO.noticeHit}</li>
-										</ul>
-										<br><br><br>
-									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -49,9 +51,9 @@
 			</div>
 
 			<c:import url="../templates/footer.jsp"></c:import>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    <c:import url="../templates/bootfooter.jsp"></c:import>
+	<c:import url="../templates/bootfooter.jsp"></c:import>
 </body>
 </html>

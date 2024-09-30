@@ -9,5 +9,10 @@
 	<select id="getList" resultType="NoticeVO">
 		SELECT * FROM NOTICE_BOARD
 	</select>
+	
+	<select id="getPost" resultType="NoticeVO" parameterType="NoticeVO">
+		SELECT * FROM NOTICE_BOARD
+		WHERE NOTICE_NUM = #{noticeNum}
+	</select>
 
 </mapper>
