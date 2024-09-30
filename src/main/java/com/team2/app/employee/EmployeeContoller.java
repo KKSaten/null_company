@@ -1,5 +1,6 @@
 package com.team2.app.employee;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class EmployeeContoller {
+	
+	@Autowired
+	EmployeeService employeeService;
 
 	@GetMapping("join")
 	public void join() throws Exception {
@@ -25,6 +29,13 @@ public class EmployeeContoller {
 	@PostMapping("join")
 	public void join(EmployeeVO employeeVO) throws Exception {
 		
+		log.info("=========================================");
+		log.info("join employee: {}", employeeVO);
+		
+		employeeService.join(employeeVO);
+		
+		log.info("=========================================");
+		log.info("등록 성공");
 	}
 
 	@GetMapping("login")

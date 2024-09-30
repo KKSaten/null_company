@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<c:import url="../tamplates/header.jsp"></c:import>
+	<c:import url="../templates/header.jsp"></c:import>
 
     <title>Login</title>
 </head>
@@ -16,8 +16,8 @@
     <div class="wrapper">
         <div class="main-panel">
             <div class="main-header">
-                <c:import url="../tamplates/sidebar.jsp"></c:import>
-                <c:import url="../tamplates/topbar.jsp"></c:import>
+                <c:import url="../templates/sidebar.jsp"></c:import>
+                <c:import url="../templates/topbar.jsp"></c:import>
             </div>
 
             <div class="container">
@@ -41,10 +41,10 @@
                 </div>
             </div>
 
-            <c:import url="../tamplates/footer.jsp"></c:import>
+            <c:import url="../templates/footer.jsp"></c:import>
         </div>
     </div>
 
-    <c:import url="../tamplates/bootfooter.jsp"></c:import>
+    <c:import url="../templates/bootfooter.jsp"></c:import>
 </body>
 </html>

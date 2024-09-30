@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface EmployeeMapper {
 
 	public EmployeeVO login(EmployeeVO employeeVO) throws Exception;
+	
+	public int join(EmployeeVO employeeVO) throws Exception;
 
 	public void chpass(EmployeeVO employeeVO) throws Exception;
 }
