@@ -20,7 +20,7 @@
             </div>
 
             <div class="container">
-                <div class="page inner">
+                <div class="page-inner">
 
                     //Contents 작성
 
