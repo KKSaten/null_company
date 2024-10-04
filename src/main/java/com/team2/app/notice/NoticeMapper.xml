@@ -6,8 +6,14 @@
   
 <mapper namespace="com.team2.app.notice.NoticeMapper">
 	
-	<select id="getList" resultType="NoticeVO">
+	<select id="getList" resultType="NoticeVO" parameterType="Pager">
 		SELECT * FROM NOTICE_BOARD
+		ORDER BY NOTICE_NUM DESC
+		LIMIT #{startRow}, #{perPage}
+	</select>
+	
+	<select id="getTotalCount" resultType="Long">
+		SELECT COUNT(NOTICE_NUM) FROM NOTICE_BOARD
 	</select>
 	
 	<select id="getPost" resultType="NoticeVO" parameterType="NoticeVO">
@@ -21,5 +27,11 @@
 		VALUES
 			(NULL, #{empNum}, #{noticeTitle}, #{noticeContents}, 0, now())
 	</insert>
+	
+	<update id="modifyPost" parameterType="NoticeVO">
+		UPDATE NOTICE_BOARD
+			SET NOTICE_TITLE= #{noticeTitle}, NOTICE_CONTENTS= #{noticeContents} 
+		WHERE NOTICE_NUM = #{noticeNum}
+	</update>
 
 </mapper>
