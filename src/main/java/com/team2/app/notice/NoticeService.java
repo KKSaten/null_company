@@ -22,5 +22,10 @@ public class NoticeService {
 		
 		return noticeMapper.getPost(noticeVO);
 	}
+	
+	public Integer writePost(NoticeVO noticeVO) throws Exception{
+		
+		return noticeMapper.writePost(noticeVO);
+	}
 
 }

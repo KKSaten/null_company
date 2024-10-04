@@ -14,5 +14,12 @@
 		SELECT * FROM NOTICE_BOARD
 		WHERE NOTICE_NUM = #{noticeNum}
 	</select>
+	
+	<insert id="writePost" parameterType="NoticeVO">
+		INSERT INTO NOTICE_BOARD
+			(NOTICE_NUM, EMP_NUM, NOTICE_TITLE, NOTICE_CONTENTS, NOTICE_HIT, NOTICE_DATE)
+		VALUES
+			(NULL, #{empNum}, #{noticeTitle}, #{noticeContents}, 0, now())
+	</insert>
 
 </mapper>

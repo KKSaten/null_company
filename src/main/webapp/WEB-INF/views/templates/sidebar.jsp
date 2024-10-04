@@ -85,13 +85,19 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="/notice/list">
+                            <a href="/employee/login">
+                          <i class="fas fa-bullhorn"></i>
+                            <p>로그인</p>
+                            </a>    
+                        </li> 
+                        
+                        <li class="nav-item">
+                            <a href="/notice/list">
                           <i class="fas fa-bullhorn"></i>
                             <p>공지사항</p>
-                            
-                            </a>
+                            </a>    
+                        </li>         
                            
-                        </li>            
                          <li class="nav-item">
                             <a data-bs-toggle="collapse" href="/">
                           <i class="fas fa-users"></i>

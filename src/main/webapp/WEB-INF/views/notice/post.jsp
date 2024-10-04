@@ -38,12 +38,8 @@
 							</div>
 						</div>
 						<div class="card-body">
-							<table class="table mt-3">
-								<thead>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
+							<article class="custom-post2">${noticeVO.noticeContents }</article>
+							<a href="/notice/list">목록으로 돌아가기</a>
 						</div>
 					</div>
 
