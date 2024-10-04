@@ -41,7 +41,28 @@
 										<br><br><br>
 									</c:forEach>
 								</tbody>
-							</table>	
+							</table>
+							<div class="demo">
+								<ul class="pagination pg-black">
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Previous">
+											<span aria-hidden="true">«</span>
+										</a>
+									</li>
+									
+									<c:forEach begin="${pager.startPage }" end="${pager.lastPage }" step="1" var="i">
+										<li class="page-item active">
+											<a class="page-link" href="/notice/list?page=${i }">${i }</a>
+										</li>
+									</c:forEach>
+									
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Next">
+											<span aria-hidden="true">»</span>
+										</a>
+									</li>
+								</ul>
+							</div>
 							<a href="/notice/write">게시글 작성</a>
 						</div>
 					</div>

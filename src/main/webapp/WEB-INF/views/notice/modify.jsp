@@ -27,26 +27,28 @@
 						<div class="card-header">
 							<div class="card-title custom-list2">
 								<ul>
-									<li class="no_dot">공지사항 작성</li>
+									<li class="no_dot">공지사항 수정</li>
 								</ul>
 							</div>
 						</div>
-						<form action="/notice/write" method="post">
+						<form action="/notice/modify" method="post">
 							<div class="card-body">
 								<div class="input-group mb-6 custom-write1">
 									<span class="input-group-text custom-write2" id="basic-addon3">제목</span>
 									<input type="text" class="form-control" id="basic-url"
-										name="noticeTitle" aria-describedby="basic-addon3">
+										name="noticeTitle" value="${noticeVO.noticeTitle }" aria-describedby="basic-addon3">
+									<input type="hidden" name="noticeNum" value="${noticeVO.noticeNum }">
 								</div>
 								<div class="card-body">
 									<div class="input-group mb-6 custom-write1">
 										<textarea class="form-control custom-write3"
-											name="noticeContents" aria-label="With textarea"></textarea>
+											name="noticeContents" aria-label="With textarea">${noticeVO.noticeContents }</textarea>
 									</div>
 								</div>
-							<button type="submit" class="custom-write1 custom-write2 btn btn-outline-primary">
-							작성 완료</button>
-							<a class="custom-write1 btn btn-outline-danger" href="/notice/list">작성 취소</a>
+							<button type="submit" class="custom-write1 custom-write2 btn btn-outline-warning">
+							수정 완료</button>
+							<a class="custom-write1 btn btn-outline-danger"
+								href="/notice/post?noticeNum=${noticeVO.noticeNum }">수정 취소</a>
 							</div>
 						</form>
 

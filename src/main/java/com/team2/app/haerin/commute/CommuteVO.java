@@ -9,6 +9,8 @@ public class CommuteVO {
 
 	private Long commuteNum;
 	private String empNum;
-	private Date commuteTime;
+	private Date commuteInTime;
+	private Date commuteOutTime;
 	private Boolean commuteStatus;
+	private String empName;
 }
