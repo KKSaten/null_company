@@ -1,8 +1,12 @@
 package com.team2.app.employee;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.Spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +16,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.team2.app.util.FileManager;
+import com.team2.app.util.FileVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -21,20 +29,52 @@ import lombok.extern.slf4j.Slf4j;
 public class EmployeeService implements UserDetailsService {
 
 	@Autowired
-	EmployeeMapper employeeMapper;
+	private EmployeeMapper employeeMapper;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private FileManager fileManager;
+	
+	@Value("${app.upload}")
+	private String path;
+	
+	public void update (EmployeeVO employeeVO, MultipartFile attach) throws Exception {
+		
+	}
 	
 	//사원등록
-	public int join (EmployeeVO employeeVO) throws Exception {
+	public int join (EmployeeVO employeeVO, RoleVO roleVO, MultipartFile attach) throws Exception {
 		
 		//비밀번호 암호화
 		String pwd = passwordEncoder.encode(employeeVO.getEmpPwd());
 		employeeVO.setEmpPwd(pwd);
 		
+		//role
+		List<RoleVO> roleVOs = new ArrayList<RoleVO>();
+		roleVOs.add(roleVO);
+		employeeVO.setRoleVOs(roleVOs);
+		
 		//DB insert쿼리
 		int result = employeeMapper.join(employeeVO);
+		
+		result = employeeMapper.addEmpRole(employeeVO);
+		
+		if(result==1) {
+			
+			//직원 사진 저장
+			String fileName = fileManager.fileSave(path+"employee/", attach);
+			
+			EmployeeFileVO fileVO = new EmployeeFileVO();
+			
+			fileVO.setEmpNum(employeeVO.getEmpNum());
+			fileVO.setOriName(attach.getOriginalFilename());
+			fileVO.setFileName(fileName);
+			
+			employeeMapper.saveFile(fileVO);
+			
+		}
 		
 		return result;
 	}

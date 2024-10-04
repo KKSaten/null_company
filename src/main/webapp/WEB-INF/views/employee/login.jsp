@@ -22,22 +22,30 @@
 
             <div class="container">
                 <div class="page-inner">
-                  <form method="post">
-				  <div class="mb-3">
-				    <label for="empNum" class="form-label">사번</label>
-				    <input type="text" class="form-control" id="empNum" name="empNum">
-				  </div>
-				  <div class="mb-3">
-				    <label for="empPwd" class="form-label">비밀번호</label>
-				    <input type="password" class="form-control" id="empPwd" name="empPwd">
-				  </div>
-				  <div class="mb-3 form-check">
-				    <input type="checkbox" name="rememberMe" class="form-check-input" id="rememberMe">
-				    <label class="form-check-label" for="rememberMe">Check me out</label>
-				  </div>
-				  <button type="submit" class="btn btn-primary">Submit</button>
-				</form>
-
+                	<div class="card">
+                		<div class="card-header">
+                			<h1>Login</h1>
+                		</div>
+						<div class="card-body">
+							<div class="col-md-6 ms-auto me-auto">
+			                  <form method="post">
+							  <div class="mb-3">
+							    <label for="empNum" class="form-label">사번</label>
+							    <input type="text" class="form-control" id="empNum" name="empNum">
+							  </div>
+							  <div class="mb-3">
+							    <label for="empPwd" class="form-label">비밀번호</label>
+							    <input type="password" class="form-control" id="empPwd" name="empPwd">
+							  </div>
+							  <div class="mb-3 form-check">
+							    <input type="checkbox" name="rememberMe" class="form-check-input" id="rememberMe">
+							    <label class="form-check-label" for="rememberMe">ID 기억하기</label>
+							  </div>
+							  <button type="submit" class="btn btn-primary">로그인</button>
+							</form>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
 

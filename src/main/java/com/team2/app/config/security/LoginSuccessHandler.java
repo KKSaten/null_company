@@ -21,6 +21,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		log.info("로그인 성공");
 		
+		
 		response.sendRedirect("/");
 		
 	}

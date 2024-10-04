@@ -23,14 +23,23 @@
 
 			<div class="container">
 				<div class="page-inner">
-					<h1>My Page</h1>
-					<sec:authorize access="isAuthenticated" />
-					<sec:authentication property="principal" var="vo" />
-					<h3>사번: ${vo.empNum}</h3>
-					<h3>이름: ${vo.empName}</h3>
-					<h3>성별: ${vo.empGender}</h3>
-					<h3>주소: ${vo.empAddress}</h3>
-
+					<div class="card">
+                		<div class="card-header">
+                			<h1>My Page</h1>
+                		</div>
+						<div class="card-body">
+							<sec:authorize access="isAuthenticated" />
+							<sec:authentication property="principal" var="vo" />
+							<h3>사번: ${vo.empNum}</h3>
+							<h3>이름: ${vo.empName}</h3>
+							<h3>성별: ${vo.empGender}</h3>
+							<h3>주소: ${vo.empAddress}</h3>
+							<a href="fileDown">
+							<img alt="직원 사진" src="/file/employee/${vo.employeeFileVO.fileName}">
+							</a>
+						</div>
+						<a href="login?empNum=${vo.empNum}">내 정보 수정</a>
+					</div>
 				</div>
 			</div>
 

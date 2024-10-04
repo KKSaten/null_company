@@ -5,9 +5,17 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.app.employee.EmployeeMapper">
+
+	<!-- 직원 사진 파일명 입력 -->
+	<insert id="saveFile" parameterType="EmployeeFileVO">
+		INSERT INTO EMP_FILE (EMP_NUM, FILE_NAME, ORI_NAME)
+		VALUES (#{empNum}, #{fileName}, #{oriName})
+	</insert>
+
+	<!-- 로그인 기능 -->
 	<select id="login" parameterType="EmployeeVO"
-		resultMap="rolename">
-		SELECT E.*, R.*
+		resultMap="employeeInfo">
+		SELECT E.*, R.*, EF.*
 		FROM EMPLOYEE E
 			INNER JOIN
 			EMP_ROLE ER
@@ -15,10 +23,13 @@
 			INNER JOIN
 			ROLE R
 			ON (ER.ROLE_NUM=R.ROLE_NUM)
+			INNER JOIN
+			EMP_FILE EF
+			ON (E.EMP_NUM=EF.EMP_NUM)
 		WHERE E.EMP_NUM = #{empNum}
 	</select>
 	
-	<resultMap type="EmployeeVO" id="rolename">
+	<resultMap type="EmployeeVO" id="employeeInfo">
 		<id property="empNum" column="EMP_NUM"/>
 		<result property="empName" column="EMP_NAME"/>
 		<result property="empPwd" column="EMP_PWD"/>
@@ -31,17 +42,30 @@
 		<result property="outdate" column="OUTDATE"/>
 		<result property="enabled" column="ENABLED"/>
 		
+		<association property="employeeFileVO" javaType="EmployeeFileVO">
+			<id property="fileNum" column="FILE_NUM"/>
+			<result property="fileName" column="FILE_NAME"/>
+			<result property="oriName" column="ORI_NAME"/>
+		</association>
+		
 		<collection property="roleVOs" javaType="java.util.List" ofType="RoleVO">
 			<id property="roleNum" column="ROLE_NUM"/>
 			<result property="roleName" column="ROLE_NAME"/>
 		</collection>
+		
 	</resultMap>
 	
+	<!-- 직원 등록 -->
 	<insert id="join" parameterType="EmployeeVO">
 		INSERT INTO EMPLOYEE (EMP_NUM, EMP_PWD, EMP_NAME, EMP_REGISTRY, EMP_GENDER, EMP_ADDRESS, DEPT_NUM, POS_NUM)
 		VALUES (#{empNum}, #{empPwd}, #{empName}, #{empRegistry}, #{empGender}, #{empAddress}, #{deptNum}, #{posNum})
 	</insert>
-
+	
+	<insert id="addEmpRole" parameterType="EmployeeVO">
+		INSERT INTO EMP_ROLE (EMP_NUM, ROLE_NUM, DEPT_NUM)
+		VALUES (#{empNum}, #{roleVOs[0].roleNum}, #{deptNum})
+	</insert>
+	
 	<update id="chpass" parameterType="EmployeeVO">
 		UPDATE EMPLOYEE
 		SET EMP_PWD =

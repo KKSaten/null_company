@@ -25,7 +25,7 @@
 	color: #2a2f5b;
 }
 </style>
-<title>Join</title>
+<title>Update</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -38,49 +38,48 @@
 			<div class="container">
 				<div class="page-inner">
 					<div class="card">
-						<div class="card-header">
-                			<h1>Join</h1>
-                		</div>
 						<div class="card-body">
 							<h1>사원등록</h1>
 							<div class="col-md-6 ms-auto me-auto">
+							<sec:authorize access="isAuthenticated" />
+							<sec:authentication property="principal" var="vo" />
 								<form method="post" enctype="multipart/form-data">
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i
 											class="fas fa-id-card-alt"></i>
 										</span> <input type="text" class="form-control" id="empNum"
-											placeholder="사번" name="empNum"></input>
+											placeholder="사번" name="empNum" value="${vo.empNum}"></input>
 									</div>
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i class="fas fa-lock"></i>
 										</span> <input type="password" class="form-control" id="empPwd"
-											placeholder="비밀번호" name="empPwd" />
+											placeholder="비밀번호" name="empPwd"/>
 									</div>
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i class="fa fa-user"></i>
 										</span> <input type="text" class="form-control" id="empName"
-											placeholder="이름" name="empName" />
+											placeholder="이름" name="empName" value="${vo.empName}"/>
 									</div>
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i
 											class="fas fa-address-card"></i>
 										</span> <input type="text" class="form-control" id="empRegistry"
-											placeholder="주민등록번호" name="empRegistry" />
+											placeholder="주민등록번호" name="empRegistry" value="${vo.empRegistry}"/>
 									</div>
 
 
 									<div class="selectgroup w-100 blank">
 										<label class="selectgroup-item"> <input type="radio"
-											name="empGender" value="남" class="selectgroup-input" /> <span
+											name="empGender" value="남" class="selectgroup-input" ${vo.empGender eq "남"?"checked":""}/> <span
 											class="selectgroup-button"> <i class="fas fa-male"></i>
 												남
 										</span>
 										</label> <label class="selectgroup-item"> <input type="radio"
-											name="empGender" value="여" class="selectgroup-input" /> <span
+											name="empGender" value="여" class="selectgroup-input" ${vo.empGender eq "여"?"checked":""}/> <span
 											class="selectgroup-button"> <i class="fas fa-female"></i>
 												여
 										</span>
@@ -90,12 +89,12 @@
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i class="fas fa-home"></i>
 										</span> <input type="text" class="form-control" id="empAddress"
-											placeholder="주소" name="empAddress" />
+											placeholder="주소" name="empAddress" value="${vo.empAddress}"/>
 									</div>
 
 									<select class="form-select blank" name="deptNum"
 										style="color: #636669;">
-										<option selected="selected" style="font-weight: bolder;">부서</option>
+										<option style="font-weight: bolder;">부서</option>
 										<option value="1">본부</option>
 										<option value="2">생산</option>
 										<option value="3">개발</option>
@@ -120,7 +119,7 @@
 										<span class="input-icon-addon"> <i
 											class="fas fa-file-image"></i>
 										</span> <input style="color: #636669; padding-left: 45px;"
-											type="file" class="form-control" id="attache" name="attach" accept="image/*"/>
+											type="file" class="form-control" id="attach" name="attach" accept="image/*"/>
 									</div>
 
 									<button type="submit" class="btn btn-primary">사원 등록</button>

@@ -9,6 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.team2.app.util.FileVO;
+
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +29,7 @@ public class EmployeeVO implements UserDetails {
 	private Date outdate;
 	private boolean enabled;
 	private List<RoleVO> roleVOs;
+	private EmployeeFileVO employeeFileVO;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
