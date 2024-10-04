@@ -1,1 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team2.app.haerin.commute.CommuteMapper">
+	<select id="checkList" resultType="CommuteVO" >
+		SELECT C.EMP_NUM, E.EMP_NAME, C.COMMUTE_INTIME, C.COMMUTE_OUTTIME, C.COMMUTE_STATUS
+		FROM COMMUTE C
+		JOIN EMPLOYEE E ON C.EMP_NUM = E.EMP_NUM
+	</select>
+	
+
+</mapper>
