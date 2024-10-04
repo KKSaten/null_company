@@ -41,7 +41,8 @@
 										<br><br><br>
 									</c:forEach>
 								</tbody>
-							</table>
+							</table>	
+							<a href="/notice/write">게시글 작성</a>
 						</div>
 					</div>
 

@@ -10,4 +10,6 @@ public interface NoticeMapper {
 	List<NoticeVO> getList() throws Exception;
 	
 	NoticeVO getPost(NoticeVO noticeVO) throws Exception;
+	
+	Integer writePost(NoticeVO noticeVO) throws Exception;
 }
