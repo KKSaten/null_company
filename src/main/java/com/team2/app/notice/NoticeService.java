@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team2.app.util.Pager;
+
 @Service
 public class NoticeService {
 	
@@ -13,9 +15,15 @@ public class NoticeService {
 	
 	
 	
-	public List<NoticeVO> getList() throws Exception{
+	public List<NoticeVO> getList(Pager pager) throws Exception{
 		
-		return noticeMapper.getList();
+		pager.makeRow();
+		
+		long totalCount = noticeMapper.getTotalCount();
+		
+		pager.makeNum(totalCount);
+		
+		return noticeMapper.getList(pager);
 	}
 	
 	public NoticeVO getPost(NoticeVO noticeVO) throws Exception{
@@ -23,9 +31,14 @@ public class NoticeService {
 		return noticeMapper.getPost(noticeVO);
 	}
 	
-	public Integer writePost(NoticeVO noticeVO) throws Exception{
+	public int writePost(NoticeVO noticeVO) throws Exception{
 		
 		return noticeMapper.writePost(noticeVO);
+	}
+	
+	public int modifyPost(NoticeVO noticeVO) throws Exception{
+		
+		return noticeMapper.modifyPost(noticeVO);
 	}
 
 }

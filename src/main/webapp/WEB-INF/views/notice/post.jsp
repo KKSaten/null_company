@@ -40,6 +40,8 @@
 						<div class="card-body">
 							<article class="custom-post2">${noticeVO.noticeContents }</article>
 							<a href="/notice/list">목록으로 돌아가기</a>
+							<br>
+							<a href="/notice/modify?noticeNum=${noticeVO.noticeNum }">수정하기</a>
 						</div>
 					</div>
 
