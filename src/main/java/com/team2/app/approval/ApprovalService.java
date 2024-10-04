@@ -9,7 +9,15 @@ public class ApprovalService {
 	@Autowired
 	private ApprovalMapper approvalMapper;
 	
+	public void approvalDraftbox() throws Exception {
+		
+	}
+	
 	public void approvalDocbox() throws Exception {
+		
+	}
+	
+	public void approvalReceivedbox() throws Exception {
 		
 	}
 	
