@@ -13,8 +13,18 @@ public class ApprovalController {
 	@Autowired
 	private ApprovalService approvalService;
 	
+	@GetMapping("approvalDraftbox")
+	public void approvalDraftbox(Model model) throws Exception {
+		
+	}
+	
 	@GetMapping("approvalDocbox")
 	public void approvalDocbox(Model model) throws Exception {
+		
+	}
+	
+	@GetMapping("approvalReceivedbox")
+	public void approvalReceivedbox(Model model) throws Exception {
 		
 	}
 

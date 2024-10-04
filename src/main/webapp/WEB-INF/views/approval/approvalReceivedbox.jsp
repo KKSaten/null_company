@@ -9,7 +9,7 @@
 	
 	<c:import url="../templates/header.jsp"></c:import>
 
-    <title>결재함</title>
+    <title>수신함</title>
 </head>
 <body>
     <div class="wrapper">
@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="page inner">
 
-                    <h1>결재함</h1>
+                    <h1>수신함</h1>
 
                 </div>
             </div>
