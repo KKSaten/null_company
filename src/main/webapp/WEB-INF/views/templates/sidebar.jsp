@@ -39,18 +39,12 @@
 				<li class="nav-item">
 					<!-- 출근 버튼 -->
 					<div class="d-grid gap-2 col-12 col-md-8 mx-auto">
-						<button id="work_button" type="button" class="btn btn-black btn-border dropdown-toggle"
-							data-bs-toggle="dropdown" aria-expanded="false">출근하기</button>
+						<button id="alert_demo_8" type="button" class="btn btn-black btn-border dropdown-toggle"
+							 aria-expanded="false">출근하기</button>
 
 						<ul class="dropdown-menu col-12 col-md-8">
-							<li><a id="alert_demo_8" type="button" class="dropdown-item">출근하기</a></li>
+							<li></li>
 
-							<c:if test="${isClockedIn}">
-								<li>
-									<a href="./commute/checkIn" id="checkout" type="button"
-									class="dropdown-item">퇴근하기</a>
-								</li>
-							</c:if>
 						</ul>
 					</div>
 				</li>
@@ -61,7 +55,12 @@
 					</span>
 					<h4 class="text-section"></h4>
 				</li>
-				
+				<li class="nav-item">
+					<a href="/">
+						<i class="fas fa-home"></i>
+						<p>홈</p>
+					</a>
+				</li>
 				<li class="nav-item">
 					<a data-bs-toggle="collapse" href="/">
 						<i class="fas fa-comments"></i>
@@ -110,7 +109,7 @@
 				</li>
 
 				<li class="nav-item">
-					<a data-bs-toggle="collapse" href="/commute/list">
+					<a  href="/commute/list">
 						<i class="fas fa-history"></i>
 						<p>근태관리</p>
 					</a>
@@ -258,97 +257,110 @@
 		</div>
 	</div>
 </div>
-<!-- End Sidebar -->
 
 <script type="text/javascript">
-const dd = document.getElementById("alert_demo_8");
-const workButton = document.getElementById("work_button");
+    const dd = document.getElementById("alert_demo_8");
+    let isClockedIn = false; // 출근 상태를 관리하는 변수
+    const empNum = "123123"; // 실제 사원 번호로 변경해야 함
 
-dd.addEventListener("click", function (e) {
-  swal({
-    title: "출근하시겠습니까?",
-    text: "",
-    icon: "warning",
-    buttons: {
-      cancel: {
-        visible: true,
-        text: "취소",
-        className: "btn btn-danger",
-      },
-      confirm: {
-        text: "승인",
-        className: "btn btn-success",
-      },
-    },
-  }).then((willDelete) => {
-    if (willDelete) {
-      // 현재 시간을 가져와서 버튼 텍스트 변경
-      var now = new Date();
-      var hours = now.getHours().toString().padStart(2, '0');
-      var minutes = now.getMinutes().toString().padStart(2, '0');
-      var currentTime = hours + ':' + minutes;
-
-      workButton.textContent = "출근 시간: " + currentTime;
-     
-
-      swal("출근처리가 완료되었습니다!", {
-        icon: "success",
-        buttons: {
-          confirm: {
-            className: "btn btn-success",
-          },
-        },
-      });
-    } else {
-      swal("출근처리를 실패하였습니다", {
-        buttons: {
-          confirm: {
-            className: "btn btn-danger",
-          },
-        },
-      });
-    }
-  });
-});
-
-checkout.addEventListener("click", function (e) {
-  swal({
-                    title: "퇴근하시겠습니까?",
-                    text: "",
-                    type: "warning",
+    dd.addEventListener("click", function (e) {
+        swal({
+            title: "출근하시겠습니까?",
+            text: "",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    visible: true,
+                    text: "취소",
+                    className: "btn btn-danger",
+                },
+                confirm: {
+                    text: "승인",
+                    className: "btn btn-success",
+                },
+            },
+        }).then((willDelete) => {
+            if (willDelete) {
+                clockIn(); // 출근 처리
+            } else {
+                swal("출근처리를 실패하였습니다", {
                     buttons: {
-                      cancel: {
+                        confirm: {
+                            className: "btn btn-danger",
+                        },
+                    },
+                });
+            }
+        });
+    });
+
+    // 출근 처리 함수
+    function clockIn() {
+        if (!isClockedIn) {
+            fetch(`/commute/checkIn/${empNum}`, { method: 'POST' })
+                .then(response => response.text())
+                .then(data => {
+                    var now = new Date();
+                    var hours = now.getHours().toString().padStart(2, '0');
+                    var minutes = now.getMinutes().toString().padStart(2, '0');
+                    var currentTime = hours + ':' + minutes; // HH:MM 형식
+
+                    dd.textContent = "출근 시간: " + currentTime; // 버튼 텍스트 변경
+                    dd.setAttribute("id", "checkout_button"); // 버튼 ID 변경
+                    dd.onclick = clockOut; // 클릭 이벤트를 퇴근 처리로 변경
+                    isClockedIn = true; // 출근 상태 변경
+
+                    swal("출근처리가 완료되었습니다!", { icon: "success" });
+                })
+                .catch(error => {
+                    console.error('출근 처리 오류:', error);
+                });
+        }
+    }
+
+    // 퇴근 처리 함수
+    function clockOut() {
+        if (isClockedIn) {
+            swal({
+                title: "퇴근하시겠습니까?",
+                text: "",
+                icon: "warning",
+                buttons: {
+                    cancel: {
                         visible: true,
                         text: "취소",
                         className: "btn btn-danger",
-                      },
-                      confirm: {
+                    },
+                    confirm: {
                         text: "승인",
                         className: "btn btn-success",
-                      },
                     },
-                  }).then((willDelete) => {
-                    if (willDelete) {
-                      swal("퇴근처리가 완료되었습니다!", {
-                        icon: "success",
+                },
+            }).then((willDelete) => {
+                if (willDelete) {
+                    fetch(`/commute/checkOut/${empNum}`, { method: 'POST' })
+                        .then(response => response.text())
+                        .then(data => {
+                            dd.textContent = "출근하기"; // 버튼 텍스트를 원래대로 변경
+                            dd.setAttribute("id", "alert_demo_8"); // 버튼 ID를 원래대로 변경
+                            dd.onclick = clockIn; // 클릭 이벤트를 출근 처리로 변경
+                            isClockedIn = false; // 출근 상태 변경
+
+                            swal("퇴근처리가 완료되었습니다!", { icon: "success" });
+                        })
+                        .catch(error => {
+                            console.error('퇴근 처리 오류:', error);
+                        });
+                } else {
+                    swal("퇴근처리를 실패하였습니다", {
                         buttons: {
-                          confirm: {
-                            className: "btn btn-success",
-                          },
-                          
+                            confirm: {
+                                className: "btn btn-danger",
+                            },
                         },
-                      });
-                    } else {
-                      swal("퇴근처리를 실패하였습니다", {
-                        buttons: {
-                          confirm: {
-                            className: "btn btn-danger",
-                          },
-                        },
-                      });
-                    }
-                  });
-                })
-              
-              
+                    });
+                }
+            });
+        }
+    }
 </script>

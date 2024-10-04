@@ -5,11 +5,21 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.team2.app.haerin.commute.CommuteMapper">
-	<select id="checkList" resultType="CommuteVO" >
-		SELECT C.EMP_NUM, E.EMP_NAME, C.COMMUTE_INTIME, C.COMMUTE_OUTTIME, C.COMMUTE_STATUS
-		FROM COMMUTE C
-		JOIN EMPLOYEE E ON C.EMP_NUM = E.EMP_NUM
-	</select>
+	  <select id="checkList" resultType="CommuteVO">
+        SELECT C.EMP_NUM, E.EMP_NAME, C.COMMUTE_INTIME, C.COMMUTE_OUTTIME, C.COMMUTE_STATUS
+        FROM COMMUTE C
+        JOIN EMPLOYEE E ON C.EMP_NUM = E.EMP_NUM
+    </select>
 	
+	
+    <insert id="insertCommute" parameterType="CommuteVO">
+        INSERT INTO COMMUTE (EMP_NUM, COMMUTE_INTIME, COMMUTE_STATUS)
+        VALUES (#{empNum}, #{commuteInTime}, #{commuteStatus})
+    </insert>
 
+    <update id="updateCommute" parameterType="CommuteVO">
+        UPDATE COMMUTE
+        SET COMMUTE_OUTTIME = #{commuteOutTime}, COMMUTE_STATUS = #{commuteStatus}
+        WHERE EMP_NUM = #{empNum} AND COMMUTE_OUTTIME IS NULL
+    </update>
 </mapper>
