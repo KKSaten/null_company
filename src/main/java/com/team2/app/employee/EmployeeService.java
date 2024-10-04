@@ -26,6 +26,7 @@ public class EmployeeService implements UserDetailsService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	//사원등록
 	public int join (EmployeeVO employeeVO) throws Exception {
 		
 		//비밀번호 암호화
@@ -38,27 +39,28 @@ public class EmployeeService implements UserDetailsService {
 		return result;
 	}
 
+	//로그인
 	@Override
 	public UserDetails loadUserByUsername(String empNum) throws UsernameNotFoundException {
-
+		
+		
+		log.info("=================================================");
 		log.info("id : {}", empNum);
 
 		EmployeeVO employeeVO = new EmployeeVO();
 
 		employeeVO.setEmpNum(empNum);
-
+		
 		log.info("1. employeeVO : {}", employeeVO);
-
-		EmployeeVO vo = new EmployeeVO();
-
+		
 		try {
-			vo = employeeMapper.login(employeeVO);
+			employeeVO = employeeMapper.login(employeeVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		log.info("2. employeeVO : {}", vo);
+		log.info("2. employeeVO : {}", employeeVO);
 
-		return vo;
+		return employeeVO;
 	}
 }

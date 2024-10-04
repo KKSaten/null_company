@@ -6,15 +6,36 @@
 
 <mapper namespace="com.team2.app.employee.EmployeeMapper">
 	<select id="login" parameterType="EmployeeVO"
-		resultType="EmployeeVO">
-		SELECT *
+		resultMap="rolename">
+		SELECT E.*, R.*
 		FROM EMPLOYEE E
 			INNER JOIN
 			EMP_ROLE ER
+			ON (E.EMP_NUM=ER.EMP_NUM)
 			INNER JOIN
 			ROLE R
-		WHERE EMP_NUM = #{empNum}
+			ON (ER.ROLE_NUM=R.ROLE_NUM)
+		WHERE E.EMP_NUM = #{empNum}
 	</select>
+	
+	<resultMap type="EmployeeVO" id="rolename">
+		<id property="empNum" column="EMP_NUM"/>
+		<result property="empName" column="EMP_NAME"/>
+		<result property="empPwd" column="EMP_PWD"/>
+		<result property="empRegistry" column="EMP_REGISTRY"/>
+		<result property="empGender" column="EMP_GENDER"/>
+		<result property="empAddress" column="EMP_ADDRESS"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="posNum" column="POS_NUM"/>
+		<result property="hiredate" column="HIREDATE"/>
+		<result property="outdate" column="OUTDATE"/>
+		<result property="enabled" column="ENABLED"/>
+		
+		<collection property="roleVOs" javaType="java.util.List" ofType="RoleVO">
+			<id property="roleNum" column="ROLE_NUM"/>
+			<result property="roleName" column="ROLE_NAME"/>
+		</collection>
+	</resultMap>
 	
 	<insert id="join" parameterType="EmployeeVO">
 		INSERT INTO EMPLOYEE (EMP_NUM, EMP_PWD, EMP_NAME, EMP_REGISTRY, EMP_GENDER, EMP_ADDRESS, DEPT_NUM, POS_NUM)

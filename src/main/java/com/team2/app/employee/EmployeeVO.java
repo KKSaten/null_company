@@ -1,15 +1,19 @@
 package com.team2.app.employee;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
+@Slf4j
 public class EmployeeVO implements UserDetails {
 	private String empNum;
 	private String empName;
@@ -26,8 +30,19 @@ public class EmployeeVO implements UserDetails {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		List<GrantedAuthority> authority = new ArrayList<>();
+		
+		for(RoleVO roleVO:roleVOs) {
+			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(roleVO.getRoleName());
+			
+			log.info("권한 : {}", grantedAuthority);
+			
+			authority.add(grantedAuthority);
+		}
+		
+		log.info("=================================================");
+		
+		return authority;
 	}
 	@Override
 	public boolean isAccountNonExpired() {

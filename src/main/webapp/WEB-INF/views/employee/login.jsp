@@ -21,7 +21,7 @@
             </div>
 
             <div class="container">
-                <div class="page inner">
+                <div class="page-inner">
                   <form method="post">
 				  <div class="mb-3">
 				    <label for="empNum" class="form-label">사번</label>

@@ -41,7 +41,7 @@
 						<div class="card-body">
 							<h1>사원등록</h1>
 							<div class="col-md-6 ms-auto me-auto">
-								<form method="post">
+								<form method="post" enctype="multipart/form-data">
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i
@@ -98,11 +98,19 @@
 										<option value="3">인사</option>
 									</select> <select class="form-select blank" name="posNum"
 										style="color: #636669;">
-										<option selected="selected" style="font-weight: bolder;">직책</option>
+										<option selected="selected" style="font-weight: bolder;">직위</option>
 										<option value="1">사원</option>
-										<option value="2">대리</option>
-										<option value="3">과장</option>
+										<option value="2">과장</option>
+										<option value="3">부장</option>
+										<option value="4">관리자</option>
 									</select>
+
+									<div class="input-icon blank">
+										<span class="input-icon-addon"> <i
+											class="fas fa-file-image"></i>
+										</span> <input style="color: #636669; padding-left: 45px;"
+											type="file" class="form-control" id="attache" name="attache" />
+									</div>
 
 									<button type="submit" class="btn btn-primary">사원 등록</button>
 								</form>

@@ -57,6 +57,7 @@ public class SecurityConfig {
 					(authorizeRequests)->
 						authorizeRequests
 							.requestMatchers("/").permitAll()
+//							.requestMatchers("/notice/*").hasRole("OWNER")
 							.anyRequest().permitAll()
 					)
 			.formLogin(

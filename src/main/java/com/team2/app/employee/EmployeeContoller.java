@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -27,12 +28,16 @@ public class EmployeeContoller {
 	}
 	
 	@PostMapping("join")
-	public void join(EmployeeVO employeeVO) throws Exception {
+	public void join(EmployeeVO employeeVO, MultipartFile attache) throws Exception {
+		log.info("check: {}", attache.getContentType().substring(0,5));
+		
+		
+		
 		
 		log.info("=========================================");
 		log.info("join employee: {}", employeeVO);
 		
-		employeeService.join(employeeVO);
+//		employeeService.join(employeeVO, attache);
 		
 		log.info("=========================================");
 		log.info("등록 성공");
