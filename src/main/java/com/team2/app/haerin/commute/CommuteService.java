@@ -17,21 +17,21 @@ public class CommuteService {
 		public List<CommuteVO> checkList( ) throws Exception {
 			return commuteMapper.checkList();
 		}
-		 public void clockIn(String empNum) throws Exception {
-		        CommuteVO commute = new CommuteVO();
-		        commute.setEmpNum(empNum);
-		        commute.setCommuteInTime(new Date(0)); // 현재 시간
-		        commute.setCommuteStatus(true); // 출근 상태
-
-		        commuteMapper.insertCommute(commute);
+		
+		 public int checkIn(CommuteVO commuteVO) throws Exception {
+			 return commuteMapper.checkIn(commuteVO); 
 		    }
 
-		    public void clockOut(String empNum) throws Exception {
-		        CommuteVO commute = new CommuteVO();
-		        commute.setEmpNum(empNum);
-		        commute.setCommuteOutTime(new Date(0)); // 현재 시간
-		        commute.setCommuteStatus(false); // 퇴근 상태
-
-		        commuteMapper.updateCommute(commute);
+		 public int checkOut(CommuteVO commuteVO) throws Exception {
+		    	return commuteMapper.checkOut(commuteVO);
 		    }
+		    
+		 public boolean canCheckIn(CommuteVO commuteVO) throws Exception {
+			    return commuteMapper.checkTodayCheckIn(commuteVO) == 0;
+			}
+
+			public boolean canCheckOut(CommuteVO commuteVO) throws Exception {
+			    return commuteMapper.checkTodayCheckOut(commuteVO) == 1;
+			}   
+		    
 }

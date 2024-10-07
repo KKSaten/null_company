@@ -1,9 +1,6 @@
 package com.team2.app.haerin.commute;
 
 import java.sql.Date;
-
-import com.team2.app.employee.EmployeeVO;
-
 import lombok.Data;
 
 @Data

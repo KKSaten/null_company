@@ -56,13 +56,22 @@
 
                         <tbody>
                         <c:forEach items="${list}" var="vo">
-                          <tr>
-                            <td>${vo.empNum}</td>
-                            <td>${vo.empName}</td>
-                            <td>${vo.commuteInTime}</td>
-                            <td>${vo.commuteOutTime}</td>
-                            <td>${vo.commuteStatus}</td>
-                          </tr>
+                         <tr>
+						        <td>${vo.empNum}</td>
+						        <td>${vo.empName}</td>
+						        <td>${vo.commuteInTime}</td>
+						        <td>${vo.commuteOutTime}</td>
+						        <td>
+						            <c:choose>
+						                <c:when test="${vo.commuteStatus == true}">
+						                    출근
+						                </c:when>
+						                <c:otherwise>
+						                    퇴근
+						                </c:otherwise>
+						            </c:choose>
+						        </td>
+						    </tr>
                           </c:forEach>
                         </tbody>
                       </table>

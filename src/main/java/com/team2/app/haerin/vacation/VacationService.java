@@ -1,5 +1,14 @@
 package com.team2.app.haerin.vacation;
 
-public class VacationService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
+public class VacationService {
+	@Autowired 
+	private VacationMapper vacationMapper;
+	
+	public void myVacation()throws Exception{
+		
+	}
 }
