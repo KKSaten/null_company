@@ -10,6 +10,12 @@
 		SELECT *
 		FROM EMPLOYEE
 	</select>
+	
+	<update id="delete" parameterType="EmployeeVO">
+		UPDATE EMPLOYEE
+		SET ENABLED=#{enabled}
+		WHERE EMP_NUM=#{empNum}
+	</update>
 
 	<!-- 직원 사진 파일명 입력 -->
 	<insert id="saveFile" parameterType="EmployeeFileVO">

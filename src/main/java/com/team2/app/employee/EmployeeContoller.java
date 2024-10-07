@@ -35,6 +35,17 @@ public class EmployeeContoller {
 		model.addAttribute("list", list);
 	} 
 	
+	@GetMapping("detail")
+	public void getdetail(EmployeeVO employeeVO, Model model) throws Exception {
+		employeeVO = employeeService.getDetail(employeeVO);
+		model.addAttribute("vo", employeeVO);
+	}
+	
+	@GetMapping("delete")
+	public void delete(EmployeeVO employeeVO) throws Exception {
+		int result = employeeService.delete(employeeVO);
+	}
+	
 	
 	// ============================== 직원
 	
@@ -95,7 +106,7 @@ public class EmployeeContoller {
 
 		Authentication ac = sc.getAuthentication();
 		log.info("========= ac =========");
-		log.info("sc: {}", ac);
+		log.info("ac: {}", ac);
 
 		EmployeeVO employeeVO = (EmployeeVO) ac.getPrincipal();
 		log.info("========= memberVO =========");

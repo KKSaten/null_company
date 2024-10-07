@@ -2,6 +2,7 @@ package com.team2.app.employee;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.team2.app.util.FileVO;
@@ -10,6 +11,8 @@ import com.team2.app.util.FileVO;
 public interface EmployeeMapper {
 	
 	public List<EmployeeVO> getList() throws Exception;
+	
+	public int delete (EmployeeVO employeeVO) throws Exception;
 	
 	public EmployeeVO login(EmployeeVO employeeVO) throws Exception;
 	

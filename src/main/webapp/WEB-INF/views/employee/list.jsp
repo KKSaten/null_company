@@ -35,22 +35,20 @@
 											<th scope="col">사번</th>
 											<th scope="col">이름</th>
 											<th scope="col">부서</th>
-											<th scope="col">상태</th>
+											<th scope="col">재직여부</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${list}" var="list">
-											<button>
-												<tr>
+												<tr onclick="location.href='/employee/detail?empNum=${list.empNum}'" style="cursor:pointer;">
 													<td>${list.empNum}</td>
 													<td>${list.empName}</td>
 													<td>${list.deptNum}</td>
 													<td><c:choose>
-															<c:when test="${list.enabled}">재직</c:when>
+															<c:when test="${list.enabled}">재직 중</c:when>
 															<c:otherwise>퇴직</c:otherwise>
 														</c:choose></td>
 												</tr>
-											</button>
 										</c:forEach>
 									</tbody>
 								</table>

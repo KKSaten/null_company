@@ -58,6 +58,7 @@ public class SecurityConfig {
 						authorizeRequests
 							.requestMatchers("/").permitAll()
 							.requestMatchers("/employee/mypage").authenticated()
+							.requestMatchers("/employee/delete").hasAnyRole("OWNER","PERSONEL")
 //							.requestMatchers("/notice/*").hasRole("OWNER")
 							.anyRequest().permitAll()
 					)

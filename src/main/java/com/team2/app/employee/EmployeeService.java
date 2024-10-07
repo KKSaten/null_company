@@ -1,5 +1,9 @@
 package com.team2.app.employee;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.app.util.FileManager;
@@ -44,6 +49,14 @@ public class EmployeeService implements UserDetailsService {
 		return employeeMapper.getList();
 	}
 	
+	public EmployeeVO getDetail (EmployeeVO employeeVO) throws Exception {
+		return employeeMapper.login(employeeVO);
+	}
+	
+	public int delete(EmployeeVO employeeVO) throws Exception {
+		return employeeMapper.delete(employeeVO);
+	}
+	
 	public void update (EmployeeVO employeeVO, MultipartFile attach) throws Exception {
 		
 	}
@@ -62,12 +75,17 @@ public class EmployeeService implements UserDetailsService {
 		
 		//DB insert쿼리
 		int result = employeeMapper.join(employeeVO);
-		
 		result = employeeMapper.addEmpRole(employeeVO);
 		
 		if(result==1) {
 			
 			//직원 사진 저장
+			
+			if(attach.isEmpty()) {
+				
+				
+			}
+			
 			String fileName = fileManager.fileSave(path+"employee/", attach);
 			
 			EmployeeFileVO fileVO = new EmployeeFileVO();
