@@ -66,22 +66,23 @@
 								<div class="card-body">
 
 									<div class="table-responsive">
-										<table id="appr-doc-table"
-											class="display table table-striped table-hover">
+										<table id="appr-doc-table" class="display table table-striped table-hover">
 											<thead>
 												<tr>
-													<th>Name</th>
-													<th>Position</th>
-													<th>Office</th>
-													<th style="width: 10%">Action</th>
+													<th style="width: 15%">결재 유형</th>
+													<th>문서 제목</th>
+													<th style="width: 15%">기안자</th>
+													<th style="width: 15%">기안일</th>
+													<th style="width: 15%">결재 처리</th>
 												</tr>
 											</thead>
 											<tfoot>
 												<tr>
-													<th>Name</th>
-													<th>Position</th>
-													<th>Office</th>
-													<th>Action</th>
+													<th>결재 유형</th>
+													<th>문서 제목</th>
+													<th>기안자</th>
+													<th>기안일</th>
+													<th>결재 처리</th>
 												</tr>
 											</tfoot>
 											<tbody>
@@ -142,234 +143,7 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td>Cedric Kelly</td>
-													<td>Senior Javascript Developer</td>
-													<td>Edinburgh</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Airi Satou</td>
-													<td>Accountant</td>
-													<td>Tokyo</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Brielle Williamson</td>
-													<td>Integration Specialist</td>
-													<td>New York</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Herrod Chandler</td>
-													<td>Sales Assistant</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Rhona Davidson</td>
-													<td>Integration Specialist</td>
-													<td>Tokyo</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Colleen Hurst</td>
-													<td>Javascript Developer</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Colleen Hurst</td>
-													<td>Javascript Developer</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-																																				<tr>
-													<td>Colleen Hurst</td>
-													<td>Javascript Developer</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Colleen Hurst</td>
-													<td>Javascript Developer</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-																																				<tr>
-													<td>Colleen Hurst</td>
-													<td>Javascript Developer</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Colleen Hurst</td>
-													<td>Javascript Developer</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>												
-												<tr>
-													<td>Sonya Frost</td>
-													<td>Software Engineer</td>
-													<td>Edinburgh</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
+												
 											</tbody>
 										</table>
 									</div>

@@ -72,78 +72,24 @@
 										<table id="appr-doc-table" class="display table table-striped table-hover">
 											<thead>
 												<tr>
-													<th>Name</th>
-													<th>Position</th>
-													<th>Office</th>
-													<th style="width: 10%">Action</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">결재 유형</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important;">문서 제목</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">기안자</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">기안일</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">결재 처리</th>
 												</tr>
 											</thead>
 											<tfoot>
 												<tr>
-													<th>Name</th>
-													<th>Position</th>
-													<th>Office</th>
-													<th>Action</th>
+													<th>결재 유형</th>
+													<th>문서 제목</th>
+													<th>기안자</th>
+													<th>기안일</th>
+													<th>결재 처리</th>
 												</tr>
 											</tfoot>
 											<tbody>
-												<tr>
-													<td>Tiger Nixon</td>
-													<td>System Architect</td>
-													<td>Edinburgh</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Garrett Winters</td>
-													<td>Accountant</td>
-													<td>Tokyo</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Ashton Cox</td>
-													<td>Junior Technical Author</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-primary btn-lg"
-																data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-bs-toggle="tooltip" title=""
-																class="btn btn-link btn-danger"
-																data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
+
 
 											</tbody>
 										</table>
