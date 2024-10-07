@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!--   Core JS Files   -->
-<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>
+<!-- <script src="../../resources/js/core/jquery-3.7.1.min.js"></script> 서머노트 충돌로 인해 삭제-->
 <script src="../../resources/js/core/popper.min.js"></script>
 <script src="../../resources/js/core/bootstrap.min.js"></script>
 

@@ -12,6 +12,11 @@
 <c:import url="../templates/header.jsp"></c:import>
 
 <title>Document</title>
+<script src="/resources/js/core/jquery-3.7.1.min.js"></script>
+<script src="/resources/js/plugin/summernote/summernote-lite.js"></script>
+<script src="/resources/js/plugin/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="/resources/css/summernote-lite.css">
+
 </head>
 <body>
 	<div class="wrapper">
@@ -40,7 +45,7 @@
 								</div>
 								<div class="card-body">
 									<div class="input-group mb-6 custom-write1">
-										<textarea class="form-control custom-write3"
+										<textarea class="form-control custom-write3" id="summernote"
 											name="noticeContents" aria-label="With textarea"></textarea>
 									</div>
 								</div>
@@ -59,5 +64,6 @@
 	</div>
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
+	<script src="/resources/js/notice/write.js"></script>
 </body>
 </html>
