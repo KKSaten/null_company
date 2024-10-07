@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<c:import url="../templates/header.jsp"></c:import>
+	<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>
 
 	<title>기안함</title>
 </head>
@@ -79,7 +80,7 @@
 													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">결재 처리</th>
 												</tr>
 											</thead>
-											<tfoot>
+<!-- 											<tfoot>
 												<tr>
 													<th>결재 유형</th>
 													<th>문서 제목</th>
@@ -87,9 +88,68 @@
 													<th>기안일</th>
 													<th>결재 처리</th>
 												</tr>
-											</tfoot>
+											</tfoot> -->
 											<tbody>
-
+												<tr>
+													<td>휴가</td>
+													<td>System Architect</td>
+													<td>뚱이</td>
+													<td> - </td>
+													<td>
+														<div class="form-button-action">
+															<button type="button" data-bs-toggle="tooltip" title=""
+																class="btn btn-link btn-primary btn-lg"
+																data-original-title="Edit Task">
+																<i class="fa fa-edit"></i>
+															</button>
+															<button type="button" data-bs-toggle="tooltip" title=""
+																class="btn btn-link btn-danger"
+																data-original-title="Remove">
+																<i class="fa fa-times"></i>
+															</button>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>출장</td>
+													<td>Accountant</td>
+													<td>스폰지밥</td>
+													<td> - </td>
+													<td>
+														<div class="form-button-action">
+															<button type="button" data-bs-toggle="tooltip" title=""
+																class="btn btn-link btn-primary btn-lg"
+																data-original-title="Edit Task">
+																<i class="fa fa-edit"></i>
+															</button>
+															<button type="button" data-bs-toggle="tooltip" title=""
+																class="btn btn-link btn-danger"
+																data-original-title="Remove">
+																<i class="fa fa-times"></i>
+															</button>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>퇴사</td>
+													<td>Junior Technical Author</td>
+													<td>징징이</td>
+													<td> - </td>
+													<td>
+														<div class="form-button-action">
+															<button type="button" data-bs-toggle="tooltip" title=""
+																class="btn btn-link btn-primary btn-lg"
+																data-original-title="Edit Task">
+																<i class="fa fa-edit"></i>
+															</button>
+															<button type="button" data-bs-toggle="tooltip" title=""
+																class="btn btn-link btn-danger"
+																data-original-title="Remove">
+																<i class="fa fa-times"></i>
+															</button>
+														</div>
+													</td>
+												</tr>
 
 											</tbody>
 										</table>
@@ -110,7 +170,7 @@
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
 	
-
+	
     <script>
       $(document).ready(function () {
 
