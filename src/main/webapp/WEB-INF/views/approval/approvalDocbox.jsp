@@ -8,7 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<c:import url="../templates/header.jsp"></c:import>
-	
+	<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>
+		
 	<title>결재함</title>
 </head>
 <body>
@@ -69,11 +70,11 @@
 										<table id="appr-doc-table" class="display table table-striped table-hover">
 											<thead>
 												<tr>
-													<th style="width: 15%">결재 유형</th>
-													<th>문서 제목</th>
-													<th style="width: 15%">기안자</th>
-													<th style="width: 15%">기안일</th>
-													<th style="width: 15%">결재 처리</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">결재 유형</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important;">문서 제목</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">기안자</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">기안일</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">결재 처리</th>
 												</tr>
 											</thead>
 											<tfoot>
@@ -87,9 +88,10 @@
 											</tfoot>
 											<tbody>
 												<tr>
-													<td>Tiger Nixon</td>
+													<td>휴가</td>
 													<td>System Architect</td>
-													<td>Edinburgh</td>
+													<td>뚱이</td>
+													<td> - </td>
 													<td>
 														<div class="form-button-action">
 															<button type="button" data-bs-toggle="tooltip" title=""
@@ -106,9 +108,10 @@
 													</td>
 												</tr>
 												<tr>
-													<td>Garrett Winters</td>
+													<td>출장</td>
 													<td>Accountant</td>
-													<td>Tokyo</td>
+													<td>스폰지밥</td>
+													<td> - </td>
 													<td>
 														<div class="form-button-action">
 															<button type="button" data-bs-toggle="tooltip" title=""
@@ -125,9 +128,10 @@
 													</td>
 												</tr>
 												<tr>
-													<td>Ashton Cox</td>
+													<td>퇴사</td>
 													<td>Junior Technical Author</td>
-													<td>San Francisco</td>
+													<td>징징이</td>
+													<td> - </td>
 													<td>
 														<div class="form-button-action">
 															<button type="button" data-bs-toggle="tooltip" title=""
@@ -163,7 +167,7 @@
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
 	
-
+	
     <script>
       $(document).ready(function () {
 
