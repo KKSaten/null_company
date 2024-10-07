@@ -40,6 +40,10 @@ public class EmployeeService implements UserDetailsService {
 	@Value("${app.upload}")
 	private String path;
 	
+	public List<EmployeeVO> getList() throws Exception {
+		return employeeMapper.getList();
+	}
+	
 	public void update (EmployeeVO employeeVO, MultipartFile attach) throws Exception {
 		
 	}

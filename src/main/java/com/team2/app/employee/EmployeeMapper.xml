@@ -6,6 +6,11 @@
 
 <mapper namespace="com.team2.app.employee.EmployeeMapper">
 
+	<select id="getList" resultMap="employeeInfo">
+		SELECT *
+		FROM EMPLOYEE
+	</select>
+
 	<!-- 직원 사진 파일명 입력 -->
 	<insert id="saveFile" parameterType="EmployeeFileVO">
 		INSERT INTO EMP_FILE (EMP_NUM, FILE_NAME, ORI_NAME)

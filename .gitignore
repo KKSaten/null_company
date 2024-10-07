@@ -6,7 +6,7 @@ target/
 
 
 ### custom ###
-*.properties
+application-db.properties
 
 ### STS ###
 .apt_generated

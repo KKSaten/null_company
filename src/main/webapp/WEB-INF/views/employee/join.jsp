@@ -120,7 +120,7 @@
 										<span class="input-icon-addon"> <i
 											class="fas fa-file-image"></i>
 										</span> <input style="color: #636669; padding-left: 45px;"
-											type="file" class="form-control" id="attache" name="attach" accept="image/*"/>
+											type="file" class="form-control" id="attach" name="attach" accept="image/*"/>
 									</div>
 
 									<button type="submit" class="btn btn-primary">사원 등록</button>

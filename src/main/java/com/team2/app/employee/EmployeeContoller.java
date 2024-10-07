@@ -1,5 +1,7 @@
 package com.team2.app.employee;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -23,6 +25,18 @@ public class EmployeeContoller {
 	
 	@Autowired
 	EmployeeService employeeService;
+	
+	// ============================== 인사
+	
+	@GetMapping("list")
+	public void getList(Model model) throws Exception {
+		List<EmployeeVO> list = employeeService.getList();
+		
+		model.addAttribute("list", list);
+	} 
+	
+	
+	// ============================== 직원
 	
 	@GetMapping("update")
 	public void update() throws Exception {

@@ -38,8 +38,10 @@
 			<div class="container">
 				<div class="page-inner">
 					<div class="card">
+						<div class="card-header">
+							<h1>내 정보 수정</h1>
+						</div>
 						<div class="card-body">
-							<h1>사원등록</h1>
 							<div class="col-md-6 ms-auto me-auto">
 							<sec:authorize access="isAuthenticated" />
 							<sec:authentication property="principal" var="vo" />
@@ -49,41 +51,39 @@
 										<span class="input-icon-addon"> <i
 											class="fas fa-id-card-alt"></i>
 										</span> <input type="text" class="form-control" id="empNum"
-											placeholder="사번" name="empNum" value="${vo.empNum}"></input>
-									</div>
-
-									<div class="input-icon blank">
-										<span class="input-icon-addon"> <i class="fas fa-lock"></i>
-										</span> <input type="password" class="form-control" id="empPwd"
-											placeholder="비밀번호" name="empPwd"/>
+											placeholder="사번" name="empNum" value="${vo.empNum}" disabled></input>
 									</div>
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i class="fa fa-user"></i>
 										</span> <input type="text" class="form-control" id="empName"
-											placeholder="이름" name="empName" value="${vo.empName}"/>
+											placeholder="이름" name="empName" value="${vo.empName}" disabled/>
 									</div>
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i
 											class="fas fa-address-card"></i>
 										</span> <input type="text" class="form-control" id="empRegistry"
-											placeholder="주민등록번호" name="empRegistry" value="${vo.empRegistry}"/>
+											placeholder="주민등록번호" name="empRegistry" value="${vo.empRegistry}" disabled/>
 									</div>
-
-
-									<div class="selectgroup w-100 blank">
-										<label class="selectgroup-item"> <input type="radio"
-											name="empGender" value="남" class="selectgroup-input" ${vo.empGender eq "남"?"checked":""}/> <span
-											class="selectgroup-button"> <i class="fas fa-male"></i>
-												남
-										</span>
-										</label> <label class="selectgroup-item"> <input type="radio"
-											name="empGender" value="여" class="selectgroup-input" ${vo.empGender eq "여"?"checked":""}/> <span
-											class="selectgroup-button"> <i class="fas fa-female"></i>
-												여
-										</span>
-										</label>
+									
+									<div class="input-icon blank">
+										<c:choose>
+											<c:when test="${vo.empGender eq '남'}">
+												<span class="input-icon-addon"> <i
+													class="fas fa-male"></i>
+												</span>
+												<input type="text" class="form-control" id="empGender"
+												name="empGender" value="${vo.empGender}" disabled/>
+											</c:when>
+											<c:otherwise>
+												<span class="input-icon-addon"> <i
+													class="fas fa-female"></i>
+												</span>
+												<input type="text" class="form-control" id="empGender"
+												name="empGender" value="${vo.empGender}" disabled/>
+											</c:otherwise>
+										</c:choose>
 									</div>
 
 									<div class="input-icon blank">

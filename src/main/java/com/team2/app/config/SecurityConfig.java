@@ -57,6 +57,7 @@ public class SecurityConfig {
 					(authorizeRequests)->
 						authorizeRequests
 							.requestMatchers("/").permitAll()
+							.requestMatchers("/employee/mypage").authenticated()
 //							.requestMatchers("/notice/*").hasRole("OWNER")
 							.anyRequest().permitAll()
 					)
