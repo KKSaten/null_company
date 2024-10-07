@@ -13,9 +13,10 @@
 
 <title>Document</title>
 <script src="/resources/js/core/jquery-3.7.1.min.js"></script>
-<script src="/resources/js/plugin/summernote/summernote-lite.js"></script>
+<script src="/resources/js/plugin/summernote/summernote-lite.min.js"></script>
 <script src="/resources/js/plugin/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="/resources/css/summernote-lite.css">
+
 
 </head>
 <body>
@@ -49,7 +50,7 @@
 											name="noticeContents" aria-label="With textarea"></textarea>
 									</div>
 								</div>
-							<button type="submit" class="custom-write1 custom-write2 btn btn-outline-primary">
+							<button type="submit" class="custom-write1 custom-write3 btn btn-outline-primary">
 							작성 완료</button>
 							<a class="custom-write1 btn btn-outline-danger" href="/notice/list">작성 취소</a>
 							</div>
