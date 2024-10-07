@@ -34,6 +34,5 @@ public class FileManager {
 		log.info("저장할 파일명: {}", fileName);
 		
 		return fileName;
-		
 	}
 }
