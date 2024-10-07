@@ -47,6 +47,8 @@
     	.custom-write1 {margin-top: 50px}
     	.custom-write2 {margin-left: 30px}
     	.custom-write3 {margin-left: 15px}
+    	.custom-page1 {margin-right: 15px}
+    	.custom-page2 {margin-left: 15px}
 
     </style>
 

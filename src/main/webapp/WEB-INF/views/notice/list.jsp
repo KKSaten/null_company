@@ -44,20 +44,27 @@
 							</table>
 							<div class="demo">
 								<ul class="pagination pg-black">
-									<li class="page-item">
-										<a class="page-link" href="#" aria-label="Previous">
+									<li class="page-item custom-page1">
+										<a class="page-link" href="/notice/list?page=${pager.startPage -1 }" aria-label="Previous">
 											<span aria-hidden="true">«</span>
 										</a>
 									</li>
 									
 									<c:forEach begin="${pager.startPage }" end="${pager.lastPage }" step="1" var="i">
-										<li class="page-item active">
-											<a class="page-link" href="/notice/list?page=${i }">${i }</a>
-										</li>
+										<!-- 반복문의 i 값과 현재 page 값이 같으면 버튼을 검은색으로 표시하는 if 문 -->
+										<c:choose>
+											<c:when test="${i eq pager.page }">
+												<li class="page-item active"/>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item"/>
+											</c:otherwise>
+										</c:choose>
+											<a class="page-link" href="/notice/list?page=${i}">${i}</a>
 									</c:forEach>
 									
-									<li class="page-item">
-										<a class="page-link" href="#" aria-label="Next">
+									<li class="page-item custom-page2 ${pager.next?'':'disabled' }">
+										<a class="page-link" href="/notice/list?page=${pager.lastPage + 1}" aria-label="Next">
 											<span aria-hidden="true">»</span>
 										</a>
 									</li>

@@ -17,6 +17,11 @@ public class NoticeService {
 	
 	public List<NoticeVO> getList(Pager pager) throws Exception{
 		
+		// 페이지가 1보다 작아질 경우 강제로 페이지값을 1로 만드는 작업
+		if(pager.getPage().equals(null) || pager.getPage() <= 1) {
+			pager.setPage(1L);
+		}
+		
 		pager.makeRow();
 		
 		long totalCount = noticeMapper.getTotalCount();
