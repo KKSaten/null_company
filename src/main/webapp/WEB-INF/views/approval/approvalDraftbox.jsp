@@ -9,7 +9,7 @@
 	
 	<c:import url="../templates/header.jsp"></c:import>
 	
-	<c:import url="./datatables.jsp"></c:import>
+	<c:import url="../templates/datatables.jsp"></c:import>
 	
 	<title>기안함</title>
 </head>
@@ -167,9 +167,13 @@
     <script>
       $(document).ready(function () {
 
-        // Add Row
         $("#appr-doc-table").DataTable({
           pageLength: 10,
+          order: [[3, 'desc']],
+          lengthChange: false,
+          columnDefs: [
+              { orderable: false, targets: [0, 1, 2] }
+          ]
         });
 
         var action =

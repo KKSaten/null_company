@@ -9,8 +9,8 @@ import lombok.Data;
 public class ApprovalDocBoxVO {
 	
 	private Long docNum;
-	private int docWriter;
-	private int docTypecode;
+	private Integer docWriter;
+	private Integer docTypecode;
 	private Long docTemplatecode;
 	private String docTitle;
 	private Blob docContent;
