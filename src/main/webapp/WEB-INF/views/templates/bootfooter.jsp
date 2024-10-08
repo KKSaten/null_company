@@ -19,7 +19,7 @@
 <script src="../../resources/js/plugin/chart-circle/circles.min.js"></script>
 
 <!-- Datatables -->
-<script src="../../resources/js/plugin/datatables/datatables.min.js"></script>
+<!-- <script src="../../resources/js/plugin/datatables/datatables.min.js"></script> 내가 만들거여--> 
 
 <!-- Bootstrap Notify -->
 <script src="../../resources/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>

@@ -8,8 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<c:import url="../templates/header.jsp"></c:import>
-	<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>
-
+	
+	<c:import url="./datatables.jsp"></c:import>
+	
 	<title>기안함</title>
 </head>
 <body>
@@ -80,15 +81,7 @@
 													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">결재 처리</th>
 												</tr>
 											</thead>
-<!-- 											<tfoot>
-												<tr>
-													<th>결재 유형</th>
-													<th>문서 제목</th>
-													<th>기안자</th>
-													<th>기안일</th>
-													<th>결재 처리</th>
-												</tr>
-											</tfoot> -->
+
 											<tbody>
 												<tr>
 													<td>휴가</td>
