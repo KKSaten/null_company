@@ -17,7 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 public class EmployeeVO implements UserDetails {
-	private String empNum;
+	private Integer empNum;
+	private String empId;
 	private String empName;
 	private String empPwd;
 	private String empRegistry;
@@ -70,8 +71,8 @@ public class EmployeeVO implements UserDetails {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return empNum;
+		return empId;
 	}
-	
+
 	
 }

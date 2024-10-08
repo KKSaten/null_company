@@ -68,7 +68,7 @@ public class SecurityConfig {
 							.loginPage("/employee/login")
 							.successHandler(loginSuccessHandler)
 							.failureHandler(loginFailureHandler)
-							.usernameParameter("empNum")
+							.usernameParameter("empId")
 							.passwordParameter("empPwd")
 							.permitAll()
 					)

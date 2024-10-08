@@ -6,5 +6,5 @@ import lombok.Data;
 
 @Data
 public class EmployeeFileVO extends FileVO{
-	private String empNum;
+	private Integer empNum;
 }

@@ -42,6 +42,7 @@
 	
 	<resultMap type="EmployeeVO" id="employeeInfo">
 		<id property="empNum" column="EMP_NUM"/>
+		<result property="empId" column="EMP_ID"/>
 		<result property="empName" column="EMP_NAME"/>
 		<result property="empPwd" column="EMP_PWD"/>
 		<result property="empRegistry" column="EMP_REGISTRY"/>
@@ -68,8 +69,8 @@
 	
 	<!-- 직원 등록 -->
 	<insert id="join" parameterType="EmployeeVO">
-		INSERT INTO EMPLOYEE (EMP_NUM, EMP_PWD, EMP_NAME, EMP_REGISTRY, EMP_GENDER, EMP_ADDRESS, DEPT_NUM, POS_NUM)
-		VALUES (#{empNum}, #{empPwd}, #{empName}, #{empRegistry}, #{empGender}, #{empAddress}, #{deptNum}, #{posNum})
+		INSERT INTO EMPLOYEE (EMP_NUM, EMP_ID, EMP_PWD, EMP_NAME, EMP_REGISTRY, EMP_GENDER, EMP_ADDRESS, DEPT_NUM, POS_NUM)
+		VALUES (#{empNum}, #{empId}, #{empPwd}, #{empName}, #{empRegistry}, #{empGender}, #{empAddress}, #{deptNum}, #{posNum})
 	</insert>
 	
 	<insert id="addEmpRole" parameterType="EmployeeVO">

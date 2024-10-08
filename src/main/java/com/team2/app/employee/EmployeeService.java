@@ -111,7 +111,7 @@ public class EmployeeService implements UserDetailsService {
 
 		EmployeeVO employeeVO = new EmployeeVO();
 
-		employeeVO.setEmpNum(empNum);
+		employeeVO.setEmpNum(Integer.parseInt(empNum));
 		
 		log.info("1. employeeVO : {}", employeeVO);
 		
