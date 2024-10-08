@@ -125,4 +125,8 @@ public class EmployeeService implements UserDetailsService {
 
 		return employeeVO;
 	}
+	
+	public List<EmployeeVO> empList() throws Exception {
+		return employeeMapper.empList();
+	}
 }

@@ -115,5 +115,10 @@ public class EmployeeContoller {
 		log.info("Detail: {}", ac.getDetails()); // sessionID
 
 	}
-
+	@GetMapping("empList")
+	public void empList(Model model) throws Exception{
+		
+		List<EmployeeVO> employeeVO = employeeService.empList();
+		model.addAttribute("list",employeeVO);
+	}
 }

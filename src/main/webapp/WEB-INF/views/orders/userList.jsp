@@ -24,7 +24,7 @@
 				<div class="page-inner">
 
 					<div class="page-header">
-						<h3 class="fw-bold mb-3">인사 발령</h3>
+						<h3 class="fw-bold mb-3">인사발령</h3>
 						<ul class="breadcrumbs mb-3">
 							<li class="nav-home">
 								<a href="#">
@@ -35,7 +35,7 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">인사 발령</a>
+								<a href="#">인사발령</a>
 							</li>							
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
@@ -87,8 +87,11 @@
 														<td>기획팀</td>
 														<td>개발팀</td>
 													</tr>
+
 												</tbody>
 											</table>
+
+
 										</div>
 									</div>
 						</div>

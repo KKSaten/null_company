@@ -84,4 +84,16 @@
 		#{empPwd}
 		WHERE EMP_ID = #{empId}
 	</update>
+	
+	
+	<select id="empList" resultType="EmployeeVO">
+		SELECT *
+		FROM 
+		    EMPLOYEE E
+		LEFT JOIN 
+		    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM  
+		LEFT JOIN 
+		    POSITIONS P ON E.POS_NUM = P.POS_NUM    
+
+</select>
 </mapper>
