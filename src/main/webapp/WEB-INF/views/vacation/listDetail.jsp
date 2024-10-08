@@ -41,7 +41,7 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">휴가 보유/사용현황</a>
+								<a href="#">휴가 신청 내역</a>
 							</li>
 							<li class="separator">
 								<i class="icon-arrow-right"></i>

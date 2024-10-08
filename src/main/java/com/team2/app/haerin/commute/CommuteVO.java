@@ -7,7 +7,7 @@ import lombok.Data;
 public class CommuteVO {
 
 	private Long commuteNum;
-	private String empNum;
+	private Integer empNum;
 	private Date commuteInTime;
 	private Date commuteOutTime;
 	private Boolean commuteStatus;

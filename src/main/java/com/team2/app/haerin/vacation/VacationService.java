@@ -11,4 +11,10 @@ public class VacationService {
 	public void myVacation()throws Exception{
 		
 	}
+	public void list()throws Exception{
+			
+		}
+	public void listDetail()throws Exception{
+		
+	}
 }
