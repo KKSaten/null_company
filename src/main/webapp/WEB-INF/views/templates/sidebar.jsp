@@ -125,7 +125,7 @@
 					<div class="collapse" id="orders">
 						<ul class="nav nav-collapse">
 							<li>
-								<a href="/orders/list">
+								<a href="/orders/userList">
 									<span class="sub-item">인사 발령 사용자</span>
 								</a>
 							</li>

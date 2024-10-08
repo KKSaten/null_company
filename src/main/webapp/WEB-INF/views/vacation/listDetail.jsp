@@ -10,7 +10,7 @@
 	<c:import url="../templates/header.jsp"></c:import>
 	<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>
 
-	<title>기안함</title>
+	<title>휴가 신청 내역</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -58,23 +58,27 @@
 						<div class="col-md-12">
 							<div class="card">
 										<div class="card-header">
-											<div class="card-title">예정 휴가</div>
+											<div class="card-title">휴가 신청 내역</div>
 										</div>
 										<div class="card-body">
 											<table class="table table-hover">
 												<thead>
 													<tr>
-														<th scope="col">휴가종류</th>
-														<th scope="col">휴가 시작일</th>
-														<th scope="col">휴가 마감일</th>
-														<th scope="col">상태</th>
+														<th scope="col">이름</th>
+														<th scope="col">사번</th>
+														<th scope="col">직급</th>
+														<th scope="col">기간</th>
+														<th scope="col">사용기간</th>
+														<th scope="col">승인</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
-														<td>반차</td>
-														<td>2024.02.13</td>
-														<td>2024.02.16</td>
+														<td>김해린</td>
+														<td>1233</td>
+														<td>사원</td>
+														<td>2023.10.12~2023.10.13</td>
+														<td>1일</td>
 														<td>승인</td>
 													</tr>
 

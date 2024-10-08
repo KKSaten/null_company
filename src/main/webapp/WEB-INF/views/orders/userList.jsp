@@ -10,7 +10,7 @@
 	<c:import url="../templates/header.jsp"></c:import>
 	<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>
 
-	<title>휴가 보유/사용현황</title>
+	<title>인사발령 (사용자)</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -24,7 +24,7 @@
 				<div class="page-inner">
 
 					<div class="page-header">
-						<h3 class="fw-bold mb-3">휴가</h3>
+						<h3 class="fw-bold mb-3">인사 발령</h3>
 						<ul class="breadcrumbs mb-3">
 							<li class="nav-home">
 								<a href="#">
@@ -35,13 +35,13 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">휴가</a>
+								<a href="#">인사 발령</a>
 							</li>							
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">휴가 보유/사용현황</a>
+								<a href="#">인사발령 (사용자)</a>
 							</li>
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
@@ -58,28 +58,35 @@
 						<div class="col-md-12">
 							<div class="card">
 										<div class="card-header">
-											<div class="card-title">휴가 보유/사용현황</div>
+											<div class="card-title">인사발령 (사용자)</div>
 										</div>
 										<div class="card-body">
 											<table class="table table-hover">
 												<thead>
 													<tr>
-														<th scope="col">이름</th>
+														<th scope="col">발령 번호</th>
+														<th scope="col">발령 일자</th>
 														<th scope="col">사번</th>
-														<th scope="col">부서</th>
-														<th scope="col">직급</th>
-														<th scope="col">잔여 휴가</th>
+														<th scope="col">성명</th>
+														<th scope="col">발령 구분</th>
+														<th scope="col">이전 직위</th>
+														<th scope="col">발령 직위</th>
+														<th scope="col">이전 부서</th>
+														<th scope="col">발령 부서</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
+														<td>123</td>
+														<td>2023.12.11</td>
+														<td>1231445</td>
 														<td>김해린</td>
-														<td>21231</td>
-														<td>개발부</td>
-														<td>팀장</td>
-														<td>15</td>
+														<td>부서</td>
+														<td>대리</td>
+														<td>과장</td>
+														<td>기획팀</td>
+														<td>개발팀</td>
 													</tr>
-
 												</tbody>
 											</table>
 										</div>
