@@ -82,6 +82,6 @@
 		UPDATE EMPLOYEE
 		SET EMP_PWD =
 		#{empPwd}
-		WHERE EMP_NUM = #{empNum}
+		WHERE EMP_ID = #{empId}
 	</update>
 </mapper>
