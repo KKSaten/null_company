@@ -10,6 +10,12 @@
         FROM COMMUTE C
         JOIN EMPLOYEE E ON C.EMP_NUM = E.EMP_NUM
     </select>
+	 <select id="userList" resultType="CommuteVO" parameterType="CommuteVO">
+        SELECT C.EMP_NUM, E.EMP_NAME, C.COMMUTE_INTIME, C.COMMUTE_OUTTIME, C.COMMUTE_STATUS
+        FROM COMMUTE C
+        JOIN EMPLOYEE E ON C.EMP_NUM = E.EMP_NUM
+         WHERE C.EMP_NUM = #{empNum}
+    </select>
 	
 	
 	<insert id="checkIn" parameterType="CommuteVO">

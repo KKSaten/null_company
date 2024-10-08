@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team2.app.employee.EmployeeVO;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -41,6 +42,20 @@ public class CommuteController {
 	public void checkList(Model model )throws Exception {
 		List<CommuteVO> commuteVO =commuteService.checkList(); 
 		model.addAttribute("list",commuteVO);
+			
+	}
+	@GetMapping("userList")
+	public void userList(Model model)throws Exception {
+		// 로그인한 사용자 아이디 가져오기
+	    SecurityContext context = SecurityContextHolder.getContext();
+	    Authentication authentication = context.getAuthentication();
+	    EmployeeVO temp = (EmployeeVO)authentication.getPrincipal();
+	    CommuteVO commuteVO= new CommuteVO();
+	    commuteVO.setEmpNum(temp.getEmpNum());
+
+		List<CommuteVO> ar =commuteService.userList(commuteVO); 
+		model.addAttribute("userList",ar);
+			
 			
 	}
 	

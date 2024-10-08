@@ -17,7 +17,9 @@ public class CommuteService {
 		public List<CommuteVO> checkList( ) throws Exception {
 			return commuteMapper.checkList();
 		}
-		
+		public List<CommuteVO> userList(CommuteVO commuteVO) throws Exception {
+			return commuteMapper.userList(commuteVO);
+		}
 		 public int checkIn(CommuteVO commuteVO) throws Exception {
 			 return commuteMapper.checkIn(commuteVO); 
 		    }

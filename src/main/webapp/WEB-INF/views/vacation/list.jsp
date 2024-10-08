@@ -69,17 +69,84 @@
 														<th scope="col">부서</th>
 														<th scope="col">직급</th>
 														<th scope="col">잔여 휴가</th>
+														<th scope="col">휴가</th>
 													</tr>
 												</thead>
 												<tbody>
+												<c:forEach items="${list}" var="vo">
 													<tr>
-														<td>김해린</td>
-														<td>21231</td>
-														<td>개발부</td>
-														<td>팀장</td>
-														<td>15</td>
+														<td>${vo.empNum}</td>
+														<td>${vo.empNum}</td>
+														<td>${vo.empNum}</td>
+														<td>${vo.empNum}</td>
+														<td>${vo.empNum}</td>
+														<td>
+														<button type="button" class="btn btn-primary"
+															data-bs-toggle="modal"
+															data-bs-target="#modal-${vo.empNum}"
+															onclick="setEmployeeDetails('${vo.empNum}', '${vo.empId}', '${vo.empName}', '${vo.empRegistry}', '${vo.empGender}', '${vo.empAddress}', '${vo.deptName}', '${vo.posName}')">
+															휴가</button>
+													</td>
 													</tr>
-
+													<!-- 각 사원에 대한 모달 -->
+												<div class="modal fade" id="modal-${vo.empNum}"
+													tabindex="-1" aria-labelledby="modalLabel-${vo.empNum}"
+													aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="modalLabel-${vo.empNum}">사원
+																	정보 (${vo.empName})</h5>
+																<button type="button" class="btn-close"
+																	data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																<p>
+																	<strong>사원 번호:</strong> <span
+																		id="modalEmpNum-${vo.empNum}">${vo.empNum}</span>
+																</p>
+																
+																<p>
+																	<strong>사원 이름:</strong> <span
+																		id="modalEmpName-${vo.empNum}">${vo.empName}</span>
+																</p>
+															
+												
+																<p>
+																	<strong>부서 이름:</strong> <span
+																		id="modalDeptName-${vo.empNum}">${vo.deptName}</span>
+																</p>
+																<p>
+																	<strong>직급 이름:</strong> <span
+																		id="modalPosName-${vo.empNum}">${vo.posName}</span>
+																</p>
+																	<p>
+																	<strong>잔여 휴가:</strong> <span
+																		id="modalPosName-${vo.empNum}">${vo.posName}</span>
+																</p>				
+												<p>
+								                    <strong>휴가 :</strong> 
+								                    <select id="deptSelect-${vo.empNum}" class="form-select">
+								                        <option value="" disabled selected>부서 선택</option>
+								                        <option value="1">부서 1</option>
+								                        <option value="2">부서 2</option>
+								                        <option value="3">부서 3</option>
+								                        <!-- 추가 부서 옵션 -->
+								                    </select>
+								                </p>
+								            		
+																
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-bs-dismiss="modal">닫기</button>
+																<button type="button" class="btn btn-primary">휴가
+																	</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												</c:forEach>
 												</tbody>
 											</table>
 										</div>
