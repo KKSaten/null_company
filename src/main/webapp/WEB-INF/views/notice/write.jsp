@@ -15,8 +15,7 @@
 <script src="/resources/js/core/jquery-3.7.1.min.js"></script>
 <script src="/resources/js/plugin/summernote/summernote-lite.min.js"></script>
 <script src="/resources/js/plugin/summernote/lang/summernote-ko-KR.js"></script>
-<link rel="stylesheet" href="/resources/css/summernote-lite.css">
-
+<link rel="stylesheet" href="/resources/css/summernote-lite.css"/>
 
 </head>
 <body>
@@ -37,7 +36,7 @@
 								</ul>
 							</div>
 						</div>
-						<form action="/notice/write" method="post">
+						<form action="/notice/write" method="post" enctype="multipart/form-data">
 							<div class="card-body">
 								<div class="input-group mb-6 custom-write1">
 									<span class="input-group-text custom-write2" id="basic-addon3">제목</span>

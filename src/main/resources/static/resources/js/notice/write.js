@@ -32,31 +32,31 @@ $(document).ready(function() {
 		 // 추가한 폰트사이즈
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
 
-		// 콜백함수
-		callback : {
+		callbacks : { 
 			onImageUpload : function(files) {
 				// 파일 업로드(다중업로드를 위해 반복문 사용)
 				for (var i = files.length - 1; i >= 0; i--) {
-				uploadSummernoteImageFile(files[i], this);
+					uploadSummernoteImageFile(files[i],this);
 				}
 			}
-		} 
-	});
+		}
+	 });
 
-	// 이미지 파일 업로드
-	function uploadSummernoteImageFile(file, editor) {
+	/**
+	* 이미지 파일 업로드
+	*/
+	function uploadSummernoteImageFile(file, el) {
 		data = new FormData();
 		data.append("file", file);
 		$.ajax({
 			data : data,
 			type : "POST",
-			url : "uploadSummernoteImageFile",
+			url : "/notice/uploadSummernoteImageFile",
 			contentType : false,
-			processData : false,
 			enctype : 'multipart/form-data',
+			processData : false,
 			success : function(data) {
-				// 항상 업로드된 파일 url이 있어야 한다
-				$(editor).summernote('insertImage', data.url);	
+				$(el).summernote('insertImage', data.url);
 			}
 		});
 	}
