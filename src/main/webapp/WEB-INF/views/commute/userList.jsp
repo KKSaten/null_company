@@ -1,4 +1,4 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
 	<c:import url="../templates/header.jsp"></c:import>
 	<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>
 
-	<title>인사발령 (관리자)</title>
+	<title>근태관리 (사용자)</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -24,7 +24,7 @@
 				<div class="page-inner">
 
 					<div class="page-header">
-						<h3 class="fw-bold mb-3">인사 발령</h3>
+						<h3 class="fw-bold mb-3">근태관리</h3>
 						<ul class="breadcrumbs mb-3">
 							<li class="nav-home">
 								<a href="#">
@@ -35,13 +35,13 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">인사 발령</a>
+								<a href="#">근태관리</a>
 							</li>							
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">인사 발령(관리자)</a>
+								<a href="#">근태관리 (사용자)</a>
 							</li>
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
@@ -58,50 +58,44 @@
 						<div class="col-md-12">
 							<div class="card">
 										<div class="card-header">
-											<div class="d-flex align-items-center">
-										<h4 class="card-title">인사 발령(관리자)</h4>
-								
-									</div>
+											<div class="card-title">근태관리 (사용자)</div>
 										</div>
 										<div class="card-body">
-											<table class="table table-hover">
-												<thead>
-													<tr>
-														<th scope="col">발령 번호</th>
-														<th scope="col">발령 일자</th>
-														<th scope="col">사번</th>
-														<th scope="col">성명</th>
-														<th scope="col">이전 직위 → 발령 직위</th>
-														<th scope="col">이전 부서 → 발령 부서</th>
-														
-														<th scope="col">발령 구분</th>
-													</tr>
-												</thead>
-												<tbody>
-												<c:forEach items="${list}" var="vo">
-													<tr>
-														<td>${vo.orderNum}</td>
-														<td>${vo.appointmentDate}</td>
-														<td>${vo.empNum}</td>
-														<td>${vo.empName}</td>
-														<td>${vo.previousPosition} ➡️ ${vo.newPosition}</td>
-													
-														<td>${vo.previousDepartment} ➡️ ${vo.newDepartment}</td>
-														<td>
-														  <c:choose>
-											                <c:when test="${vo.orderSituation == true}" >
-											                    <div style="color: blue;font-weight: bold;">발령 확정</div>
-											                </c:when>
-											                <c:otherwise>
-											                    <div  style="color: red;font-weight: bold;" >임시 저장</div>
-											                </c:otherwise>
-											            </c:choose>
-														</td>					
-														
-													</tr>
-												</c:forEach>
-												</tbody>
-											</table>
+											<table
+                        id="add-row"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
+                          <tr>
+                          	<th>사원번호</th>
+                            <th>사원이름</th>
+                            <th>출근시간</th>
+                            <th>퇴근시간</th>
+                            <th style="width: 10%">출근/퇴근/결근</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                        <c:forEach items="${userList}" var="vo">
+                         <tr>
+						        <td>${vo.empNum}</td>
+						        <td>${vo.empName}</td>
+						        <td>${vo.commuteInTime}</td>
+						        <td>${vo.commuteOutTime}</td>
+						        <td>
+						            <c:choose>
+						                <c:when test="${vo.commuteStatus == true}">
+						                  <div style="color: blue;font-weight: bold;">출근</div>
+						                </c:when>
+						                <c:otherwise>
+						                   <div  style="color: red;font-weight: bold;" >퇴근</div>
+						                </c:otherwise>
+						            </c:choose>
+						        </td>
+						    </tr>
+                          </c:forEach>
+                        </tbody>
+                      </table>
 										</div>
 									</div>
 						</div>

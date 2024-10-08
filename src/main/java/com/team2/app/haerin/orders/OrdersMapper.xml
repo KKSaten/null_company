@@ -4,9 +4,30 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.app.haerin.orders.OrdersMapper">
-
-
-
+	<select id="list" resultType="OrdersVO">
+    	SELECT 
+        O.ORDER_NUM AS orderNum,              -- 발령 번호
+        O.APPOINTMENT_DATE AS appointmentDate, -- 발령 일자
+        O.EMP_NUM AS empNum,                  -- 사번
+        E.EMP_NAME AS empName,                -- 성명
+        O.ORDER_SITUATION AS orderSituation,   -- 발령 구분 (임시저장/발령확정)
+        P_PREV.POS_NAME AS previousPosition,  -- 이전 직위
+        P_NEW.POS_NAME AS newPosition,        -- 발령 직위
+        D_PREV.DEPT_NAME AS previousDepartment, -- 이전 부서
+        D_NEW.DEPT_NAME AS newDepartment      -- 발령 부서
+    FROM 
+        ORDERS O
+    JOIN 
+        EMPLOYEE E ON O.EMP_NUM = E.EMP_NUM
+    LEFT JOIN 
+        POSITIONS P_PREV ON P_PREV.POS_NUM = E.POS_NUM  -- 직원의 현재 직위
+    LEFT JOIN 
+        POSITIONS P_NEW ON P_NEW.POS_NUM = O.POS_NUM   -- 발령 직위
+    LEFT JOIN 
+        DEPARTMENT D_PREV ON D_PREV.DEPT_NUM = E.DEPT_NUM  -- 직원의 현재 부서
+    LEFT JOIN 
+        DEPARTMENT D_NEW ON D_NEW.DEPT_NUM = O.DEPARTMENT_NUM -- 발령 부서
+	</select>
 
 
 </mapper>

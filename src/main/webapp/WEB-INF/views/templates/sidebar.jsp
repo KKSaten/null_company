@@ -108,13 +108,28 @@
 						<p>캘린더</p>
 					</a>
 				</li>
-
 				<li class="nav-item">
-					<a  href="/commute/list">
+					<a data-bs-toggle="collapse" href="#commute">
 						<i class="fas fa-history"></i>
 						<p>근태관리</p>
+						<span class="caret"></span>
 					</a>
+					<div class="collapse" id="commute">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="/commute/userList">
+									<span class="sub-item">근태관리 사용자</span>
+								</a>
+							</li>
+							<li>
+								<a href="/commute/list">
+									<span class="sub-item">근태관리 관계자</span>
+								</a>
+							</li>
+						</ul>
+					</div>
 				</li>
+				
 				
 				<li class="nav-item">
 					<a data-bs-toggle="collapse" href="#orders">
@@ -125,13 +140,13 @@
 					<div class="collapse" id="orders">
 						<ul class="nav nav-collapse">
 							<li>
-								<a href="/orders/userList">
-									<span class="sub-item">인사 발령 사용자</span>
+								<a href="/orders/list">
+									<span class="sub-item">인사 발령 관계자</span>
 								</a>
 							</li>
 							<li>
-								<a href="/orders/list">
-									<span class="sub-item">인사 발령 관계자</span>
+								<a href="/employee/empList">
+									<span class="sub-item">모든 직원 리스트 (관계자)</span>
 								</a>
 							</li>
 						</ul>

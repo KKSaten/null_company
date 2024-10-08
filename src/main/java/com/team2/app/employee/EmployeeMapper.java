@@ -24,4 +24,6 @@ public interface EmployeeMapper {
 	public void chpass(EmployeeVO employeeVO) throws Exception;
 	
 	public void saveFile(EmployeeFileVO fileVO) throws Exception;
+	
+	public List<EmployeeVO> empList()throws Exception;
 }
