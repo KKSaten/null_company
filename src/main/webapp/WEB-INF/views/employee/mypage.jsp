@@ -31,7 +31,7 @@
 							<sec:authorize access="isAuthenticated" />
 							<sec:authentication property="principal" var="vo" />
 							<div class="col-md-6 ms-auto me-auto">
-								<h3>사번: ${vo.empNum}</h3>
+								<h3>사번: ${vo.empId}</h3>
 								<h3>이름: ${vo.empName}</h3>
 								<h3>성별: ${vo.empGender}</h3>
 								<h3>주소: ${vo.empAddress}</h3>

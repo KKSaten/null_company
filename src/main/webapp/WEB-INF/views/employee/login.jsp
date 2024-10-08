@@ -30,8 +30,8 @@
 							<div class="col-md-6 ms-auto me-auto">
 			                  <form method="post">
 							  <div class="mb-3">
-							    <label for="empNum" class="form-label">사번</label>
-							    <input type="text" class="form-control" id="empNum" name="empNum">
+							    <label for="empId" class="form-label">사번</label>
+							    <input type="text" class="form-control" id="empId" name="empId">
 							  </div>
 							  <div class="mb-3">
 							    <label for="empPwd" class="form-label">비밀번호</label>

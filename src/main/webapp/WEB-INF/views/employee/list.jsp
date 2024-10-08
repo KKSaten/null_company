@@ -41,7 +41,7 @@
 									<tbody>
 										<c:forEach items="${list}" var="list">
 												<tr onclick="location.href='/employee/detail?empNum=${list.empNum}'" style="cursor:pointer;">
-													<td>${list.empNum}</td>
+													<td>${list.empId}</td>
 													<td>${list.empName}</td>
 													<td>${list.deptNum}</td>
 													<td><c:choose>

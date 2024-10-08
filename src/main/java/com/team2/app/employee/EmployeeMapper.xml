@@ -37,7 +37,7 @@
 			INNER JOIN
 			EMP_FILE EF
 			ON (E.EMP_NUM=EF.EMP_NUM)
-		WHERE E.EMP_NUM = #{empNum}
+		WHERE E.EMP_Id = #{empId}
 	</select>
 	
 	<resultMap type="EmployeeVO" id="employeeInfo">
@@ -69,8 +69,8 @@
 	
 	<!-- 직원 등록 -->
 	<insert id="join" parameterType="EmployeeVO">
-		INSERT INTO EMPLOYEE (EMP_NUM, EMP_ID, EMP_PWD, EMP_NAME, EMP_REGISTRY, EMP_GENDER, EMP_ADDRESS, DEPT_NUM, POS_NUM)
-		VALUES (#{empNum}, #{empId}, #{empPwd}, #{empName}, #{empRegistry}, #{empGender}, #{empAddress}, #{deptNum}, #{posNum})
+		INSERT INTO EMPLOYEE (EMP_ID, EMP_PWD, EMP_NAME, EMP_REGISTRY, EMP_GENDER, EMP_ADDRESS, DEPT_NUM, POS_NUM)
+		VALUES (#{empId}, #{empPwd}, #{empName}, #{empRegistry}, #{empGender}, #{empAddress}, #{deptNum}, #{posNum})
 	</insert>
 	
 	<insert id="addEmpRole" parameterType="EmployeeVO">

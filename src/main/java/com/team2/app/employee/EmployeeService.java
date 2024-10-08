@@ -103,15 +103,15 @@ public class EmployeeService implements UserDetailsService {
 
 	//로그인
 	@Override
-	public UserDetails loadUserByUsername(String empNum) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String empId) throws UsernameNotFoundException {
 		
 		
 		log.info("=================================================");
-		log.info("id : {}", empNum);
+		log.info("id : {}", empId);
 
 		EmployeeVO employeeVO = new EmployeeVO();
 
-		employeeVO.setEmpNum(Integer.parseInt(empNum));
+		employeeVO.setEmpId(empId);
 		
 		log.info("1. employeeVO : {}", employeeVO);
 		

@@ -49,8 +49,8 @@
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i
 											class="fas fa-id-card-alt"></i>
-										</span> <input type="text" class="form-control" id="empNum"
-											placeholder="사번" name="empNum"></input>
+										</span> <input type="text" class="form-control" id="empId"
+											placeholder="사번" name="empId"></input>
 									</div>
 
 									<div class="input-icon blank">
