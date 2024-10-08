@@ -28,7 +28,7 @@
 						<h3 class="fw-bold mb-3">전자결재</h3>
 						<ul class="breadcrumbs mb-3">
 							<li class="nav-home">
-								<a href="/">
+								<a href="#">
 									<i class="icon-home"></i>
 								</a>
 							</li>
@@ -42,13 +42,13 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">기안함</a>
+								<a href="#">수신함</a>
 							</li>
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="/approval/approvalDraftbox">기안 상신함</a>
+								<a href="#">추후 수정</a>
 							</li>
 						</ul>
 					</div>
@@ -74,22 +74,18 @@
 										<table id="appr-doc-table" class="table table-striped">
 											<thead>
 												<tr>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 10%;">결재 유형</th>
 													<th style="font-size: 15px !important; letter-spacing:0px !important;">문서 제목</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 20%;">기안자</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; text-align:left !important; width: 15%;">기안일</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 25%;">기안자</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 20%;">기안일(수정일)</th>
 													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 10%;">결재 처리</th>
-													<th style="display:none; width: 10%;"></th>
-													<th style="display:none; width: 10%;"></th>
-													<th style="display:none; width: 10%;"></th>
 												</tr>
 											</thead>
 
 											<tbody>										
 												<tr>
-													<td>
-														<div style="font-weight:bold; ">Black Sheep Wall</div>
-														<div style="font-size:14px; color:gray; ">휴가신청서</div>
-													</td>
+													<td>휴가신청서</td>
+													<td>System Architect</td>
 													<td>
 														<div class="profile-container" style="display: flex; align-items: center;">
 															<!-- 프로필 사진 -->
@@ -104,31 +100,22 @@
 															</div>
 														</div>
 													</td>
-													<td style="text-align:left !important;"> 2016-07-19 </td>
+													<td> - </td>
 													<td>
 													
-														<div>
-															<i class="fas fa-circle" style="color:#5cb85c; font-size:30px;"></i>
+														<div class="form-button-action">
+															<button type="button" data-bs-toggle="tooltip" title=""
+																class="btn btn-lg btn-link btn-danger"
+																style="font-size:50px;">
+																<i class="fas fa-ban"></i>
+															</button>														
 														</div>
-														<div style="font-size:15px; font-weight:bold;">기안</div>																										
-
-													</td>
-													<td></td>
-													<td></td>
-													<td>
-													
-														<div>
-															<i class="fas fa-ban" style="color:#d9534f; font-size:40px;"></i>
-														</div>
-														<div style="margin-left:6px; font-size:15px; color:#d9534f; font-weight:bold;">반려</div>														
 														
 													</td>
 												</tr>
 												<tr>
-													<td>
-														<div style="font-weight:bold; ">Power Overwhelming</div>
-														<div style="font-size:14px; color:gray; ">퇴사신청서</div>
-													</td>
+													<td>출장</td>
+													<td>Accountant</td>
 													<td>
 														<div class="profile-container" style="display: flex; align-items: center;">
 															<!-- 프로필 사진 -->
@@ -143,32 +130,22 @@
 															</div>
 														</div>
 													</td>
-													<td style="text-align:left !important;"> 2018-05-16 </td>
+													<td> - </td>
 													<td>
 													
-														<div>
-															<i class="fas fa-circle" style="color:#5cb85c; font-size:30px;"></i>
+														<div class="form-button-action">
+															<button type="button" data-bs-toggle="tooltip" title=""
+																class="btn btn-lg btn-link btn-success"
+																style="font-size:50px;">
+																<i class="far fa-check-circle"></i>
+															</button>															
 														</div>
-														<div style="font-size:15px; font-weight:bold;">기안</div>													
-
-													</td>
-													<td></td>
-													<td></td>
-													<td>
-													
-														<div>
-															<i class="far fa-check-circle" style="color:#5cb85c; font-size:40px;"></i>
-														</div>
-														<div style="margin-left:6px; font-size:15px; color:#5cb85c; font-weight:bold;">승인</div>													
-
+														
 													</td>
 												</tr>
 												<tr>
-													<td>
-														<div style="font-weight:bold; ">Show me the money</div>
-														<div style="font-size:14px; color:gray; ">지출결의서</div>
-													</td>
-
+													<td>퇴사</td>
+													<td>Junior Technical Author</td>
 													<td>
 														<div class="profile-container" style="display: flex; align-items: center;">
 															<!-- 프로필 사진 -->
@@ -183,61 +160,15 @@
 															</div>
 														</div>
 													</td>
-													<td style="text-align:left !important;"> 2024-10-04 </td>
+													<td> - </td>
 													<td>
 													
-														<div style="display: flex;">
-															<div>
-																<div>
-																	<i class="fas fa-circle" style="color:#5cb85c; font-size:30px;"></i>
-																</div>
-																<div style="font-size:15px; font-weight:bold;">기안</div>															
-															</div>
-															
-															<div>
-																<div>
-																	<i class="far fa-check-circle" style="color:#5cb85c; font-size:30px;"></i>
-																</div>
-																<div style="font-size:15px; color:#5cb85c; font-weight:bold;">승인</div>																
-															</div>
-															
-															<div>
-																<div>
-																	<i class="far fa-check-circle" style="color:#5cb85c; font-size:30px;"></i>
-																</div>
-																<div style="font-size:15px; color:#5cb85c; font-weight:bold;">승인</div>																
-															</div>
-															
-															<div>
-																<div>
-																	<i class="fas fa-spinner" style="color:#0275d8; font-size:40px;"></i>
-																	<div style="margin-top: 6px; margin-left:6px; font-size:15px; color:#0275d8; font-weight:bold;">진행</div>
-																</div>															
-															</div>																														
-														</div>													
-
-													</td>	
-													<td>
-													
-														<div>
-															<i class="far fa-check-circle" style="color:#5cb85c; font-size:30px;"></i>
-														</div>
-														<div style="font-size:15px; color:#5cb85c; font-weight:bold;">승인</div>													
-
-													</td>
-													<td>
-													
-														<div>
-															<i class="far fa-check-circle" style="color:#5cb85c; font-size:30px;"></i>
-														</div>
-														<div style="font-size:15px; color:#5cb85c; font-weight:bold;">승인</div>													
-
-													</td>												
-													<td>
-																											
-														<div>
-															<i class="fas fa-spinner" style="color:#0275d8; font-size:40px;"></i>
-															<div style="margin-top: 6px; margin-left:6px; font-size:15px; color:#0275d8; font-weight:bold;">진행</div>
+														<div class="form-button-action">
+															<button type="button" data-bs-toggle="tooltip" title=""
+																class="btn btn-lg btn-link btn-primary"
+																style="font-size:50px;">
+																<i class="far fa-edit"></i>
+															</button>
 														</div>
 														
 													</td>
@@ -268,10 +199,10 @@
 
         $("#appr-doc-table").DataTable({
           pageLength: 10,
-          order: [[2, 'desc']],
+          order: [[3, 'desc']],
           lengthChange: false,
           columnDefs: [
-              { orderable: false, targets: [0, 1, 3, 4, 5, 6] }
+              { orderable: false, targets: [0, 1, 2, 4] }
           ]
         });
 
