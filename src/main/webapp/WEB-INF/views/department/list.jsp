@@ -37,7 +37,7 @@
 											<th scope="col">부서 이름</th>
 										</tr>
 									</thead>
-									<tbody id="tb">
+									<tbody>
 										<c:forEach items="${list}" var="list" varStatus="status">
 												<tr style="cursor:pointer;">
 													<td>${status.index+1}</td>
@@ -60,44 +60,6 @@
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
 	
-	<script>
-		const tb = document.getElementById("tb");
-	//	const detail = document.getElementsByClassName("detail");
 
-		tb.addEventListener("click",(e)=>{
-			console.log(e.target)
-		})
-
-		
-
-
-	// $("#alert_demo_5").click(function (e) {
-    //     swal({
-    //       title: "Input Something",
-    //       html: '<br><input class="form-control" placeholder="Input Something" id="input-field">',
-    //       content: {
-    //         element: "input",
-    //         attributes: {
-    //           placeholder: "Input Something",
-    //           type: "text",
-    //           id: "input-field",
-    //           className: "form-control",
-    //         },
-    //       },
-    //       buttons: {
-    //         cancel: {
-    //           visible: true,
-    //           className: "btn btn-danger",
-    //         },
-    //         confirm: {
-    //           className: "btn btn-success",
-    //         },
-    //       },
-    //     }).then(function () {
-    //       swal("", "You entered : " + $("#input-field").val(), "success");
-    //     });
-    //   });
-	
-	</script>
 </body>
 </html>
