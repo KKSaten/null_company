@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 		// 콜백함수
 		callback : {
-			onImageUpload : function(files, editor, welEditable) {
+			onImageUpload : function(files) {
 				// 파일 업로드(다중업로드를 위해 반복문 사용)
 				for (var i = files.length - 1; i >= 0; i--) {
 				uploadSummernoteImageFile(files[i], this);
@@ -43,7 +43,8 @@ $(document).ready(function() {
 		} 
 	});
 
-	function uploadSummernoteImageFile(file, el) {
+	// 이미지 파일 업로드
+	function uploadSummernoteImageFile(file, editor) {
 		data = new FormData();
 		data.append("file", file);
 		$.ajax({
@@ -51,10 +52,11 @@ $(document).ready(function() {
 			type : "POST",
 			url : "uploadSummernoteImageFile",
 			contentType : false,
-			enctype : 'multipart/form-data',
 			processData : false,
+			enctype : 'multipart/form-data',
 			success : function(data) {
-				$(el).summernote('editor.insertImage', data.url);
+				// 항상 업로드된 파일 url이 있어야 한다
+				$(editor).summernote('insertImage', data.url);	
 			}
 		});
 	}
