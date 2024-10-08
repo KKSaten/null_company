@@ -8,7 +8,7 @@ import lombok.Data;
 public class NoticeVO {
 
 	private Long noticeNum;
-	private String empNum;
+	private Integer empNum;
 	private String noticeTitle;
 	private String noticeContents;
 	private Long noticeHit;
