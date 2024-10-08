@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
+import com.team2.app.employee.EmployeeVO;
 import com.team2.app.util.Pager;
 
 
@@ -30,6 +32,9 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Value("${app.upload}")
+	private String path;
 
 	
 	@GetMapping("list")
@@ -60,7 +65,7 @@ public class NoticeController {
 		
 		Authentication authentication = context.getAuthentication();
 		
-		NoticeVO temp = (NoticeVO)authentication.getPrincipal();
+		EmployeeVO temp = (EmployeeVO)authentication.getPrincipal();
 		
 		noticeVO.setEmpNum(temp.getEmpNum());
 		
@@ -89,13 +94,14 @@ public class NoticeController {
 		return "redirect:/notice/post?noticeNum=" + noticeVO.getNoticeNum();	
 	}
 	
-	@PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
+	// summerNote 이미지 업로드 코드
+	@PostMapping(value="uploadSummernoteImageFile", produces = "application/json")
 	@ResponseBody
 	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
 		
 		JsonObject jsonObject = new JsonObject();
 		
-		String fileRoot = "C:\\summernote_image\\";	//저장될 외부 파일 경로
+		String fileRoot = "D:\summernote_image\\";	//저장될 외부 파일 경로
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
