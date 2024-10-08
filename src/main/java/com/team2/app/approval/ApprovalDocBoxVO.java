@@ -9,7 +9,7 @@ import lombok.Data;
 public class ApprovalDocBoxVO {
 	
 	private Long docNum;
-	private String docWriter;
+	private int docWriter;
 	private int docTypecode;
 	private Long docTemplatecode;
 	private String docTitle;
