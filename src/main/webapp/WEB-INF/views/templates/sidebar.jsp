@@ -152,8 +152,13 @@
 								</a>
 							</li>
 							<li>
+								<a href="/vacation/listDetail">
+									<span class="sub-item">휴가 신청내역(관리자)</span>
+								</a>
+							</li>
+							<li>
 								<a href="/vacation/list">
-									<span class="sub-item">휴가 관계자</span>
+									<span class="sub-item">휴가 보유/사용현황(관리자)</span>
 								</a>
 							</li>
 						</ul>

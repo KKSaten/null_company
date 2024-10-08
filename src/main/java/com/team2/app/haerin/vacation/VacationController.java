@@ -15,5 +15,12 @@ public class VacationController {
 	public void myVacation() throws Exception{
 		
 	}
-
+	@GetMapping("list")
+	public void list() throws Exception{
+		
+	}
+	@GetMapping("listDetail")
+	public void listDetail() throws Exception{
+		
+	}
 }

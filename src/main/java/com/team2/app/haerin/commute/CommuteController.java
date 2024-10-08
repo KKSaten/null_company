@@ -48,7 +48,8 @@ public class CommuteController {
 	    // 로그인한 사용자 아이디 가져오기
 	    SecurityContext context = SecurityContextHolder.getContext();
 	    Authentication authentication = context.getAuthentication();
-	    commuteVO.setEmpNum(authentication.getName());
+	    CommuteVO temp = (CommuteVO)authentication.getPrincipal();
+	    commuteVO.setEmpNum(temp.getEmpNum());
 	    
 	    // 출근 가능 여부 확인
 	    if (commuteService.canCheckIn(commuteVO)) {
@@ -65,7 +66,8 @@ public class CommuteController {
 	    // 로그인한 사용자 아이디 가져오기
 	    SecurityContext context = SecurityContextHolder.getContext();
 	    Authentication authentication = context.getAuthentication();
-	    commuteVO.setEmpNum(authentication.getName());
+	    CommuteVO temp = (CommuteVO)authentication.getPrincipal();
+	    commuteVO.setEmpNum(temp.getEmpNum());
 	    
 	    // 퇴근 가능 여부 확인
 	    if (commuteService.canCheckOut(commuteVO)) {
