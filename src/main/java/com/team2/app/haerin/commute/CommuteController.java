@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.team2.app.employee.EmployeeVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -48,7 +50,7 @@ public class CommuteController {
 	    // 로그인한 사용자 아이디 가져오기
 	    SecurityContext context = SecurityContextHolder.getContext();
 	    Authentication authentication = context.getAuthentication();
-	    CommuteVO temp = (CommuteVO)authentication.getPrincipal();
+	    EmployeeVO temp = (EmployeeVO)authentication.getPrincipal();
 	    commuteVO.setEmpNum(temp.getEmpNum());
 	    
 	    // 출근 가능 여부 확인
@@ -66,7 +68,7 @@ public class CommuteController {
 	    // 로그인한 사용자 아이디 가져오기
 	    SecurityContext context = SecurityContextHolder.getContext();
 	    Authentication authentication = context.getAuthentication();
-	    CommuteVO temp = (CommuteVO)authentication.getPrincipal();
+	    EmployeeVO temp = (EmployeeVO)authentication.getPrincipal();
 	    commuteVO.setEmpNum(temp.getEmpNum());
 	    
 	    // 퇴근 가능 여부 확인
