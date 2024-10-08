@@ -4,7 +4,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="UTF-8">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +40,7 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${list}" var="list">
-												<tr onclick="location.href='/employee/detail?empNum=${list.empNum}'" style="cursor:pointer;">
+												<tr onclick="location.href='/employee/detail?empId=${list.empId}'" style="cursor:pointer;">
 													<td>${list.empId}</td>
 													<td>${list.empName}</td>
 													<td>${list.deptNum}</td>

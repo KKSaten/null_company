@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.Spring;
 
@@ -23,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team2.app.role.RoleVO;
 import com.team2.app.util.FileManager;
 import com.team2.app.util.FileVO;
 
@@ -61,6 +65,14 @@ public class EmployeeService implements UserDetailsService {
 		
 	}
 	
+	public void chpass (EmployeeVO employeeVO) throws Exception {
+		//비밀번호 암호화
+		String pwd = passwordEncoder.encode(employeeVO.getEmpPwd());
+		employeeVO.setEmpPwd(pwd);
+		
+		employeeMapper.chpass(employeeVO);
+	}
+	
 	//사원등록
 	public int join (EmployeeVO employeeVO, RoleVO roleVO, MultipartFile attach) throws Exception {
 		
@@ -74,7 +86,17 @@ public class EmployeeService implements UserDetailsService {
 		employeeVO.setRoleVOs(roleVOs);
 		
 		//DB insert쿼리
-		int result = employeeMapper.join(employeeVO);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("employeeVO", employeeVO);		
+		int result = employeeMapper.join(map);
+		
+		log.info("num : {}", map.get("num"));
+		
+		BigInteger num = new BigInteger(map.get("num").toString());
+		
+		employeeVO.setEmpNum(num.intValue());
+		
 		result = employeeMapper.addEmpRole(employeeVO);
 		
 		if(result==1) {

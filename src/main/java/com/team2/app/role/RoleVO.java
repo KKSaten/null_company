@@ -1,4 +1,4 @@
-package com.team2.app.employee;
+package com.team2.app.role;
 
 import lombok.Data;
 

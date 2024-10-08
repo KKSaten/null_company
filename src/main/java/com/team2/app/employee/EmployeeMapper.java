@@ -1,6 +1,7 @@
 package com.team2.app.employee;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,7 +17,7 @@ public interface EmployeeMapper {
 	
 	public EmployeeVO login(EmployeeVO employeeVO) throws Exception;
 	
-	public int join(EmployeeVO employeeVO) throws Exception;
+	public int join(Map<String,Object> map) throws Exception;
 	
 	public int addEmpRole(EmployeeVO employeeVO) throws Exception;
 

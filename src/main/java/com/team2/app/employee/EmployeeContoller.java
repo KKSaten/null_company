@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team2.app.role.RoleVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,9 @@ public class EmployeeContoller {
 	
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	// ============================== 인사
 	
@@ -59,10 +64,38 @@ public class EmployeeContoller {
 		employeeService.update(employeeVO, attach);
 	}
 	
+	//비밀번호 변경
+	@GetMapping("chpass")
+	public void chpass() throws Exception {
+		
+	}
+	
+	@PostMapping("chpass")
+	public String chpass(EmployeeVO employeeVO, String befpass, HttpSession session) throws Exception {
+		
+		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
+
+		SecurityContext sc = SecurityContextHolder.getContext();
+		Authentication ac = sc.getAuthentication();
+		EmployeeVO vo = (EmployeeVO) ac.getPrincipal();
+		
+		if(!passwordEncoder.matches(befpass, vo.getEmpPwd())) {
+			return "index";
+		} else if (!employeeVO.getEmpPwd().equals(employeeVO.getEmpPwdCheck())) {
+			log.warn("pwdcheck");
+			return "index";
+		}
+		
+		employeeVO.setEmpId(vo.getEmpId());
+		
+		employeeService.chpass(employeeVO);
+		
+		return "redirect:/employee/login";
+	}
+	
 
 	@GetMapping("join")
 	public void join(Model model) throws Exception {
-//		employeeService.getPosition();
 	}
 	
 	@PostMapping("join")
@@ -97,7 +130,7 @@ public class EmployeeContoller {
 	}
 
 	@GetMapping("mypage")
-	public void mypage(HttpSession session) {
+	public void mypage(HttpSession session, Model model) {
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
 
 		SecurityContext sc = SecurityContextHolder.getContext();
@@ -113,6 +146,8 @@ public class EmployeeContoller {
 		log.info("MemberVO: {}", employeeVO);
 		log.info("Name: {}", ac.getName()); // username
 		log.info("Detail: {}", ac.getDetails()); // sessionID
+		
+		model.addAttribute("vo",employeeVO);
 
 	}
 

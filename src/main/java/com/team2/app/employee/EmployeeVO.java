@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.team2.app.role.RoleVO;
 import com.team2.app.util.FileVO;
 
 import lombok.Data;
@@ -21,6 +22,7 @@ public class EmployeeVO implements UserDetails {
 	private String empId;
 	private String empName;
 	private String empPwd;
+	private String empPwdCheck;
 	private String empRegistry;
 	private String empGender;
 	private String empAddress;
