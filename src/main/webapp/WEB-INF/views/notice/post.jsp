@@ -34,7 +34,11 @@
 									<li class="custom-list4">인사팀, ${noticeVO.noticeDate}</li>
 									<li class="custom-list4">조회수 ${noticeVO.noticeHit}</li>
 								</ul>
-									<a href="/file/notice/${noticeVO.list[0].fileName}" download>${noticeVO.list[0].oriName }</a>
+								<c:forEach items="${noticeVO.list }" var="list">
+									<span class="custom-write2">
+										<a href="/file/notice/${list.fileName}" download>${list.oriName }</a>
+									</span>
+								</c:forEach>
 								<br>
 							</div>
 						</div>

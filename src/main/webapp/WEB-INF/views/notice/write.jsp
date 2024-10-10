@@ -42,7 +42,7 @@
 										name="noticeTitle" aria-describedby="basic-addon3">
 								</div>
 								<div class="input-group mb-6 custom-write1 custom-write3">
-									<input type="file" class="form-control" id="attach" name="attach">
+									<input type="file" class="form-control" id="attach" name="attaches" multiple>
 								</div>
 							</div>
 							<div class="card-body">
