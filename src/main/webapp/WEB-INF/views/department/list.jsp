@@ -11,7 +11,7 @@
 
 <c:import url="../templates/header.jsp"></c:import>
 
-<title>Detail</title>
+<title>List</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -25,38 +25,41 @@
 				<div class="page-inner">
 					<div class="card">
 						<div class="card-header">
-							<h1>직원 상세정보</h1>
+							<h1>부서 관리</h1>
 						</div>
 						<div class="card-body">
-							<div class="col-md-6 ms-auto me-auto" >
-								<div class="row">
-									<div class="col">
-										<img alt="직원 사진" src="/file/employee/${vo.employeeFileVO.fileName}"  style="width:300px;" >
-									</div>
-									<div class="col">
-										<h3>${vo.empNum}</h3>
-										<h3>${vo.empName}</h3>
-										<h3>${vo.empGender}</h3>
-										<h3>${vo.empAddress}</h3>
-										<h3>
-											<c:choose>
-												<c:when test="${vo.enabled}">재직 중</c:when>
-												<c:otherwise>퇴직</c:otherwise>
-											</c:choose>
-										</h3>
-									</div>
-								</div>
-								<a class="btn btn-primary" type="button" href="delete?empNum=${vo.empNum}">퇴직 처리</a>
+							<div class="col-md-6 ms-auto me-auto">
+								<table class="table mt-4">
+									<thead>
+										<tr>
+											<th scope="col">순번</th>
+											<th scope="col">부서 번호</th>
+											<th scope="col">부서 이름</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${list}" var="list" varStatus="status">
+												<tr style="cursor:pointer;">
+													<td>${status.index+1}</td>
+													<td>${list.deptNum}</td>
+													<td>${list.deptName}</td>
+												</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+								<a class="btn btn-primary" href="add">추가</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<c:import url="../templates/footer.jsp"></c:import>
+			<c:import url="/WEB-INF/views/templates/footer.jsp"></c:import>
 		</div>
 	</div>
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
+	
+
 </body>
 </html>

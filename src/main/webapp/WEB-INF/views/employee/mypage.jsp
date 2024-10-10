@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="UTF-8">
@@ -28,19 +26,19 @@
                 			<h1>My Page</h1>
                 		</div>
 						<div class="card-body">
-							<sec:authorize access="isAuthenticated" />
-							<sec:authentication property="principal" var="vo" />
 							<div class="col-md-6 ms-auto me-auto">
-								<h3>사번: ${vo.empId}</h3>
-								<h3>이름: ${vo.empName}</h3>
-								<h3>성별: ${vo.empGender}</h3>
-								<h3>주소: ${vo.empAddress}</h3>
-								<a href="fileDown">
-								<img alt="직원 사진" src="/file/employee/${vo.employeeFileVO.fileName}">
-								</a>
+								<div class="row">
+									<div class="col">
+										<img alt="직원 사진" src="/file/employee/${vo.employeeFileVO.fileName}" style="width:300px;">
+									</div>
+									<div class="col"><h3>사번: ${vo.empId}</h3>
+										<h3>이름: ${vo.empName}</h3>
+										<h3>성별: ${vo.empGender}</h3>
+										<h3>주소: ${vo.empAddress}</h3>
+									</div>
+								</div>
 							</div>
 						</div>
-						<a href="update">내 정보 수정</a>
 					</div>
 				</div>
 			</div>

@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,15 +22,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
+import com.team2.app.employee.EmployeeVO;
 import com.team2.app.util.Pager;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
 @RequestMapping("/notice/*")
+@Slf4j
 public class NoticeController {
 	
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Value("${app.upload}")
+	private String path;
 
 	
 	@GetMapping("list")
@@ -60,7 +68,7 @@ public class NoticeController {
 		
 		Authentication authentication = context.getAuthentication();
 		
-		NoticeVO temp = (NoticeVO)authentication.getPrincipal();
+		EmployeeVO temp = (EmployeeVO)authentication.getPrincipal();
 		
 		noticeVO.setEmpNum(temp.getEmpNum());
 		
@@ -89,26 +97,27 @@ public class NoticeController {
 		return "redirect:/notice/post?noticeNum=" + noticeVO.getNoticeNum();	
 	}
 	
-	@PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
+	// summerNote 이미지 업로드 코드
+	@PostMapping(value="uploadSummernoteImageFile", produces = "application/json")
 	@ResponseBody
-	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {	
 		
 		JsonObject jsonObject = new JsonObject();
 		
-		String fileRoot = "C:\\summernote_image\\";	//저장될 외부 파일 경로
+		String fileRoot = path + "summernote/";	//저장될 외부 파일 경로
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
 		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 		
-		File targetFile = new File(fileRoot + savedFileName);	
+		File targetFile = new File(fileRoot + savedFileName);
 		
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/summernoteImage/"+savedFileName);
+			jsonObject.addProperty("url", "/file/summernote/"+savedFileName);
 			jsonObject.addProperty("responseCode", "success");
-				
+			
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");

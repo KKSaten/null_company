@@ -23,8 +23,8 @@ class EmployeeServiceTest {
 //		
 //		NoticeVO noticeVO = new NoticeVO();
 //		
-//		for(int i=100; i <= 155; i++) {
-//			noticeVO.setEmpNum("123123");
+//		for(int i=0; i <= 30; i++) {
+//			noticeVO.setEmpNum(2);
 //			noticeVO.setNoticeTitle("제목" + i);
 //			noticeVO.setNoticeContents("정보처리기사 실기까지 앞으로 2주!!");
 //			
