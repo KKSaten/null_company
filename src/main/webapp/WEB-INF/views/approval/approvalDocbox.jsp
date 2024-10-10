@@ -86,259 +86,72 @@
 												</tr>
 											</thead>
 
-											<tbody>										
-												<tr>
-													<td>
-														<!-- if문 사용해서 inProgress-approval 혹은 inProgress-ban을 가지고 있다면 -->
-											        	<div class="result-ban">
-															<i class="fas fa-times" style="color:#d9534f;"></i>												        
-											        	</div>														
-													</td>
-													<td>
-														<div style="font-weight:bold; ">Black Sheep Wall</div>
-														<div style="font-size:14px; color:gray; ">휴가신청서</div>
-													</td>
-													<td>
-														<div class="profile-container" style="display: flex; align-items: center;">
-															<!-- 프로필 사진 -->
-															<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
-																<img src="../../resources/img/profile.jpg" alt="profile photo"
-																class="navbar-brand" height="50" style="border-radius: 50%;" />
-															</a>
-															<!-- 이름 및 직급 정보 -->
-															<div class="profile-info">
-																<p class="name" style="margin: 0; font-weight: bold;">김해린</p>
-																<p class="position" style="font-size: 14px; color: gray; margin: 0;">인사팀 - 대리</p>
+											<tbody>	
+												<%-- <c:forEach items="${list}" var="list"> --%>	
+												
+													<tr>
+														<td>
+															<!-- if문 사용해서 inProgress-approval 혹은 inProgress-ban을 가지고 있다면 -->
+												        	<div class="result-ban">
+																<i class="fas fa-times" style="color:#d9534f;"></i>												        
+												        	</div>
+														</td>
+														<td>
+															<div style="font-weight:bold; ">${list.docTitle}</div>
+															<div style="font-size:14px; color:gray; ">휴가신청서</div>
+														</td>
+														<td>
+															<div class="profile-container" style="display: flex; align-items: center;">
+																<!-- 프로필 사진 -->
+																<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
+																	<img src="../../resources/img/profile.jpg" alt="profile photo"
+																	class="navbar-brand" height="50" style="border-radius: 50%;" />
+																</a>
+																<!-- 이름 및 직급 정보 -->
+																<div class="profile-info">
+																	<p class="name" style="margin: 0; font-weight: bold;">김해린</p>
+																	<p class="position" style="font-size: 14px; color: gray; margin: 0;">인사팀 - 대리</p>
+																</div>
 															</div>
-														</div>
-													</td>
-													<td style="text-align:left !important;"> 2016-07-19 </td>
-													<td>
+														</td>
+														<td style="text-align:left !important;"> 2016-07-19 </td>
+														<td>
+														
+														    <div class="approval-line">
+														    
+														        <div class="approver-group">
+														        	<div class="approver-status">
+																		<i class="fas fa-pen" style="color:#333;"></i>													        
+														        	</div>
+														        	<div class="approver">
+														        		기안
+														        	</div>
+														        </div>
+														        
+														        <div class="approver-group">
+														        	<div class="approver-status-inProgress-ban">
+																		<i class="fas fa-times" style="color:#d9534f;"></i>												        
+														        	</div>
+														        	<div class="approver">
+														        		이시우
+														        	</div>	
+														        </div>
+														        
+														        <div class="approver-group">
+														        	<div class="approver-status">
+																		<i class="fas fa-circle" style="color:#808080;"></i>											        
+														        	</div>
+														        	<div class="approver">
+														        		고경환
+														        	</div>													        
+														        </div>
+														        
+														    </div>														
+	
+														</td>
+													</tr>
 													
-													    <div class="approval-line">
-													    
-													        <div class="approver-group">
-													        	<div class="approver-status">
-																	<i class="fas fa-pen" style="color:#333;"></i>													        
-													        	</div>
-													        	<div class="approver">
-													        		기안
-													        	</div>
-													        </div>
-													        
-													        <div class="approver-group">
-													        	<div class="approver-status-inProgress-ban">
-																	<i class="fas fa-times" style="color:#d9534f;"></i>												        
-													        	</div>
-													        	<div class="approver">
-													        		이시우
-													        	</div>	
-													        </div>
-													        
-													        <div class="approver-group">
-													        	<div class="approver-status">
-																	<i class="fas fa-circle" style="color:#808080;"></i>											        
-													        	</div>
-													        	<div class="approver">
-													        		고경환
-													        	</div>													        
-													        </div>
-													        
-													    </div>														
-
-													</td>
-
-												</tr>
-												<tr>
-													<td>
-											        	<div class="result-approval">
-															<i class="fas fa-check" style="color:#5cb85c;"></i>												        
-											        	</div>													
-													</td>
-													<td>
-														<div style="font-weight:bold; ">Operation cwal</div>
-														<div style="font-size:14px; color:gray; ">출장보고서</div>
-													</td>
-													<td>
-														<div class="profile-container" style="display: flex; align-items: center;">
-															<!-- 프로필 사진 -->
-															<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
-																<img src="../../resources/img/profile.jpg" alt="profile photo"
-																class="navbar-brand" height="50" style="border-radius: 50%;" />
-															</a>
-															<!-- 이름 및 직급 정보 -->
-															<div class="profile-info">
-																<p class="name" style="margin: 0; font-weight: bold;">김해린</p>
-																<p class="position" style="font-size: 14px; color: gray; margin: 0;">인사팀 - 대리</p>
-															</div>
-														</div>
-													</td>
-													<td style="text-align:left !important;"> 2018-05-16 </td>
-													<td>
-													
-													    <div class="approval-line">
-													    
-													        <div class="approver-group">
-													        	<div class="approver-status">
-																	<i class="fas fa-pen" style="color:#333;"></i>													        
-													        	</div>
-													        	<div class="approver">
-													        		기안
-													        	</div>
-													        </div>
-													        
-													        <div class="approver-group">
-													        	<div class="approver-status-inProgress-approval">
-																	<i class="fas fa-check" style="color:#5cb85c;"></i>												        
-													        	</div>
-													        	<div class="approver">
-													        		고경환
-													        	</div>													        
-													        </div>
-													        
-													    </div>														
-
-													</td>
-
-												</tr>												
-												<tr>
-													<td>
-													
-													</td>
-													<td>
-														<div style="font-weight:bold; ">Power Overwhelming</div>
-														<div style="font-size:14px; color:gray; ">퇴사신청서</div>
-													</td>
-													<td>
-														<div class="profile-container" style="display: flex; align-items: center;">
-															<!-- 프로필 사진 -->
-															<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
-																<img src="../../resources/img/profile.jpg" alt="profile photo"
-																class="navbar-brand" height="50" style="border-radius: 50%;" />
-															</a>
-															<!-- 이름 및 직급 정보 -->
-															<div class="profile-info">
-																<p class="name" style="margin: 0; font-weight: bold;">김해린</p>
-																<p class="position" style="font-size: 14px; color: gray; margin: 0;">인사팀 - 대리</p>
-															</div>
-														</div>
-													</td>
-													<td style="text-align:left !important;"> 2018-05-16 </td>
-													<td>
-													
-													    <div class="approval-line">
-													    
-													        <div class="approver-group">
-													        	<div class="approver-status">
-																	<i class="fas fa-pen" style="color:#333;"></i>													        
-													        	</div>
-													        	<div class="approver">
-													        		기안
-													        	</div>
-													        </div>
-													        
-													        <div class="approver-group">
-													        	<div class="approver-status">
-																	<i class="fas fa-check" style="color:#5cb85c;"></i>												        
-													        	</div>
-													        	<div class="approver">
-													        		이정효
-													        	</div>													        
-													        </div>
-													        
-													        <div class="approver-group">
-													        	<div class="approver-status-inProgress">
-																	<i class="fas fa-ellipsis-h" style="color:#0275d8;"></i>											        
-													        	</div>
-													        	<div class="approver">
-													        		이시우
-													        	</div>	
-													        </div>
-													        
-													        <div class="approver-group">
-													        	<div class="approver-status">
-																	<i class="fas fa-circle" style="color:#808080;"></i>											        
-													        	</div>
-													        	<div class="approver">
-													        		고경환
-													        	</div>													        
-													        </div>
-													        
-													    </div>														
-
-													</td>
-
-												</tr>
-												<tr>
-													<td>
-											        	<div class="result-ban">
-															<i class="fas fa-times" style="color:#d9534f;"></i>												        
-											        	</div>													
-													</td>
-													<td>
-														<div style="font-weight:bold; ">Show me the money</div>
-														<div style="font-size:14px; color:gray; ">지출결의서</div>
-													</td>
-
-													<td>
-														<div class="profile-container" style="display: flex; align-items: center;">
-															<!-- 프로필 사진 -->
-															<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
-																<img src="../../resources/img/profile.jpg" alt="profile photo"
-																class="navbar-brand" height="50" style="border-radius: 50%;" />
-															</a>
-															<!-- 이름 및 직급 정보 -->
-															<div class="profile-info">
-																<p class="name" style="margin: 0; font-weight: bold;">김해린</p>
-																<p class="position" style="font-size: 14px; color: gray; margin: 0;">인사팀 - 대리</p>
-															</div>
-														</div>
-													</td>
-													<td style="text-align:left !important;"> 2024-10-04 </td>
-													<td>
-													
-													    <div class="approval-line">
-													    
-													        <div class="approver-group">
-													        	<div class="approver-status">
-																	<i class="fas fa-pen" style="color:#333;"></i>													        
-													        	</div>
-													        	<div class="approver">
-													        		기안
-													        	</div>
-													        </div>
-													        
-													        <div class="approver-group">
-													        	<div class="approver-status">
-																	<i class="fas fa-check" style="color:#5cb85c;"></i>												        
-													        	</div>
-													        	<div class="approver">
-													        		이정효
-													        	</div>													        
-													        </div>
-													        
-													        <div class="approver-group">
-													        	<div class="approver-status-inProgress-ban">
-																	<i class="fas fa-times" style="color:#d9534f;"></i>												        
-													        	</div>
-													        	<div class="approver">
-													        		이시우
-													        	</div>
-													        </div>
-													        
-													        <div class="approver-group">
-													        	<div class="approver-status">
-																	<i class="fas fa-circle" style="color:#808080;"></i>											        
-													        	</div>
-													        	<div class="approver">
-													        		고경환
-													        	</div>														        
-													        </div>
-													        
-													    </div>														
-
-													</td>	
-												</tr>
+												<%-- </c:forEach>	 --%>																		
 
 											</tbody>
 										</table>

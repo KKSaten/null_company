@@ -6,11 +6,26 @@
 
 <mapper namespace="com.team2.app.approval.ApprovalMapper">
 	
-	<select id="getList" parameterType="EmployeeVO" resultType="ApprovalDocVO">
-		
+	<select id="getList" parameterType="EmployeeVO" resultType="ApprDocVO">
+	    SELECT A.*, T.TEMPLATE_NAME 
+	    FROM
+	    	APPROVAL_DOCBOX A
+	    	JOIN
+	    	DOC_TEMPLATE T
+	    	ON A.DOC_TEMPLATECODE = T.DOC_TEMPLATECODE
+	    WHERE A.DOC_WRITER = #{empNum}
 	</select>
-
-
-
+		
+	<select id="getApprLine" parameterType="ApprDocVO" resultType="ApprLineVO">
+		SELECT * FROM APPROVAL_LINE
+		WHERE DOC_NUM = {#docNum}
+	</select>
+	
+	<select id="getApprHistory" parameterType="ApprDocVO" resultType="ApprHistoryVO">
+		SELECT * FROM APPROVAL_HISTORY
+		WHERE DOC_NUM = {#docNum}
+	</select>		
+	
+	
 
 </mapper>

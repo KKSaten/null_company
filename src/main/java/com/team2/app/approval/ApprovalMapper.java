@@ -9,8 +9,10 @@ import com.team2.app.employee.EmployeeVO;
 @Mapper
 public interface ApprovalMapper {
 	
-	public List<ApprovalDocVO> getList(EmployeeVO empVO) throws Exception;
+	public List<ApprDocVO> getList(EmployeeVO empVO) throws Exception;
 	
+	public ApprLineVO getApprLine(ApprDocVO apprVO) throws Exception;
 	
+	public ApprHistoryVO getApprHistory(ApprDocVO apprVO) throws Exception;
 	
 }

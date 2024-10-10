@@ -17,12 +17,18 @@ public class ApprovalService {
 		
 	}
 	
-	public List<ApprovalDocVO> getList(EmployeeVO empVO) throws Exception {
-		return approvalMapper.getList(empVO);
-	}
 	
 	public void approvalReceivedbox() throws Exception {
 		
 	}
+	
+	public List<ApprDocVO> getList(EmployeeVO empVO) throws Exception {
+		return approvalMapper.getList(empVO);
+	}
+	
+	
+	
+	
+	
 	
 }
