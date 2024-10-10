@@ -56,63 +56,49 @@
 
 
 						<div class="col-md-12">
-							<div class="card">
-										<div class="card-header">
-											<div class="d-flex align-items-center">
-										<h4 class="card-title ">근태관리(관리자)</h4>
-										<div class="ms-auto">
-										<a href="/commute/update">
-										<button class="btn btn-primary btn-round ms-auto">
-											근태 관리 수정
-										</button>
-										</a>
-										</div>
-									</div>
-										</div>
-										<div class="card-body">
-											<table
-                        id="add-row"
-                        class="display table table-striped table-hover"
-                      >
-                        <thead>
-                          <tr>
-                          	<th>사원번호</th>
-                            <th>사원이름</th>
-                            <th>출근시간</th>
-                            <th>퇴근시간</th>
-                            <th style="width: 10%">출근/퇴근/결근</th>
-                          </tr>
-                        </thead>
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex align-items-center">
+                <h4 class="card-title">근태관리(관리자)</h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="add-row" class="display table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>사원번호</th>
+                        <th>사원이름</th>
+                        <th>출근시간</th>
+                        <th>퇴근시간</th>
+                        <th style="width: 20%">출근/퇴근/결근</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${list}" var="vo">
+                        <tr>
+                            <td>${vo.empNum}</td>
+                            <td>${vo.empName}</td>
+                            <td>${vo.formattedCommuteInTime}</td>
+                            <td>${vo.formattedCommuteOutTime}</td>
+                            <td>
+                                <form action="/commute/update" method="post">
+                                    <input type="hidden" name="empNum" value="${vo.empNum}" />
+                                    <select name="commuteStatus">
+                                        <option value="1" ${vo.commuteStatus == 1 ? 'selected' : ''}>출근</option>
+                                        <option value="2" ${vo.commuteStatus == 2 ? 'selected' : ''}>퇴근</option>
+                                        <option value="0" ${vo.commuteStatus == 0 ? 'selected' : ''}>결근</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm">저장</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-                        <tbody>
-                        <c:forEach items="${list}" var="vo">
-                         <tr>
-						        <td>${vo.empNum}</td>
-						        <td>${vo.empName}</td>
-						        <td>${vo.formattedCommuteInTime}</td>
-						        <td>${vo.formattedCommuteOutTime}</td>
-						        <td>
-						            <c:choose>
-						                <c:when test="${vo.commuteStatus == 1}">
-						                  <div style="color: blue;font-weight: bold;">출근</div>
-						                </c:when>
-						                  <c:when test="${vo.commuteStatus == 2}">
-						                  <div style="color: red;font-weight: bold;">퇴근</div>
-						                </c:when>
-						               <c:when test="${vo.commuteStatus == null || vo.commuteStatus == 0}">
-						                  <div style="color: orange;font-weight: bold;">결근</div>
-						                </c:when>
-						            </c:choose>
-						        </td>
-						    </tr>
-                          </c:forEach>
-                        </tbody>
-                      </table>
-
-
-										</div>
-									</div>
-						</div>
 					</div>
 					
 			
