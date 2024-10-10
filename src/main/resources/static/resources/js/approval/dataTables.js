@@ -12852,9 +12852,9 @@
 						// Determine if the next click will remove sorting or change the sort
 						ariaType = ! sortOrder[firstSort.index + 1] ? 'Remove' : 'Reverse';
 					}
-					else {
+/*					else {
 						cell.removeAttr('aria-sort');
-					}
+					}*/
 	
 					cell.attr('aria-label', orderable
 						? col.ariaTitle + ctx.api.i18n('oAria.orderable' + ariaType)

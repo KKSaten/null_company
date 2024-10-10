@@ -20,20 +20,26 @@ public class CommuteService {
 		public List<CommuteVO> userList(CommuteVO commuteVO) throws Exception {
 			return commuteMapper.userList(commuteVO);
 		}
-		 public int checkIn(CommuteVO commuteVO) throws Exception {
-			 return commuteMapper.checkIn(commuteVO); 
-		    }
+		public int checkIn(CommuteVO commuteVO) throws Exception {
+			return commuteMapper.checkIn(commuteVO); 
+		}
 
-		 public int checkOut(CommuteVO commuteVO) throws Exception {
-		    	return commuteMapper.checkOut(commuteVO);
-		    }
+		public int checkOut(CommuteVO commuteVO) throws Exception {
+		    return commuteMapper.checkOut(commuteVO);
+		}
 		    
-		 public boolean canCheckIn(CommuteVO commuteVO) throws Exception {
-			    return commuteMapper.checkTodayCheckIn(commuteVO) == 0;
-			}
+		public boolean canCheckIn(CommuteVO commuteVO) throws Exception {
+		    return commuteMapper.checkTodayCheckIn(commuteVO) == 0;
+		}
 
-			public boolean canCheckOut(CommuteVO commuteVO) throws Exception {
-			    return commuteMapper.checkTodayCheckOut(commuteVO) == 1;
-			}   
+		public boolean canCheckOut(CommuteVO commuteVO) throws Exception {
+			return commuteMapper.checkTodayCheckOut(commuteVO) == 1;
+		}   
+		
+		public Object update(Integer empNum, Integer commuteStatus) {
+			return commuteMapper.update(empNum,commuteStatus); 
+			
+		}
+		
 		    
 }

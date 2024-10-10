@@ -18,4 +18,6 @@ public interface NoticeMapper {
 	int writePost(NoticeVO noticeVO) throws Exception;
 	
 	int modifyPost(NoticeVO noticeVO) throws Exception;
+	
+	int saveFile(NoticeFileVO noticeFileVO) throws Exception;
 }

@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import lombok.Data;
 
 @Data
-public class ApprovalDocBoxVO {
+public class ApprovalDocVO {
 	
 	private Long docNum;
 	private Integer docWriter;

@@ -58,7 +58,9 @@
 						<div class="col-md-12">
 							<div class="card">
 										<div class="card-header">
-											<div class="card-title">근태관리 (사용자)</div>
+										 <c:forEach items="${userList}" var="vo">
+											<div class="card-title">근태관리 - ${vo.empName}  </div>
+											</c:forEach>
 										</div>
 										<div class="card-body">
 											<table
@@ -80,16 +82,19 @@
                          <tr>
 						        <td>${vo.empNum}</td>
 						        <td>${vo.empName}</td>
-						        <td>${vo.commuteInTime}</td>
-						        <td>${vo.commuteOutTime}</td>
+						        <td>${vo.formattedCommuteInTime}</td>
+						        <td>${vo.formattedCommuteOutTime}</td>
 						        <td>
 						            <c:choose>
-						                <c:when test="${vo.commuteStatus == true}">
+						                <c:when test="${vo.commuteStatus == 1}">
 						                  <div style="color: blue;font-weight: bold;">출근</div>
 						                </c:when>
-						                <c:otherwise>
-						                   <div  style="color: red;font-weight: bold;" >퇴근</div>
-						                </c:otherwise>
+						                  <c:when test="${vo.commuteStatus == 2}">
+						                  <div style="color: red;font-weight: bold;">퇴근</div>
+						                </c:when>
+						               <c:when test="${vo.commuteStatus == null}">
+						                  <div style="color: orange;font-weight: bold;">결근</div>
+						                </c:when>
 						            </c:choose>
 						        </td>
 						    </tr>

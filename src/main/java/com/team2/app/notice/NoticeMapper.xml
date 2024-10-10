@@ -16,12 +16,29 @@
 		SELECT COUNT(NOTICE_NUM) FROM NOTICE_BOARD
 	</select>
 	
-	<select id="getPost" resultType="NoticeVO" parameterType="NoticeVO">
-		SELECT * FROM NOTICE_BOARD
-		WHERE NOTICE_NUM = #{noticeNum}
+	<select id="getPost" resultMap="getPostFile" parameterType="NoticeVO">
+		SELECT * FROM NOTICE_BOARD NB
+			LEFT JOIN NOTICE_FILE NF 
+				ON (NB.NOTICE_NUM = NF.NOTICE_NUM)
+		WHERE NB.NOTICE_NUM = #{noticeNum}
 	</select>
 	
-	<insert id="writePost" parameterType="NoticeVO">
+	<resultMap type="NoticeVO" id="getPostFile">
+		<id column="NOTICE_NUM" property="noticeNum"></id>
+		<result column="EMP_NUM" property="empNum"></result>
+		<result column="NOTICE_TITLE" property="noticeTitle"></result>
+		<result column="NOTICE_CONTENTS" property="noticeContents"></result>
+		<result column="NOTICE_HIT" property="noticeHit"></result>
+		<result column="NOTICE_DATE" property="noticeDate"></result>
+		
+		<collection property="list" javaType="java.util.List" ofType="NoticeFileVO">
+			<id column="FILE_NUM" property="fileNum"></id>
+			<result column="FILE_NAME" property="fileName"></result>
+			<result column="ORI_NAME" property="oriName"></result>
+		</collection>
+	</resultMap>
+	
+	<insert id="writePost" parameterType="NoticeVO" useGeneratedKeys="true" keyProperty="noticeNum">
 		INSERT INTO NOTICE_BOARD
 			(NOTICE_NUM, EMP_NUM, NOTICE_TITLE, NOTICE_CONTENTS, NOTICE_HIT, NOTICE_DATE)
 		VALUES
@@ -33,5 +50,12 @@
 			SET NOTICE_TITLE= #{noticeTitle}, NOTICE_CONTENTS= #{noticeContents} 
 		WHERE NOTICE_NUM = #{noticeNum}
 	</update>
+	
+	<insert id="saveFile" parameterType="NoticeFileVO">
+		INSERT INTO NOTICE_FILE
+			(NOTICE_NUM, FILE_NAME, ORI_NAME)
+		VALUES
+			(#{noticeNum}, #{fileName}, #{oriName})
+	</insert>
 
 </mapper>

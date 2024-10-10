@@ -29,20 +29,23 @@
 			<div class="container custom-list1">
 				<div class="page-inner">
 					<div class="card">
-						<div class="card-header">
-							<div class="card-title custom-list2">
-								<ul>
-									<li class="no_dot">공지사항 작성</li>
-								</ul>
-							</div>
-						</div>
 						<form action="/notice/write" method="post" enctype="multipart/form-data">
-							<div class="card-body">
-								<div class="input-group mb-6 custom-write1">
-									<span class="input-group-text custom-write2" id="basic-addon3">제목</span>
+							<div class="card-header">
+								<div class="card-title custom-list2">
+									<ul>
+										<li class="no_dot">공지사항 작성</li>
+									</ul>
+								</div>
+								<div class="input-group mb-3 custom-write1 custom-write3">
+									<span class="input-group-text" id="basic-addon3">제목</span>
 									<input type="text" class="form-control" id="basic-url"
 										name="noticeTitle" aria-describedby="basic-addon3">
 								</div>
+								<div class="input-group mb-6 custom-write1 custom-write3">
+									<input type="file" class="form-control" id="attach" name="attach">
+								</div>
+							</div>
+							<div class="card-body">
 								<div class="card-body">
 									<div class="input-group mb-6 custom-write1">
 										<textarea class="form-control custom-write3" id="summernote"

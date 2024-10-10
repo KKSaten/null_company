@@ -18,8 +18,8 @@ public class EmployeeMapperTest {
     @Test
     void test() throws Exception{
             EmployeeVO employeeVO = new EmployeeVO();
-            employeeVO.setEmpId("123");
-            employeeVO.setEmpPwd(passwordEncoder.encode("123"));
+            employeeVO.setEmpId("rlagofls0824");
+            employeeVO.setEmpPwd(passwordEncoder.encode("0824"));
             employeeMapper.chpass(employeeVO);
     }
     

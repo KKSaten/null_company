@@ -11,14 +11,19 @@ public class VacationController {
 	@Autowired
 	private VacationService vacationService;
 	
+	//사용자 휴가 신청
 	@GetMapping("myVacation")
 	public void myVacation() throws Exception{
 		
 	}
+	
+	//전체 사원 잔여 휴가 리스트
 	@GetMapping("list")
 	public void list() throws Exception{
 		
 	}
+	
+	//관리자 휴가 신청 내역 리스트
 	@GetMapping("listDetail")
 	public void listDetail() throws Exception{
 		
