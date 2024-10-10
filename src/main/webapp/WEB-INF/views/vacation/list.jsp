@@ -58,7 +58,12 @@
 						<div class="col-md-12">
 							<div class="card">
 										<div class="card-header">
-											<div class="card-title">휴가 보유/사용현황</div>
+											<div class="d-flex align-items-center">
+										<h4 class="card-title">휴가 보유/사용현황</h4>
+										<button class="btn btn-primary btn-round ms-auto">
+											휴가 신청 
+										</button>
+									</div>
 										</div>
 										<div class="card-body">
 											<table class="table table-hover">
