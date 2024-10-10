@@ -7,5 +7,5 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script type="text/javascript" src="/resources/js/approval/dataTables.js"></script>
 	
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> 이거 쓰면 왜 사이드바 막히지;;-->
 	<script type="text/javascript" src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
