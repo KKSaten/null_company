@@ -46,7 +46,7 @@
 							<div class="col-md-6 ms-auto me-auto">
 								<form method="post" enctype="multipart/form-data">
 
-									<div class="input-icon blank">
+									<div class="input-icon blank ">
 										<span class="input-icon-addon"> <i
 											class="fas fa-id-card-alt"></i>
 										</span> <input type="text" class="form-control" id="empId"
