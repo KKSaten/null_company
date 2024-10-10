@@ -3,8 +3,11 @@ package com.team2.app.notice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.team2.app.util.FileManager;
 import com.team2.app.util.Pager;
 
 @Service
@@ -12,6 +15,12 @@ public class NoticeService {
 	
 	@Autowired
 	private NoticeMapper noticeMapper;
+	
+	@Autowired
+	private FileManager fileManager;
+	
+	@Value("${app.upload}")
+	private String path;
 	
 	
 	
@@ -36,9 +45,24 @@ public class NoticeService {
 		return noticeMapper.getPost(noticeVO);
 	}
 	
-	public int writePost(NoticeVO noticeVO) throws Exception{
+	public int writePost(NoticeVO noticeVO, MultipartFile attach) throws Exception{
 		
-		return noticeMapper.writePost(noticeVO);
+		int result = noticeMapper.writePost(noticeVO);
+		
+		if(attach != null) {
+			
+			String fileName = fileManager.fileSave(path + "notice/", attach);
+			
+			NoticeFileVO noticeFileVO = new NoticeFileVO();
+			
+			noticeFileVO.setNoticeNum(noticeVO.getNoticeNum());
+			noticeFileVO.setFileName(fileName);
+			noticeFileVO.setOriName(attach.getOriginalFilename());
+			
+			result = noticeMapper.saveFile(noticeFileVO);
+		}
+		
+		return result;
 	}
 	
 	public int modifyPost(NoticeVO noticeVO) throws Exception{
