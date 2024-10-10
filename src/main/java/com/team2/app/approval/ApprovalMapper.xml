@@ -5,7 +5,10 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.app.approval.ApprovalMapper">
-
+	
+	<select id="getList" parameterType="EmployeeVO" resultType="ApprovalDocVO">
+		
+	</select>
 
 
 

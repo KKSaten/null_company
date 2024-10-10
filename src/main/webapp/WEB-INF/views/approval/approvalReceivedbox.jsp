@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="/resources/css/apprLine.css" />
 
 	
-	<title>결재함</title>
+	<title>수신함</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -44,13 +44,13 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="/approval/approvalDocbox">결재함</a>
+								<a href="/approval/approvalReceivedbox">수신함</a>
 							</li>
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="/approval/approvalDocbox">??</a>
+								<a href="/approval/approvalReceivedbox">??</a>
 							</li>
 						</ul>
 					</div>
@@ -64,11 +64,11 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">결재함</h4>
+										<h4 class="card-title">수신함</h4>
 										<button class="btn btn-light btn-border ms-auto"
 											style="border: 1px solid #cccccc;"
-											onclick="location.href='/approval/approvalDocbox'">
-											결재함 전체 문서
+											onclick="location.href='/approval/approvalReceivedbox'">
+											수신함 전체 문서
 										</button>										
 									</div>
 								</div>
