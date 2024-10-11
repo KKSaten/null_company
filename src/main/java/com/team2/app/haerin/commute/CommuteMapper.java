@@ -24,7 +24,7 @@ public interface CommuteMapper {
 	
 	public Object absent(CommuteVO commuteVO)throws Exception;
 	
-	public Object absentUpdate(CommuteVO commuteVO)throws Exception;
+	public int absentUpdate(CommuteVO commuteVO)throws Exception;
 
 	
 }
