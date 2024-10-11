@@ -22,6 +22,7 @@ public class FileManager {
 			file.mkdirs();
 		}
 		
+		
 		//저장할 파일명 생성
 		String fileName = UUID.randomUUID().toString()+"_"+attach.getOriginalFilename();
 		

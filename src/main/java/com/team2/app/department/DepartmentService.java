@@ -14,5 +14,31 @@ public class DepartmentService {
 	public List<DepartmentVO> getList () throws Exception {
 		return departmentMapper.getList();
 	}
+	
+	public int add(DepartmentVO departmentVO) throws Exception {
+		
+		DepartmentVO vo =  departmentMapper.checkName(departmentVO);
+		
+		if(vo == null) {
+			return 0;
+		}
+		
+		return departmentMapper.add(departmentVO);
+	}
+	
+	public DepartmentVO detail(DepartmentVO departmentVO) throws Exception {
+		return departmentMapper.detail(departmentVO);
+	}
+	
+	public int update(DepartmentVO departmentVO) throws Exception {
+		
+DepartmentVO vo =  departmentMapper.checkName(departmentVO);
+		
+		if(vo == null) {
+			return 0;
+		}
+		
+		return departmentMapper.update(departmentVO);
+	}
 
 }

@@ -31,19 +31,23 @@
 							<div class="col-md-6 ms-auto me-auto">
 								<table class="table mt-4">
 									<thead>
-										<tr>
+										<tr align="center">
 											<th scope="col">순번</th>
 											<th scope="col">부서 번호</th>
 											<th scope="col">부서 이름</th>
+											<th scope="col"></th>
+											<th scope="col"></th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${list}" var="list" varStatus="status">
-												<tr style="cursor:pointer;">
-													<td>${status.index+1}</td>
-													<td>${list.deptNum}</td>
-													<td>${list.deptName}</td>
-												</tr>
+											<tr align="center">
+												<td>${status.index+1}</td>
+												<td>${list.deptNum}</td>
+												<td><input type="text" value="${list.deptName} " /></td>
+												<td><a href="update?deptNum=${list.deptNum}"><i class="fas fa-edit"/></a></td>
+												<td><a href="delete?deptNum=${list.deptNum}"><i class="fas fa-eraser"/></a></td>
+											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
@@ -59,7 +63,7 @@
 	</div>
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
-	
+
 
 </body>
 </html>

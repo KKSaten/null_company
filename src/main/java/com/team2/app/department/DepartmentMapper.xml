@@ -11,5 +11,28 @@
   		FROM DEPARTMENT
 		ORDER BY DEPT_NUM ASC
   	</select>
+  	
+  	<insert id="add" parameterType="DepartmentVO">
+  		INSERT INTO DEPARTMENT (DEPT_NUM, DEPT_NAME)
+  		VALUES (NULL, #{deptName})
+  	</insert>
+  	
+  	<select id="checkName" parameterType="DepartmentVO" resultType="DepartmentVO">
+  		SELECT *
+  		FROM DEPARTMENT
+  		WHERE DEPT_NAME = #{deptName}
+  	</select>
+  	
+  	<select id="detail" parameterType="DepartmentVO" resultType="DepartmentVO">
+  		SELECT *
+  		FROM DEPARTMENT
+  		WHERE DEPT_NUM = #{deptNum}
+  	</select>
+  	
+  	<update id="update" parameterType="DepartmentVO">
+  		UPDATE DEPARTMENT
+  		SET DEPT_NAME=#{deptName}
+  		WHERE DEPT_NUM = #{deptNum}
+  	</update>
   
   </mapper>

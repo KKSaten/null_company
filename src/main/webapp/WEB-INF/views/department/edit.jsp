@@ -23,11 +23,20 @@
 				<div class="page-inner">
 					<div class="card">
 						<div class="card-header">
-							<h1>부서 추가</h1>
+							<h1>부서 ${vo eq null?'추가':'수정'}</h1>
 						</div>
 						<div class="card-body">
 							<div class="col-md-6 ms-auto me-auto">
-								
+								<form action="${vo eq null?'add':'update'}" method="post">
+									<div class="form-floating form-floating-custom mb-3">
+										<input type="text" class="form-control" id="deptName"
+											placeholder="" name="deptName" value="${vo.deptName}"/> <label
+											for="deptName">부서명</label>
+									</div>
+									
+									<button class="btn btn-primary">${vo eq null?'추가':'수정'}</button>
+									
+								</form>
 							</div>
 						</div>
 					</div>
