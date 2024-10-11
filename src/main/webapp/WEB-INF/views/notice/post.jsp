@@ -49,6 +49,22 @@
 							<a href="/notice/modify?noticeNum=${noticeVO.noticeNum }">수정하기</a>
 						</div>
 					</div>
+					<div class="card">
+						<div class="card-header">
+							<div class="card-title">
+								<ul>
+									<li class="no_dot">댓글</li>
+								</ul>
+							</div>
+							<div>
+								<textarea class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="card-body">
+						</div>
+					</div>
+					
+					
 
 				</div>
 			</div>

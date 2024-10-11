@@ -25,5 +25,12 @@ public class CommentController {
 		
 		model.addAttribute("list", list);
 	}
+	
+	
+	public void writeComment(CommentVO commentVO) throws Exception{
+		
+		int result = commentService.writeComment(commentVO);
+		
+	}
 
 }
