@@ -7,9 +7,10 @@
 <mapper namespace="com.team2.app.haerin.commute.CommuteMapper">
 
 	<select id="checkList" resultType="CommuteVO">
-			 SELECT C.EMP_NUM, E.EMP_NAME, C.COMMUTE_INTIME, C.COMMUTE_OUTTIME, C.COMMUTE_STATUS
-			FROM  COMMUTE C
-			LEFT JOIN  EMPLOYEE E ON C.EMP_NUM = E.EMP_NUM;
+			SELECT C.EMP_NUM, E.EMP_NAME, C.COMMUTE_INTIME, C.COMMUTE_OUTTIME, C.COMMUTE_STATUS
+			FROM COMMUTE C
+			LEFT JOIN EMPLOYEE E ON C.EMP_NUM = E.EMP_NUM
+			ORDER BY C.COMMUTE_INTIME DESC;
 	</select>
 
 	<select id="userList" resultType="CommuteVO"
@@ -56,9 +57,15 @@
 	</update>
 	
 	
-	<select id="absent" resultType="CommuteVO">
-	</select>
-	<update id="absentUpdate">
+	
+	
+	
+	<update id="absentUpdate"  >
+	INSERT INTO COMMUTE (EMP_NUM, COMMUTE_INTIME, COMMUTE_OUTTIME, COMMUTE_STATUS)
+	SELECT E.EMP_NUM, NOW(), NULL , NULL 
+	FROM EMPLOYEE E
+	LEFT JOIN COMMUTE C ON E.EMP_NUM = C.EMP_NUM
+	WHERE DATE(C.COMMUTE_INTIME) IS NULL OR DATE(C.COMMUTE_INTIME) != CURRENT_DATE
 	</update>
 
 
