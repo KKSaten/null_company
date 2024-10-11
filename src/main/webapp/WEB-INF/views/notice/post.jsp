@@ -51,16 +51,24 @@
 					</div>
 					<div class="card">
 						<div class="card-header">
-							<div class="card-title">
-								<ul>
-									<li class="no_dot">댓글</li>
-								</ul>
-							</div>
-							<div>
-								<textarea class="form-control"></textarea>
-							</div>
+							<form method="post">
+								<div class="card-title">
+									<ul>
+										<li class="no_dot"><i class="far fa-comment-dots"></i> 댓글</li>
+									</ul>
+								</div>
+								<div>
+									<textarea class="form-control" name="commentContents"
+										id="commentContents"></textarea>
+								</div>
+								<br>
+								<div class="container text-end">
+									<button type="button" class="btn btn-black" id="commentBtn">등록</button>
+								</div>
+							</form>
 						</div>
-						<div class="card-body">
+
+						<div class="card-body" id="commentDiv" data-notice-num="${noticeVO.noticeNum }">
 						</div>
 					</div>
 					
@@ -74,5 +82,6 @@
 	</div>
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
+	<script src="/resources/js/notice/comment.js"></script>
 </body>
 </html>

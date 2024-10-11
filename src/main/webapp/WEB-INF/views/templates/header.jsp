@@ -49,6 +49,13 @@
     	.custom-write3 {margin-left: 15px}
     	.custom-page1 {margin-right: 15px}
     	.custom-page2 {margin-left: 15px}
+    	.commentLine {color: gray !important}
+    	.custom-comment1 {margin-top: 15px !important}
+    	.custom-comment2 {font-size:12px !important}
+    	.custom-comment2 {color: gray !important}
+    	.custom-comment2 {margin-bottom: 25px !important}
+    	.custom-comment3 {font-size:16px !important}
+    	.custom-comment3 {font-weight: bold !important}
 
     </style>
 
