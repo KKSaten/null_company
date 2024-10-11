@@ -53,8 +53,25 @@ public class DepartmentController {
 	}
 	
 	@PostMapping("update")
-	public void update (DepartmentVO departmentVO) throws Exception {
-		departmentService.update(departmentVO);
+	public String update (DepartmentVO departmentVO) throws Exception {
+		
+		
+		int result = departmentService.update(departmentVO);
+		
+		log.info("부서 수정 {}", result);
+		
+		if(result==1) {
+			return "redirect:/department/list";
+		} else {
+			return "department/edit";
+		}
+	}
+	
+	@GetMapping("delete")
+	public void delete (DepartmentVO departmentVO) throws Exception {
+		
+		int result = departmentService.delete(departmentVO);
+		
 	}
 	
 }

@@ -31,8 +31,16 @@
   	
   	<update id="update" parameterType="DepartmentVO">
   		UPDATE DEPARTMENT
-  		SET DEPT_NAME=#{deptName}
+  		SET DEPT_NAME = #{deptName}
   		WHERE DEPT_NUM = #{deptNum}
   	</update>
+  	
+  	<select id="check" parameterType="com.team2.app.employee.EmployeeVO" resultType="com.team2.app.employee.EmployeeVO">
+  		SELECT *
+  		FROM EMPLOYEE
+  		WHERE DEPT_NUM=#{deptNum}
+  	</select>
+  	
+  	
   
   </mapper>

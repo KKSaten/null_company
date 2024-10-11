@@ -103,13 +103,7 @@ public class EmployeeService implements UserDetailsService {
 			
 			//직원 사진 저장
 			
-			if(attach.isEmpty()) {
-				
-				
-			}
-			
 			String fileName = fileManager.fileSave(path+"employee/", attach);
-			
 			EmployeeFileVO fileVO = new EmployeeFileVO();
 			
 			fileVO.setEmpNum(employeeVO.getEmpNum());

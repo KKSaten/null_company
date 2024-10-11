@@ -35,8 +35,8 @@
 											<th scope="col">순번</th>
 											<th scope="col">부서 번호</th>
 											<th scope="col">부서 이름</th>
-											<th scope="col"></th>
-											<th scope="col"></th>
+											<th scope="col">수정</th>
+											<th scope="col">사용여부</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -44,7 +44,7 @@
 											<tr align="center">
 												<td>${status.index+1}</td>
 												<td>${list.deptNum}</td>
-												<td><input type="text" value="${list.deptName} " /></td>
+												<td>${list.deptName}</td>
 												<td><a href="update?deptNum=${list.deptNum}"><i class="fas fa-edit"/></a></td>
 												<td><a href="delete?deptNum=${list.deptNum}"><i class="fas fa-eraser"/></a></td>
 											</tr>
