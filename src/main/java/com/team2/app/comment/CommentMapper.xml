@@ -12,11 +12,16 @@
 		ORDER BY COMMENT_NUM ASC
 	</select>
 	
-	<insert id="writeComment" parameterType="commentVO">
+	<insert id="writeComment" parameterType="CommentVO">
 		INSERT INTO COMMENT
 			(COMMENT_NUM, NOTICE_NUM, EMP_NUM, COMMENT_CONTENTS, COMMENT_DATE)
 		VALUES
 			(NULL, #{noticeNum}, #{empNum}, #{commentContents}, now())
 	</insert>
+	
+	<update id="deleteComment" parameterType="CommentVO">
+		UPDATE COMMENT SET COMMENT_DEL = 1 
+		WHERE COMMENT_NUM = #{commentNum}
+	</update>
 
 </mapper>

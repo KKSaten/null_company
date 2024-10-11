@@ -1,8 +1,5 @@
 package com.team2.app.comment;
 
-
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 @Data

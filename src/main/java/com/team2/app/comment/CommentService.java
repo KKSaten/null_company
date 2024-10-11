@@ -22,4 +22,9 @@ public class CommentService {
 		
 		return commentMapper.writeComment(commentVO);
 	}
+	
+	public int deleteComment(CommentVO commentVO) throws Exception{
+		
+		return commentMapper.deleteComment(commentVO);
+	}
 }

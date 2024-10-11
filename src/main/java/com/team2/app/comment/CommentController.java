@@ -48,8 +48,17 @@ public class CommentController {
 		
 		model.addAttribute("result", result);
 		
-		return "commons/result";
+		return "commons/result";	
+	}
+	
+	@PostMapping("delete")
+	public String deleteComment(CommentVO commentVO, Model model) throws Exception{
 		
+		int result = commentService.deleteComment(commentVO);
+		
+		model.addAttribute("result", result);
+		
+		return "commons/result";
 	}
 
 }
