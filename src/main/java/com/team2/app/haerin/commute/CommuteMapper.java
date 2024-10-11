@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CommuteMapper {
-	// 관리자 근태 리스트
+	//관리자 근태 리스트
 	public List<CommuteVO> checkList()throws Exception;
 	//사용자 근태 리스트
 	public List<CommuteVO> userList(CommuteVO commuteVO)throws Exception;
@@ -16,12 +16,15 @@ public interface CommuteMapper {
 	//퇴근
 	public int checkOut(CommuteVO commuteVO) throws Exception;
 	//
-	public int checkTodayCheckIn(CommuteVO commuteVO);
+	public int checkTodayCheckIn(CommuteVO commuteVO) throws Exception;
 	//
-	public int checkTodayCheckOut(CommuteVO commuteVO);
+	public int checkTodayCheckOut(CommuteVO commuteVO)throws Exception;
+	//관리자 근태 관리 수정
+	public int update(Integer empNum, Integer commuteStatus)throws Exception;
 	
+	public Object absent(CommuteVO commuteVO)throws Exception;
 	
-	public int update(Integer empNum, Integer commuteStatus);
-	
+	public Object absentUpdate(CommuteVO commuteVO)throws Exception;
+
 	
 }

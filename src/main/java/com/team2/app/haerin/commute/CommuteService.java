@@ -36,10 +36,16 @@ public class CommuteService {
 			return commuteMapper.checkTodayCheckOut(commuteVO) == 1;
 		}   
 		
-		public Object update(Integer empNum, Integer commuteStatus) {
+		public Object update(Integer empNum, Integer commuteStatus)throws Exception {
 			return commuteMapper.update(empNum,commuteStatus); 
 			
 		}
 		
+		public Object absent(CommuteVO commuteVO) throws Exception {
+			return commuteMapper.absent(commuteVO);
+		}
+		public Object absentUpdate(CommuteVO commuteVO) throws Exception {
+			return commuteMapper.absentUpdate(commuteVO);
+		}
 		    
 }
