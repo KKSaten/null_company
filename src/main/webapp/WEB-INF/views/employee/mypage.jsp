@@ -21,20 +21,79 @@
 
 			<div class="container">
 				<div class="page-inner">
-					<div class="card">
-                		<div class="card-header">
-                			<h1>My Page</h1>
-                		</div>
-						<div class="card-body">
-							<div class="col-md-6 ms-auto me-auto">
-								<div class="row">
-									<div class="col">
-										<img alt="직원 사진" src="/file/employee/${vo.employeeFileVO.fileName}" style="width:300px;">
+					<div class="row">
+						<div class="col-md-6 ms-auto me-auto">
+							<div class="card card-profile">
+								<div class="card-header"
+									style="background-image: url('/file/employee/default/bg_profile.jpg')">
+									<div class="profile-picture">
+										<div class="avatar avatar-xxl">
+											<img src="/file/employee/${vo.employeeFileVO.fileName}"
+												alt="직원사진" class="avatar-img rounded-circle" />
+										</div>
 									</div>
-									<div class="col"><h3>사번: ${vo.empId}</h3>
-										<h3>이름: ${vo.empName}</h3>
-										<h3>성별: ${vo.empGender}</h3>
-										<h3>주소: ${vo.empAddress}</h3>
+								</div>
+								<div class="card-body">
+									<div class="user-profile text-center">
+										<div class="name" style="font-size: x-large; font-weight: bold;">사번: ${vo.empId}</div>
+										<div class="name" style="font-size: large;">이름: ${vo.empName}</div>
+										<div class="name" style="font-size: large;">주소: ${vo.empAddress}</div>
+									</div>
+									<div class="view-profile" style="margin-top: 30px;">
+										<div class="row">
+											<div class="col-6">
+												<a href="/employee/update" class="btn btn-secondary w-100"> 정보 수정</a>
+											</div>
+											<div class="col-6">
+												<a href="/employee/chpass" class="btn btn-secondary w-100"> 비밀번호 변경</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer">
+								
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4 me-auto">
+							<div class="row">
+								<div class="card card-stats card-round">
+									<div class="card-body">
+										<div class="row align-items-center">
+											<div class="col-icon">
+												<div
+													class="icon-big text-center icon-primary bubble-shadow-small">
+													<i class="fas fa-users"></i>
+												</div>
+											</div>
+											<div class="col col-stats ms-3">
+												<div class="numbers">
+													<p class="card-category">부서</p>
+													<h4 class="card-title">1,294</h4>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="card card-stats card-round">
+									<div class="card-body">
+										<div class="row align-items-center">
+											<div class="col-icon">
+												<div
+													class="icon-big text-center icon-primary bubble-shadow-small">
+													<i class="fas fa-user-tie"></i>
+												</div>
+											</div>
+											<div class="col col-stats ms-3">
+												<div class="numbers">
+													<p class="card-category">직책</p>
+													<h4 class="card-title">1,294</h4>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

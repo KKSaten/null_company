@@ -57,8 +57,10 @@ public class EmployeeContoller {
 	// ============================== 직원
 	
 	@GetMapping("update")
-	public void update() throws Exception {
+	public void update(HttpSession session, Model model) throws Exception {
+		EmployeeVO employeeVO = getEmployeeVO(session);
 		
+		model.addAttribute("vo", employeeVO);
 	}
 	
 	@PostMapping("update")
@@ -75,11 +77,7 @@ public class EmployeeContoller {
 	@PostMapping("chpass")
 	public String chpass(EmployeeVO employeeVO, String befpass, HttpSession session) throws Exception {
 		
-		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
-
-		SecurityContext sc = SecurityContextHolder.getContext();
-		Authentication ac = sc.getAuthentication();
-		EmployeeVO vo = (EmployeeVO) ac.getPrincipal();
+		EmployeeVO vo = this.getEmployeeVO(session);
 		
 		if(!passwordEncoder.matches(befpass, vo.getEmpPwd())) {
 			return "index";
@@ -134,11 +132,7 @@ public class EmployeeContoller {
 	@GetMapping("fileDown")
 	public String fileDown(HttpSession session, Model model) throws Exception {
 		
-		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
-
-		SecurityContext sc = SecurityContextHolder.getContext();
-		Authentication ac = sc.getAuthentication();
-		EmployeeVO employeeVO = (EmployeeVO) ac.getPrincipal();
+		EmployeeVO employeeVO = getEmployeeVO(session);
 		
 		model.addAttribute("file",employeeVO.getEmployeeFileVO());
 		
@@ -150,7 +144,22 @@ public class EmployeeContoller {
 	}
 
 	@GetMapping("mypage")
-	public void mypage(HttpSession session, Model model) {
+	public void mypage(HttpSession session, Model model) throws Exception {
+		
+		EmployeeVO employeeVO = getEmployeeVO(session);
+		
+		model.addAttribute("vo",employeeVO);
+	}
+	
+	@GetMapping("empList")
+	public void empList(Model model) throws Exception{
+		
+		List<EmployeeVO> employeeVO = employeeService.empList();
+		model.addAttribute("list",employeeVO);
+	}
+	
+	//session에서 로그인한 유저 정보 꺼내오는 메소드
+	private EmployeeVO getEmployeeVO(HttpSession session) throws Exception {
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
 
 		SecurityContext sc = SecurityContextHolder.getContext();
@@ -167,13 +176,6 @@ public class EmployeeContoller {
 		log.info("Name: {}", ac.getName()); // username
 		log.info("Detail: {}", ac.getDetails()); // sessionID
 		
-		model.addAttribute("vo",employeeVO);
-
-	}
-	@GetMapping("empList")
-	public void empList(Model model) throws Exception{
-		
-		List<EmployeeVO> employeeVO = employeeService.empList();
-		model.addAttribute("list",employeeVO);
+		return employeeVO;
 	}
 }

@@ -43,8 +43,6 @@
 						</div>
 						<div class="card-body">
 							<div class="col-md-6 ms-auto me-auto">
-							<sec:authorize access="isAuthenticated" />
-							<sec:authentication property="principal" var="vo" />
 								<form method="post" enctype="multipart/form-data">
 
 									<div class="input-icon blank">
@@ -122,7 +120,7 @@
 											type="file" class="form-control" id="attach" name="attach" accept="image/*"/>
 									</div>
 
-									<button type="submit" class="btn btn-primary">사원 등록</button>
+									<button type="submit" class="btn btn-primary">정보 수정</button>
 								</form>
 							</div>
 
