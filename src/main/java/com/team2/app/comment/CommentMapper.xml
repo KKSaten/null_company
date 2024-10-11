@@ -9,13 +9,14 @@
 	<select id="getCommentList" resultType="CommentVO" parameterType="CommentVO">
 		SELECT * FROM COMMENT
 		WHERE NOTICE_NUM = #{noticeNum}
+		ORDER BY COMMENT_NUM ASC
 	</select>
 	
 	<insert id="writeComment" parameterType="commentVO">
 		INSERT INTO COMMENT
 			(COMMENT_NUM, NOTICE_NUM, EMP_NUM, COMMENT_CONTENTS, COMMENT_DATE)
 		VALUES
-			(NULL, #{noticeNum}, #{empNum}, #{CommentContents}, now())
+			(NULL, #{noticeNum}, #{empNum}, #{commentContents}, now())
 	</insert>
 
 </mapper>

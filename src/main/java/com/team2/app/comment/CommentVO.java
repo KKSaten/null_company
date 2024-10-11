@@ -1,6 +1,7 @@
 package com.team2.app.comment;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 import lombok.Data;
 
@@ -12,7 +13,7 @@ public class CommentVO {
 	private Long noticeNum;
 	private Integer empNum;
 	private String commentContents;
-	private Date commentDate;
+	private String commentDate;
 	private boolean commentDel;
 
 }
