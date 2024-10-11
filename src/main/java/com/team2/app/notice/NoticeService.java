@@ -45,27 +45,54 @@ public class NoticeService {
 		return noticeMapper.getPost(noticeVO);
 	}
 	
-	public int writePost(NoticeVO noticeVO, MultipartFile attach) throws Exception{
+	public int writePost(NoticeVO noticeVO, MultipartFile[] attaches) throws Exception{
 		
 		int result = noticeMapper.writePost(noticeVO);
 		
-		if(attach != null) {
+		if(attaches != null) {
 			
-			String fileName = fileManager.fileSave(path + "notice/", attach);
-			
-			NoticeFileVO noticeFileVO = new NoticeFileVO();
-			
-			noticeFileVO.setNoticeNum(noticeVO.getNoticeNum());
-			noticeFileVO.setFileName(fileName);
-			noticeFileVO.setOriName(attach.getOriginalFilename());
-			
-			result = noticeMapper.saveFile(noticeFileVO);
+			for(MultipartFile attach : attaches) {
+				
+				if(attach == null || attach.isEmpty()) {
+					continue;
+				}
+				
+				String fileName = fileManager.fileSave(path + "notice/", attach);
+				
+				NoticeFileVO noticeFileVO = new NoticeFileVO();
+				
+				noticeFileVO.setNoticeNum(noticeVO.getNoticeNum());
+				noticeFileVO.setFileName(fileName);
+				noticeFileVO.setOriName(attach.getOriginalFilename());
+				
+				result = noticeMapper.saveFile(noticeFileVO);
+			}		
 		}
 		
 		return result;
 	}
 	
-	public int modifyPost(NoticeVO noticeVO) throws Exception{
+	public int modifyPost(NoticeVO noticeVO, MultipartFile[] attaches) throws Exception{
+		
+		if (attaches != null) {
+
+			for (MultipartFile attach : attaches) {
+
+				if (attach == null || attach.isEmpty()) {
+					continue;
+				}
+
+				String fileName = fileManager.fileSave(path + "notice/", attach);
+
+				NoticeFileVO noticeFileVO = new NoticeFileVO();
+
+				noticeFileVO.setNoticeNum(noticeVO.getNoticeNum());
+				noticeFileVO.setFileName(fileName);
+				noticeFileVO.setOriName(attach.getOriginalFilename());
+
+				int result = noticeMapper.saveFile(noticeFileVO);
+			}
+		}
 		
 		return noticeMapper.modifyPost(noticeVO);
 	}
