@@ -1,5 +1,7 @@
 package com.team2.app.employee;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +98,24 @@ public class EmployeeContoller {
 
 	@GetMapping("join")
 	public void join(Model model) throws Exception {
+		
+		EmployeeVO employeeVO = new EmployeeVO();
+		
+		LocalDateTime localDateTime = LocalDateTime.now();
+		
+		log.info("date : {}", localDateTime);
+		
+		String empId = "";
+		
+		empId = Integer.toString(localDateTime.getYear());
+		
+		empId = empId.substring(2)+localDateTime.getMinute()+localDateTime.getSecond();
+		
+		log.info("empId : {}", empId);
+		
+		model.addAttribute("empId", empId);
+		
+		
 	}
 	
 	@PostMapping("join")
