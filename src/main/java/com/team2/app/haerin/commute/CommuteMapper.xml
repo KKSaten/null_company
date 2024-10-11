@@ -54,5 +54,16 @@
     SET COMMUTE_STATUS = #{commuteStatus} 
     WHERE EMP_NUM = #{empNum}
 	</update>
+	
+	
+	<select id="absent" resultType="CommuteVO">
+	</select>
+	<update id="absentUpdate">
+	</update>
+
+
+
+
+
 
 </mapper>

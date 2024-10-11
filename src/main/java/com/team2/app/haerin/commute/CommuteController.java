@@ -168,12 +168,19 @@ public class CommuteController {
 		model.addAttribute("list", commuteVO);
 		
 	}
+	
+	//근태 관리 관리자 수정
 	@PostMapping("update")
 	public String update(@RequestParam("empNum") Integer empNum, @RequestParam("commuteStatus") Integer commuteStatus)throws Exception {
 	    commuteService.update(empNum, commuteStatus);
 	    return "redirect:/commute/list";
 	}
 
-
+	//근태 관리 9시 이후 출근 처리 안된 사용자 결근 처리
+	public void absent(CommuteVO commuteVO)throws Exception {
+		commuteService.absent(commuteVO);
+		commuteService.absentUpdate(commuteVO);
+		
+	}
 
 }
