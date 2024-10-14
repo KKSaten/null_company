@@ -11,8 +11,4 @@ public interface ApprovalMapper {
 	
 	public List<ApprDocVO> getList(EmployeeVO empVO) throws Exception;
 	
-	public ApprLineVO getApprLine(ApprDocVO apprVO) throws Exception;
-	
-	public ApprHistoryVO getApprHistory(ApprDocVO apprVO) throws Exception;
-	
 }

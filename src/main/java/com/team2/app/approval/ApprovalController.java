@@ -50,8 +50,8 @@ public class ApprovalController {
 		/* 아이디 추출 과정 끝 */
 		
 		
-		 List<ApprDocVO> list = approvalService.getList(empVO); 
-		 model.addAttribute("list", list);
+		List<ApprDocVO> list = approvalService.getList(empVO); 
+		model.addAttribute("list", list);
 	}
 	
 	@GetMapping("approvalReceivedbox")

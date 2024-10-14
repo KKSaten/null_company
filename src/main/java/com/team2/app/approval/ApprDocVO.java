@@ -1,6 +1,7 @@
 package com.team2.app.approval;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.Data;
 
@@ -10,6 +11,7 @@ public class ApprDocVO {
 	private Long docNum;
 	
 	private Integer docWriter;
+	private String empName;
 	private String deptName;
 	private String posName;
 	private String fileName;
@@ -26,8 +28,8 @@ public class ApprDocVO {
 	private Timestamp docExpirydate;
 	
 	
-	private ApprLineVO apprLineVO;
-	private ApprHistoryVO apprHistoryVO;
+	private List<ApprLineVO> apprLineVO;
+	private List<ApprHistoryVO> apprHistoryVO;
 	
 	
 	private String tempStorage;

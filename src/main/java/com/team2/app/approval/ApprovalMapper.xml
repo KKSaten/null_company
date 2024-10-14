@@ -7,7 +7,11 @@
 <mapper namespace="com.team2.app.approval.ApprovalMapper">
 	
 	<select id="getList" parameterType="EmployeeVO" resultMap="ApprDocInfo">
-	SELECT A.*, AL.*, 
+	SELECT A.*, AL.*,
+		(SELECT E.EMP_NAME
+		FROM EMPLOYEE E
+		WHERE A.DOC_WRITER = E.EMP_NUM
+		)AS EMP_NAME,	
 		(SELECT T.TEMPLATE_NAME
 		FROM DOC_TEMPLATE T
 		WHERE A.DOC_TEMPLATECODE = T.DOC_TEMPLATECODE
@@ -29,12 +33,16 @@
 		(SELECT EF.FILE_NAME 
 		FROM EMP_FILE EF 
 		WHERE EF.EMP_NUM = A.DOC_WRITER
-		) AS FILE_NAME
+		) AS FILE_NAME,
+		E2.EMP_NAME AS APPROVER_NAME
 	FROM APPROVAL_DOCBOX A
-	JOIN
+	LEFT JOIN
 	APPROVAL_LINE AL
 	ON A.DOC_NUM = AL.DOC_NUM
-	JOIN
+	LEFT JOIN
+	EMPLOYEE E2
+	ON AL.APPROVER = E2.EMP_NUM 
+	LEFT JOIN
 	APPROVAL_HISTORY AH
 	ON A.DOC_NUM = AH.DOC_NUM
 	WHERE A.DOC_WRITER = #{empNum}
@@ -55,14 +63,14 @@
 		<result property="docExpirydate" column="DOC_EXPIRYDATE"/>
 		<result property="tempStorage" column="TEMP_STORAGE"/>
 		
-		<association property="ApprLineVO" javaType="ApprLineVO">
+		<collection property="apprLineVO" javaType="java.util.List" ofType="ApprLineVO">
 			<id property="docNum" column="DOC_NUM"/>
 			<result property="docTemplatecode" column="DOC_TEMPLATECODE"/>
 			<result property="approver" column="APPROVER"/>
 			<result property="apprProgress" column="APPR_PROGRESS"/>
-		</association>
+		</collection>
 		
-		<collection property="ApprHistoryVO" javaType="ApprHistoryVO">
+		<collection property="apprHistoryVO" javaType="java.util.List" ofType="ApprHistoryVO">
 			<id property="apprNum" column="APPR_NUM"/>
 			<result property="docNum" column="DOC_NUM"/>
 			<result property="approver" column="APPROVER"/>
