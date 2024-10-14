@@ -83,5 +83,6 @@
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
 	<script src="/resources/js/notice/comment.js"></script>
+	<script src="/resources/js/notice/reply.js"></script>
 </body>
 </html>

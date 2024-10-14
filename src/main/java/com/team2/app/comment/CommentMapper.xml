@@ -6,11 +6,30 @@
   
 <mapper namespace="com.team2.app.comment.CommentMapper">
 
-	<select id="getCommentList" resultType="CommentVO" parameterType="CommentVO">
-		SELECT * FROM COMMENT
-		WHERE NOTICE_NUM = #{noticeNum}
-		ORDER BY COMMENT_NUM ASC
+	<select id="getCommentList" resultMap="getReplyList" parameterType="CommentVO">
+		SELECT * FROM COMMENT C
+		LEFT JOIN REPLY R
+		ON (C.COMMENT_NUM = R.COMMENT_NUM)
+		WHERE C.NOTICE_NUM = #{noticeNum}
 	</select>
+	
+	<resultMap type="CommentVO" id="getReplyList">
+		<id column="COMMENT_NUM" property="commentNum"></id>
+		<result column="NOTICE_NUM" property="noticeNum"></result>
+		<result column="EMP_NUM" property="empNum"></result>
+		<result column="COMMENT_CONTENTS" property="commentContents"></result>
+		<result column="COMMENT_DATE" property="commentDate"></result>
+		<result column="COMMENT_DEL" property="commentDel"></result>
+		
+		<collection property="replyList" javaType="java.util.List" ofType="ReplyVO">
+			<id column="REPLY_NUM" property="replyNum"></id>
+			<result column="COMMENT_NUM" property="commentNum"></result>
+			<result column="EMP_NUM" property="empNum"></result>
+			<result column="REPLY_CONTENTS" property="replyContents"></result>
+			<result column="REPLY_DATE" property="replyDate"></result>
+			<result column="REPLY_DEL" property="replyDel"></result>
+		</collection>
+	</resultMap>
 	
 	<insert id="writeComment" parameterType="CommentVO">
 		INSERT INTO COMMENT
