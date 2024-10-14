@@ -23,5 +23,10 @@
 		UPDATE COMMENT SET COMMENT_DEL = 1 
 		WHERE COMMENT_NUM = #{commentNum}
 	</update>
+	
+	<update id="modifyComment" parameterType="CommentVO">
+		UPDATE COMMENT SET COMMENT_CONTENTS = #{commentContents} 
+		WHERE COMMENT_NUM = #{commentNum}
+	</update>
 
 </mapper>

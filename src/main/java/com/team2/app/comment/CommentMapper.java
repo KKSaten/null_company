@@ -13,4 +13,6 @@ public interface CommentMapper {
 	int writeComment(CommentVO commentVO) throws Exception;
 	
 	int deleteComment(CommentVO commentVO) throws Exception;
+	
+	int modifyComment(CommentVO commentVO) throws Exception;
 }

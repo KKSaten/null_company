@@ -60,5 +60,34 @@ public class CommentController {
 		
 		return "commons/result";
 	}
+	
+	
+	@GetMapping("modify")
+	public String modifyComment(CommentVO commentVO, Model model) throws Exception{
+		
+		// 1. getList 메서드를 재활용하여 댓글 목록을 가져온다
+		// 2. '수정'버튼을 클릭한 댓글의 commentNum을 AJAX 를 통해 받아온 다음, target 이라는 이름으로 model 에 담는다
+		/*
+		 * 3. JSP에 댓글 리스트를 보여줄 때, target 과 commentNum이 일치하는 댓글(=수정 버튼을 누른 댓글)은 댓글 내용 대신
+		 * 댓글 입력창을 보여준다
+		 */
+		List<CommentVO> list = commentService.getCommentList(commentVO);
+		
+		model.addAttribute("targetNum", commentVO.getCommentNum());
+		model.addAttribute("list", list);
+		
+		return "comment/list";
+	}
+	
+	
+	@PostMapping("modify")
+	public String modifyComment2(CommentVO commentVO, Model model) throws Exception{
+		
+		int result = commentService.modifyComment(commentVO);
+		
+		model.addAttribute("result", result);
+		
+		return "commons/result";
+	}
 
 }

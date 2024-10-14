@@ -10,7 +10,19 @@
 						<a type="button" class="commentMod" data-comment-num="${commentVO.commentNum }">&nbsp; 수정</a>
 						<a type="button" class="commentDel" data-comment-num="${commentVO.commentNum }">삭제</a>
 					</li>
-					<li class="custom-comment3">${commentVO.commentContents}</li>
+					<!-- c:if 구문은 댓글 수정을 위해 사용 -->
+					<c:if test="${targetNum eq commentVO.commentNum }">
+						<textarea class="form-control modContents">${commentVO.commentContents }</textarea>
+						<br>
+						<div class="container text-end">
+							<button type="button" class="btn btn-black modSubmit"
+								data-comment-num="${commentVO.commentNum }">수정 완료</button>
+						</div>
+					</c:if>
+					<c:if test="${targetNum ne commentVO.commentNum }">
+						<li class="custom-comment3">${commentVO.commentContents}</li>
+					</c:if>
+					<!-- c:if 구문은 댓글 수정을 위해 사용 -->
 				</c:when>
 				<c:otherwise>
 					<li class="custom-list4">삭제된 글입니다.</li>
