@@ -66,22 +66,33 @@
 													<tr>
 														<th scope="col">이름</th>
 														<th scope="col">사번</th>
+														<th scope="col">부서</th>
 														<th scope="col">직급</th>
-														<th scope="col">기간</th>
-														<th scope="col">사용기간</th>
+														<th scope="col">휴가일</th>
 														<th scope="col">승인</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td>김해린</td>
-														<td>1233</td>
-														<td>사원</td>
-														<td>2023.10.12~2023.10.13</td>
-														<td>1일</td>
-														<td>승인</td>
-													</tr>
-
+													<c:forEach items="${list}" var="vo">
+							                        	<tr>
+													        <td>${vo.empName}</td>
+															<td>${vo.empNum}</td>
+															<td>${vo.deptName}</td>
+															<td>${vo.posName}</td>
+															<td>${vo.date}</td>
+															 <td><div style="color: blue;font-weight: bold;">승인</div>
+													            <%-- <c:choose>
+													                <c:when test="${vo.date == 1}">
+													                  <div style="color: blue;font-weight: bold;">승인</div>
+													                </c:when>
+													   
+													               <c:when test="${vo.date == null || vo.commuteStatus == 0}">
+													                  <div style="color: red;font-weight: bold;">반려</div>
+													                </c:when>
+													            </c:choose> --%>
+													        </td>
+													    </tr>
+					                          </c:forEach>
 												</tbody>
 											</table>
 										</div>

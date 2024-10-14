@@ -58,9 +58,9 @@
 						<div class="col-md-12">
 							<div class="card">
 										<div class="card-header">
-										 <c:forEach items="${userList}" var="vo">
-											<div class="card-title">근태관리 - ${vo.empName}  </div>
-											</c:forEach>
+										
+											<div class="card-title">근태관리 사용자 </div>
+										
 										</div>
 										<div class="card-body">
 											<table

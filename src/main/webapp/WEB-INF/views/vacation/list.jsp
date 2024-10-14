@@ -59,10 +59,8 @@
 							<div class="card">
 										<div class="card-header">
 											<div class="d-flex align-items-center">
-										<h4 class="card-title">휴가 보유/사용현황</h4>
-										<button class="btn btn-primary btn-round ms-auto">
-											휴가 신청 
-										</button>
+										<h4 class="card-title">휴가 보유/사용현황 (변경)</h4>
+										
 									</div>
 										</div>
 										<div class="card-body">
@@ -73,88 +71,58 @@
 														<th scope="col">사번</th>
 														<th scope="col">부서</th>
 														<th scope="col">직급</th>
-														<th scope="col">잔여 휴가</th>
 														<th scope="col">휴가</th>
+														<th scope="col">잔여 휴가(수정가능)</th>
 													</tr>
 												</thead>
 												<tbody>
 												<c:forEach items="${list}" var="vo">
 													<tr>
+														<td>${vo.empName}</td>
 														<td>${vo.empNum}</td>
-														<td>${vo.empNum}</td>
-														<td>${vo.empNum}</td>
-														<td>${vo.empNum}</td>
-														<td>${vo.empNum}</td>
-														<td>
-														<button type="button" class="btn btn-primary"
+														<td>${vo.deptName}</td>
+														<td>${vo.posName}</td>
+														<td>${vo.date}</td>
+															<td>
+														<button type="button"  class="btn-two green small"
 															data-bs-toggle="modal"
-															data-bs-target="#modal-${vo.empNum}"
-															onclick="setEmployeeDetails('${vo.empNum}', '${vo.empId}', '${vo.empName}', '${vo.empRegistry}', '${vo.empGender}', '${vo.empAddress}', '${vo.deptName}', '${vo.posName}')">
-															휴가</button>
+															data-bs-target="#modal-${vo.empNum}">
+															${vo.dating}</button>
 													</td>
-													</tr>
-													<!-- 각 사원에 대한 모달 -->
+												</tr>
+												<!-- 각 사원에 대한 모달 -->
 												<div class="modal fade" id="modal-${vo.empNum}"
 													tabindex="-1" aria-labelledby="modalLabel-${vo.empNum}"
 													aria-hidden="true">
 													<div class="modal-dialog">
 														<div class="modal-content">
 															<div class="modal-header">
-																<h5 class="modal-title" id="modalLabel-${vo.empNum}">사원
-																	정보 (${vo.empName})</h5>
+																<h5 class="modal-title" id="modalLabel-${vo.empNum}"> ${vo.empName}님 
+																	  (잔여 휴가일 : ${vo.dating}일)</h5>
 																<button type="button" class="btn-close"
 																	data-bs-dismiss="modal" aria-label="Close"></button>
 															</div>
-															<div class="modal-body">
-																<p>
-																	<strong>사원 번호:</strong> <span
-																		id="modalEmpNum-${vo.empNum}">${vo.empNum}</span>
-																</p>
-																
-																<p>
-																	<strong>사원 이름:</strong> <span
-																		id="modalEmpName-${vo.empNum}">${vo.empName}</span>
-																</p>
-															
-												
-																<p>
-																	<strong>부서 이름:</strong> <span
-																		id="modalDeptName-${vo.empNum}">${vo.deptName}</span>
-																</p>
-																<p>
-																	<strong>직급 이름:</strong> <span
-																		id="modalPosName-${vo.empNum}">${vo.posName}</span>
-																</p>
-																	<p>
-																	<strong>잔여 휴가:</strong> <span
-																		id="modalPosName-${vo.empNum}">${vo.posName}</span>
-																</p>				
-												<p>
-								                    <strong>휴가 :</strong> 
-								                    <select id="deptSelect-${vo.empNum}" class="form-select">
-								                        <option value="" disabled selected>부서 선택</option>
-								                        <option value="1">부서 1</option>
-								                        <option value="2">부서 2</option>
-								                        <option value="3">부서 3</option>
-								                        <!-- 추가 부서 옵션 -->
-								                    </select>
-								                </p>
-								            		
-																
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary"
-																	data-bs-dismiss="modal">닫기</button>
-																<button type="button" class="btn btn-primary">휴가
-																	</button>
-															</div>
+															  <div class="modal-body">
+												                <form id="vacationForm">
+												                    <div class="mb-3">
+												                        <label for="remainingVacation" class="form-label">잔여 휴가</label>
+												                        <input  type="number" value="${vo.dating}" class="form-control" id="remainingVacation" required>
+												                    </div>
+												                </form>
+												            </div>
+												            <div class="modal-footer">
+												                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+												                <button type="button" class="btn btn-primary" id="saveChangesBtn">변경 저장</button>
+												            </div>
 														</div>
 													</div>
 												</div>
+													
 												</c:forEach>
 												</tbody>
 											</table>
 										</div>
+										
 									</div>
 						</div>
 					</div>
