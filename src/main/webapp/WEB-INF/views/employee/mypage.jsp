@@ -28,8 +28,10 @@
 									style="background-image: url('/file/employee/default/bg_profile.jpg')">
 									<div class="profile-picture">
 										<div class="avatar avatar-xxl">
+										<a data-bs-toggle="modal" data-bs-target="#picModal">
 											<img src="/file/employee/${map.vo.employeeFileVO.fileName}"
-												alt="직원사진" class="avatar-img rounded-circle" />
+												alt="직원사진" class="avatar-img rounded-circle" style="cursor: pointer;"/>
+										</a>
 										</div>
 									</div>
 								</div>
@@ -111,7 +113,7 @@
 											<div class="col-icon">
 												<div
 													class="icon-big text-center icon-primary bubble-shadow-small">
-													<i class="fas fa-users"></i>
+													<i class="fas fa-user-tag"></i>
 												</div>
 											</div>
 											<div class="col col-stats ms-3">
@@ -124,6 +126,28 @@
 									</div>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- picModal -->
+			<div class="modal fade" id="picModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">사진 변경</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<input type="file">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary picModalClose"
+								data-bs-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary" id="picModalSave">저장</button>
 						</div>
 					</div>
 				</div>
@@ -148,8 +172,8 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal" id="modalClose">닫기</button>
-							<button type="button" class="btn btn-primary" id="modalSave">저장</button>
+								data-bs-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary" id="addrModalSave">주소 저장</button>
 						</div>
 					</div>
 				</div>
