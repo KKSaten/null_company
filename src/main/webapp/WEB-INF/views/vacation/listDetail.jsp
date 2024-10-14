@@ -79,7 +79,7 @@
 															<td>${vo.empNum}</td>
 															<td>${vo.deptName}</td>
 															<td>${vo.posName}</td>
-															<td>${vo.date}</td>
+															<td>${vo.date} (${vo.dating}일)</td>
 															 <td><div style="color: blue;font-weight: bold;">승인</div>
 													            <%-- <c:choose>
 													                <c:when test="${vo.date == 1}">

@@ -1,4 +1,4 @@
-package com.team2.app.employee;
+	package com.team2.app.employee;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -40,7 +40,8 @@ public class EmployeeVO implements UserDetails {
 	private RoleVO roleVO;
 	private DepartmentVO deptVO;
 	private PositionsVO posVO;
-
+	private String deptName	;
+	private String posName;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authority = new ArrayList<>();
