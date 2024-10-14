@@ -4,9 +4,42 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.app.haerin.vacation.VacationMapper">
+	<select id="list" resultType="VacationVO">
+	SELECT 
+	    E.EMP_NAME AS empName,
+	    E.EMP_NUM AS empNum,
+	    P.POS_NAME AS posName,
+	    D.DEPT_NAME AS deptName,
+	    CONCAT(DATE_FORMAT(V.VACATION_START_DATE, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(V.VACATION_END_DATE, '%Y-%m-%d')) AS date,
+	    IFNULL(DATEDIFF(V.VACATION_END_DATE, V.VACATION_START_DATE) + 1, 0) AS dating
+	FROM 
+	    EMPLOYEE E
+	JOIN 
+	    POSITIONS P ON E.POS_NUM = P.POS_NUM
+	JOIN 
+	    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
+	LEFT JOIN 
+	    VACATION V ON E.EMP_NUM = V.EMP_NUM;
+	</select>
 
+	<select id="listDetail" resultType="VacationVO">
+		SELECT 
+		    E.EMP_NAME AS empName,
+		    E.EMP_NUM AS empNum,
+		    P.POS_NAME AS posName,
+		    D.DEPT_NAME AS deptName,
+		    CONCAT(DATE_FORMAT(V.VACATION_START_DATE, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(V.VACATION_END_DATE, '%Y-%m-%d')) AS date,
+		    DATEDIFF(V.VACATION_END_DATE, V.VACATION_START_DATE) + 1 AS dating
+		FROM 
+		    EMPLOYEE E
+		JOIN 
+		    POSITIONS P ON E.POS_NUM = P.POS_NUM
+		JOIN 
+		    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
+		JOIN 
+		    VACATION V ON E.EMP_NUM = V.EMP_NUM;
 
-
+	</select>
 
 
 </mapper>

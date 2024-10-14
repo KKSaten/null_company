@@ -173,10 +173,10 @@
 				</div>
 			</div>
 
-		</div>
-	</div>
 					<c:import url="../templates/footer.jsp"></c:import>
 			<c:import url="../templates/bootfooter.jsp"></c:import>
+		</div>
+	</div>
 
 	<script>
 		$(document)

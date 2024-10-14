@@ -48,12 +48,43 @@
 								<div class="card-header">
 									<div class="d-flex align-items-center">
 										<h4 class="card-title">내 휴가</h4>
+										<div class="ms-auto">
+										<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal7">
+  										휴가 신청 하기
+										</button>
 
+										</div>
 									</div>
 								</div>
+								
+								<!-- 모달 -->
+								<div class="modal fade" id="exampleModal7" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div
+											class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">휴가 신청</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<h6>📝휴가 일정 입력</h6>
+
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-success btn-border"
+														data-bs-dismiss="modal">취소</button>
+													<button type="button" class="btn btn-success">휴가
+														신청</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
 								<div class="card-body row">
 									<!-- Modal -->
-
+			
 
 									<div class="col-sm-6 col-md-3" data-bs-toggle="modal"
 										data-bs-target="#exampleModal1">
@@ -92,8 +123,7 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-success btn-border"
 														data-bs-dismiss="modal">취소</button>
-													<button type="button" class="btn btn-success">휴가
-														신청</button>
+													
 												</div>
 											</div>
 										</div>
@@ -135,8 +165,7 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-success btn-border"
 														data-bs-dismiss="modal">취소</button>
-													<button type="button" class="btn btn-success">휴가
-														신청</button>
+													
 												</div>
 											</div>
 										</div>
@@ -177,8 +206,7 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-success btn-border"
 														data-bs-dismiss="modal">취소</button>
-													<button type="button" class="btn btn-success">휴가
-														신청</button>
+													
 												</div>
 											</div>
 										</div>
@@ -222,7 +250,7 @@
 											<div class="modal-footer">
 												<button type="button" class="btn btn-success btn-border"
 													data-bs-dismiss="modal">취소</button>
-												<button type="button" class="btn btn-success">휴가 신청</button>
+												
 											</div>
 										</div>
 									</div>
@@ -267,8 +295,7 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-success btn-border"
 														data-bs-dismiss="modal">취소</button>
-													<button type="button" class="btn btn-success">휴가
-														신청</button>
+													
 												</div>
 											</div>
 										</div>
@@ -311,8 +338,8 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-success btn-border"
 														data-bs-dismiss="modal">취소</button>
-													<button type="button" class="btn btn-success">휴가
-														신청</button>
+													<!-- <button type="button" class="btn btn-success">휴가
+														신청</button> -->
 												</div>
 											</div>
 										</div>
@@ -356,8 +383,6 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-success btn-border"
 														data-bs-dismiss="modal">취소</button>
-													<button type="button" class="btn btn-success">휴가
-														신청</button>
 												</div>
 											</div>
 										</div>
@@ -399,8 +424,7 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-success btn-border"
 														data-bs-dismiss="modal">취소</button>
-													<button type="button" class="btn btn-success">휴가
-														신청</button>
+												
 												</div>
 											</div>
 										</div>

@@ -73,7 +73,7 @@
 														<th scope="col">성명</th>
 														<th scope="col">이전 직위 → 발령 직위</th>
 														<th scope="col">이전 부서 → 발령 부서</th>
-														
+
 														<th scope="col">발령 구분</th>
 													</tr>
 												</thead>
