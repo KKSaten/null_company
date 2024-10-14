@@ -10,6 +10,86 @@
 	<c:import url="../templates/header.jsp"></c:import>
 	<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>
 
+<style type="text/css">
+
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  padding: 10px 25px;
+  border: 2px solid #000;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+
+/* 12 */
+.btn-12{
+  position: relative;
+  right: 20px;
+  bottom: 20px;
+  border:none;
+  width: 130px;
+  height: 40px;
+  line-height: 40px;
+  -webkit-perspective: 230px;
+  perspective: 230px;
+}
+.btn-12 span {
+  display: block;
+  position: absolute;
+  width: 130px;
+  height: 40px;
+  border: 2px solid #000;
+  margin:0;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+.btn-12 span:nth-child(1) {
+  box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+  -webkit-transform-origin: 50% 50% -20px;
+  -moz-transform-origin: 50% 50% -20px;
+  transform-origin: 50% 50% -20px;
+}
+.btn-12 span:nth-child(2) {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+  -webkit-transform-origin: 50% 50% -20px;
+  -moz-transform-origin: 50% 50% -20px;
+  transform-origin: 50% 50% -20px;
+}
+.btn-12:hover span:nth-child(1) {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+.btn-12:hover span:nth-child(2) {
+  background: #e0e5ec;
+  color: #e0e5ec;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}
+
+
+</style>
 	<title>휴가 보유/사용현황</title>
 </head>
 <body>
@@ -72,7 +152,7 @@
 														<th scope="col">부서</th>
 														<th scope="col">직급</th>
 														<th scope="col">휴가</th>
-														<th scope="col">잔여 휴가(수정가능)</th>
+														<th scope="col">잔여 휴가</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -84,10 +164,10 @@
 														<td>${vo.posName}</td>
 														<td>${vo.date}</td>
 															<td>
-														<button type="button"  class="btn-two green small"
+														<button type="submit"  class="custom-btn btn-12"
 															data-bs-toggle="modal"
 															data-bs-target="#modal-${vo.empNum}">
-															${vo.dating}</button>
+															<span>수정하기</span><span>${vo.vacationLeftoverDate}</span></button>
 													</td>
 												</tr>
 												<!-- 각 사원에 대한 모달 -->
@@ -98,7 +178,7 @@
 														<div class="modal-content">
 															<div class="modal-header">
 																<h5 class="modal-title" id="modalLabel-${vo.empNum}"> ${vo.empName}님 
-																	  (잔여 휴가일 : ${vo.dating}일)</h5>
+																	  (잔여 휴가일 : ${vo.vacationLeftoverDate}일)</h5>
 																<button type="button" class="btn-close"
 																	data-bs-dismiss="modal" aria-label="Close"></button>
 															</div>
@@ -106,7 +186,7 @@
 												                <form id="vacationForm">
 												                    <div class="mb-3">
 												                        <label for="remainingVacation" class="form-label">잔여 휴가</label>
-												                        <input  type="number" value="${vo.dating}" class="form-control" id="remainingVacation" required>
+												                        <input  type="number" value="${vo.vacationLeftoverDate}" class="form-control" id="remainingVacation" required>
 												                    </div>
 												                </form>
 												            </div>

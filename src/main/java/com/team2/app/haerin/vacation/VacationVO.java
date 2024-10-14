@@ -8,13 +8,13 @@ import lombok.Data;
 public class VacationVO {
 
 	private Long vacationNum;
-	private Date vacationStartDate;
-	private Date vacationEndDate;
-	
+	private String vacationTotal;
+	private String vacationLeftoverDate;
 	private String empName;
 	private String empNum;
 	private String posName;
-	private String date;
-	private Integer dating;
 	 private String deptName; // 부서 이름 필드 추가
+	 private VacationCountVO vacationCountVO;
+	 private String date;
+	 private Integer dating;
 }
