@@ -28,7 +28,16 @@
 					<li class="custom-list4">삭제된 글입니다.</li>
 				</c:otherwise>
 			</c:choose>
-		</ul>	
+		</ul>
+		
+		<!-- 여기부터는 답글 보여주는 코드 -->
+		<div>
+			<ul>
+				<c:forEach items="${commentVO.replyList }" var="replyVO">
+					<li class="custom-comment3">${replyVO.replyContents}</li>				
+				</c:forEach>
+			</ul>
+		</div>
 		<hr class="custom-comment1 commentLine">
 	</c:forEach>
 </div>
