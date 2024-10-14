@@ -18,26 +18,31 @@
 				<c:import url="../templates/sidebar.jsp"></c:import>
 				<c:import url="../templates/topbar.jsp"></c:import>
 			</div>
-
 			<div class="container">
 				<div class="page-inner">
 					<div class="card">
 						<div class="card-header">
-							<h1>부서 추가</h1>
+							<h1>부서 ${vo eq null?'추가':'수정'}</h1>
 						</div>
 						<div class="card-body">
 							<div class="col-md-6 ms-auto me-auto">
-								
+								<form action="${vo eq null?'add':'update'}" method="post">
+									<div class="form-floating form-floating-custom mb-3">
+										<input type="hidden" name="deptNum" value="${vo.deptNum}">
+										<input type="text" class="form-control" id="deptName"
+											placeholder="" name="deptName" value="${vo.deptName}"/> <label
+											for="deptName">부서명</label>
+									</div>
+									<button class="btn btn-primary">${vo eq null?'추가':'수정'}</button>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 			<c:import url="/WEB-INF/views/templates/footer.jsp"></c:import>
 		</div>
 	</div>
-
 	<c:import url="../templates/bootfooter.jsp"></c:import>
 </body>
 </html>

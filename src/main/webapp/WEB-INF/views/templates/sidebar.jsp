@@ -83,10 +83,25 @@
 				</li>
 
 				<li class="nav-item">
-					<a href="/employee/login">
-						<i class="fas fa-bullhorn"></i>
-						<p>로그인</p>
+					<a data-bs-toggle="collapse" href="#commute">
+						<i class="fas fa-user-cog"></i>
+						<p>관리</p>
+						<span class="caret"></span>
 					</a>
+					<div class="collapse" id="commute">
+						<ul class="nav nav-collapse">
+							<li>
+								<a href="/employee/list">
+									<span class="sub-item">인사관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="/department/list">
+									<span class="sub-item">부서관리</span>
+								</a>
+							</li>
+						</ul>
+					</div>
 				</li>
 
 				<li class="nav-item">

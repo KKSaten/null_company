@@ -59,7 +59,8 @@ public class SecurityConfig {
 							.requestMatchers("/").permitAll()
 							.requestMatchers("/employee/mypage").authenticated()
 							.requestMatchers("/employee/delete").hasAnyRole("OWNER","PERSONEL")
-//							.requestMatchers("/notice/*").hasRole("OWNER")
+							.requestMatchers("/department/update").hasAnyRole("OWNER","PERSONEL")
+							.requestMatchers("/department/delete").hasAnyRole("OWNER","PERSONEL")
 							.anyRequest().permitAll()
 					)
 			.formLogin(

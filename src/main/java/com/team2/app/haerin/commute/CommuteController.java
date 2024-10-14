@@ -4,6 +4,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team2.app.employee.EmployeeVO;
 import lombok.extern.slf4j.Slf4j;
-
+@EnableScheduling
 @Slf4j
 @Controller
 @RequestMapping("/commute/*")
@@ -168,12 +170,21 @@ public class CommuteController {
 		model.addAttribute("list", commuteVO);
 		
 	}
+	
+	//근태 관리 관리자 수정
 	@PostMapping("update")
 	public String update(@RequestParam("empNum") Integer empNum, @RequestParam("commuteStatus") Integer commuteStatus)throws Exception {
 	    commuteService.update(empNum, commuteStatus);
 	    return "redirect:/commute/list";
 	}
 
-
+	//근태 관리 9시 이후 출근 처리 안된 사용자 결근 처리
+	@Scheduled(cron = "0 0 10 * * *")
+	public void absent()throws Exception {
+		CommuteVO commuteVO = new CommuteVO();
+		log.info("10시가 지났습니다 결근 처리 하겠습니다.");
+		commuteService.absentUpdate(commuteVO);
+		
+	}
 
 }

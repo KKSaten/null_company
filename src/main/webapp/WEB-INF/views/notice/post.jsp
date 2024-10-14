@@ -34,7 +34,11 @@
 									<li class="custom-list4">인사팀, ${noticeVO.noticeDate}</li>
 									<li class="custom-list4">조회수 ${noticeVO.noticeHit}</li>
 								</ul>
-									<a href="/file/notice/${noticeVO.list[0].fileName}" download>${noticeVO.list[0].oriName }</a>
+								<c:forEach items="${noticeVO.list }" var="list">
+									<span class="custom-write2">
+										<a href="/file/notice/${list.fileName}" download>${list.oriName }</a>
+									</span>
+								</c:forEach>
 								<br>
 							</div>
 						</div>
@@ -45,6 +49,30 @@
 							<a href="/notice/modify?noticeNum=${noticeVO.noticeNum }">수정하기</a>
 						</div>
 					</div>
+					<div class="card">
+						<div class="card-header">
+							<form method="post">
+								<div class="card-title">
+									<ul>
+										<li class="no_dot"><i class="far fa-comment-dots"></i> 댓글</li>
+									</ul>
+								</div>
+								<div>
+									<textarea class="form-control" name="commentContents"
+										id="commentContents"></textarea>
+								</div>
+								<br>
+								<div class="container text-end">
+									<button type="button" class="btn btn-black" id="commentBtn">등록</button>
+								</div>
+							</form>
+						</div>
+
+						<div class="card-body" id="commentDiv" data-notice-num="${noticeVO.noticeNum }">
+						</div>
+					</div>
+					
+					
 
 				</div>
 			</div>
@@ -54,5 +82,6 @@
 	</div>
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
+	<script src="/resources/js/notice/comment.js"></script>
 </body>
 </html>

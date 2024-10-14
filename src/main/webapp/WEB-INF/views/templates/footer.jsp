@@ -6,8 +6,8 @@
           <nav class="pull-left">
             <ul class="nav">
               <li class="nav-item">
-                <a class="nav-link" href="http://www.themekita.com">
-                  ThemeKita
+                <a class="nav-link" href="https://github.com/Kwanari/null_company">
+                  Github
                 </a>
               </li>
               <li class="nav-item">

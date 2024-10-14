@@ -61,7 +61,7 @@ public class NoticeController {
 	public void writePost() throws Exception{}
 	
 	@PostMapping("write")
-	public String writePost(NoticeVO noticeVO, MultipartFile attach) throws Exception{
+	public String writePost(NoticeVO noticeVO, MultipartFile[] attaches) throws Exception{
 		
 		// 로그인한 사용자 아이디를 꺼내는 작업
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -72,7 +72,7 @@ public class NoticeController {
 		
 		noticeVO.setEmpNum(temp.getEmpNum());
 		
-		int result = noticeService.writePost(noticeVO, attach);
+		int result = noticeService.writePost(noticeVO, attaches);
 		
 		return "redirect:/notice/list";
 	}
@@ -90,9 +90,9 @@ public class NoticeController {
 	}
 	
 	@PostMapping("modify")
-	public String modifyPost(NoticeVO noticeVO) throws Exception{
+	public String modifyPost(NoticeVO noticeVO, MultipartFile[] attaches) throws Exception{
 		
-		int result = noticeService.modifyPost(noticeVO);
+		int result = noticeService.modifyPost(noticeVO, attaches);
 		
 		return "redirect:/notice/post?noticeNum=" + noticeVO.getNoticeNum();	
 	}
