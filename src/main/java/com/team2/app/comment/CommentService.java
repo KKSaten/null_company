@@ -27,4 +27,9 @@ public class CommentService {
 		
 		return commentMapper.deleteComment(commentVO);
 	}
+	
+	public int modifyComment(CommentVO commentVO) throws Exception{
+		
+		return commentMapper.modifyComment(commentVO);
+	}
 }

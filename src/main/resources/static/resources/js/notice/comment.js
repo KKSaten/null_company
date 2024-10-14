@@ -2,6 +2,7 @@ const commentDiv = document.getElementById("commentDiv");
 const commentContents = document.getElementById("commentContents");
 const commentBtn = document.getElementById("commentBtn");
 const commentDel = document.getElementsByClassName("commentDel");
+const modContents = document.getElementsByClassName("modContents");
 
 let noticeNum = commentDiv.getAttribute("data-notice-num");
 
@@ -54,7 +55,7 @@ commentDiv.addEventListener("click", (e)=>{
         let form = new FormData();
         form.append("commentNum", commentNum);
     
-        fetch("/comment/delete?commentNum="+commentNum, {
+        fetch("/comment/delete", {
             method:"POST",
             body:form
         })
@@ -68,12 +69,50 @@ commentDiv.addEventListener("click", (e)=>{
     }
 })
 
-
+// 댓글의 수정버튼 클릭시 입력창이 나오게 하는 함수
 commentDiv.addEventListener("click", (e)=>{ 
             
     if(e.target.classList.contains("commentMod")){
+
+        let commentNum = e.target.getAttribute("data-comment-num");
+
+        fetch("/comment/modify?commentNum=" + commentNum + "&noticeNum=" + noticeNum,{
+            method:"GET"
+        })
+        .then((r)=>{return r.text()})
+        .then((r)=>{
+            commentDiv.innerHTML=r;
+        })
+    }
+})
+
+// 댓글 수정 완료 버튼 클릭시 DB에 수정된 내용으로 업데이트하는 함수
+commentDiv.addEventListener("click", (e)=>{
+
+    if(e.target.classList.contains("modSubmit")){
+
+        let commentNum = e.target.getAttribute("data-comment-num");
         
-        e.target.parentNode.nextElementSibling.remove();
-        e.target.parentNode.parentNode.innerHTML="dsdassd";
+        let form = new FormData();
+        form.append("commentNum", commentNum);
+
+        // Class Name으로 선언한 값은 배열에 담기므로 for문을 돌려서 값을 꺼내줘야 한다.
+        // 원래는 for문을 돌려서 나온 값 중 내가 원하는 값을 특정하기 위한 조건문이 필요하지만,
+        // 현재 화면에서 textarea는 한개만 존재하기 때문에 배열에는 하나만 담기므로 조건문 없이 값을 꺼낼 수 있다
+        for(let modContent of modContents){
+            form.append("commentContents", modContent.value);
+        }
+
+        fetch("/comment/modify", {
+            method:"POST",
+            body:form
+        })
+        .then((r)=>{return r.text()})
+        .then((r)=>{
+            if(r>0){    
+                alert("댓글이 정상적으로 수정되었습니다.");
+                getList(); 
+            }
+        })
     }
 })
