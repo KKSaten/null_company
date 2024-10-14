@@ -8,8 +8,20 @@
 
 
 	<select id="getList" resultMap="employeeInfo">
-		SELECT *
-		FROM EMPLOYEE
+		SELECT E.*, R.*, D.*, P.*, EF.*
+		FROM EMPLOYEE E
+			INNER JOIN
+			ROLE R
+			ON (E.ROLE_NUM=R.ROLE_NUM)
+			INNER JOIN
+			DEPARTMENT D
+			ON (E.DEPT_NUM=D.DEPT_NUM)
+			INNER JOIN
+			POSITIONS P
+			ON (E.POS_NUM=P.POS_NUM)
+			INNER JOIN
+			EMP_FILE EF
+			ON (E.EMP_NUM=EF.EMP_NUM)
 	</select>
 	
 	<select id="getRole" parameterType="EmployeeVO" resultType="com.team2.app.role.RoleVO">
@@ -118,7 +130,6 @@
 		#{empPwd}
 		WHERE EMP_ID = #{empId}
 	</update>
-	
 	
 	<select id="empList" resultType="EmployeeVO">
 		SELECT *

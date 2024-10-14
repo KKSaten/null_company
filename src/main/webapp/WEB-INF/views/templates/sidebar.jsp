@@ -11,7 +11,7 @@
 			<sec:authentication property="principal" var="vo" />
 			<div class="profile-container" style="display: flex; align-items: center;">
 				<!-- 프로필 사진 -->
-				<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
+				<a href="/employee/detail" class="logo" style="margin-right: 10px;">
 					<img src="/file/employee/${vo.employeeFileVO.fileName}" alt="profile photo"
 					class="navbar-brand" height="50" style="border-radius: 50%;" />
 				</a>

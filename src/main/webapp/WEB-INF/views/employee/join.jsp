@@ -50,7 +50,7 @@
 										<span class="input-icon-addon"> <i
 											class="fas fa-id-card-alt"></i>
 										</span> <input type="text" class="form-control" id="empId"
-											placeholder="사번" name="empId" value="${empId}" readonly></input>
+											placeholder="사번" name="empId" value="${map.empId}" readonly></input>
 									</div>
 
 									<div class="input-icon blank">
@@ -96,24 +96,21 @@
 									<select class="form-select blank" name="deptNum"
 										style="color: #636669;">
 										<option selected="selected" style="font-weight: bolder;">부서</option>
-										<option value="1">본부</option>
-										<option value="2">생산</option>
-										<option value="3">개발</option>
-										<option value="4">영업</option>
-										<option value="5">인사</option>
-									</select> <select class="form-select blank" name="posNum"
-										style="color: #636669;">
-										<option selected="selected" style="font-weight: bolder;">직책</option>
-										<option value="1">부서원</option>
-										<option value="2">부서장</option>
-										<option value="3">임원</option>
+										<c:forEach items="${map.deptList}" var="deptList">
+											<option value="${deptList.deptNum}">${deptList.deptName}</option>
+										</c:forEach>
 									</select> <select class="form-select blank" name="roleNum"
 										style="color: #636669;">
+										<option selected="selected" style="font-weight: bolder;">직책</option>
+										<c:forEach items="${map.roleList}" var="roleList">
+											<option value="${roleList.roleNum}">${roleList.roleName}</option>
+										</c:forEach>
+									</select> <select class="form-select blank" name="posNum"
+										style="color: #636669;">
 										<option selected="selected" style="font-weight: bolder;">직위</option>
-										<option value="1">사원</option>
-										<option value="2">과장</option>
-										<option value="3">부장</option>
-										<option value="4">관리자</option>
+										<c:forEach items="${map.posList}" var="posList">
+											<option value="${posList.posNum}">${posList.posName}</option>
+										</c:forEach>
 									</select>
 
 									<div class="input-icon blank">

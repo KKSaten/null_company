@@ -25,7 +25,7 @@
 				<div class="page-inner">
 					<div class="card">
 						<div class="card-header">
-							<h1>List</h1>
+							<h1>사원 목록</h1>
 						</div>
 						<div class="card-body">
 							<div class="col-md-6 ms-auto me-auto">
@@ -43,7 +43,7 @@
 												<tr onclick="location.href='/employee/detail?empId=${list.empId}'" style="cursor:pointer;">
 													<td>${list.empId}</td>
 													<td>${list.empName}</td>
-													<td>${list.deptNum}</td>
+													<td>${list.deptVO.deptName}</td>
 													<td><c:choose>
 															<c:when test="${list.enabled}">재직 중</c:when>
 															<c:otherwise>퇴직</c:otherwise>

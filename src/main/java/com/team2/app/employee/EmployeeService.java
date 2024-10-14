@@ -55,10 +55,6 @@ public class EmployeeService implements UserDetailsService {
 		return employeeMapper.getList();
 	}
 	
-	public EmployeeVO getDetail (EmployeeVO employeeVO) throws Exception {
-		return employeeMapper.login(employeeVO);
-	}
-	
 	public List<RoleVO> getRole (EmployeeVO employeeVO) throws Exception {
 		return employeeMapper.getRole(employeeVO);
 	}

@@ -47,12 +47,6 @@ public class EmployeeContoller {
 		model.addAttribute("list", list);
 	} 
 	
-	@GetMapping("detail")
-	public void getdetail(EmployeeVO employeeVO, Model model) throws Exception {
-		employeeVO = employeeService.getDetail(employeeVO);
-		model.addAttribute("vo", employeeVO);
-	}
-	
 	@GetMapping("delete")
 	public void delete(EmployeeVO employeeVO) throws Exception {
 		int result = employeeService.delete(employeeVO);
@@ -63,11 +57,7 @@ public class EmployeeContoller {
 	
 	@GetMapping("update")
 	public void update(HttpSession session, Model model) throws Exception {
-		Map<String, Object> map = getEmployeeVO(session);
-		
-		EmployeeVO employeeVO = (EmployeeVO) map.get("vo");
-			
-		
+		EmployeeVO employeeVO = getEmployeeVO(session);
 		model.addAttribute("vo", employeeVO);
 	}
 	
@@ -84,10 +74,8 @@ public class EmployeeContoller {
 	
 	@PostMapping("chpass")
 	public String chpass(EmployeeVO employeeVO, String befpass, HttpSession session) throws Exception {
-		
-		Map<String, Object> map = this.getEmployeeVO(session);
-		
-		EmployeeVO vo = (EmployeeVO) map.get("vo");
+				
+		EmployeeVO vo = getEmployeeVO(session);
 		
 		if(!passwordEncoder.matches(befpass, vo.getEmpPwd())) {
 			return "index";
@@ -107,6 +95,8 @@ public class EmployeeContoller {
 	@GetMapping("join")
 	public void join(Model model) throws Exception {
 		
+		//사번 자동생성
+		
 		EmployeeVO employeeVO = new EmployeeVO();
 		
 		LocalDateTime localDateTime = LocalDateTime.now();
@@ -121,8 +111,18 @@ public class EmployeeContoller {
 		
 		log.info("empId : {}", empId);
 		
-		model.addAttribute("empId", empId);
+		Map<String, Object> map =new HashMap<>();
 		
+		List<DepartmentVO> deptList = employeeService.getDept(null);
+		List<PositionsVO> posList = employeeService.getPos(null);
+		List<RoleVO> roleList = employeeService.getRole(null);
+		
+		map.put("empId", empId);
+		map.put("deptList", deptList);
+		map.put("posList", posList);
+		map.put("roleList", roleList);
+		
+		model.addAttribute("map", map);
 		
 	}
 	
@@ -142,9 +142,7 @@ public class EmployeeContoller {
 	@GetMapping("fileDown")
 	public String fileDown(HttpSession session, Model model) throws Exception {
 		
-		Map<String, Object> map = getEmployeeVO(session);
-		
-		EmployeeVO employeeVO = (EmployeeVO) map.get("vo");
+		EmployeeVO employeeVO = getEmployeeVO(session);
 		
 		model.addAttribute("file",employeeVO.getEmployeeFileVO());
 		
@@ -155,23 +153,26 @@ public class EmployeeContoller {
 	public void login() throws Exception {
 	}
 
-	@GetMapping("mypage")
-	public void mypage(HttpSession session, Model model) throws Exception {
+	@GetMapping("detail")
+	public void detail(EmployeeVO employeeVO ,HttpSession session, Model model) throws Exception {
 		
-		Map<String, Object> map = getEmployeeVO(session);
-		
-		model.addAttribute("map", map);
+		if(employeeVO.getEmpId() == null) {
+			employeeVO = getEmployeeVO(session);
+			
+		}
+		employeeVO = (EmployeeVO) employeeService.loadUserByUsername(employeeVO.getEmpId());
+		model.addAttribute("vo", employeeVO);
 	}
 	
 	@GetMapping("empList")
 	public void empList(Model model) throws Exception{
 		
-		List<EmployeeVO> employeeVO = employeeService.empList();
-		model.addAttribute("list",employeeVO);
+		List<EmployeeVO> list = employeeService.empList();
+		model.addAttribute("list", list);
 	}
 	
 	//session에서 로그인한 유저 정보 꺼내오는 메소드
-	private Map<String, Object> getEmployeeVO(HttpSession session) throws Exception {
+	private EmployeeVO getEmployeeVO(HttpSession session) throws Exception {
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
 
 		SecurityContext sc = SecurityContextHolder.getContext();
@@ -186,28 +187,8 @@ public class EmployeeContoller {
 		log.info("========= memberVO =========");
 		log.info("MemberVO: {}", employeeVO);
 		log.info("Name: {}", ac.getName()); // username
-		log.info("Detail: {}", ac.getDetails()); // sessionID
+		log.info("Detail: {}", ac.getDetails()); // sessionID\
 		
-		List<RoleVO> roleList = employeeService.getRole(employeeVO);
-		
-		List<DepartmentVO> deptList = employeeService.getDept(employeeVO);
-		
-		List<PositionsVO> posList = employeeService.getPos(employeeVO);
-		
-		log.info("Role Name: {}", roleList.get(0).getRoleName());
-		log.info("Department Name: {}", deptList.get(0).getDeptName());
-		log.info("Positions Name: {}", posList.get(0).getPosName());
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("vo", employeeVO);
-		
-		map.put("roleList", roleList);
-		
-		map.put("deptList", deptList);
-		
-		map.put("posList", posList);
-		
-		return map;
+		return employeeVO;
 	}
 }
