@@ -88,12 +88,12 @@
 				</li>
 
 				<li class="nav-item">
-					<a data-bs-toggle="collapse" href="#commute">
+					<a data-bs-toggle="collapse" href="#management">
 						<i class="fas fa-user-cog"></i>
 						<p>관리</p>
 						<span class="caret"></span>
 					</a>
-					<div class="collapse" id="commute">
+					<div class="collapse" id="management">
 						<ul class="nav nav-collapse">
 							<li>
 								<a href="/employee/list">
