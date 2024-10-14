@@ -97,18 +97,21 @@
 														<div style="font-size:14px; color:gray; ">휴가신청서</div>
 													</td>
 													<td>
-														<div class="profile-container" style="display: flex; align-items: center;">
-															<!-- 프로필 사진 -->
-															<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
-																<img src="../../resources/img/profile.jpg" alt="profile photo"
-																class="navbar-brand" height="50" style="border-radius: 50%;" />
-															</a>
-															<!-- 이름 및 직급 정보 -->
-															<div class="profile-info">
-																<p class="name" style="margin: 0; font-weight: bold;">김해린</p>
-																<p class="position" style="font-size: 14px; color: gray; margin: 0;">인사팀 - 대리</p>
+														<sec:authorize access="isAuthenticated()">
+															<sec:authentication property="principal" var="vo" />
+															<div class="profile-container" style="display: flex; align-items: center;">
+																<!-- 프로필 사진 -->
+																<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
+																	<img src="/file/employee/${vo.employeeFileVO.fileName}" alt="profile photo"
+																	class="navbar-brand" height="50" style="border-radius: 50%;" />
+																</a>
+																<!-- 이름 및 직급 정보 -->
+																<div class="profile-info">
+																	<p class="name" style="margin: 0; font-weight: bold;">${vo.empName}</p>
+																	<p class="position" style="font-size: 14px; color: gray; margin: 0;">${vo.deptVO.deptName} - ${vo.posVO.posName}</p>
+																</div>
 															</div>
-														</div>
+														</sec:authorize>
 													</td>
 													<td style="text-align:left !important;"> 2016-07-19 </td>
 													<td>

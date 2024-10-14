@@ -15,6 +15,8 @@ public class ApprLineVO {
 
 	private Integer approver;
 	
+	private String approverName;
+	
 	private String apprProgress;
 	
 
