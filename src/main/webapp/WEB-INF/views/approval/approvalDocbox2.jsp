@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="/resources/css/apprLine.css" />
 
 	
-	<title>기안함</title>
+	<title>결재함</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -44,13 +44,13 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="/approval/approvalDraftbox">기안함</a>
+								<a href="/approval/approvalDocbox">결재함</a>
 							</li>
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="/approval/approvalDraftbox">??</a>
+								<a href="/approval/approvalDocbox">??</a>
 							</li>
 						</ul>
 					</div>
@@ -64,10 +64,12 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">기안 상신함</h4>
-										<button class="btn btn-primary btn-round ms-auto">
-											기안서 작성
-										</button>
+										<h4 class="card-title">결재함</h4>
+										<button class="btn btn-light btn-border ms-auto"
+											style="border: 1px solid #cccccc;"
+											onclick="location.href='/approval/approvalDocbox'">
+											결재함 전체 문서
+										</button>										
 									</div>
 								</div>
 								<div class="card-body">
@@ -78,9 +80,9 @@
 												<tr>
 													<th style="width: 2%;" class="approval-result"></th>
 													<th style="font-size: 15px !important; letter-spacing:0px !important;">문서 제목</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 18%;">기안자</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; text-align:left !important; width: 15%;">기안일</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 25%;">결재 처리</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">기안자</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; text-align:left !important; width: 13%;">기안일</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 30%;">결재 처리</th>
 												</tr>
 											</thead>
 

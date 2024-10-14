@@ -75,13 +75,10 @@
 .result-ban {
     width: 20px;
     height: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #d9534f;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     position: relative;
     margin: 0 3px;
@@ -90,13 +87,10 @@
 .result-approval {
     width: 20px;
     height: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #5cb85c;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
     position: relative;
     margin: 0 3px;

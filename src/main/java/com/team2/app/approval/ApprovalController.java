@@ -32,7 +32,7 @@ public class ApprovalController {
 	}
 	
 	@GetMapping("approvalDocbox")
-	public void approvalDocbox(Model model, ApprovalDocVO appr, HttpSession session) throws Exception {
+	public void approvalDocbox(Model model, ApprDocVO appr, HttpSession session) throws Exception {
 		
 		/* 아이디 추출 과정 */
 		
@@ -50,7 +50,8 @@ public class ApprovalController {
 		/* 아이디 추출 과정 끝 */
 		
 		
-		 List<ApprovalDocVO> list = approvalService.getList(empVO); 
+		 List<ApprDocVO> list = approvalService.getList(empVO); 
+		 model.addAttribute("list", list);
 	}
 	
 	@GetMapping("approvalReceivedbox")

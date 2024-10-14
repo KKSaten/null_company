@@ -6,11 +6,88 @@
 
 <mapper namespace="com.team2.app.approval.ApprovalMapper">
 	
-	<select id="getList" parameterType="EmployeeVO" resultType="ApprovalDocVO">
-		
+	<select id="getList" parameterType="EmployeeVO" resultMap="ApprDocInfo">
+	SELECT A.*, AL.*, 
+		(SELECT T.TEMPLATE_NAME
+		FROM DOC_TEMPLATE T
+		WHERE A.DOC_TEMPLATECODE = T.DOC_TEMPLATECODE
+		)AS TEMPLATE_NAME,
+		(SELECT D.DEPT_NAME 
+		FROM DEPARTMENT D 
+		JOIN
+		EMPLOYEE E
+		ON E.DEPT_NUM = D.DEPT_NUM 
+		WHERE E.EMP_NUM = A.DOC_WRITER
+		) AS DEPT_NAME,
+		(SELECT P.POS_NAME 
+		FROM POSITIONS P 
+		JOIN
+		EMPLOYEE E
+		ON E.POS_NUM = P.POS_NUM 
+		WHERE E.EMP_NUM = A.DOC_WRITER
+		) AS POS_NAME,
+		(SELECT EF.FILE_NAME 
+		FROM EMP_FILE EF 
+		WHERE EF.EMP_NUM = A.DOC_WRITER
+		) AS FILE_NAME
+	FROM APPROVAL_DOCBOX A
+	JOIN
+	APPROVAL_LINE AL
+	ON A.DOC_NUM = AL.DOC_NUM
+	JOIN
+	APPROVAL_HISTORY AH
+	ON A.DOC_NUM = AH.DOC_NUM
+	WHERE A.DOC_WRITER = #{empNum}
 	</select>
-
-
-
+	<resultMap type="ApprDocVO" id="ApprDocInfo">
+		<id property="docNum" column="DOC_NUM"/>
+		<result property="docWriter" column="DOC_WRITER"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		<result property="posName" column="POS_NAME"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="docTypecode" column="DOC_TYPECODE"/>
+		<result property="docTemplatecode" column="DOC_TEMPLATECODE"/>
+		<result property="templateName" column="TEMPLATE_NAME"/>
+		<result property="docTitle" column="DOC_TITLE"/>
+		<result property="docContent" column="DOC_CONTENT" jdbcType="BLOB"/>
+		<result property="docUpdatedate" column="DOC_UPDATEDATE"/>
+		<result property="docDraftdate" column="DOC_DRAFTDATE"/>
+		<result property="docExpirydate" column="DOC_EXPIRYDATE"/>
+		<result property="tempStorage" column="TEMP_STORAGE"/>
+		
+		<association property="ApprLineVO" javaType="ApprLineVO">
+			<id property="docNum" column="DOC_NUM"/>
+			<result property="docTemplatecode" column="DOC_TEMPLATECODE"/>
+			<result property="approver" column="APPROVER"/>
+			<result property="apprProgress" column="APPR_PROGRESS"/>
+		</association>
+		
+		<collection property="ApprHistoryVO" javaType="ApprHistoryVO">
+			<id property="apprNum" column="APPR_NUM"/>
+			<result property="docNum" column="DOC_NUM"/>
+			<result property="approver" column="APPROVER"/>
+			<result property="signNum" column="SIGN_NUM"/>
+			<result property="apprLevel" column="APPR_LEVEL"/>
+			<result property="apprDate" column="APPR_DATE"/>
+			<result property="apprComment" column="APPR_COMMENT"/>
+			<result property="apprResult" column="APPR_RESULT"/>
+		</collection>
+		
+	</resultMap>	
+	
+	
+	
+		
+	<select id="getApprLine" parameterType="ApprDocVO" resultType="ApprLineVO">
+		SELECT * FROM APPROVAL_LINE
+		WHERE DOC_NUM = {#docNum}
+	</select>
+	
+	<select id="getApprHistory" parameterType="ApprDocVO" resultType="ApprHistoryVO">
+		SELECT * FROM APPROVAL_HISTORY
+		WHERE DOC_NUM = {#docNum}
+	</select>		
+	
+	
 
 </mapper>
