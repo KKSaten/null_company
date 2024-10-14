@@ -80,14 +80,14 @@
 												<tr>
 													<th style="width: 2%;" class="approval-result"></th>
 													<th style="font-size: 15px !important; letter-spacing:0px !important;">문서 제목</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">기안자</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 20%;">기안자</th>
 													<th style="font-size: 15px !important; letter-spacing:0px !important; text-align:left !important; width: 13%;">기안일</th>
 													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 30%;">결재 처리</th>
 												</tr>
 											</thead>
 
 											<tbody>	
-												<%-- <c:forEach items="${list}" var="list"> --%>	
+												<c:forEach items="${list}" var="list">	
 												
 													<tr>
 														<td>
@@ -151,7 +151,7 @@
 														</td>
 													</tr>
 													
-												<%-- </c:forEach>	 --%>																		
+												</c:forEach>																			
 
 											</tbody>
 										</table>

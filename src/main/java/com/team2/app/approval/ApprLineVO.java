@@ -15,9 +15,7 @@ public class ApprLineVO {
 
 	private Integer approver;
 	
-	private Long apprRole;
-	
-	private Long apprDept;
+	private String apprProgress;
 	
 
 }

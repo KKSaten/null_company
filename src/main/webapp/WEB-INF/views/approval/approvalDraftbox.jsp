@@ -78,9 +78,9 @@
 												<tr>
 													<th style="width: 2%;" class="approval-result"></th>
 													<th style="font-size: 15px !important; letter-spacing:0px !important;">문서 제목</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 15%;">기안자</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; text-align:left !important; width: 13%;">기안일</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 30%;">결재 처리</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 18%;">기안자</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; text-align:left !important; width: 15%;">기안일</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 25%;">결재 처리</th>
 												</tr>
 											</thead>
 
