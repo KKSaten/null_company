@@ -44,6 +44,7 @@
 						<div class="card-body">
 							<div class="col-md-6 ms-auto me-auto">
 								<form method="post" enctype="multipart/form-data">
+									<input type="hidden" name="empNum" value="${empNum}" />
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i
@@ -55,16 +56,18 @@
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i class="fa fa-user"></i>
 										</span> <input type="text" class="form-control" id="empName"
-											placeholder="이름" name="empName" value="${vo.empName}" disabled/>
+											placeholder="이름" name="empName" value="${vo.empName}"
+											disabled />
 									</div>
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i
 											class="fas fa-address-card"></i>
 										</span> <input type="text" class="form-control" id="empRegistry"
-											placeholder="주민등록번호" name="empRegistry" value="${vo.empRegistry}" disabled/>
+											placeholder="주민등록번호" name="empRegistry"
+											value="${vo.empRegistry}" disabled />
 									</div>
-									
+
 									<div class="input-icon blank">
 										<c:choose>
 											<c:when test="${vo.empGender eq '남'}">
@@ -72,14 +75,14 @@
 													class="fas fa-male"></i>
 												</span>
 												<input type="text" class="form-control" id="empGender"
-												name="empGender" value="${vo.empGender}" disabled/>
+													name="empGender" value="${vo.empGender}" disabled />
 											</c:when>
 											<c:otherwise>
 												<span class="input-icon-addon"> <i
 													class="fas fa-female"></i>
 												</span>
 												<input type="text" class="form-control" id="empGender"
-												name="empGender" value="${vo.empGender}" disabled/>
+													name="empGender" value="${vo.empGender}" disabled />
 											</c:otherwise>
 										</c:choose>
 									</div>
@@ -87,42 +90,37 @@
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i class="fas fa-home"></i>
 										</span> <input type="text" class="form-control" id="empAddress"
-											placeholder="주소" name="empAddress" value="${vo.empAddress}"/>
+											placeholder="주소" name="empAddress" value="${vo.empAddress}" />
 									</div>
 
-									<select class="form-select blank" name="deptNum"
-										style="color: #636669;">
-										<option style="font-weight: bolder;">부서</option>
-										<option value="1">본부</option>
-										<option value="2">생산</option>
-										<option value="3">개발</option>
-										<option value="4">영업</option>
-										<option value="5">인사</option>
-									</select> <select class="form-select blank" name="posNum"
-										style="color: #636669;">
-										<option selected="selected" style="font-weight: bolder;">직책</option>
-										<option value="1">부서원</option>
-										<option value="2">부서장</option>
-										<option value="3">임원</option>
-									</select> <select class="form-select blank" name="roleNum"
-										style="color: #636669;">
-										<option selected="selected" style="font-weight: bolder;">직위</option>
-										<option value="1">사원</option>
-										<option value="2">과장</option>
-										<option value="3">부장</option>
-										<option value="4">관리자</option>
-									</select>
+									<div class="input-icon blank">
+										<span class="input-icon-addon"> <i class="fas fa-users"></i>
+										</span> <input type="text" class="form-control" id="empAddress"
+											placeholder="부서" name="depNum"
+											value="${deptList[0].deptName}" disabled />
+									</div>
+
+									<div class="input-icon blank">
+										<span class="input-icon-addon"> <i
+											class="fas fa-user-tie"></i>
+										</span> <input type="text" class="form-control" id="empAddress"
+											placeholder="직위" name="posNum" value="${posList[0].posName}"
+											disabled />
+									</div>
 
 									<div class="input-icon blank">
 										<span class="input-icon-addon"> <i
 											class="fas fa-file-image"></i>
 										</span> <input style="color: #636669; padding-left: 45px;"
-											type="file" class="form-control" id="attach" name="attach" accept="image/*"/>
+											type="file" class="form-control" id="attach" name="attach"
+											accept="image/*" />
 									</div>
 
 									<button type="submit" class="btn btn-primary">정보 수정</button>
 								</form>
 							</div>
+							
+							
 
 						</div>
 					</div>

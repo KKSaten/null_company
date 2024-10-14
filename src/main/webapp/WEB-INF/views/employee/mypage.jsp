@@ -28,31 +28,38 @@
 									style="background-image: url('/file/employee/default/bg_profile.jpg')">
 									<div class="profile-picture">
 										<div class="avatar avatar-xxl">
-											<img src="/file/employee/${vo.employeeFileVO.fileName}"
+											<img src="/file/employee/${map.vo.employeeFileVO.fileName}"
 												alt="직원사진" class="avatar-img rounded-circle" />
 										</div>
 									</div>
 								</div>
 								<div class="card-body">
 									<div class="user-profile text-center">
-										<div class="name" style="font-size: x-large; font-weight: bold;">사번: ${vo.empId}</div>
-										<div class="name" style="font-size: large;">이름: ${vo.empName}</div>
-										<div class="name" style="font-size: large;">주소: ${vo.empAddress}</div>
+										<div class="name"
+											style="font-size: x-large; font-weight: bold;">사번:
+											${map.vo.empId}</div>
+										<div class="name" style="font-size: large;">이름:
+											${map.vo.empName}</div>
+										<div class="name" style="font-size: large;">주소:
+											${map.vo.empAddress}</div>
 									</div>
 									<div class="view-profile" style="margin-top: 30px;">
 										<div class="row">
 											<div class="col-6">
-												<a href="/employee/update" class="btn btn-secondary w-100"> 정보 수정</a>
+												<!-- Button trigger modal -->
+												<button type="button" class="btn btn-secondary w-100"
+													data-bs-toggle="modal" data-bs-target="#exampleModal">주소
+													수정</button>
+
 											</div>
 											<div class="col-6">
-												<a href="/employee/chpass" class="btn btn-secondary w-100"> 비밀번호 변경</a>
+												<a href="/employee/chpass" class="btn btn-secondary w-100">
+													비밀번호 변경</a>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="card-footer">
-								
-								</div>
+								<div class="card-footer"></div>
 							</div>
 						</div>
 
@@ -70,7 +77,7 @@
 											<div class="col col-stats ms-3">
 												<div class="numbers">
 													<p class="card-category">부서</p>
-													<h4 class="card-title">1,294</h4>
+													<h4 class="card-title">${map.deptList[0].deptName}</h4>
 												</div>
 											</div>
 										</div>
@@ -90,7 +97,27 @@
 											<div class="col col-stats ms-3">
 												<div class="numbers">
 													<p class="card-category">직책</p>
-													<h4 class="card-title">1,294</h4>
+													<h4 class="card-title">${map.roleList[0].roleName}</h4>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="card card-stats card-round">
+									<div class="card-body">
+										<div class="row align-items-center">
+											<div class="col-icon">
+												<div
+													class="icon-big text-center icon-primary bubble-shadow-small">
+													<i class="fas fa-users"></i>
+												</div>
+											</div>
+											<div class="col col-stats ms-3">
+												<div class="numbers">
+													<p class="card-category">직위</p>
+													<h4 class="card-title">${map.posList[0].posName}</h4>
 												</div>
 											</div>
 										</div>
@@ -101,6 +128,33 @@
 					</div>
 				</div>
 			</div>
+
+
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">주소 수정</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="input-icon">
+								<input type="text" class="form-control" id="empAddress"
+									placeholder="변경 할 주소" name="empAddress"/>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal" id="modalClose">닫기</button>
+							<button type="button" class="btn btn-primary" id="modalSave">저장</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 
 			<c:import url="../templates/footer.jsp"></c:import>
 		</div>

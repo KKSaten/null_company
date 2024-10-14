@@ -1,24 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!-- Sidebar -->
 <div class="sidebar" data-background-color="bright">
 
 	<div class="sidebar-logo">
 		<!-- Logo Header -->
 		<div class="logo-header" data-background-color="bright">
-
+			<sec:authorize access="isAuthenticated()">
+			<sec:authentication property="principal" var="vo" />
 			<div class="profile-container" style="display: flex; align-items: center;">
 				<!-- 프로필 사진 -->
 				<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
-					<img src="../../resources/img/profile.jpg" alt="profile photo"
+					<img src="/file/employee/${vo.employeeFileVO.fileName}" alt="profile photo"
 					class="navbar-brand" height="50" style="border-radius: 50%;" />
 				</a>
 				<!-- 이름 및 직급 정보 -->
 				<div class="profile-info">
-					<p class="name" style="margin: 0; font-weight: bold;">김해린</p>
-					<p class="position" style="font-size: 14px; color: gray; margin: 0;">인사팀 - 대리</p>
+					<p class="name" style="margin: 0; font-weight: bold;">${vo.empName}</p>
+					<p class="position" style="font-size: 14px; color: gray; margin: 0;">${vo.deptVO.deptName} - ${vo.posVO.posName}</p>
 				</div>
 			</div>
+			</sec:authorize>
 
 
 
@@ -37,6 +40,7 @@
 		<div class="sidebar-content">
 			<ul class="nav">
 				<li class="nav-item">
+					<sec:authorize access="isAuthenticated()">
 					<!-- 출근 버튼 -->
 					<div class="d-grid gap-2 col-12 col-md-8 mx-auto">
 						<button id="alert_demo_8" type="submit" class="btn btn-black btn-border" aria-expanded="false">출근하기</button>
@@ -48,6 +52,7 @@
 
 						</ul>
 					</div>
+					</sec:authorize>
 				</li>
 				
 				<li class="nav-section">

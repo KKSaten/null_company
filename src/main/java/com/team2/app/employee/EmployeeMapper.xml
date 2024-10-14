@@ -12,6 +12,30 @@
 		FROM EMPLOYEE
 	</select>
 	
+	<select id="getRole" parameterType="EmployeeVO" resultType="com.team2.app.role.RoleVO">
+		SELECT *
+		FROM ROLE
+		<if test="roleNum != null">
+			WHERE ROLE_NUM = #{roleNum}
+		</if>	
+	</select>
+	
+	<select id="getDept" parameterType="EmployeeVO" resultType="com.team2.app.department.DepartmentVO">
+		SELECT *
+		FROM DEPARTMENT
+		<if test="deptNum != null">
+			WHERE DEPT_NUM = #{deptNum}
+		</if>	
+	</select>
+	
+	<select id="getPos" parameterType="EmployeeVO" resultType="com.team2.app.positions.PositionsVO">
+		SELECT *
+		FROM POSITIONS
+		<if test="posNum != null">
+			WHERE POS_NUM = #{posNum}
+		</if>
+	</select>
+	
 	<update id="delete" parameterType="EmployeeVO">
 		UPDATE EMPLOYEE
 		SET ENABLED = 0
@@ -27,14 +51,17 @@
 	<!-- 로그인 기능 -->
 	<select id="login" parameterType="EmployeeVO"
 		resultMap="employeeInfo">
-		SELECT E.*, R.*, EF.*
+		SELECT E.*, R.*, D.*, P.*, EF.*
 		FROM EMPLOYEE E
 			INNER JOIN
-			EMP_ROLE ER
-			ON (E.EMP_NUM=ER.EMP_NUM)
-			INNER JOIN
 			ROLE R
-			ON (ER.ROLE_NUM=R.ROLE_NUM)
+			ON (E.ROLE_NUM=R.ROLE_NUM)
+			INNER JOIN
+			DEPARTMENT D
+			ON (E.DEPT_NUM=D.DEPT_NUM)
+			INNER JOIN
+			POSITIONS P
+			ON (E.POS_NUM=P.POS_NUM)
 			INNER JOIN
 			EMP_FILE EF
 			ON (E.EMP_NUM=EF.EMP_NUM)
@@ -49,6 +76,7 @@
 		<result property="empRegistry" column="EMP_REGISTRY"/>
 		<result property="empGender" column="EMP_GENDER"/>
 		<result property="empAddress" column="EMP_ADDRESS"/>
+		<result property="roleNum" column="ROLE_NUM"/>
 		<result property="deptNum" column="DEPT_NUM"/>
 		<result property="posNum" column="POS_NUM"/>
 		<result property="hiredate" column="HIREDATE"/>
@@ -61,22 +89,27 @@
 			<result property="oriName" column="ORI_NAME"/>
 		</association>
 		
-		<collection property="roleVOs" javaType="java.util.List" ofType="RoleVO">
+		<association property="roleVO" javaType="com.team2.app.role.RoleVO">
 			<id property="roleNum" column="ROLE_NUM"/>
 			<result property="roleName" column="ROLE_NAME"/>
-		</collection>
+		</association>
+		
+		<association property="deptVO" javaType="com.team2.app.department.DepartmentVO">
+			<id property="deptNum" column="DEPT_NUM"/>
+			<result property="deptName" column="DEPT_NAME"/>
+		</association>
+		
+		<association property="posVO" javaType="com.team2.app.positions.PositionsVO">
+			<id property="posNum" column="POS_NUM"/>
+			<result property="posName" column="POS_NAME"/>
+		</association>
 		
 	</resultMap>
 	
 	<!-- 직원 등록 -->
 	<insert id="join" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="num">
-		INSERT INTO EMPLOYEE (EMP_ID, EMP_PWD, EMP_NAME, EMP_REGISTRY, EMP_GENDER, EMP_ADDRESS, DEPT_NUM, POS_NUM)
-		VALUES (#{employeeVO.empId}, #{employeeVO.empPwd}, #{employeeVO.empName}, #{employeeVO.empRegistry}, #{employeeVO.empGender}, #{employeeVO.empAddress}, #{employeeVO.deptNum}, #{employeeVO.posNum})
-	</insert>
-	
-	<insert id="addEmpRole" parameterType="EmployeeVO">
-		INSERT INTO EMP_ROLE (EMP_NUM, ROLE_NUM, DEPT_NUM)
-		VALUES (#{empNum}, #{roleVOs[0].roleNum}, #{deptNum})
+		INSERT INTO EMPLOYEE (EMP_ID, EMP_PWD, EMP_NAME, EMP_REGISTRY, EMP_GENDER, EMP_ADDRESS, ROLE_NUM, DEPT_NUM, POS_NUM)
+		VALUES (#{employeeVO.empId}, #{employeeVO.empPwd}, #{employeeVO.empName}, #{employeeVO.empRegistry}, #{employeeVO.empGender}, #{employeeVO.empAddress}, #{employeeVO.roleNum}, #{employeeVO.deptNum}, #{employeeVO.posNum})
 	</insert>
 	
 	<update id="chpass" parameterType="EmployeeVO">
@@ -94,7 +127,7 @@
 		LEFT JOIN 
 		    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM  
 		LEFT JOIN 
-		    POSITIONS P ON E.POS_NUM = P.POS_NUM    
+		    POSITIONS P ON E.POS_NUM = P.POS_NUM   
 
 </select>
 </mapper>

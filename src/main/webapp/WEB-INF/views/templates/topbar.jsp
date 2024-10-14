@@ -205,11 +205,7 @@
 				<li class="nav-item topbar-user dropdown hidden-caret"
 					style="margin-right: 50px;"><a
 					class="dropdown-toggle profile-pic" data-bs-toggle="dropdown"
-					href="#" aria-expanded="false">
-						<div class="avatar-sm">
-							<img src="/file/employee/${vo.employeeFileVO.fileName}" alt="..."
-								class="avatar-img rounded-circle" />
-						</div> <span class="profile-username"> <span class="op-7">Hi,</span>
+					href="#" aria-expanded="false"><span class="profile-username"> <span class="op-7">Hi,</span>
 							<span class="fw-bold">${vo.empName}</span>
 					</span>
 				</a>
@@ -224,7 +220,7 @@
 									<div class="u-text">
 										<h4>${vo.empName}</h4>
 										<p class="text-muted">hello@example.com</p>
-										<a href="/employee/mypage?empNum=${vo.empNum}"
+										<a href="/employee/mypage"
 											class="btn btn-xs btn-secondary btn-sm">내 정보</a>
 									</div>
 								</div>

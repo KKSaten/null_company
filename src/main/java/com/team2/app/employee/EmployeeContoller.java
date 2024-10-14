@@ -2,7 +2,9 @@ package com.team2.app.employee;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team2.app.department.DepartmentVO;
+import com.team2.app.positions.PositionsVO;
 import com.team2.app.role.RoleVO;
 
 import jakarta.servlet.http.HttpSession;
@@ -59,7 +63,9 @@ public class EmployeeContoller {
 	
 	@GetMapping("update")
 	public void update(HttpSession session, Model model) throws Exception {
-		EmployeeVO employeeVO = getEmployeeVO(session);
+		Map<String, Object> map = getEmployeeVO(session);
+		
+		EmployeeVO employeeVO = (EmployeeVO) map.get("vo");
 			
 		
 		model.addAttribute("vo", employeeVO);
@@ -79,7 +85,9 @@ public class EmployeeContoller {
 	@PostMapping("chpass")
 	public String chpass(EmployeeVO employeeVO, String befpass, HttpSession session) throws Exception {
 		
-		EmployeeVO vo = this.getEmployeeVO(session);
+		Map<String, Object> map = this.getEmployeeVO(session);
+		
+		EmployeeVO vo = (EmployeeVO) map.get("vo");
 		
 		if(!passwordEncoder.matches(befpass, vo.getEmpPwd())) {
 			return "index";
@@ -119,12 +127,12 @@ public class EmployeeContoller {
 	}
 	
 	@PostMapping("join")
-	public void join(EmployeeVO employeeVO, RoleVO roleVO, MultipartFile attach) throws Exception {
+	public void join(EmployeeVO employeeVO, MultipartFile attach) throws Exception {
 			
 		log.info("=========================================");
 		log.info("join employee: {}", employeeVO);
 		
-		employeeService.join(employeeVO, roleVO, attach);
+		employeeService.join(employeeVO, attach);
 			
 		log.info("=========================================");
 		log.info("등록 성공");
@@ -134,7 +142,9 @@ public class EmployeeContoller {
 	@GetMapping("fileDown")
 	public String fileDown(HttpSession session, Model model) throws Exception {
 		
-		EmployeeVO employeeVO = getEmployeeVO(session);
+		Map<String, Object> map = getEmployeeVO(session);
+		
+		EmployeeVO employeeVO = (EmployeeVO) map.get("vo");
 		
 		model.addAttribute("file",employeeVO.getEmployeeFileVO());
 		
@@ -148,9 +158,9 @@ public class EmployeeContoller {
 	@GetMapping("mypage")
 	public void mypage(HttpSession session, Model model) throws Exception {
 		
-		EmployeeVO employeeVO = getEmployeeVO(session);
+		Map<String, Object> map = getEmployeeVO(session);
 		
-		model.addAttribute("vo",employeeVO);
+		model.addAttribute("map", map);
 	}
 	
 	@GetMapping("empList")
@@ -161,7 +171,7 @@ public class EmployeeContoller {
 	}
 	
 	//session에서 로그인한 유저 정보 꺼내오는 메소드
-	private EmployeeVO getEmployeeVO(HttpSession session) throws Exception {
+	private Map<String, Object> getEmployeeVO(HttpSession session) throws Exception {
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
 
 		SecurityContext sc = SecurityContextHolder.getContext();
@@ -178,6 +188,26 @@ public class EmployeeContoller {
 		log.info("Name: {}", ac.getName()); // username
 		log.info("Detail: {}", ac.getDetails()); // sessionID
 		
-		return employeeVO;
+		List<RoleVO> roleList = employeeService.getRole(employeeVO);
+		
+		List<DepartmentVO> deptList = employeeService.getDept(employeeVO);
+		
+		List<PositionsVO> posList = employeeService.getPos(employeeVO);
+		
+		log.info("Role Name: {}", roleList.get(0).getRoleName());
+		log.info("Department Name: {}", deptList.get(0).getDeptName());
+		log.info("Positions Name: {}", posList.get(0).getPosName());
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("vo", employeeVO);
+		
+		map.put("roleList", roleList);
+		
+		map.put("deptList", deptList);
+		
+		map.put("posList", posList);
+		
+		return map;
 	}
 }

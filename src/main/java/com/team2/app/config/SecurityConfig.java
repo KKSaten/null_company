@@ -58,9 +58,6 @@ public class SecurityConfig {
 						authorizeRequests
 							.requestMatchers("/").permitAll()
 							.requestMatchers("/employee/mypage").authenticated()
-							.requestMatchers("/employee/delete").hasAnyRole("OWNER","PERSONEL")
-							.requestMatchers("/department/update").hasAnyRole("OWNER","PERSONEL")
-							.requestMatchers("/department/delete").hasAnyRole("OWNER","PERSONEL")
 							.anyRequest().permitAll()
 					)
 			.formLogin(

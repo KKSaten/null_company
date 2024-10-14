@@ -26,16 +26,15 @@ public class FileManager {
 		//저장할 파일명 생성
 		String fileName = UUID.randomUUID().toString();
 		
-		//저장 경로 + 파일명
-		file = new File(file,fileName);
-		
 		if(attach.isEmpty()) {
 			//사원 기본 이미지
 			File profile = new File("/upload/employee/default/default_profile.png");
-			fileName = fileName+"default_profile.png";
+			fileName = fileName+"_default_profile.png";
+			file = new File(file,fileName);
 			FileCopyUtils.copy(profile, file);
 		} else {
 			fileName = fileName+"_"+attach.getOriginalFilename();
+			file = new File(file,fileName);
 			attach.transferTo(file);			
 		}
 		

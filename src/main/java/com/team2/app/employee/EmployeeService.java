@@ -26,6 +26,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team2.app.department.DepartmentVO;
+import com.team2.app.positions.PositionsVO;
 import com.team2.app.role.RoleVO;
 import com.team2.app.util.FileManager;
 import com.team2.app.util.FileVO;
@@ -57,6 +59,18 @@ public class EmployeeService implements UserDetailsService {
 		return employeeMapper.login(employeeVO);
 	}
 	
+	public List<RoleVO> getRole (EmployeeVO employeeVO) throws Exception {
+		return employeeMapper.getRole(employeeVO);
+	}
+	
+	public List<DepartmentVO> getDept (EmployeeVO employeeVO) throws Exception {
+		return employeeMapper.getDept(employeeVO);
+	}
+	
+	public List<PositionsVO> getPos (EmployeeVO employeeVO) throws Exception {
+		return employeeMapper.getPos(employeeVO);
+	}
+	
 	public int delete(EmployeeVO employeeVO) throws Exception {
 		return employeeMapper.delete(employeeVO);
 	}
@@ -74,16 +88,11 @@ public class EmployeeService implements UserDetailsService {
 	}
 	
 	//사원등록
-	public int join (EmployeeVO employeeVO, RoleVO roleVO, MultipartFile attach) throws Exception {
+	public int join (EmployeeVO employeeVO, MultipartFile attach) throws Exception {
 		
 		//비밀번호 암호화
 		String pwd = passwordEncoder.encode(employeeVO.getEmpPwd());
 		employeeVO.setEmpPwd(pwd);
-		
-		//role
-		List<RoleVO> roleVOs = new ArrayList<RoleVO>();
-		roleVOs.add(roleVO);
-		employeeVO.setRoleVOs(roleVOs);
 		
 		//DB insert쿼리
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -96,8 +105,6 @@ public class EmployeeService implements UserDetailsService {
 		BigInteger num = new BigInteger(map.get("num").toString());
 		
 		employeeVO.setEmpNum(num.intValue());
-		
-		result = employeeMapper.addEmpRole(employeeVO);
 		
 		if(result==1) {
 			
