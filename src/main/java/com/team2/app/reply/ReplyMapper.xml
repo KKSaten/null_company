@@ -5,5 +5,22 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.team2.app.reply.ReplyMapper">
+
+	<insert id="writeReply" parameterType="ReplyVO">
+		INSERT INTO REPLY
+			(REPLY_NUM, COMMENT_NUM, EMP_NUM, REPLY_CONTENTS, REPLY_DATE)
+		VALUES
+			(NULL, #{commentNum}, #{empNum}, #{replyContents}, now())
+	</insert>
+	
+	<update id="modifyReply" parameterType="ReplyVO">
+		UPDATE REPLY SET REPLY_CONTENTS = #{replyContents} 
+		WHERE REPLY_NUM = #{replyNum}
+	</update>
+	
+	<update id="deleteReply" parameterType="ReplyVO">
+		UPDATE REPLY SET REPLY_DEL = 1
+		WHERE REPLY_NUM = #{replyNum}
+	</update>
 	
 </mapper>

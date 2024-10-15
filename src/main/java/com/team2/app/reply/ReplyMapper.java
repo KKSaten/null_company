@@ -8,5 +8,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ReplyMapper {
 	
 	
+	int writeReply(ReplyVO replyVO) throws Exception;
+	
+	int modifyReply(ReplyVO replyVO) throws Exception;
+	
+	int deleteReply(ReplyVO replyVO) throws Exception;
+	
 
 }

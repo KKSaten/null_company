@@ -28,6 +28,16 @@
 									<li class="no_dot">공지사항</li>
 								</ul>
 							</div>
+							<div class="col-lg-2" style="float: right;">
+								<div class="form-group form-group-default">
+			                        <select class="form-select" id="formGroupDefaultSelect">
+			                        	<option>부서 선택</option>
+			                        	<c:forEach items="${deptList }" var="deptVO">
+				                        	<option value="${deptVO.deptNum }">${deptVO.deptName }</option>
+			                        	</c:forEach>	                        	
+			                        </select>
+	                        	</div>
+							</div>
 						</div>
 						<div class="card-body">
 							<table class="table mt-3">
@@ -35,7 +45,7 @@
 									<c:forEach items="${list }" var="noticeVO">
 										<ul class="no_dot" onclick="location.href='/notice/post?noticeNum=${noticeVO.noticeNum}'">
 											<li class="custom-list3"><i class="fas fa-comments"></i> ${noticeVO.noticeTitle}</li>
-											<li class="custom-list4">인사팀, ${noticeVO.noticeDate}</li>
+											<li class="custom-list4">${noticeVO.departmentVO.deptName}팀, ${noticeVO.noticeDate}</li>
 											<li class="custom-list4">조회수 ${noticeVO.noticeHit}</li>
 										</ul>
 										<br><br><br>

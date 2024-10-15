@@ -49,14 +49,25 @@
     	.custom-write3 {margin-left: 15px}
     	.custom-page1 {margin-right: 15px}
     	.custom-page2 {margin-left: 15px}
-    	.commentLine {color: gray !important}
-    	.custom-comment1 {margin-top: 15px !important}
-    	.custom-comment2 {font-size:12px !important}
-    	.custom-comment2 {color: gray !important}
-    	.custom-comment2 {margin-bottom: 25px !important}
-    	.custom-comment3 {font-size:16px !important}
-    	.custom-comment3 {font-weight: bold !important}
+   		
+   		/* 댓글과 답글 스타일 */
+    	.custom-comment1 {margin-bottom: 20px; padding: 10px;}
+    	.custom-comment2 {font-weight: bold; font-size: 12px; color: gray;}
+    	.custom-comment3 {font-size: 13px; padding: 8px 10px; background-color: #f7f7f7; border-radius: 5px;}
+    	.commentLine {border-top: 1px solid #ddd;}
+    	.commentMod, .commentDel, .replyAdd {margin-left: 10px; font-size: 12px; color: #007bff; cursor: pointer;}
+    	.modContents {width: 100%; min-height: 100px; margin-top: 10px;}
+    	.btn-black {background-color: #333; color: #fff;}
 
+    	/* 답글의 스타일 */
+    	.replySection {padding-left: 60px; margin-top: 10px;}
+    	.replyBox {border-left: 2px solid #ddd; padding-left: 15px;}
+   		.replyDate {font-size: 12px; color: #666;}
+   		.replyContents {background-color: #f1f1f1; border-radius: 5px; padding: 8px; margin-top: 5px;}
+   		
+   		/* 답글 입력 스타일 */
+   		.hidden {display : none;}
+   		.addReplyContentsDiv {margin-left: 60px;}
     </style>
 
     <!-- CSS Files -->
