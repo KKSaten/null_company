@@ -21,6 +21,8 @@
 				<c:import url="../templates/topbar.jsp"></c:import>
 			</div>
 
+			<div id="list"></div>
+
 			<div class="container">
 				<div class="page-inner">
 					<div class="card">
@@ -61,6 +63,7 @@
 			<c:import url="/WEB-INF/views/templates/footer.jsp"></c:import>
 		</div>
 	</div>
+
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
 </body>

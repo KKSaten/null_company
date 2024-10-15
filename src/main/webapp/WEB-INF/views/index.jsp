@@ -638,7 +638,7 @@
 
                 </div>
             </div>
-
+            <script src="/resources/js/employee/index.js"></script>
             <c:import url="templates/footer.jsp"></c:import>
       
 </div>
