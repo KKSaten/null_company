@@ -28,7 +28,7 @@ public class FileManager {
 		
 		if(attach.isEmpty()) {
 			//사원 기본 이미지
-			File profile = new File("/upload/employee/default/default_profile.png");
+			File profile = new File(path+"default/default_profile.png");
 			fileName = fileName+"_default_profile.png";
 			file = new File(file,fileName);
 			FileCopyUtils.copy(profile, file);
@@ -42,6 +42,14 @@ public class FileManager {
 		log.info("저장할 파일명: {}", fileName);
 		
 		return fileName;
+	}
+	
+	public void fileUpdate(String path, MultipartFile attach) throws Exception {
+		
+		File file = new File(path);
+		
+		attach.transferTo(file);
+		
 	}
 	
 }

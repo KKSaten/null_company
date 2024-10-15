@@ -26,6 +26,10 @@ public interface EmployeeMapper {
 	
 	public void saveFile(EmployeeFileVO fileVO) throws Exception;
 	
+	public int fileUpdate(EmployeeFileVO fileVO) throws Exception;
+	
+	public int addrUpdate(EmployeeVO employeeVO) throws Exception;
+	
 	public List<EmployeeVO> empList()throws Exception;
 	
 	public List<RoleVO> getRole (EmployeeVO employeeVO) throws Exception;

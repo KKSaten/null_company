@@ -59,6 +59,18 @@
 		INSERT INTO EMP_FILE (EMP_NUM, FILE_NAME, ORI_NAME)
 		VALUES (#{empNum}, #{fileName}, #{oriName})
 	</insert>
+	
+	<update id="fileUpdate" parameterType="EmployeeFileVO">
+		UPDATE EMP_FILE
+		SET ORI_NAME = #{oriName}
+		WHERE FILE_NUM = #{fileNum}
+	</update>
+	
+	<update id="addrUpdate" parameterType="EmployeeVO">
+		UPDATE EMPLOYEE
+		SET EMP_ADDRESS = #{empAddress}
+		WHERE EMP_NUM = #{empNum}
+	</update>
 
 	<!-- 로그인 기능 -->
 	<select id="login" parameterType="EmployeeVO"

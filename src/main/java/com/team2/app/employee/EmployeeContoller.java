@@ -17,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.app.department.DepartmentVO;
@@ -55,15 +57,18 @@ public class EmployeeContoller {
 	
 	// ============================== 직원
 	
-	@GetMapping("update")
-	public void update(HttpSession session, Model model) throws Exception {
-		EmployeeVO employeeVO = getEmployeeVO(session);
-		model.addAttribute("vo", employeeVO);
-	}
-	
+	@ResponseBody
 	@PostMapping("update")
-	public void update(EmployeeVO employeeVO, MultipartFile attach) throws Exception {
-		employeeService.update(employeeVO, attach);
+	public int update(MultipartFile attach, String empAddress, HttpSession session) throws Exception {
+		log.info("update: {}", empAddress);
+		int result = 0;
+		EmployeeVO employeeVO = getEmployeeVO(session);
+		employeeVO.setEmpAddress(empAddress);
+		result = employeeService.update(employeeVO, attach);
+		
+		log.info("update: {}",result);
+		
+		return result;
 	}
 	
 	//비밀번호 변경

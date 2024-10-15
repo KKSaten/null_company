@@ -71,8 +71,29 @@ public class EmployeeService implements UserDetailsService {
 		return employeeMapper.delete(employeeVO);
 	}
 	
-	public void update (EmployeeVO employeeVO, MultipartFile attach) throws Exception {
+	public int update (EmployeeVO employeeVO, MultipartFile attach) throws Exception {
 		
+		int result = 0;
+		
+		if(attach != null) {
+			
+			EmployeeFileVO employeeFileVO = employeeVO.getEmployeeFileVO();
+			
+			employeeFileVO.setOriName(attach.getOriginalFilename());
+			
+			String updatePath = path+"employee/"+employeeFileVO.getFileName();
+			
+			log.info("이미지 수정 경로: {}", updatePath);
+			
+			fileManager.fileUpdate(updatePath, attach);
+			
+			result = employeeMapper.fileUpdate(employeeFileVO);
+		} else {
+			result = employeeMapper.addrUpdate(employeeVO);
+		}
+		
+		
+		return result;
 	}
 	
 	public void chpass (EmployeeVO employeeVO) throws Exception {

@@ -149,7 +149,7 @@
 								aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<input type="file">
+							<input type="file" id="profileimg" name="attach">
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary modalClose"
@@ -192,7 +192,7 @@
 		</div>
 	</div>
 
-	<script src="/resources/static/resources/js/employee/mypage.js" />
+	<script src="/resources/js/employee/detail.js" />
 	<c:import url="../templates/bootfooter.jsp"></c:import>
 </body>
 </html>
