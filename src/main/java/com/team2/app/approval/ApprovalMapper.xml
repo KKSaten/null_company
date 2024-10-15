@@ -42,14 +42,13 @@
 	LEFT JOIN
 	EMPLOYEE E2
 	ON AL.APPROVER = E2.EMP_NUM 
-	LEFT JOIN
-	APPROVAL_HISTORY AH
-	ON A.DOC_NUM = AH.DOC_NUM
 	WHERE A.DOC_WRITER = #{empNum}
+	ORDER BY AL.AL_NUM ASC
 	</select>
 	<resultMap type="ApprDocVO" id="ApprDocInfo">
 		<id property="docNum" column="DOC_NUM"/>
 		<result property="docWriter" column="DOC_WRITER"/>
+		<result property="empName" column="EMP_NAME"/>
 		<result property="deptName" column="DEPT_NAME"/>
 		<result property="posName" column="POS_NAME"/>
 		<result property="fileName" column="FILE_NAME"/>
@@ -62,23 +61,15 @@
 		<result property="docDraftdate" column="DOC_DRAFTDATE"/>
 		<result property="docExpirydate" column="DOC_EXPIRYDATE"/>
 		<result property="tempStorage" column="TEMP_STORAGE"/>
+		<result property="approvalResult" column="APPROVAL_RESULT"/>
 		
 		<collection property="apprLineVO" javaType="java.util.List" ofType="ApprLineVO">
-			<id property="docNum" column="DOC_NUM"/>
+			<id property="alNum" column="AL_NUM"/>
+			<result property="docNum" column="DOC_NUM"/>
 			<result property="docTemplatecode" column="DOC_TEMPLATECODE"/>
 			<result property="approver" column="APPROVER"/>
+			<result property="approverName" column="APPROVER_NAME"/>
 			<result property="apprProgress" column="APPR_PROGRESS"/>
-		</collection>
-		
-		<collection property="apprHistoryVO" javaType="java.util.List" ofType="ApprHistoryVO">
-			<id property="apprNum" column="APPR_NUM"/>
-			<result property="docNum" column="DOC_NUM"/>
-			<result property="approver" column="APPROVER"/>
-			<result property="signNum" column="SIGN_NUM"/>
-			<result property="apprLevel" column="APPR_LEVEL"/>
-			<result property="apprDate" column="APPR_DATE"/>
-			<result property="apprComment" column="APPR_COMMENT"/>
-			<result property="apprResult" column="APPR_RESULT"/>
 		</collection>
 		
 	</resultMap>	

@@ -100,7 +100,7 @@
 .approval-line::before {
     content: '';
     position: absolute;
-    top: 30%;
+    top: 27.5%;
     left: 5%;
     right: 5%;
     height: 2px;
@@ -108,6 +108,11 @@
     z-index: 0;
 }
 .approver {
-    margin-top: 10px;
+	margin-top: 20px;
+    font-weight: bold;
+}
+.approver-inProgress {
+	margin-top: 10px;
+	margin-bottom: 10px;
     font-weight: bold;
 }
