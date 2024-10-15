@@ -10,8 +10,7 @@
     E.EMP_NUM AS empNum,
     P.POS_NAME AS posName,
     D.DEPT_NAME AS deptName,
-    CONCAT(DATE_FORMAT(VC.VACATION_START_DATE, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(VC.VACATION_END_DATE, '%Y-%m-%d')) AS date,
-    IFNULL(DATEDIFF(VC.VACATION_END_DATE, VC.VACATION_START_DATE) + 1, 0) AS vacationLeftoverDate
+    COALESCE(V.VACATION_LEFTOVER_DATE, 0) AS vacationLeftoverDate
 FROM 
     EMPLOYEE E
 JOIN 
@@ -26,25 +25,31 @@ LEFT JOIN
 	</select>
 
 	<select id="listDetail" resultType="VacationVO">
-		SELECT 
-    E.EMP_NAME AS empName,
-    E.EMP_NUM AS empNum,
-    P.POS_NAME AS posName,
-    D.DEPT_NAME AS deptName,
+SELECT 
+    E.EMP_NAME ,
+    E.EMP_NUM ,
+    D.DEPT_NAME,
+    P.POS_NAME ,
     CONCAT(DATE_FORMAT(VC.VACATION_START_DATE, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(VC.VACATION_END_DATE, '%Y-%m-%d')) AS date,
-    DATEDIFF(VC.VACATION_END_DATE, VC.VACATION_START_DATE) + 1 AS vacationLeftoverDate
+    DATEDIFF(VC.VACATION_END_DATE, VC.VACATION_START_DATE) + 1 AS dating
 FROM 
     EMPLOYEE E
 JOIN 
-    POSITIONS P ON E.POS_NUM = P.POS_NUM
+    VACATION V ON E.EMP_NUM = V.EMP_NUM
+JOIN    
+    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM 
 JOIN 
     DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
 JOIN 
-    VACATION V ON E.EMP_NUM = V.EMP_NUM
-JOIN 
-    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM;
+    POSITIONS P ON E.POS_NUM = P.POS_NUM;
+    
 
 	</select>
+<update id="updateVacation" parameterType="VacationVO">
+    UPDATE VACATION
+    SET VACATION_LEFTOVER_DATE = #{vacationLeftoverDate}
+    WHERE EMP_NUM = #{empNum}
+</update>
 
 
 </mapper>
