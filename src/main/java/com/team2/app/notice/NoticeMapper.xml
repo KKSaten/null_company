@@ -6,11 +6,32 @@
   
 <mapper namespace="com.team2.app.notice.NoticeMapper">
 	
-	<select id="getList" resultType="NoticeVO" parameterType="Pager">
-		SELECT * FROM NOTICE_BOARD
+	<select id="getList" resultMap="getNoticeList" parameterType="Pager">
+		SELECT * FROM NOTICE_BOARD NB
+			LEFT JOIN EMPLOYEE E 
+				ON (NB.EMP_NUM = E.EMP_NUM)
+			LEFT JOIN DEPARTMENT D
+				ON (E.DEPT_NUM = D.DEPT_NUM)
 		ORDER BY NOTICE_NUM DESC
 		LIMIT #{startRow}, #{perPage}
 	</select>
+	<resultMap type="NoticeVO" id="getNoticeList">
+		<id column="NOTICE_NUM" property="noticeNum"/>
+		<result column="EMP_NUM" property="empNum"/>
+		<result column="NOTICE_TITLE" property="noticeTitle"/>
+		<result column="NOTICE_CONTENTS" property="noticeContents"/>
+		<result column="NOTICE_HIT" property="noticeHit"/>
+		<result column="NOTICE_DATE" property="noticeDate"/>
+		
+		<association property="employeeVO" javaType="EmployeeVO">
+			<result column="EMP_NAME" property="empName"/>
+			<result column="DEPT_NUM" property="deptNum"/>
+		</association>
+		
+		<association property="departmentVO" javaType="DepartmentVO">
+			<result column="DEPT_NAME" property="deptName"/>
+		</association>
+	</resultMap>
 	
 	<select id="getTotalCount" resultType="Long">
 		SELECT COUNT(NOTICE_NUM) FROM NOTICE_BOARD
@@ -20,21 +41,34 @@
 		SELECT * FROM NOTICE_BOARD NB
 			LEFT JOIN NOTICE_FILE NF 
 				ON (NB.NOTICE_NUM = NF.NOTICE_NUM)
+			LEFT JOIN EMPLOYEE E
+				ON (NB.EMP_NUM = E.EMP_NUM)
+			LEFT JOIN DEPARTMENT D
+				ON (E.DEPT_NUM = D.DEPT_NUM)
 		WHERE NB.NOTICE_NUM = #{noticeNum}
 	</select>
 	
 	<resultMap type="NoticeVO" id="getPostFile">
-		<id column="NOTICE_NUM" property="noticeNum"></id>
-		<result column="EMP_NUM" property="empNum"></result>
-		<result column="NOTICE_TITLE" property="noticeTitle"></result>
-		<result column="NOTICE_CONTENTS" property="noticeContents"></result>
-		<result column="NOTICE_HIT" property="noticeHit"></result>
-		<result column="NOTICE_DATE" property="noticeDate"></result>
+		<id column="NOTICE_NUM" property="noticeNum"/>
+		<result column="EMP_NUM" property="empNum"/>
+		<result column="NOTICE_TITLE" property="noticeTitle"/>
+		<result column="NOTICE_CONTENTS" property="noticeContents"/>
+		<result column="NOTICE_HIT" property="noticeHit"/>
+		<result column="NOTICE_DATE" property="noticeDate"/>
+		
+		<association property="employeeVO" javaType="EmployeeVO">
+			<result column="EMP_NAME" property="empName"/>
+			<result column="DEPT_NUM" property="deptNum"/>
+		</association>
+		
+		<association property="departmentVO" javaType="DepartmentVO">
+			<result column="DEPT_NAME" property="deptName"/>
+		</association>
 		
 		<collection property="list" javaType="java.util.List" ofType="NoticeFileVO">
-			<id column="FILE_NUM" property="fileNum"></id>
-			<result column="FILE_NAME" property="fileName"></result>
-			<result column="ORI_NAME" property="oriName"></result>
+			<id column="FILE_NUM" property="fileNum"/>
+			<result column="FILE_NAME" property="fileName"/>
+			<result column="ORI_NAME" property="oriName"/>
 		</collection>
 	</resultMap>
 	

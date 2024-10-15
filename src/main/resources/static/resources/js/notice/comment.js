@@ -3,6 +3,8 @@ const commentContents = document.getElementById("commentContents");
 const commentBtn = document.getElementById("commentBtn");
 const commentDel = document.getElementsByClassName("commentDel");
 const modContents = document.getElementsByClassName("modContents");
+const inputReplys = document.getElementsByClassName("inputReplys")
+const reModContents = document.getElementsByClassName("reModContents");
 
 let noticeNum = commentDiv.getAttribute("data-notice-num");
 
@@ -112,6 +114,128 @@ commentDiv.addEventListener("click", (e)=>{
             if(r>0){    
                 alert("댓글이 정상적으로 수정되었습니다.");
                 getList(); 
+            }
+        })
+    }
+})
+
+
+
+// ------------------------------------ Reply (답글) 코드 ----------------------------
+// -----------------------------------------------------------------------------------
+
+// 답글 버튼 클릭시 답글 창 보이게 하는 코드
+commentDiv.addEventListener("click", (e)=>{
+
+    if(e.target.classList.contains("replyAdd")){
+
+        let commentNum = e.target.getAttribute("data-comment-num");
+
+        fetch("/reply/write?commentNum=" + commentNum + "&noticeNum=" + noticeNum, {
+            method:"GET"
+        })
+        .then((r)=>{return r.text()})
+        .then((r)=>{
+            commentDiv.innerHTML=r;
+        })
+    }
+})
+
+// 답글 등록 버튼 클릭시 DB에 insert된 내용으로 업데이트하는 함수
+commentDiv.addEventListener("click", (e)=>{
+
+    if(e.target.classList.contains("replySubmit")){
+
+        let commentNum = e.target.getAttribute("data-comment-num");
+        
+        let form = new FormData();
+        form.append("commentNum", commentNum);
+
+        for(let inputReply of inputReplys){
+            form.append("replyContents", inputReply.value);
+        }
+
+        fetch("/reply/write", {
+            method:"POST",
+            body:form
+        })
+        .then((r)=>{return r.text()})
+        .then((r)=>{
+            if(r>0){    
+                alert("댓글이 정상적으로 등록되었습니다.");
+                getList();
+            }
+        })
+    }
+})
+
+
+// 답글의 수정 버튼 클릭시 수정 창 보이게 하는 코드
+commentDiv.addEventListener("click", (e)=>{
+
+    if(e.target.classList.contains("replyMod")){
+
+        let replyNum = e.target.getAttribute("data-reply-num");
+
+        fetch("/reply/modify?replyNum=" + replyNum + "&noticeNum=" + noticeNum, {
+            method:"GET"
+        })
+        .then((r)=>{return r.text()})
+        .then((r)=>{
+            commentDiv.innerHTML=r;
+        })
+    }
+})
+
+
+// 댓글 수정 완료 버튼 클릭시 DB에 수정된 내용으로 업데이트하는 함수
+commentDiv.addEventListener("click", (e)=>{
+
+    if(e.target.classList.contains("reModSubmit")){
+
+        let replyNum = e.target.getAttribute("data-reply-num");
+        
+        let form = new FormData();
+        form.append("replyNum", replyNum);
+
+        for(let reModContent of reModContents){
+            form.append("replyContents", reModContent.value);
+        }
+
+        fetch("/reply/modify", {
+            method:"POST",
+            body:form
+        })
+        .then((r)=>{return r.text()})
+        .then((r)=>{
+            if(r>0){    
+                alert("답글이 정상적으로 수정되었습니다.");
+                getList(); 
+            }
+        })
+    }
+})
+
+
+// 답글을 삭제하고 리스트를 새로 가져오는 함수
+commentDiv.addEventListener("click", (e)=>{ 
+            
+    if(e.target.classList.contains("replyDel")){
+                
+        let replyNum = e.target.getAttribute("data-reply-num");
+
+        let form = new FormData();
+        form.append("replyNum", replyNum);
+    
+        fetch("/reply/delete", {
+            method:"POST",
+            body:form
+        })
+        .then((r)=>{return r.text()})
+        .then((r)=>{
+            if(r>0){
+                alert("답글이 정상적으로 삭제되었습니다.");
+                getList();
             }
         })
     }

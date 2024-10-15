@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
+import com.team2.app.department.DepartmentService;
+import com.team2.app.department.DepartmentVO;
 import com.team2.app.employee.EmployeeVO;
 import com.team2.app.util.Pager;
 
@@ -36,6 +38,9 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+	@Autowired
+	private DepartmentService departmentService;
+	
 	@Value("${app.upload}")
 	private String path;
 
@@ -45,14 +50,17 @@ public class NoticeController {
 		
 		List<NoticeVO> list = noticeService.getList(pager);
 		
+		List<DepartmentVO> deptList = departmentService.getList();
+		
 		model.addAttribute("list", list);
+		model.addAttribute("deptList", deptList);
 		model.addAttribute("pager", pager);
 	}
 	
 	@GetMapping("post")
 	public void getPost(Model model, NoticeVO noticeVO) throws Exception{
 		
-		noticeVO = noticeService.getPost(noticeVO);
+		noticeVO = noticeService.getPost(noticeVO);		
 		
 		model.addAttribute("noticeVO", noticeVO);
 	}
@@ -74,7 +82,7 @@ public class NoticeController {
 		
 		int result = noticeService.writePost(noticeVO, attaches);
 		
-		return "redirect:/notice/list";
+		return "redirect:/notice/post?noticeNum=" + noticeVO.getNoticeNum();
 	}
 	
 	@GetMapping("modify")

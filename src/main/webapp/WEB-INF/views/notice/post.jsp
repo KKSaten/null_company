@@ -31,7 +31,7 @@
 							<div>
 								<ul class="no_dot">
 									<li class="custom-post1">${noticeVO.noticeTitle}</li>
-									<li class="custom-list4">인사팀, ${noticeVO.noticeDate}</li>
+									<li class="custom-list4">${noticeVO.departmentVO.deptName}팀 ${noticeVO.employeeVO.empName}&nbsp; ${noticeVO.noticeDate}</li>
 									<li class="custom-list4">조회수 ${noticeVO.noticeHit}</li>
 								</ul>
 								<c:forEach items="${noticeVO.list }" var="list">

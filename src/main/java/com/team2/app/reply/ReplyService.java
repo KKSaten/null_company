@@ -13,5 +13,21 @@ public class ReplyService {
 	private ReplyMapper replyMapper;
 	
 	
+	public int writeReply(ReplyVO replyVO) throws Exception{
+		
+		return replyMapper.writeReply(replyVO);
+	}
+	
+	public int modifyReply(ReplyVO replyVO) throws Exception{
+		
+		return replyMapper.modifyReply(replyVO);
+	}
+	
+	public int deleteReply(ReplyVO replyVO) throws Exception{
+		
+		return replyMapper.deleteReply(replyVO);
+	}
+	
+	
 
 }
