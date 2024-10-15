@@ -27,6 +27,7 @@ public class ApprDocVO {
 	private Timestamp docDraftdate;
 	private Timestamp docExpirydate;
 	
+	private String approvalResult;
 	
 	private List<ApprLineVO> apprLineVO;
 	private List<ApprHistoryVO> apprHistoryVO;

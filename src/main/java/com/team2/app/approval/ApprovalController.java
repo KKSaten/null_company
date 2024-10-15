@@ -51,6 +51,9 @@ public class ApprovalController {
 		
 		
 		List<ApprDocVO> list = approvalService.getList(empVO); 
+		for(ApprDocVO li : list) {
+			log.info("list :" + ""+li.getApprLineVO().size());
+		}
 		model.addAttribute("list", list);
 	}
 	

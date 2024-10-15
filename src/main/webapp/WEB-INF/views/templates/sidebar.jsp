@@ -212,34 +212,9 @@
 					<div class="collapse" id="approvals">
 						<ul class="nav nav-collapse">
 							<li>
-								<a data-bs-toggle="collapse" href="#draftBox">
-									<span class="col-sm-1"></span>
-									<i class="fas fa-file"></i>
-									<p>기안함</p>
-									<span class="caret"></span>
-								</a>
-								<div class="collapse" id="draftBox">
-									<ul class="nav nav-collapse subnav">
-										<li>
-											<a href="../approval/approvalDraftbox">
-												<span class="col-sm-1"></span>
-												<span class="sub-item">기안 상신함</span>
-											</a>
-										</li>
-										<li>
-											<a href="../approval/approvalDraftbox">
-												<span class="col-sm-1"></span>
-												<span class="sub-item">임시 보관함</span>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							
-							<li>
 								<a data-bs-toggle="collapse" href="#approvalBox">
 									<span class="col-sm-1"></span>
-									<i class="fas fa-pen-square"></i>
+									<i class="fas fa-file"></i>
 									<p>결재함</p>
 									<span class="caret"></span>
 								</a>
@@ -248,7 +223,13 @@
 										<li>
 											<a href="../approval/approvalDocbox">
 												<span class="col-sm-1"></span>
-												<span class="sub-item">결재 진행함</span>
+												<span class="sub-item">기안 상신함</span>
+											</a>
+										</li>									
+										<li>
+											<a href="../approval/approvalDocbox">
+												<span class="col-sm-1"></span>
+												<span class="sub-item">임시 보관함</span>
 											</a>
 										</li>
 										<li>
@@ -256,17 +237,11 @@
 												<span class="col-sm-1"></span>
 												<span class="sub-item">결재 완료함</span>
 											</a>
-										</li>
-										<li>
-											<a href="../approval/approvalDocbox">
-												<span class="col-sm-1"></span>
-												<span class="sub-item">반려 문서함</span>
-											</a>
 										</li>										
 									</ul>
 								</div>
-							</li>							
-
+							</li>
+							
 							<li>
 								<a data-bs-toggle="collapse" href="#receivedBox">	
 									<span class="col-sm-1"></span>								
@@ -296,7 +271,32 @@
 										</li>										
 									</ul>
 								</div>
-							</li>
+							</li>							
+							
+							<li>
+								<a data-bs-toggle="collapse" href="#approvalOption">
+									<span class="col-sm-1"></span>
+									<i class="fas fa-pen-square"></i>
+									<p>결재 관리</p>
+									<span class="caret"></span>
+								</a>
+								<div class="collapse" id="approvalOption">
+									<ul class="nav nav-collapse subnav">
+										<li>
+											<a href="#">
+												<span class="col-sm-1"></span>
+												<span class="sub-item">서명 관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="col-sm-1"></span>
+												<span class="sub-item">미정</span>
+											</a>
+										</li>										
+									</ul>
+								</div>
+							</li>							
 
 
 						</ul>

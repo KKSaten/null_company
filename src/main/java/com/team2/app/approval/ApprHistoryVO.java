@@ -23,7 +23,7 @@ public class ApprHistoryVO {
 	
 	private String apprComment;
 	
-	private Integer apprResult;
+	private String apprResult;
 	
 
 }

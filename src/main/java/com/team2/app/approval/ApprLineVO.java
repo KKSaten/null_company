@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class ApprLineVO {
 	
+	private Long alNum;
+	
 	private Long docNum;
 	
 	private Long docTemplatecode;

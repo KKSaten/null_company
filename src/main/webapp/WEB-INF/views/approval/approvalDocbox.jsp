@@ -65,10 +65,10 @@
 								<div class="card-header">
 									<div class="d-flex align-items-center">
 										<h4 class="card-title">결재함</h4>
-										<button class="btn btn-light btn-border ms-auto"
+										<button class="btn btn-primary ms-auto"
 											style="border: 1px solid #cccccc;"
 											onclick="location.href='/approval/approvalDocbox'">
-											결재함 전체 문서
+											기안서 작성
 										</button>										
 									</div>
 								</div>
@@ -87,37 +87,46 @@
 											</thead>
 
 											<tbody>	
-												<c:forEach items="${list}" var="list">	
+												<c:forEach items="${list}" var="item">	
 												
 													<tr>
 														<td> <!-- 최종 결재 처리 결과 간략히 표시 -->
-															<!-- if문 사용해서 inProgress-approval 혹은 inProgress-ban을 가지고 있다면 -->
-												        	<div class="result-ban">
-																<i class="fas fa-times" style="color:#d9534f;"></i>												        
-												        	</div>
+												        	<c:choose>
+												        		<c:when test="${item.approvalResult == '승인'}">
+														        	<div class="result-approval">
+																		<i class="fas fa-check" style="color:#5cb85c;"></i>												        
+														        	</div>
+												        		</c:when>
+												        		<c:when test="${item.approvalResult == '반려'}">
+														        	<div class="result-ban">
+																		<i class="fas fa-times" style="color:#d9534f;"></i>												        
+														        	</div>
+												        		</c:when>
+												        		<c:otherwise></c:otherwise>															        																	        		
+												        	</c:choose>
 														</td>
 														
 														<td> <!-- 문서 제목, 보고서 유형 -->
-															<div style="font-weight:bold; ">${list.docTitle}</div>
-															<div style="font-size:14px; color:gray; ">${list.docTemplatecode}</div>
+															<div style="font-weight:bold; ">${item.docTitle}</div>
+															<div style="font-size:14px; color:gray; ">${item.templateName}</div>
 														</td>
 														
 														<td> <!-- 기안자 -->
 															<div class="profile-container" style="display: flex; align-items: center;">
 																<!-- 프로필 사진 -->
 																<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
-																	<img src="/file/employee/${list.fileName}" alt="profile photo"
+																	<img src="/file/employee/${item.fileName}" alt="profile photo"
 																	class="navbar-brand" height="50" style="border-radius: 50%;" />
 																</a>
 																<!-- 이름 및 직급 정보 -->
 																<div class="profile-info">
-																	<p class="name" style="margin: 0; font-weight: bold;">${list.empName}</p>
-																	<p class="position" style="font-size: 14px; color: gray; margin: 0;">${list.deptName} - ${list.posName}</p>
+																	<p class="name" style="margin: 0; font-weight: bold;">${item.empName}</p>
+																	<p class="position" style="font-size: 14px; color: gray; margin: 0;">${item.deptName} - ${item.posName}</p>
 																</div>
 															</div>
 														</td>
 														
-														<td style="text-align:left !important;"> ${list.docDraftdate} </td> <!-- 기안일 -->
+														<td style="text-align:left !important;"> ${item.docDraftdate} </td> <!-- 기안일 -->
 														
 														<td> <!-- 결재 라인 정보 -->
 														
@@ -132,34 +141,36 @@
 														        	</div>
 														        </div>
 														        
-														    	<c:forEach items="${list.apprLineVO}" var="approver">
+														    	<c:forEach items="${item.apprLineVO}" var="approver">
 														    	
 															        <div class="approver-group">
-															        	<div class="approver-status-inProgress-ban">
-																			<i class="fas fa-times" style="color:#d9534f;"></i>												        
+															        	<div class="${approver.apprProgress == '최종승인' ? 'approver-status-inProgress-approval'
+															        		: approver.apprProgress == '반려' ? 'approver-status-inProgress-ban'
+															        		: approver.apprProgress == '진행' ? 'approver-status-inProgress'
+															        		: 'approver-status'}">
+																        	<c:choose>
+																        		<c:when test="${approver.apprProgress == '승인' || approver.apprProgress == '최종승인'}">
+																        			<i class="fas fa-check" style="color:#5cb85c;"></i>
+																        		</c:when>
+																        		<c:when test="${approver.apprProgress == '반려'}">
+																        			<i class="fas fa-times" style="color:#d9534f;"></i>
+																        		</c:when>
+																        		<c:when test="${approver.apprProgress == '대기'}">
+																        			<i class="fas fa-circle" style="color:#808080;"></i>
+																        		</c:when>
+																        		<c:otherwise>
+																        			<i class="fas fa-ellipsis-h" style="color:#0275d8;"></i>
+																        		</c:otherwise>															        																	        		
+																        	</c:choose>
 															        	</div>
-															        	<div class="approver">
+															        	<div class="${approver.apprProgress == '최종승인' ? 'approver-inProgress'
+															        		: approver.apprProgress == '반려' ? 'approver-inProgress'
+															        		: approver.apprProgress == '진행' ? 'approver-inProgress'
+															        		: 'approver'}">
 															        		${approver.approverName}
 															        	</div>	
 															        </div>
-															        
-<!-- 															        <div class="approver-group">
-															        	<div class="approver-status">
-																			<i class="fas fa-circle" style="color:#808080;"></i>											        
-															        	</div>
-															        	<div class="approver">
-															        		이정효
-															        	</div>													        
-															        </div>	
-															        													        
-															        <div class="approver-group">
-															        	<div class="approver-status">
-																			<i class="fas fa-circle" style="color:#808080;"></i>											        
-															        	</div>
-															        	<div class="approver">
-																				
-															        	</div>													        
-															        </div> -->
+							
 															        
 														        </c:forEach>
 															        
