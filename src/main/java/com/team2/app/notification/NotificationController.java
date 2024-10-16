@@ -35,14 +35,24 @@ public class NotificationController {
 			throws Exception {
 
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
-		SecurityContext sc = SecurityContextHolder.getContext();
-		Authentication ac = sc.getAuthentication();
-		EmployeeVO employeeVO = (EmployeeVO) ac.getPrincipal();
 		
-		log.info("Notification Controller ===============");
-		log.info("lastEventId : {}", lastEventId);
-
-		return ResponseEntity.ok(notificationService.subscribe(employeeVO, lastEventId));
+		SecurityContext sc = SecurityContextHolder.getContext();
+		
+		Authentication ac = sc.getAuthentication();
+		
+		log.info("ac: {}", ac);
+		
+		if(ac.getPrincipal()!="anonymousUser") {
+			
+			EmployeeVO employeeVO = (EmployeeVO) ac.getPrincipal();
+			
+			log.info("Notification Controller ===============");
+			log.info("lastEventId : {}", lastEventId);
+			
+			return ResponseEntity.ok(notificationService.subscribe(employeeVO, lastEventId));
+		} else {
+			return null;
+		}
 	}
 
 }

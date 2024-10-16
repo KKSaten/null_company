@@ -16,6 +16,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.team2.app.config.security.LoginFailureHandler;
 import com.team2.app.config.security.LoginSuccessHandler;
 import com.team2.app.config.security.OutSuccessHandler;
+import com.team2.app.employee.EmployeeService;
+import com.team2.app.employee.UserDetailsServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +35,9 @@ public class SecurityConfig {
 	@Autowired
 	OutSuccessHandler outSuccessHandler;
 	
+	@Autowired
+	UserDetailsServiceImpl userDetailsServiceImpl;
+	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() throws Exception {
 		
@@ -47,10 +52,18 @@ public class SecurityConfig {
 		
 		
 		security
-			.cors()
-			.and()
-			.csrf()
-			.disable();
+			.cors(
+				(cors)->
+				cors.disable()
+				)
+			.csrf(
+				(csrf)->
+				csrf.disable()
+				);
+//			.cors()
+//			.and()
+//			.csrf()
+//			.disable();
 		
 		security
 			.authorizeHttpRequests(
@@ -76,7 +89,17 @@ public class SecurityConfig {
 							.logoutRequestMatcher(new AntPathRequestMatcher("/employee/logout"))
 							.logoutSuccessHandler(outSuccessHandler)
 							.invalidateHttpSession(true)
-					);
+					)
+			.rememberMe(
+					(remember)->
+						remember
+							.userDetailsService(userDetailsServiceImpl)
+							.key("remembermekey")
+							.tokenValiditySeconds(3600)
+							.authenticationSuccessHandler(loginSuccessHandler)
+							.useSecureCookie(false)
+							.rememberMeParameter("rememberMe")
+							);
 			
 		
 		return security.build();

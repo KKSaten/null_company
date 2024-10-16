@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.app.department.DepartmentVO;
+import com.team2.app.notification.NotificationService;
+import com.team2.app.notification.NotificationType;
+import com.team2.app.notification.NotificationVO;
 import com.team2.app.positions.PositionsVO;
 import com.team2.app.role.RoleVO;
 
@@ -40,7 +43,22 @@ public class EmployeeContoller {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	NotificationService notificationService;
+	
 	// ============================== 인사
+	
+	@GetMapping("test")
+	public void test(EmployeeVO employeeVO, HttpSession session) throws Exception {
+		NotificationVO notificationVO = new NotificationVO();
+		
+		employeeVO = employeeService.detail(employeeVO);
+		notificationVO.setEmployeeVO(employeeVO);
+		
+		log.info("vo:{}",employeeVO);
+		
+		notificationService.send(notificationVO);
+	}
 	
 	@GetMapping("list")
 	public void getList(Model model) throws Exception {
@@ -163,9 +181,9 @@ public class EmployeeContoller {
 		
 		if(employeeVO.getEmpId() == null) {
 			employeeVO = getEmployeeVO(session);
-			
+		} else {
+			employeeVO = employeeService.detail(employeeVO);			
 		}
-		employeeVO = (EmployeeVO) employeeService.loadUserByUsername(employeeVO.getEmpId());
 		model.addAttribute("vo", employeeVO);
 	}
 	

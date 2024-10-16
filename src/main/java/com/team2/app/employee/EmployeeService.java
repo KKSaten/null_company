@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class EmployeeService implements UserDetailsService {
+public class EmployeeService {
 
 	@Autowired
 	private EmployeeMapper employeeMapper;
@@ -69,6 +69,10 @@ public class EmployeeService implements UserDetailsService {
 	
 	public int delete(EmployeeVO employeeVO) throws Exception {
 		return employeeMapper.delete(employeeVO);
+	}
+	
+	public EmployeeVO detail(EmployeeVO employeeVO) throws Exception {
+		return employeeMapper.login(employeeVO);
 	}
 	
 	public int update (EmployeeVO employeeVO, MultipartFile attach) throws Exception {
@@ -141,30 +145,7 @@ public class EmployeeService implements UserDetailsService {
 		return result;
 	}
 
-	//로그인
-	@Override
-	public UserDetails loadUserByUsername(String empId) throws UsernameNotFoundException {
-		
-		
-		log.info("=================================================");
-		log.info("id : {}", empId);
-
-		EmployeeVO employeeVO = new EmployeeVO();
-
-		employeeVO.setEmpId(empId);
-		
-		log.info("1. employeeVO : {}", employeeVO);
-		
-		try {
-			employeeVO = employeeMapper.login(employeeVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		log.info("2. employeeVO : {}", employeeVO);
-
-		return employeeVO;
-	}
+	
 	
 	public List<EmployeeVO> empList() throws Exception {
 		return employeeMapper.empList();
