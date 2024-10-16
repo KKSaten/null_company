@@ -16,7 +16,7 @@ public class CommuteVO {
 	private LocalDateTime commuteOutTime;
 	private Integer commuteStatus;
 	private String empName;
-	
+	private String commuteMsg;
 	//포멧된 출근 시간 
 	private String formattedCommuteInTime;
 	//포멧된 퇴근 시간 
