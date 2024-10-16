@@ -12,6 +12,9 @@
 				ON (NB.EMP_NUM = E.EMP_NUM)
 			LEFT JOIN DEPARTMENT D
 				ON (E.DEPT_NUM = D.DEPT_NUM)
+		<if test="deptNum > 0">
+			WHERE D.DEPT_NUM = #{deptNum}
+		</if>
 		ORDER BY NOTICE_NUM DESC
 		LIMIT #{startRow}, #{perPage}
 	</select>
@@ -33,8 +36,13 @@
 		</association>
 	</resultMap>
 	
-	<select id="getTotalCount" resultType="Long">
-		SELECT COUNT(NOTICE_NUM) FROM NOTICE_BOARD
+	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+		SELECT COUNT(NOTICE_NUM) FROM NOTICE_BOARD NB
+		<if test="deptNum > 0">
+				LEFT JOIN EMPLOYEE E
+					ON (NB.EMP_NUM = E.EMP_NUM)
+			WHERE E.DEPT_NUM = #{deptNum}
+		</if>
 	</select>
 	
 	<select id="getPost" resultMap="getPostFile" parameterType="NoticeVO">
@@ -72,6 +80,14 @@
 		</collection>
 	</resultMap>
 	
+	<!-- 서브쿼리를 사용하지 않으면 noticeHit에 null 이 들어가 있어 null + 1 이 되므로 에러가 발생한다 -->
+	<update id="increaseHit" parameterType="NoticeVO">
+		UPDATE NOTICE_BOARD
+			SET NOTICE_HIT =
+				(SELECT NOTICE_HIT FROM NOTICE_BOARD WHERE NOTICE_NUM = #{noticeNum}) + 1
+		WHERE NOTICE_NUM = #{noticeNum}
+	</update>
+	
 	<insert id="writePost" parameterType="NoticeVO" useGeneratedKeys="true" keyProperty="noticeNum">
 		INSERT INTO NOTICE_BOARD
 			(NOTICE_NUM, EMP_NUM, NOTICE_TITLE, NOTICE_CONTENTS, NOTICE_HIT, NOTICE_DATE)
@@ -84,6 +100,11 @@
 			SET NOTICE_TITLE= #{noticeTitle}, NOTICE_CONTENTS= #{noticeContents} 
 		WHERE NOTICE_NUM = #{noticeNum}
 	</update>
+	
+	<delete id="deletePost" parameterType="NoticeVO">
+		DELETE FROM NOTICE_BOARD 
+		WHERE NOTICE_NUM = #{noticeNum}
+	</delete>
 	
 	<insert id="saveFile" parameterType="NoticeFileVO">
 		INSERT INTO NOTICE_FILE

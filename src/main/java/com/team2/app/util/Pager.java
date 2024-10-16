@@ -15,6 +15,10 @@ public class Pager {
 	
 	private boolean next;
 	
+	private Long deptNum;
+	
+	
+	
 	public void makeRow() {
 		this.startRow = (page-1) * perPage;
 	}

@@ -29,11 +29,17 @@
 								</ul>
 							</div>
 							<div class="col-lg-2" style="float: right;">
-								<div class="form-group form-group-default">
-			                        <select class="form-select" id="formGroupDefaultSelect">
-			                        	<option>부서 선택</option>
+								<div class="form-group form-group-default" style="display: flex; align-items: center;">
+									<i class="fas fa-search" style="font-size: 16px; margin-right: 10px;"></i>
+			                        <select class="form-select" id="formGroupDefaultSelect" style="flex-grow: 1;">
+			                        	<option value="0">&nbsp;부서선택</option>
 			                        	<c:forEach items="${deptList }" var="deptVO">
-				                        	<option value="${deptVO.deptNum }">${deptVO.deptName }</option>
+			                        		<c:if test="${deptVO.deptNum eq pager.deptNum }">
+						                        <option value="${deptVO.deptNum }" selected>&nbsp; ${deptVO.deptName }</option>		
+			                        		</c:if>
+			                        		<c:if test="${deptVO.deptNum ne pager.deptNum }">
+						                        <option value="${deptVO.deptNum }">&nbsp; ${deptVO.deptName }</option>		
+			                        		</c:if>
 			                        	</c:forEach>	                        	
 			                        </select>
 	                        	</div>
@@ -46,16 +52,16 @@
 										<ul class="no_dot" onclick="location.href='/notice/post?noticeNum=${noticeVO.noticeNum}'">
 											<li class="custom-list3"><i class="fas fa-comments"></i> ${noticeVO.noticeTitle}</li>
 											<li class="custom-list4">${noticeVO.departmentVO.deptName}팀, ${noticeVO.noticeDate}</li>
-											<li class="custom-list4">조회수 ${noticeVO.noticeHit}</li>
+											<li class="custom-list4"><i class="icon-eye"></i> ${noticeVO.noticeHit}</li>
 										</ul>
 										<br><br><br>
 									</c:forEach>
 								</tbody>
 							</table>
-							<div class="demo">
+							<div class="demo text-end">
 								<ul class="pagination pg-black">
 									<li class="page-item custom-page1">
-										<a class="page-link" href="/notice/list?page=${pager.startPage -1 }" aria-label="Previous">
+										<a class="page-link" href="/notice/list?page=${pager.startPage -1 }&deptNum=${pager.deptNum}" aria-label="Previous">
 											<span aria-hidden="true">«</span>
 										</a>
 									</li>
@@ -70,17 +76,17 @@
 												<li class="page-item"/>
 											</c:otherwise>
 										</c:choose>
-											<a class="page-link" href="/notice/list?page=${i}">${i}</a>
+											<a class="page-link" href="/notice/list?page=${i}&deptNum=${pager.deptNum}">${i}</a>
 									</c:forEach>
 									
 									<li class="page-item custom-page2 ${pager.next?'':'disabled' }">
-										<a class="page-link" href="/notice/list?page=${pager.lastPage + 1}" aria-label="Next">
+										<a class="page-link" href="/notice/list?page=${pager.lastPage + 1}&deptNum=${pager.deptNum}" aria-label="Next">
 											<span aria-hidden="true">»</span>
 										</a>
 									</li>
 								</ul>
+								<a href="/notice/write" class="btn btn-black">게시글 작성</a>
 							</div>
-							<a href="/notice/write">게시글 작성</a>
 						</div>
 					</div>
 
@@ -92,5 +98,6 @@
     </div>
 
     <c:import url="../templates/bootfooter.jsp"></c:import>
+	<script src="/resources/js/notice/list.js"></script>
 </body>
 </html>

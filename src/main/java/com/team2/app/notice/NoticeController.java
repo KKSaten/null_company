@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -69,16 +70,9 @@ public class NoticeController {
 	public void writePost() throws Exception{}
 	
 	@PostMapping("write")
-	public String writePost(NoticeVO noticeVO, MultipartFile[] attaches) throws Exception{
-		
-		// 로그인한 사용자 아이디를 꺼내는 작업
-		SecurityContext context = SecurityContextHolder.getContext();
-		
-		Authentication authentication = context.getAuthentication();
-		
-		EmployeeVO temp = (EmployeeVO)authentication.getPrincipal();
-		
-		noticeVO.setEmpNum(temp.getEmpNum());
+	public String writePost(@AuthenticationPrincipal EmployeeVO employeeVO, NoticeVO noticeVO, MultipartFile[] attaches) throws Exception{
+				
+		noticeVO.setEmpNum(employeeVO.getEmpNum());
 		
 		int result = noticeService.writePost(noticeVO, attaches);
 		
@@ -103,6 +97,15 @@ public class NoticeController {
 		int result = noticeService.modifyPost(noticeVO, attaches);
 		
 		return "redirect:/notice/post?noticeNum=" + noticeVO.getNoticeNum();	
+	}
+	
+	
+	@GetMapping("delete")
+	public String deletePost(NoticeVO noticeVO) throws Exception{
+		
+		int result = noticeService.deletePost(noticeVO);
+		
+		return "redirect:/notice/list";
 	}
 	
 	// summerNote 이미지 업로드 코드
