@@ -36,14 +36,16 @@
 										<li class="no_dot">공지사항 수정</li>
 									</ul>
 								</div>
-								<div class="input-group mb-3 custom-write1 custom-write3">
-									<span class="input-group-text" id="basic-addon3">제목</span>
-									<input type="text" class="form-control" id="basic-url"
-										name="noticeTitle" value="${noticeVO.noticeTitle }" aria-describedby="basic-addon3">
-									<input type="hidden" name="noticeNum" value="${noticeVO.noticeNum }">
-								</div>
-								<div class="input-group mb-6 custom-write1 custom-write3">
-									<input type="file" class="form-control" id="attach" name="attaches" multiple>
+								<div class="col-md-11">
+									<div class="input-group mb-3 custom-write1 custom-write3">
+										<span class="input-group-text" id="basic-addon3">제목</span>
+										<input type="text" class="form-control" id="basic-url"
+											name="noticeTitle" value="${noticeVO.noticeTitle }" aria-describedby="basic-addon3">
+										<input type="hidden" name="noticeNum" value="${noticeVO.noticeNum }">
+									</div>
+									<div class="input-group mb-6 custom-write1 custom-write3">
+										<input type="file" class="form-control" id="attach" name="attaches" multiple>
+									</div>
 								</div>
 							</div>	
 							<div class="card-body">

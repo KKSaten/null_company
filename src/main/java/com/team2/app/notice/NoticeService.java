@@ -27,13 +27,19 @@ public class NoticeService {
 	public List<NoticeVO> getList(Pager pager) throws Exception{
 		
 		// 페이지가 1보다 작아질 경우 강제로 페이지값을 1로 만드는 작업
-		if(pager.getPage().equals(null) || pager.getPage() <= 1) {
+		if(pager.getPage() == null || pager.getPage() <= 1) {
 			pager.setPage(1L);
 		}
 		
+		// 부서 번호가 null 이거나 0보다 작을 경우 부서 번호를 강제로 0으로 만드는 작업
+		if(pager.getDeptNum() == null || pager.getDeptNum() < 0) {
+			pager.setDeptNum(0L);
+		}
+		
+		
 		pager.makeRow();
 		
-		long totalCount = noticeMapper.getTotalCount();
+		long totalCount = noticeMapper.getTotalCount(pager);
 		
 		pager.makeNum(totalCount);
 		
@@ -41,6 +47,8 @@ public class NoticeService {
 	}
 	
 	public NoticeVO getPost(NoticeVO noticeVO) throws Exception{
+		
+		noticeMapper.increaseHit(noticeVO);
 		
 		return noticeMapper.getPost(noticeVO);
 	}
@@ -95,6 +103,11 @@ public class NoticeService {
 		}
 		
 		return noticeMapper.modifyPost(noticeVO);
+	}
+	
+	public int deletePost(NoticeVO noticeVO) throws Exception{
+		
+		return noticeMapper.deletePost(noticeVO);
 	}
 
 }

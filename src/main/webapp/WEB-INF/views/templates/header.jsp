@@ -66,7 +66,6 @@
    		.replyContents {background-color: #f1f1f1; border-radius: 5px; padding: 8px; margin-top: 5px;}
    		
    		/* 답글 입력 스타일 */
-   		.hidden {display : none;}
    		.addReplyContentsDiv {margin-left: 60px;}
     </style>
 
