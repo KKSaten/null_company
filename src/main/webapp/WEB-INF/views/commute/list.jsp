@@ -80,6 +80,7 @@
                             <th>사원이름</th>
                             <th>출근시간</th>
                             <th>퇴근시간</th>
+                            <th>비고</th>
                             <th style="width: 10%">출근/퇴근/결근</th>
                           </tr>
                         </thead>
@@ -91,6 +92,7 @@
 						        <td>${vo.empName}</td>
 						        <td>${vo.formattedCommuteInTime}</td>
 						        <td>${vo.formattedCommuteOutTime}</td>
+						        <td style="color: green;font-size: small">${vo.commuteMsg}</td>
 						        <td>
 						            <c:choose>
 						                <c:when test="${vo.commuteStatus == 1}">
