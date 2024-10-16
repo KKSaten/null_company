@@ -70,6 +70,7 @@
    		.addReplyContentsDiv {margin-left: 60px;}
     </style>
 
+	<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>
     <!-- CSS Files -->
     <link rel="stylesheet" href="../../resources/css/kaiadmin.min.css" />
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css" />

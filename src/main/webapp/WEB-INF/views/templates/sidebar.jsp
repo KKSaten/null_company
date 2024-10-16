@@ -11,10 +11,12 @@
 			<sec:authentication property="principal" var="vo" />
 			<div class="profile-container" style="display: flex; align-items: center;">
 				<!-- 프로필 사진 -->
-				<a href="/employee/detail" class="logo" style="margin-right: 10px;">
+				<div class="avatar avatar-xl"  style="margin-right: 10px;">
+				<a href="/employee/detail" class="logo">
 					<img src="/file/employee/${vo.employeeFileVO.fileName}" alt="profile photo"
-					class="navbar-brand" height="50" style="border-radius: 50%;" />
+					class="avatar-img rounded-circle"/>
 				</a>
+				</div>
 				<!-- 이름 및 직급 정보 -->
 				<div class="profile-info">
 					<p class="name" style="margin: 0; font-weight: bold;">${vo.empName}</p>

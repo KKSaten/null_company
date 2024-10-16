@@ -3,11 +3,13 @@ package com.team2.app.notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.HeadersBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.web.header.Header;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +53,7 @@ public class NotificationController {
 			
 			return ResponseEntity.ok(notificationService.subscribe(employeeVO, lastEventId));
 		} else {
-			return null;
+			return ResponseEntity.ok(new SseEmitter());
 		}
 	}
 

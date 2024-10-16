@@ -20,7 +20,7 @@
 <script src="../../resources/js/plugin/chart-circle/circles.min.js"></script>
 
 <!-- Bootstrap Notify -->
-<script src="../../resources/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="/resources/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
 
 <!-- jQuery Vector Maps -->
 <script src="../../resources/js/plugin/jsvectormap/jsvectormap.min.js"></script>

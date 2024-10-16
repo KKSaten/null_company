@@ -178,7 +178,7 @@ public class EmployeeContoller {
 
 	@GetMapping("detail")
 	public void detail(EmployeeVO employeeVO ,HttpSession session, Model model) throws Exception {
-		
+		log.info("detail vo: {}", employeeVO);
 		if(employeeVO.getEmpId() == null) {
 			employeeVO = getEmployeeVO(session);
 		} else {

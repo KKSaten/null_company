@@ -29,11 +29,9 @@ public class NotificationService {
 	public SseEmitter subscribe(EmployeeVO employeeVO, String lastEventId) throws Exception {
 
 		log.info("Notificaion Service ===============");
-		emitter = (SseEmitter) emitters.get(employeeVO.getEmpNum().toString());
-		String emitterId = employeeVO.getEmpNum().toString();
-		if (emitter == null) {
-
-//				 + "_" + System.currentTimeMillis();
+		Map<String, SseEmitter> check = findEmitter(employeeVO);
+		String emitterId = employeeVO.getEmpNum()+ "_" + System.currentTimeMillis();
+		if (check.size()==0) {
 			log.info("emitter 최초 생성");
 			// 시간제한있는 SseEmitter 객체 생성
 			emitter = new SseEmitter(DEFAULT_TIMEOUT);
@@ -44,7 +42,7 @@ public class NotificationService {
 				log.info("key: {}", key);
 				log.info("value: {}", value);
 				try {
-					sendToClient(value, key, employeeVO.getEmpId() + "SSE 연결 성공");
+					sendToClient(value, key, employeeVO.getEmpId() + " 로그인");
 				} catch (Exception e) {
 				}
 			});
@@ -61,8 +59,9 @@ public class NotificationService {
 		emitter.onTimeout(() -> emitters.remove(emitterId));
 		emitter.onCompletion(() -> emitters.remove(emitterId));
 
-		// lastEventId 있다는것은 연결이 종료됬다. 그래서 해당 데이터가 남아있는지 살펴보고 있다면 남은 데이터를 전송
+		// lastEventId 있다는것은 연결 종료, 그래서 해당 데이터가 남아있는지 살펴보고 있다면 남은 데이터를 전송
 		if (!lastEventId.isEmpty()) {
+			log.info("lastEventId");
 			Map<String, Object> events = findEventCache(employeeVO);
 			events.entrySet().stream().filter(entry -> lastEventId.compareTo(entry.getKey()) < 0).forEach(entry -> {
 				try {
@@ -94,7 +93,8 @@ public class NotificationService {
 		try {
 			emitter.send(SseEmitter
 							.event()
-							.name("test")
+							.id(emitterId)
+							.name("login")
 							.data(data)
 						);
 		} catch (IOException e) {
