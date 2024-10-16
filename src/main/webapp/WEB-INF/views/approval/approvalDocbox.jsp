@@ -65,9 +65,7 @@
 								<div class="card-header">
 									<div class="d-flex align-items-center">
 										<h4 class="card-title">결재함</h4>
-										<button class="btn btn-primary ms-auto"
-											style="border: 1px solid #cccccc;"
-											onclick="location.href='/approval/approvalDocbox'">
+										<button class="btn btn-primary ms-auto" style="border: 1px solid #cccccc;" onclick="location.href='./write'">
 											기안서 작성
 										</button>										
 									</div>
