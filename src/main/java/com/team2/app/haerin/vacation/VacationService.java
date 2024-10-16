@@ -19,4 +19,7 @@ public class VacationService {
 	public List<VacationVO>  listDetail()throws Exception{
 		return vacationMapper.listDetail();
 	}
+	public void updateVacation(String empNum, String vacationLeftoverDate) {
+        vacationMapper.updateVacation(empNum, vacationLeftoverDate);
+    }
 }

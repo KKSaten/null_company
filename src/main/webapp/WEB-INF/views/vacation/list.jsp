@@ -151,7 +151,7 @@
 														<th scope="col">사번</th>
 														<th scope="col">부서</th>
 														<th scope="col">직급</th>
-														<th scope="col">휴가</th>
+													
 														<th scope="col">잔여 휴가</th>
 													</tr>
 												</thead>
@@ -162,7 +162,7 @@
 														<td>${vo.empNum}</td>
 														<td>${vo.deptName}</td>
 														<td>${vo.posName}</td>
-														<td>${vo.date}</td>
+														
 															<td>
 														<button type="submit"  class="custom-btn btn-12"
 															data-bs-toggle="modal"
@@ -171,10 +171,12 @@
 													</td>
 												</tr>
 												<!-- 각 사원에 대한 모달 -->
+												
 												<div class="modal fade" id="modal-${vo.empNum}"
 													tabindex="-1" aria-labelledby="modalLabel-${vo.empNum}"
 													aria-hidden="true">
 													<div class="modal-dialog">
+												                <form id="vacationForm" method="POST" action="/vacation/list">
 														<div class="modal-content">
 															<div class="modal-header">
 																<h5 class="modal-title" id="modalLabel-${vo.empNum}"> ${vo.empName}님 
@@ -183,18 +185,18 @@
 																	data-bs-dismiss="modal" aria-label="Close"></button>
 															</div>
 															  <div class="modal-body">
-												                <form id="vacationForm">
 												                    <div class="mb-3">
 												                        <label for="remainingVacation" class="form-label">잔여 휴가</label>
-												                        <input  type="number" value="${vo.vacationLeftoverDate}" class="form-control" id="remainingVacation" required>
+												                        <input type="hidden" name="empNum" value="${vo.empNum}">
+												                        <input  name="vacationLeftoverDate"  type="number" value="${vo.vacationLeftoverDate}" class="form-control" id="remainingVacation" required>
 												                    </div>
-												                </form>
 												            </div>
 												            <div class="modal-footer">
 												                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-												                <button type="button" class="btn btn-primary" id="saveChangesBtn">변경 저장</button>
+												                <button type="submit" class="btn btn-primary" id="saveChangesBtn">변경 저장</button>
 												            </div>
 														</div>
+												                </form>
 													</div>
 												</div>
 													
