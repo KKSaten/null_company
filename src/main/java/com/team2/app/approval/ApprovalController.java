@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
@@ -31,24 +32,17 @@ public class ApprovalController {
 		
 	}
 	
-	@GetMapping("approvalDocbox")
-	public void approvalDocbox(Model model, ApprDocVO appr, HttpSession session) throws Exception {
+	@GetMapping("approvalReceivedbox")
+	public void approvalReceivedbox(Model model) throws Exception {
 		
-		/* 아이디 추출 과정 */
-		
-		Enumeration<String> en = session.getAttributeNames();
-		while(en.hasMoreElements()) {
-			String name = en.nextElement();
-		}
-		
-		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
-		SecurityContextImpl sc = (SecurityContextImpl)session.getAttribute("SPRING_SECURITY_CONTEXT");
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		EmployeeVO empVO= (EmployeeVO)authentication.getPrincipal();
+	}	
 	
-		/* 아이디 추출 과정 끝 */
+	@GetMapping("approvalDocbox")
+	public void approvalDocbox(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO appr, Model model, HttpSession session) throws Exception {
 		
+		/*
+		 * 접속 중인 ID의 정보를 @AuthenticationPrincipal로 가져옴
+		 */
 		
 		List<ApprDocVO> list = approvalService.getList(empVO); 
 		for(ApprDocVO li : list) {
@@ -57,9 +51,17 @@ public class ApprovalController {
 		model.addAttribute("list", list);
 	}
 	
-	@GetMapping("approvalReceivedbox")
-	public void approvalReceivedbox(Model model) throws Exception {
+
+	@GetMapping("write")
+	public String write(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+		
+		model.addAttribute("empVO", empVO);
+		
+		return "approval/draftDoc";
 		
 	}
-
+	
+	
+	
+	
 }
