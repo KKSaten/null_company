@@ -1,5 +1,7 @@
 const content = {};
 
+let num = 0;
+
 function clickNotify(message) {
 	content.message = message;
 	content.title = "로그인";
@@ -18,9 +20,16 @@ function clickNotify(message) {
 	});
 }
 
-const sse = new EventSource('/notification/connect');
 
-sse.addEventListener('login', (e) => {
+
+const sse = new EventSource('/notification/connect');
+sse.addEventListener('CONNECT', (e) => {
 	console.log(e.data)
-	clickNotify(e.data);
+});
+
+
+sse.addEventListener('LOGIN', (e)=>{
+	console.log("login");
+
+	clickNotify(e.data)
 });

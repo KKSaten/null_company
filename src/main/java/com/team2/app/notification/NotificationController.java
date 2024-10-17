@@ -1,5 +1,7 @@
 package com.team2.app.notification;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import com.team2.app.employee.EmployeeService;
 import com.team2.app.employee.EmployeeVO;
 
 import jakarta.servlet.http.HttpSession;
@@ -37,20 +40,20 @@ public class NotificationController {
 			throws Exception {
 
 		SecurityContextImpl securityContextImpl = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
-		
+
 		SecurityContext sc = SecurityContextHolder.getContext();
-		
+
 		Authentication ac = sc.getAuthentication();
-		
+
 		log.info("ac: {}", ac);
-		
-		if(ac.getPrincipal()!="anonymousUser") {
-			
+
+		if (ac.getPrincipal() != "anonymousUser") {
+
 			EmployeeVO employeeVO = (EmployeeVO) ac.getPrincipal();
-			
+
 			log.info("Notification Controller ===============");
 			log.info("lastEventId : {}", lastEventId);
-			
+
 			return ResponseEntity.ok(notificationService.subscribe(employeeVO, lastEventId));
 		} else {
 			return ResponseEntity.ok(new SseEmitter());

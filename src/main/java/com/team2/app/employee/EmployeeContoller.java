@@ -47,7 +47,25 @@ public class EmployeeContoller {
 	NotificationService notificationService;
 	
 	// ============================== 인사
+	@ResponseBody
+	@GetMapping("loginAlarm")
+	public void loginAlarm(@AuthenticationPrincipal EmployeeVO employeeVO) throws Exception {
+		
+		List<EmployeeVO> list = employeeService.getList();
+		
+		for(EmployeeVO vo:list) {
+			if(vo.getEmpNum() != employeeVO.getEmpNum()) {
+				NotificationVO notificationVO = new NotificationVO();
+				notificationVO.setNotificationContent(employeeVO.getEmpName()+" 님 로그인");
+				notificationVO.setEmployeeVO(vo);
+				notificationVO.setNotificationType(NotificationType.LOGIN);
+				
+				notificationService.send(notificationVO);
+			}
+		}
+	}
 	
+	@ResponseBody
 	@GetMapping("test")
 	public void test(EmployeeVO employeeVO, HttpSession session) throws Exception {
 		NotificationVO notificationVO = new NotificationVO();
@@ -55,7 +73,7 @@ public class EmployeeContoller {
 		employeeVO = employeeService.detail(employeeVO);
 		notificationVO.setEmployeeVO(employeeVO);
 		
-		log.info("vo:{}",employeeVO);
+		log.info("test vo: {}",employeeVO);
 		
 		notificationService.send(notificationVO);
 	}
