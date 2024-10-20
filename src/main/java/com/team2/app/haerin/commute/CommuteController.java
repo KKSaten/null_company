@@ -170,13 +170,16 @@ public class CommuteController {
 		model.addAttribute("list", commuteVO);
 		
 	}
-	
-	//근태 관리 관리자 수정
 	@PostMapping("update")
-	public String update(@RequestParam("empNum") Integer empNum, @RequestParam("commuteStatus") Integer commuteStatus)throws Exception {
-	    commuteService.update(empNum, commuteStatus);
-	    return "redirect:/commute/list";
-	}
+	public String update(
+		    @RequestParam("empNum") Integer empNum,
+		    @RequestParam("commuteStatus") Integer commuteStatus,
+		    @RequestParam(value = "commuteMsg", required = false) String commuteMsg // 선택적 파라미터로 변경
+		) throws Exception {
+		    commuteService.update(empNum, commuteStatus, commuteMsg);
+		    return "redirect:/commute/list";
+		}
+
 
 	//근태 관리 9시 이후 출근 처리 안된 사용자 결근 처리
 	@Scheduled(cron = "0 21 12 * * *")

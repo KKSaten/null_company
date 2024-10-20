@@ -36,8 +36,8 @@ public class CommuteService {
 			return commuteMapper.checkTodayCheckOut(commuteVO) == 1;
 		}   
 		
-		public Object update(Integer empNum, Integer commuteStatus)throws Exception {
-			return commuteMapper.update(empNum,commuteStatus); 
+		public Object update(Integer empNum, Integer commuteStatus,String commuteMsg)throws Exception {
+			return commuteMapper.update(empNum,commuteStatus,commuteMsg); 
 			
 		}
 		

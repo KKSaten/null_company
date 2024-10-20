@@ -70,6 +70,7 @@
                         <th>사원이름</th>
                         <th>출근시간</th>
                         <th>퇴근시간</th>
+						<th>비고</th>
                         <th style="width: 20%">출근/퇴근/결근</th>
                     </tr>
                 </thead>
@@ -80,17 +81,18 @@
                             <td>${vo.empName}</td>
                             <td>${vo.formattedCommuteInTime}</td>
                             <td>${vo.formattedCommuteOutTime}</td>
-                            <td>
-                                <form action="/commute/update" method="post">
-                                    <input type="hidden" name="empNum" value="${vo.empNum}" />
-                                    <select name="commuteStatus">
-                                        <option value="1" ${vo.commuteStatus == 1 ? 'selected' : ''}>출근</option>
-                                        <option value="2" ${vo.commuteStatus == 2 ? 'selected' : ''}>퇴근</option>
-                                        <option value="0" ${vo.commuteStatus == 0 ? 'selected' : ''}>결근</option>
-                                    </select>
-                                    <button type="submit" class="btn btn-primary btn-sm">저장</button>
-                                </form>
-                            </td>
+	                                <form action="/commute/update" method="post"> 
+								<td> <input type="text" name="commuteMsg" value="${vo.commuteMsg}" required /></td>
+	                            <td>
+	                                    <input type="hidden" name="empNum" value="${vo.empNum}" />
+	                                    <select name="commuteStatus">
+	                                        <option value="1" ${vo.commuteStatus == 1 ? 'selected' : ''}>출근</option>
+	                                        <option value="2" ${vo.commuteStatus == 2 ? 'selected' : ''}>퇴근</option>
+	                                        <option value="0" ${vo.commuteStatus == 0 ? 'selected' : ''}>결근</option>
+	                                    </select>
+	                                    <button type="submit" class="btn btn-primary btn-sm">저장</button>
+	                            </td>
+	                                </form>
                         </tr>
                     </c:forEach>
                 </tbody>
