@@ -4,7 +4,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="UTF-8">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,24 +25,33 @@
 				<div class="page-inner">
 					<div class="card">
 						<div class="card-header">
-							<h1>List</h1>
+							<h1>직책 관리</h1>
 						</div>
 						<div class="card-body">
 							<div class="col-md-6 ms-auto me-auto">
 								<table class="table mt-4">
 									<thead>
-										<tr>
-											<th scope="col">사번</th>
+										<tr align="center">
+											<th scope="col">순번</th>
+											<th scope="col">직책 번호</th>
+											<th scope="col">직책 이름</th>
+											<th scope="col">수정</th>
+											<th scope="col">사용여부</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${list}" var="list">
-												<tr onclick="location.href='/employee/detail?empId=${list.empId}'" style="cursor:pointer;">
-													<td>${list.empId}</td>
-												</tr>
+										<c:forEach items="${list}" var="list" varStatus="status">
+											<tr align="center">
+												<td>${status.index+1}</td>
+												<td>${list.posNum}</td>
+												<td>${list.posName}</td>
+												<td><a href="update?posNum=${list.posNum}"><i class="fas fa-edit"/></a></td>
+												<td><a href="delete?posNum=${list.posNum}"><i class="fas fa-eraser"/></a></td>
+											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
+								<a class="btn btn-primary" href="add">추가</a>
 							</div>
 						</div>
 					</div>
@@ -54,5 +63,7 @@
 	</div>
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
+
+
 </body>
 </html>

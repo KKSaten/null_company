@@ -3,8 +3,48 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.team2.app.positions.PositionsMapper">
-  
-  
-  </mapper>
+
+<mapper namespace="com.team2.app.positions.PositionsMapper">
+	<select id="getList" resultType="PositionsVO">
+		SELECT *
+		FROM POSITIONS
+		ORDER BY
+		POS_NUM ASC
+	</select>
+
+	<insert id="add" parameterType="PositionsVO">
+		INSERT INTO POSITIONS (POS_NUM,
+		POS_NAME)
+		VALUES (NULL, #{posName})
+	</insert>
+
+	<select id="checkName" parameterType="PositionsVO"
+		resultType="PositionsVO">
+		SELECT *
+		FROM POSITIONS
+		WHERE POS_NAME = #{posName}
+	</select>
+
+	<select id="detail" parameterType="PositionsVO"
+		resultType="POSITIONSVO">
+		SELECT *
+		FROM POSITIONS
+		WHERE POS_NUM = #{posNum}
+	</select>
+
+	<update id="update" parameterType="PositionsVO">
+		UPDATE POSITIONS
+		SET POS_NAME =
+		#{posName}
+		WHERE POS_NUM = #{posNum}
+	</update>
+
+	<select id="check"
+		parameterType="com.team2.app.employee.EmployeeVO"
+		resultType="com.team2.app.employee.EmployeeVO">
+		SELECT *
+		FROM EMPLOYEE
+		WHERE POS_NUM=#{posNum}
+	</select>
+
+</mapper>
