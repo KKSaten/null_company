@@ -87,6 +87,12 @@
 		WHERE DOC_NUM = {#docNum}
 	</select>		
 	
-	
+	<select id="getDocType" resultType="DocTypeVO">
+		SELECT *
+		FROM DOC_TYPE TYPE
+		LEFT JOIN
+		DOC_TEMPLATE TEMP
+		ON TYPE.DOC_TYPECODE = TEMP.DOC_TYPECODE
+	</select>	
 
 </mapper>
