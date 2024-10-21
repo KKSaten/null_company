@@ -28,8 +28,6 @@ public class NotificationService {
 	private Map<String, Object> eventCache = new ConcurrentHashMap<>();
 
 	public SseEmitter subscribe(EmployeeVO employeeVO, String lastEventId) throws Exception {
-		
-
 		log.info("=============== 알림 Sse 연결");
 		log.info("emitter 생성");
 		// 시간제한있는 SseEmitter 객체 생성
@@ -37,13 +35,12 @@ public class NotificationService {
 
 		log.info("SseEmitter: {}", employeeVO.getEmpNum());
 		String emitterId = employeeVO.getEmpNum()+"";
-
 		
 		// 시간 초과나 비동기 요청이 안되면 자동으로 삭제
+		
 		emitter.onCompletion(() -> emitters.remove(emitterId));
 		emitter.onTimeout(() -> emitters.remove(emitterId));
 		
-
 		// 각 emitterId와 emitter 객체 저장
 		save(emitterId, emitter);
 		
@@ -56,9 +53,6 @@ public class NotificationService {
 
 		log.info("emitters length : {}", emitters.size());
 		log.info("emitterId : {}", emitterId);
-
-		
-		
 
 		// lastEventId 있다는것은 연결 종료, 그래서 해당 데이터가 남아있는지 살펴보고 있다면 남은 데이터를 전송
 		if (!lastEventId.isEmpty()) {
@@ -93,7 +87,15 @@ public class NotificationService {
 		});
 	}
 
-
+	public void sendAll(NotificationVO notificationVO) throws Exception {
+		emitters.forEach((id, em) -> {
+			try {
+				sendToClient(em, id, notificationVO);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
 
 	private void sendToClient(SseEmitter emitter, String emitterId, NotificationVO notificationVO) throws Exception {
 		try {

@@ -20,13 +20,11 @@ function clickNotify(message) {
 	});
 }
 
-
-
 const sse = new EventSource('/notification/connect');
+
 sse.addEventListener('CONNECT', (e) => {
 	console.log(e.data)
 });
-
 
 sse.addEventListener('LOGIN', (e)=>{
 	console.log("login");
