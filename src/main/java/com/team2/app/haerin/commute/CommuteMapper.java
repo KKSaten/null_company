@@ -20,7 +20,7 @@ public interface CommuteMapper {
 	//
 	public int checkTodayCheckOut(CommuteVO commuteVO)throws Exception;
 	//관리자 근태 관리 수정
-	public int update(Integer empNum, Integer commuteStatus)throws Exception;
+	public int update(Integer empNum, Integer commuteStatus,String commuteMsg)throws Exception;
 	
 	public Object absent(CommuteVO commuteVO)throws Exception;
 	

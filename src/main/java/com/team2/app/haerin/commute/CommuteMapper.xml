@@ -51,10 +51,11 @@
 	</select>
 	
 	<update id="update">
-	    UPDATE COMMUTE 
-	    SET COMMUTE_STATUS = #{commuteStatus} 
-	    WHERE EMP_NUM = #{empNum}
-	</update>
+    UPDATE COMMUTE 
+    SET COMMUTE_STATUS = #{commuteStatus}, COMMUTE_MSG = #{commuteMsg} 
+    WHERE EMP_NUM = #{empNum}
+</update>
+
 	
 <!-- 오늘 날짜에 출근하지 않은 직원들의 정보를 조회. -->
 	<select id="commuteCheck">
