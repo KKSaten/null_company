@@ -39,7 +39,7 @@
 							  </div>
 							  <div class="mb-3 form-check">
 							    <input type="checkbox" name="rememberMe" class="form-check-input" id="rememberMe">
-							    <label class="form-check-label" for="rememberMe">ID 기억하기</label>
+							    <label class="form-check-label" for="rememberMe">로그인 유지</label>
 							  </div>
 							  <button type="submit" class="btn btn-primary">로그인</button>
 							</form>

@@ -34,10 +34,9 @@ public class NotificationService {
 		SseEmitter emitter = new SseEmitter(DEFAULT_TIMEOUT);
 
 		log.info("SseEmitter: {}", employeeVO.getEmpNum());
-		String emitterId = employeeVO.getEmpNum()+"";
+		String emitterId = employeeVO.getEmpNum().toString();
 		
 		// 시간 초과나 비동기 요청이 안되면 자동으로 삭제
-		
 		emitter.onCompletion(() -> emitters.remove(emitterId));
 		emitter.onTimeout(() -> emitters.remove(emitterId));
 		
@@ -59,7 +58,8 @@ public class NotificationService {
 		if (!lastEventId.isEmpty()) {
 			log.info("lastEventId");
 			Map<String, Object> events = findEventCache(employeeVO);
-
+			
+			//lastEventId 이후의 이벤트들에 대해서만 필터링하여 가져와서 메세지를 보낸다.
 			events.entrySet().stream().filter(entry -> lastEventId.compareTo(entry.getKey()) < 0).forEach(entry -> {
 				try {
 					sendToClient(emitter, entry.getKey(), (NotificationVO) entry.getValue());
@@ -72,6 +72,7 @@ public class NotificationService {
 		return emitter;
 	}
 
+	//알림내용을 저장하면서 알림 보내는 메소드
 	public void send(NotificationVO notificationVO) throws Exception {
 
 		Map<String, SseEmitter> sendEmitters = findEmitter(notificationVO.getEmployeeVO());
@@ -88,6 +89,7 @@ public class NotificationService {
 		});
 	}
 
+	//로그인 때 쓰이는 메소드 로그인한 사용자 전부에게 로그인 알림
 	public void sendAll(NotificationVO notificationVO) throws Exception {
 		emitters.forEach((id, em) -> {
 			try {
@@ -98,6 +100,7 @@ public class NotificationService {
 		});
 	}
 
+	// 알림을 실제로 보내는 메소드
 	private void sendToClient(SseEmitter emitter, String emitterId, NotificationVO notificationVO) throws Exception {
 		try {
 			emitter.send(SseEmitter
@@ -111,27 +114,32 @@ public class NotificationService {
 
 	}
 
+	// 로그인한 클라이언트의 SseEmitter 객체 map에 저장
 	public SseEmitter save(String emitterId, SseEmitter sseEmitter) throws Exception {
 		emitters.put(emitterId, sseEmitter);
 		return sseEmitter;
 	}
 
+	// 알림 내용 저장
 	public void saveEventCache(String emitterId, Object event) throws Exception {
 		eventCache.put(emitterId, event);
 	}
 
+	// Map에서 특정 클라이언트의 SseEmitter 전부 가져오기
 	public Map<String, SseEmitter> findEmitter(EmployeeVO employeeVO) throws Exception {
 		return emitters.entrySet().stream()
 				.filter(entry -> entry.getKey().startsWith(employeeVO.getEmpNum().toString()))
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
+	// 특정 클라이언트의 알림 내용 가져오기
 	public Map<String, Object> findEventCache(EmployeeVO employeeVO) throws Exception {
 		return eventCache.entrySet().stream()
 				.filter(entry -> entry.getKey().startsWith(employeeVO.getEmpNum().toString()))
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
+	// Sse 객제 삭제
 	public void delete(String emitterId) throws Exception {
 		log.info("delete");
 		emitters.remove(emitterId);
