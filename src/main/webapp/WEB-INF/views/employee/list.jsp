@@ -42,19 +42,38 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${list}" var="list">
-												<tr onclick="location.href='/employee/detail?empId=${list.empId}'" style="cursor:pointer;">
-													<td>${list.empId}</td>
-													<td>${list.empName}</td>
-													<td>${list.deptVO.deptName}</td>
-													<td><c:choose>
-															<c:when test="${list.enabled}">재직 중</c:when>
-															<c:otherwise>퇴직</c:otherwise>
-														</c:choose></td>
-												</tr>
+											<tr
+												onclick="location.href='/employee/detail?empId=${list.empId}'"
+												style="cursor: pointer;">
+												<td>${list.empId}</td>
+												<td>${list.empName}</td>
+												<td>${list.deptVO.deptName}</td>
+												<td><c:choose>
+														<c:when test="${list.enabled}">재직 중</c:when>
+														<c:otherwise>퇴직</c:otherwise>
+													</c:choose></td>
+											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>
+						</div>
+						<div class="card-bottom">
+							<ul class="pagination pg-primary">
+								<li class="page-item"><a class="page-link" href="#"
+									aria-label="Previous"> <span aria-hidden="true">«</span> <span
+										class="sr-only">Previous</span>
+								</a></li>
+								<c:forEach begin="${pager.startPage}" end="${pager.lastPage}"
+									step="1" var="i">
+									<li class="page-item"><a class="page-link" href="list?page=${i}">${i}</a>
+									</li>
+								</c:forEach>
+								<li class="page-item"><a class="page-link" href="#"
+									aria-label="Next"> <span aria-hidden="true">»</span> <span
+										class="sr-only">Next</span>
+								</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>

@@ -10,11 +10,14 @@ import com.team2.app.department.DepartmentVO;
 import com.team2.app.positions.PositionsVO;
 import com.team2.app.role.RoleVO;
 import com.team2.app.util.FileVO;
+import com.team2.app.util.Pager;
 
 @Mapper
 public interface EmployeeMapper {
 	
-	public List<EmployeeVO> getList() throws Exception;
+	public List<EmployeeVO> getList(Pager pager) throws Exception;
+	
+	public Long getTotal() throws Exception;
 	
 	public int delete (EmployeeVO employeeVO) throws Exception;
 	

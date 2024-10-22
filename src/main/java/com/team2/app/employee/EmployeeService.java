@@ -31,6 +31,7 @@ import com.team2.app.positions.PositionsVO;
 import com.team2.app.role.RoleVO;
 import com.team2.app.util.FileManager;
 import com.team2.app.util.FileVO;
+import com.team2.app.util.Pager;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -51,8 +52,15 @@ public class EmployeeService {
 	@Value("${app.upload}")
 	private String path;
 	
-	public List<EmployeeVO> getList() throws Exception {
-		return employeeMapper.getList();
+	public List<EmployeeVO> getList(Pager pager) throws Exception {
+		
+		pager.makeRow();
+		
+		Long total = employeeMapper.getTotal();
+		
+		pager.makeNum(total);
+		
+		return employeeMapper.getList(pager);
 	}
 	
 	public List<RoleVO> getRole (EmployeeVO employeeVO) throws Exception {

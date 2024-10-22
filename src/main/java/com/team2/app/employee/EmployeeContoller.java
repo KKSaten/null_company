@@ -28,6 +28,7 @@ import com.team2.app.notification.NotificationType;
 import com.team2.app.notification.NotificationVO;
 import com.team2.app.positions.PositionsVO;
 import com.team2.app.role.RoleVO;
+import com.team2.app.util.Pager;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -47,42 +48,13 @@ public class EmployeeContoller {
 	NotificationService notificationService;
 	
 	// ============================== 인사
-	@ResponseBody
-	@GetMapping("loginAlarm")
-	public void loginAlarm(@AuthenticationPrincipal EmployeeVO employeeVO) throws Exception {
-		
-		List<EmployeeVO> list = employeeService.getList();
-		
-		for(EmployeeVO vo:list) {
-			if(vo.getEmpNum() != employeeVO.getEmpNum()) {
-				NotificationVO notificationVO = new NotificationVO();
-				notificationVO.setNotificationContent(employeeVO.getEmpName()+" 님 로그인");
-				notificationVO.setEmployeeVO(vo);
-				notificationVO.setNotificationType(NotificationType.LOGIN);
-				
-				notificationService.send(notificationVO);
-			}
-		}
-	}
-	
-	@ResponseBody
-	@GetMapping("test")
-	public void test(EmployeeVO employeeVO, HttpSession session) throws Exception {
-		NotificationVO notificationVO = new NotificationVO();
-		
-		employeeVO = employeeService.detail(employeeVO);
-		notificationVO.setEmployeeVO(employeeVO);
-		
-		log.info("test vo: {}",employeeVO);
-		
-		notificationService.send(notificationVO);
-	}
 	
 	@GetMapping("list")
-	public void getList(Model model) throws Exception {
-		List<EmployeeVO> list = employeeService.getList();
+	public void getList(Model model, Pager pager) throws Exception {
+		List<EmployeeVO> list = employeeService.getList(pager);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("pager", pager);
 	} 
 	
 	@GetMapping("delete")

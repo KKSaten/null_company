@@ -7,7 +7,7 @@
 <mapper namespace="com.team2.app.employee.EmployeeMapper">
 
 
-	<select id="getList" resultMap="employeeInfo">
+	<select id="getList" parameterType="Pager" resultMap="employeeInfo">
 		SELECT E.*, R.*, D.*, P.*, EF.*
 		FROM EMPLOYEE E
 			INNER JOIN
@@ -22,7 +22,15 @@
 			INNER JOIN
 			EMP_FILE EF
 			ON (E.EMP_NUM=EF.EMP_NUM)
+		ORDER BY E.EMP_NUM ASC
+		LIMIT #{startRow}, #{perPage} 
 	</select>
+	
+	<select id="getTotal" parameterType="Pager" resultType="Long">
+		SELECT COUNT(*)
+		FROM EMPLOYEE
+	</select>
+	
 	
 	<select id="getRole" parameterType="EmployeeVO" resultType="com.team2.app.role.RoleVO">
 		SELECT *

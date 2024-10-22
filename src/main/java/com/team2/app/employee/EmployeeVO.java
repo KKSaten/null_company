@@ -14,6 +14,7 @@ import com.team2.app.department.DepartmentVO;
 import com.team2.app.positions.PositionsVO;
 import com.team2.app.role.RoleVO;
 import com.team2.app.util.FileVO;
+import com.team2.app.util.Pager;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +41,9 @@ public class EmployeeVO implements UserDetails {
 	private RoleVO roleVO;
 	private DepartmentVO deptVO;
 	private PositionsVO posVO;
-	private String deptName	;
-	private String posName;
+	private Pager pager;
+	
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authority = new ArrayList<>();
