@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team2.app.employee.EmployeeVO;
 import lombok.extern.slf4j.Slf4j;
@@ -182,12 +184,28 @@ public class CommuteController {
 
 
 	//근태 관리 9시 이후 출근 처리 안된 사용자 결근 처리
-	@Scheduled(cron = "0 21 12 * * *")
+	@Scheduled(cron = "0 21 11 * * *")
 	public void absent()throws Exception {
 		CommuteVO commuteVO = new CommuteVO();
 		log.info("10시가 지났습니다 결근 처리 하겠습니다.");
 		commuteService.absentUpdate(commuteVO);
 		
+	}
+	
+	@PostMapping("statusCheck")
+	@ResponseBody
+	public int statusCheck( ) throws Exception{
+		// 로그인한 사용자 아이디 가져오기
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		EmployeeVO temp = (EmployeeVO) authentication.getPrincipal();
+		if(temp == null) {
+			return -1;
+		}
+		CommuteVO commuteVO = new CommuteVO();
+		commuteVO.setEmpNum(temp.getEmpNum());
+		
+		return commuteService.statusCheck(commuteVO);
 	}
 
 }

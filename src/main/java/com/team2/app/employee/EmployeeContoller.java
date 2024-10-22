@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.tags.shaded.org.apache.regexp.recompile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -231,5 +232,10 @@ public class EmployeeContoller {
 		log.info("Detail: {}", ac.getDetails()); // sessionID\
 		
 		return employeeVO;
+	}
+	@PostMapping("empListUpdate")
+	public String empListUpdate(Integer empNum,Long posNum,Long roleNum,Long deptNum)throws Exception{
+		employeeService.empListUpdate(empNum,posNum,deptNum,roleNum);
+		return "redirect:/employee/empList";
 	}
 }
