@@ -87,12 +87,23 @@
 		WHERE DOC_NUM = {#docNum}
 	</select>		
 	
-	<select id="getDocType" resultType="DocTypeVO">
-		SELECT *
-		FROM DOC_TYPE TYPE
+	<select id="getDocType" resultMap="Template">
+		SELECT TYPE.*, TEMPLATE.*
+		FROM
+		DOC_TYPE TYPE
 		LEFT JOIN
-		DOC_TEMPLATE TEMP
-		ON TYPE.DOC_TYPECODE = TEMP.DOC_TYPECODE
-	</select>	
+		DOC_TEMPLATE TEMPLATE
+		ON TYPE.DOC_TYPECODE = TEMPLATE.DOC_TYPECODE
+	</select>
+	<resultMap type="DocTypeVO" id="Template">
+		<id property="docTypecode" column="DOC_TYPECODE"/>
+		<result property="docTypename" column="DOC_TYPENAME"/>
+		
+		<collection property="docTemplateVO" javaType="java.util.List" ofType="DocTemplateVO">
+			<id property="docTemplatecode" column="DOC_TEMPLATECODE"/>
+			<result property="docTypecode" column="DOC_TYPECODE"/>
+			<result property="templateName" column="TEMPLATE_NAME"/>		
+		</collection>
+	</resultMap>
 
 </mapper>

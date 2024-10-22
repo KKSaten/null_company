@@ -29,10 +29,6 @@
 
 
 
-					
-
-
-
 
 
 
@@ -48,6 +44,7 @@
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
 	<script src="/resources/js/notice/write.js"></script>
+
 
 </body>
 </html>
