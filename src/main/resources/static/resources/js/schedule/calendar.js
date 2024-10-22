@@ -18,6 +18,30 @@ document.addEventListener('DOMContentLoaded', function() {
     initialView: 'dayGridMonth',
     selectable: true,   // true : 날짜를 클릭할 수 있다
     dayMaxEvents: true,  // true : 이벤트가 많아지면 + 로 이벤트를 표시
+    
+
+    // 이벤트 클릭시 상세정보를 보여주는 modal창을 띄워주는 이벤트
+    eventClick: function(info) { // 클릭된 이벤트의 정보를 모달에 표시
+                
+        // 각 필드에 이벤트 정보 설정
+        document.getElementById('scheduleNum').value = info.event.id;
+        document.getElementById('scheduleTitle').value = info.event.title;
+        // contents처럼 임의로 만든 변수명을 사용하기 위해서는 앞에 extendedProps를 붙여줘야 한다
+        document.getElementById('scheduleContents').value = info.event.extendedProps.contents,
+        document.getElementById('scheduleStart').value = info.event.startStr.substring(0, 10);
+        document.getElementById('scheduleEnd').value = info.event.endStr.substring(0, 10);
+    
+        // 모달 표시
+        const modal = document.getElementById('addEventModal');
+        modal.style.display = 'block'; // 모달 열기
+    
+        // 모달 닫기 로직 (예: 모달 배경 클릭 시 닫기)
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none'; // 모달 닫기
+            }
+        }
+    },
 
 
     // *** 캘린더에 list를 보여주는 함수 ***
@@ -30,11 +54,31 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch("/schedule/calendarList")
         .then((response)=>{return response.json()})
         .then(data=>{
-            let events = data.map(eventData => ({
-                title: eventData.scheduleTitle,
-                start: eventData.scheduleStart,
-                end: eventData.scheduleEnd
-            }));
+            let events = data.map(eventData => {
+                let eventColor;
+                
+                // 조건에 따라 색상 설정
+                if (eventData.scheduleCategory.includes("연차")) {
+                    eventColor = "rgb(229 85 99)"; // '연차'는 빨간색
+                } else if (eventData.scheduleCategory.includes("마감")) {
+                    eventColor = "black"; // '마감'은 검정색
+                } else if (eventData.scheduleCategory.includes("회의")) {
+                    eventColor = "#3788d8e"; // '회의'은 검정색
+                }  else {
+                    eventColor = "green"; // 기본값은 초록색
+                }
+    
+                return {
+                    id: eventData.scheduleNum,
+                    title: eventData.scheduleTitle,
+                    start: eventData.scheduleStart,
+                    end: eventData.scheduleEnd,
+                    contents: eventData.scheduleContents, // 'contents는 임의로 만든 변수 명'
+                    backgroundColor: eventColor, // 조건에 따라 색상 지정
+                    classNames: ['custom-event'], // 이벤트에 css를 적용하기 위해 class를 부여
+                    display: "block"
+                };
+            });
             successCallback(events);  // FullCalendar에 이벤트 전달
         })
     }

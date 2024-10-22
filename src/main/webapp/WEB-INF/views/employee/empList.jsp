@@ -71,6 +71,7 @@
 												<th scope="col">주소</th>
 												<th scope="col">부서 이름</th>
 												<th scope="col">직급 이름</th>
+												<th scope="col">직급 이름</th>
 												<th scope="col">발령</th>
 											</tr>
 										</thead>
@@ -85,6 +86,7 @@
 													<td>${vo.empAddress}</td>
 													<td>${vo.deptName}</td>
 													<td>${vo.posName}</td>
+													<td>${vo.roleName}</td>
 													<td>
 														<button type="button" class="btn btn-primary"
 															data-bs-toggle="modal"
@@ -128,36 +130,62 @@
 																	<strong>직급 이름:</strong> <span
 																		id="modalPosName-${vo.empNum}">${vo.posName}</span>
 																</p>
-																					
+																<p>
+																<strong>직책 이름:</strong> <span
+																id="modalPosName-${vo.empNum}">${vo.roleName}</span>
+																</p>
+																<form action="/employee/empListUpdate" method="post"> 								
 												<p>
 								                    <strong>발령 부서 :</strong> 
-								                    <select id="deptSelect-${vo.empNum}" class="form-select">
-								                        <option value="" disabled selected>부서 선택</option>
-								                        <option value="1">부서 1</option>
-								                        <option value="2">부서 2</option>
-								                        <option value="3">부서 3</option>
+													<input type="hidden" name="empNum" value="${vo.empNum}" />
+								                    <select id="deptSelect-${vo.empNum}"name="deptNum" class="form-select">
+								                        <option value="${vo.deptNum}" disabled selected>부서 선택</option>
+								                        <option value="1">인사</option>
+								                        <option value="2">생산</option>
+								                        <option value="3">품질</option>
+														<option value="4">개발</option>
+														<option value="5">영업</option>
 								                        <!-- 추가 부서 옵션 -->
 								                    </select>
 								                </p>
 								                <p>
 								                    <strong>발령 직급 :</strong>
-								                    <select id="posSelect-${vo.empNum}" class="form-select">
-								                        <option value="" disabled selected>직급 선택</option>
-								                        <option value="1">직급 1</option>
-								                        <option value="2">직급 2</option>
-								                        <option value="3">직급 3</option>
+										
+								                    <select  name="posNum" class="form-select">
+								                        <option value="${vo.posNum}" disabled selected>직급 선택</option>
+								                        <option value="1">사원</option>
+								                        <option value="2">대리</option>
+								                        <option value="3">과장</option>
+														<option value="6">차장</option>
+														<option value="7">부장</option>
+														<option value="8">임원</option>
+														<option value="9">사장</option>
 								                        <!-- 추가 직급 옵션 -->
 								                    </select>
 			              						  </p>
-																
+												  <strong>발령 직책 :</strong>
+												  									
+												  	   <select  name="roleNum" class="form-select">
+								                        <option value="${vo.roleNum}" disabled selected>직책 선택</option>
+															  							                        <option value="1">부서원</option>
+															  							          		       <option value="2">부 부서장</option>
+															  							                        <option value="3">부서장</option>
+															  													<option value="4">임원</option>
+															  													<option value="5">사장</option>
+															  													<option value="6">인사팀원</option>
+															  													<option value="7">인사팀장</option>
+												  							                        <!-- 추가 직급 옵션 -->
+												  							                    </select>
+												  		              						  </p>		
 																
 															</div>
 															<div class="modal-footer">
 																<button type="button" class="btn btn-secondary"
 																	data-bs-dismiss="modal">닫기</button>
-																<button type="button" class="btn btn-primary">발령 하기
+																<button type="submit" class="btn btn-primary">발령 하기
 																	</button>
 															</div>
+																	</form>
 														</div>
 													</div>
 												</div>

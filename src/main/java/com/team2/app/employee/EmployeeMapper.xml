@@ -166,7 +166,24 @@
 		LEFT JOIN 
 		    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM  
 		LEFT JOIN 
-		    POSITIONS P ON E.POS_NUM = P.POS_NUM   
+		    POSITIONS P ON E.POS_NUM = P.POS_NUM  
+		LEFT JOIN 
+		    ROLE R ON E.ROLE_NUM = R.ROLE_NUM   
 
 </select>
+
+<update id="empListUpdate" parameterType="EmployeeVO">
+UPDATE EMPLOYEE E
+JOIN ORDERS O ON O.EMP_NUM = E.EMP_NUM  -- 필요한 경우 적절한 조건으로 조인
+SET 
+    E.DEPT_NUM = #{deptNum},        -- 새 부서 번호
+    E.ROLE_NUM = #{roleNum},       -- 새 직책 번호
+    E.POS_NUM = #{posNum}          -- 새 직책 번호 추가
+WHERE 
+    E.EMP_NUM = #{empNum} AND       -- 업데이트할 직원 번호
+    O.ORDER_NUM = #{orderNum};      -- 특정 주문 번호로 필터링
+
+ 
+</update>
+
 </mapper>

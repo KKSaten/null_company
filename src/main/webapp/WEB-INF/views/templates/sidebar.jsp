@@ -4,7 +4,7 @@
 <!-- Sidebar -->
 <div class="sidebar" data-background-color="bright">
 
-	<div class="sidebar-logo">
+	<div class="sidebar-logo" style="margin-top: 15px;">
 		<!-- Logo Header -->
 		<div class="logo-header" data-background-color="bright">
 			<sec:authorize access="isAuthenticated()">
@@ -125,7 +125,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a data-bs-toggle="collapse" href="/">
+					<a href="/schedule/calendar">
 						<i class="far fa-calendar-alt"></i>
 						<p>캘린더</p>
 					</a>
@@ -285,7 +285,7 @@
 								<div class="collapse" id="approvalOption">
 									<ul class="nav nav-collapse subnav">
 										<li>
-											<a href="#">
+											<a href="../approval/signaturePad">
 												<span class="col-sm-1"></span>
 												<span class="sub-item">서명 관리</span>
 											</a>
@@ -316,108 +316,4 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-const clockInButton = document.getElementById("alert_demo_8");
-const clockOutButton = document.getElementById("alert_demo_7");
-let isClockedIn = false; // 출근 상태를 관리하는 변수
-const empNum = "123123"; // 실제 사원 번호로 변경해야 함
-
-// 처음에 출근 버튼만 보이도록 설정 (퇴근 버튼은 숨김)
-clockOutButton.style.display = 'none';
-
-clockInButton.addEventListener("click", function (e) {
-    swal({
-        title: "출근하시겠습니까?",
-        text: "",
-        icon: "warning",
-        buttons: {
-            cancel: {
-                visible: true,
-                text: "취소",
-                className: "btn btn-danger",
-            },
-            confirm: {
-                text: "승인",
-                className: "btn btn-success",
-            },
-        },
-    }).then((willClockIn) => {
-        if (willClockIn) {
-            clockIn(); // 출근 처리
-            toggleButtons(); // 출근 후 버튼 전환
-        } else {
-            swal("출근처리를 실패하였습니다", {
-                buttons: {
-                    confirm: {
-                        className: "btn btn-danger",
-                    },
-                },
-            });
-        }
-    });
-});
-
-clockOutButton.addEventListener("click", function (e) {
-    swal({
-        title: "퇴근하시겠습니까?",
-        text: "",
-        icon: "warning",
-        buttons: {
-            cancel: {
-                visible: true,
-                text: "취소",
-                className: "btn btn-danger",
-            },
-            confirm: {
-                text: "승인",
-                className: "btn btn-success",
-            },
-        },
-    }).then((willClockOut) => {
-        if (willClockOut) {
-            clockOut(); // 퇴근 처리
-            toggleButtons(); // 퇴근 후 버튼 전환
-        } else {
-            swal("퇴근처리를 실패하였습니다", {
-                buttons: {
-                    confirm: {
-                        className: "btn btn-danger",
-                    },
-                },
-            });
-        }
-    });
-});
-
-// 출근 처리 함수
-function clockIn() {
-    swal("출근처리가 완료되었습니다!", { icon: "success" })
-    .then(
-        fetch("/commute/checkIn", {
-            method: "POST",
-        })
-    );
-}
-
-// 퇴근 처리 함수
-function clockOut() {
-    swal("퇴근처리가 완료되었습니다!", { icon: "success" })
-    .then(
-        fetch("/commute/checkOut", {
-            method: "POST",
-        })
-    );
-}
-
-// 버튼 토글 함수: 출근/퇴근 버튼 전환
-function toggleButtons() {
-    if (clockInButton.style.display !== 'none') {
-        clockInButton.style.display = 'none';
-        clockOutButton.style.display = 'block';
-    } else {
-        clockInButton.style.display = 'block';
-        clockOutButton.style.display = 'none';
-    }
-}
-</script>
-
+<script src="/resources/js/commute/commuteCheck.js"></script>
