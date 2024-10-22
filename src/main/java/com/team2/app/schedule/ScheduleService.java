@@ -19,4 +19,9 @@ public class ScheduleService {
 		
 		return scheduleMapper.getList(employeeVO);
 	}
+	
+	public int modifySchedule(ScheduleVO scheduleVO) throws Exception{
+		
+		return scheduleMapper.modifySchedule(scheduleVO);
+	}
 }

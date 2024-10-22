@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
     dayMaxEvents: true,  // true : 이벤트가 많아지면 + 로 이벤트를 표시
     
 
-    // 이벤트 클릭시 상세정보를 보여주는 modal창을 띄워주는 이벤트
+    // 캘린더 이벤트 클릭시 해당 일정의 상세 내용을 modal로 표시
+    // 데이터를 백엔드에서 받아오는게 아니라, JS 함수로 받아와서 프론트 단으로 넣어주는 구조
     eventClick: function(info) { // 클릭된 이벤트의 정보를 모달에 표시
                 
         // 각 필드에 이벤트 정보 설정
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('scheduleTitle').value = info.event.title;
         // contents처럼 임의로 만든 변수명을 사용하기 위해서는 앞에 extendedProps를 붙여줘야 한다
         document.getElementById('scheduleContents').value = info.event.extendedProps.contents,
+        document.getElementById('scheduleCategory').value = info.event.extendedProps.category,
         document.getElementById('scheduleStart').value = info.event.startStr.substring(0, 10);
         document.getElementById('scheduleEnd').value = info.event.endStr.substring(0, 10);
     
@@ -73,7 +75,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     title: eventData.scheduleTitle,
                     start: eventData.scheduleStart,
                     end: eventData.scheduleEnd,
-                    contents: eventData.scheduleContents, // 'contents는 임의로 만든 변수 명'
+                    extendedProps: {
+                        contents: eventData.scheduleContents,
+                        category: eventData.scheduleCategory,
+                        authorName: eventData.employeeVO.empName // 작성자 이름 추가
+                    },
                     backgroundColor: eventColor, // 조건에 따라 색상 지정
                     classNames: ['custom-event'], // 이벤트에 css를 적용하기 위해 class를 부여
                     display: "block"
@@ -81,6 +87,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             successCallback(events);  // FullCalendar에 이벤트 전달
         })
+    },
+
+    eventContent: function(arg) {
+        let { event } = arg;
+        let authorName = event.extendedProps.authorName;
+    
+        // 커스터마이즈된 HTML 반환
+        return {
+            html: `
+                <div>
+                    <strong>${authorName}</strong><br>
+                    <span>${event.title}</span><br>
+                </div>
+            `
+        };
     }
     });
     calendar.render();
