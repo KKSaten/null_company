@@ -101,33 +101,31 @@
 								<div class="modal-header">
 									<h5 class="modal-title" id="signModalLabel">서명 추가</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<form method="post">								
-									<div class="modal-body">
-		
-										<div class="container" style="text-align: center; border: 1px solid #ddd; padding: 10px;">
-											<div style="margin-top: 10px;">
-												<canvas id="signature-pad" width="430px" height="240px"></canvas>
-											</div>
-											
-											<div style="margin-top: 10px; margin-bottom: 5px;">
-												<!-- 지우기, 되돌리기-->
-												<button class="button" data-action="clear" style="width: 45px; height: 33px; border: 2px solid #ddd; border-radius: 5px;">
-													<i class="fas fa-eraser" style="font-size: 18px;"></i>
-												</button>
-												<button class="button" data-action="undo" style="width: 45px; height: 33px; border: 2px solid #ddd; border-radius: 5px;">
-													<i class="fas fa-undo"></i>
-												</button>
-											</div>
-											
+								</div>							
+								<div class="modal-body">
+	
+									<div class="container" style="text-align: center; border: 1px solid #ddd; padding: 10px;">
+										<div style="margin-top: 10px;">
+											<canvas id="signature-pad" width="430px" height="240px"></canvas>
 										</div>
-						        
+										
+										<div style="margin-top: 10px; margin-bottom: 5px;">
+											<!-- 지우기, 되돌리기-->
+											<button class="button" data-action="clear" style="width: 45px; height: 33px; border: 2px solid #ddd; border-radius: 5px;">
+												<i class="fas fa-eraser" style="font-size: 18px;"></i>
+											</button>
+											<button class="button" data-action="undo" style="width: 45px; height: 33px; border: 2px solid #ddd; border-radius: 5px;">
+												<i class="fas fa-undo"></i>
+											</button>
+										</div>
+										
 									</div>
-									<div class="modal-footer" style="display: flex; align-items: center; justify-content: space-between;">
-										<input type="text" class="form-control" placeholder="서명 제목을 입력해주세요." style="flex: 1; margin-left: 5px; font-size: 16px;"/>
-										<button type="button" class="btn btn-primary" id="saveSignBtn" style="margin-right: 5px; font-size: 16px;">저장</button>
-									</div>
-								</form>
+					        
+								</div>
+								<div class="modal-footer" style="display: flex; align-items: center; justify-content: space-between;">
+									<input type="text" class="form-control" id="signTitle" placeholder="서명 제목을 입력해주세요." style="flex: 1; margin-left: 5px; font-size: 16px;"/>
+									<button type="button" class="btn btn-primary" id="saveSignBtn" style="margin-right: 5px; font-size: 16px;">저장</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -191,16 +189,16 @@
 		        return;
 		    }
 
-		    // 서명을 PNG 이미지로 변환
-		    const dataURL = signaturePad.toDataURL('image/png');
+		    // 서명 PNG 이미지를 Base64로 변환
+		    const imgURL = signaturePad.toDataURL('image/png');
 
 		    // FormData 객체 생성
 		    const formData = new FormData();
-		    formData.append('signImage', dataURL); //파라미터
-
-		    // 서명 제목 추가
-		    const signatureTitle = document.querySelector('input[type="text"]').value;
-		    formData.append('title', signatureTitle);
+		    
+		    // 파라미터 추가
+		    formData.append('signatureImage', imgURL);
+		    const signTitle = document.getElementById('signTitle').value;
+		    formData.append('signTitle', signTitle);
 
 		    // AJAX 요청
 		    fetch('/approval/signaturePad', {

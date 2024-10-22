@@ -70,11 +70,8 @@
 			<result property="approver" column="APPROVER"/>
 			<result property="approverName" column="APPROVER_NAME"/>
 			<result property="apprProgress" column="APPR_PROGRESS"/>
-		</collection>
-		
+		</collection>	
 	</resultMap>	
-	
-	
 	
 		
 	<select id="getApprLine" parameterType="ApprDocVO" resultType="ApprLineVO">
@@ -82,10 +79,12 @@
 		WHERE DOC_NUM = {#docNum}
 	</select>
 	
+	
 	<select id="getApprHistory" parameterType="ApprDocVO" resultType="ApprHistoryVO">
 		SELECT * FROM APPROVAL_HISTORY
 		WHERE DOC_NUM = {#docNum}
 	</select>		
+	
 	
 	<select id="getDocType" resultMap="Template">
 		SELECT TYPE.*, TEMPLATE.*
@@ -105,5 +104,22 @@
 			<result property="templateName" column="TEMPLATE_NAME"/>		
 		</collection>
 	</resultMap>
+	
+	
+	<insert id="saveSign" parameterType="SignVO">
+		INSERT INTO SIGN (SIGN_USER, SIGN_TITLE, SIGN_IMAGE)
+		VALUES (#{signUser}, #{signTitle}, #{signImage})
+	</insert>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>

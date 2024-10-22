@@ -3,6 +3,7 @@ package com.team2.app.approval;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.team2.app.employee.EmployeeVO;
@@ -12,6 +13,12 @@ public class ApprovalService {
 	
 	@Autowired
 	private ApprovalMapper approvalMapper;
+	
+	@Autowired
+	private SignManager signManager;
+	
+	@Value("${app.upload}")
+	private String path;
 	
 	public void approvalDraftbox() throws Exception {
 		
@@ -30,7 +37,17 @@ public class ApprovalService {
 		return approvalMapper.getDocType();
 	}
 	
-	
+	public int saveSign(SignVO signVO) throws Exception {
+		
+		String fileName = signManager.fileSave(path + "signature/", signVO);
+		
+		signVO.setSignImage(fileName);
+		
+		int result = approvalMapper.saveSign(signVO);
+		
+		
+		return result;
+	}
 	
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -54,7 +55,7 @@ public class ApprovalController {
 		
 		List<DocTypeVO> docList = approvalService.getDocType();
 		for(DocTypeVO dcli : docList) {
-			log.info("docList :" + ""+ dcli.getDocTemplateVO().size());
+			log.info("docList :" + dcli.getDocTemplateVO().size());
 		}
 		model.addAttribute("docList", docList);
 		 
@@ -73,16 +74,23 @@ public class ApprovalController {
 	
 	
 	@GetMapping("signaturePad")
-	public void sign(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+	public void sign(@AuthenticationPrincipal EmployeeVO empVO, SignVO signVO, Model model) throws Exception {
 		
-		model.addAttribute("empVO", empVO);
+		
 		
 	}
 	
 	@PostMapping("signaturePad")
-	public void saveSign(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+	public void saveSign(@AuthenticationPrincipal EmployeeVO empVO,
+						@ModelAttribute SignVO signVO,
+						Model model) throws Exception {
 		
-		model.addAttribute("empVO", empVO);
+		signVO.setSignUser(empVO.getEmpNum());
+		
+		log.info("sign : " + signVO.getSignTitle());
+		
+		int result = approvalService.saveSign(signVO);
+		
 		
 	}
 	
