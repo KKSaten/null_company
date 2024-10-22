@@ -26,7 +26,9 @@ public class ApprovalService {
 		return approvalMapper.getList(empVO);
 	}
 	
-	
+	public List<DocTypeVO> getDocType() throws Exception {
+		return approvalMapper.getDocType();
+	}
 	
 	
 	
