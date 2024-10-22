@@ -150,4 +150,9 @@ public class EmployeeService {
 	public List<EmployeeVO> empList() throws Exception {
 		return employeeMapper.empList();
 	}
+	
+	public int empListUpdate(Integer empNum,Long posNum,Long roleNum,Long deptNum)throws Exception{
+		return employeeMapper.empListUpdate(empNum,posNum,deptNum,roleNum);
+		
+	}
 }

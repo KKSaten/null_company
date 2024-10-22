@@ -42,6 +42,7 @@ public class EmployeeVO implements UserDetails {
 	private PositionsVO posVO;
 	private String deptName	;
 	private String posName;
+	private String roleName;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authority = new ArrayList<>();
