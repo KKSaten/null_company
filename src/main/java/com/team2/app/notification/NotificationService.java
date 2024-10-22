@@ -47,6 +47,7 @@ public class NotificationService {
 		NotificationVO notificationVO = new NotificationVO();
 		notificationVO.setNotificationContent(employeeVO.getEmpId() + "SseEmitter 연결 성공");
 		notificationVO.setNotificationType(NotificationType.CONNECT);
+		notificationVO.setUrl("");
 		
 		// 최초 연결시 더미데이터가 없으면 503 오류가 발생하기 때문에 해당 더미 데이터 생성
 		sendToClient(emitter, emitterId, notificationVO);
@@ -103,7 +104,7 @@ public class NotificationService {
 					.event()
 					.id(emitterId)
 					.name(notificationVO.getNotificationType().toString())
-					.data(notificationVO.getNotificationContent()));
+					.data(notificationVO));
 		} catch (IOException e) {
 			delete(emitterId);
 		}

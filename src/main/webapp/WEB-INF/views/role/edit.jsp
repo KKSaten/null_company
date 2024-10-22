@@ -9,7 +9,7 @@
 
 <c:import url="../templates/header.jsp"></c:import>
 
-<title>직책 추가</title>
+<title>직위 추가</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -22,16 +22,16 @@
 				<div class="page-inner">
 					<div class="card">
 						<div class="card-header">
-							<h1>직책 ${vo eq null?'추가':'수정'}</h1>
+							<h1>직위 ${vo eq null?'추가':'수정'}</h1>
 						</div>
 						<div class="card-body">
 							<div class="col-md-6 ms-auto me-auto">
-								<form action="${vo eq null?'add':'update'}" method="post">
+								<form action="${vo eq null?'add':'update'}" method="rolet">
 									<div class="form-floating form-floating-custom mb-3">
-										<input type="hidden" name="posNum" value="${vo.posNum}">
+										<input type="hidden" name="roleNum" value="${vo.roleNum}">
 										<input type="text" class="form-control" id="deptName"
-											placeholder="" name="posName" value="${vo.posName}"/> <label
-											for="deptName">직책명</label>
+											placeholder="" name="roleName" value="${vo.roleName}"/> <label
+											for="deptName">직위명</label>
 									</div>
 									<button class="btn btn-primary">${vo eq null?'추가':'수정'}</button>
 								</form>

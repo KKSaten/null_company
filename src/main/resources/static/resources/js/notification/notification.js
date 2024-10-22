@@ -2,12 +2,12 @@ const content = {};
 
 let num = 0;
 
-function clickNotify(message) {
-	content.message = message;
-	content.title = "로그인";
+function clickNotify(data) {
+	content.message = data.notificationContent;
+	content.title = "알림";
 	content.icon = "fa fa-bell";
-	content.url = "index.html";
-	content.target = message;
+	content.url = data.url;
+	content.target = data.notificationContent;
 
 	$.notify(content, {
 	  type: 'secondary',
@@ -23,11 +23,20 @@ function clickNotify(message) {
 const sse = new EventSource('/notification/connect');
 
 sse.addEventListener('CONNECT', (e) => {
-	console.log(e.data)
+	const data = JSON.parse(e.data);
+	console.log(data.notificationContent)
+
 });
 
 sse.addEventListener('LOGIN', (e)=>{
 	console.log("login");
-
-	clickNotify(e.data)
+	const data = JSON.parse(e.data);
+	clickNotify(data)
 });
+
+sse.addEventListener('COMMENT', (e)=>{
+	console.log("comment");
+	const data = JSON.parse(e.data);
+	clickNotify(data)
+});
+

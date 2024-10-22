@@ -89,7 +89,15 @@
 			INNER JOIN
 			EMP_FILE EF
 			ON (E.EMP_NUM=EF.EMP_NUM)
-		WHERE E.EMP_Id = #{empId}
+		WHERE 
+			<choose>
+				<when test="empId != null">
+					E.EMP_Id = #{empId}
+				</when>
+				<otherwise>
+					E.EMP_NUM = #{empNum}
+				</otherwise>
+			</choose>
 	</select>
 	
 	<resultMap type="EmployeeVO" id="employeeInfo">

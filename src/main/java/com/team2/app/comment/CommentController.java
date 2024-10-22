@@ -12,7 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.team2.app.employee.EmployeeService;
 import com.team2.app.employee.EmployeeVO;
+import com.team2.app.notice.NoticeMapper;
+import com.team2.app.notice.NoticeVO;
+import com.team2.app.notification.NotificationService;
+import com.team2.app.notification.NotificationType;
+import com.team2.app.notification.NotificationVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +32,14 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
+	@Autowired
+	private NotificationService notificationService;
+	
+	@Autowired
+	private NoticeMapper noticeMapper;
+	
+	@Autowired
+	private EmployeeService employeeService;
 	
 	@GetMapping("list")
 	public void getCommentList(CommentVO CommentVO, Model model) throws Exception{
@@ -47,6 +61,27 @@ public class CommentController {
 		int result = commentService.writeComment(commentVO);
 		
 		model.addAttribute("result", result);
+		
+		//댓글 알림
+		//댓글로 게시글 detail 조회
+		NoticeVO noticeVO = new NoticeVO();
+		noticeVO.setNoticeNum(commentVO.getNoticeNum());
+		noticeVO = noticeMapper.getPost(noticeVO);
+		
+		//게시글 작성자 조회
+		EmployeeVO employeeVO = new EmployeeVO();
+		employeeVO.setEmpNum(noticeVO.getEmpNum());
+		employeeVO = employeeService.detail(employeeVO);
+		log.info("notice emp vo: {}", employeeVO);
+		
+		//게시글 작성자에게 알림VO 생성
+		NotificationVO notificationVO = new NotificationVO();
+		notificationVO.setEmployeeVO(employeeVO);
+		notificationVO.setNotificationType(NotificationType.COMMENT);
+		notificationVO.setNotificationContent(temp.getEmpId()+" 님이 게시글에 댓글을 달았습니다.");
+		notificationVO.setUrl("/notice/post?noticeNum="+commentVO.getNoticeNum());
+		
+		notificationService.send(notificationVO);
 		
 		return "commons/result";	
 	}

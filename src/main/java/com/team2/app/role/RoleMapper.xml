@@ -3,8 +3,48 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.team2.app.role.RoleMapper">
-  
-  
-  </mapper>
+
+<mapper namespace="com.team2.app.role.RoleMapper">
+	<select id="getList" resultType="RoleVO">
+		SELECT *
+		FROM ROLE
+		ORDER BY
+		ROLE_NUM ASC
+	</select>
+
+	<insert id="add" parameterType="RoleVO">
+		INSERT INTO ROLE (ROLE_NUM,
+		ROLE_NAME)
+		VALUES (NULL, #{roleName})
+	</insert>
+
+	<select id="checkName" parameterType="RoleVO"
+		resultType="RoleVO">
+		SELECT *
+		FROM ROLE
+		WHERE ROLE_NAME = #{roleName}
+	</select>
+
+	<select id="detail" parameterType="RoleVO"
+		resultType="RoleVO">
+		SELECT *
+		FROM ROLE
+		WHERE ROLE_NUM = #{roleNum}
+	</select>
+
+	<update id="update" parameterType="RoleVO">
+		UPDATE ROLE
+		SET ROLE_NAME =
+		#{roleName}
+		WHERE ROLE_NUM = #{roleNum}
+	</update>
+
+	<select id="check"
+		parameterType="com.team2.app.employee.EmployeeVO"
+		resultType="com.team2.app.employee.EmployeeVO">
+		SELECT *
+		FROM EMPLOYEE
+		WHERE ROLE_NUM=#{roleNum}
+	</select>
+
+</mapper>
