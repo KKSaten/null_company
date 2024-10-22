@@ -52,13 +52,13 @@
 										<div class="row">
 											<div class="col-6">
 												<!-- Button trigger modal -->
-												<button type="button" class="btn btn-secondary w-100"
+												<button type="button" class="btn btn-primary w-100"
 													data-bs-toggle="modal" data-bs-target="#exampleModal">주소
 													수정</button>
 
 											</div>
 											<div class="col-6">
-												<a href="/employee/chpass" class="btn btn-secondary w-100">
+												<a href="/employee/chpass" class="btn btn-warning w-100">
 													비밀번호 변경</a>
 											</div>
 										</div>

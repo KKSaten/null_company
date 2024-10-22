@@ -56,6 +56,15 @@ public class EmployeeContoller {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pager", pager);
+		
+		List<DepartmentVO> deptList = employeeService.getDept(null);
+		List<PositionsVO> posList = employeeService.getPos(null);
+		List<RoleVO> roleList = employeeService.getRole(null);
+		
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("posList", posList);
+		model.addAttribute("roleList", roleList);
+		
 	} 
 	
 	@GetMapping("delete")
