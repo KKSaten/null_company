@@ -67,6 +67,10 @@
    		
    		/* 답글 입력 스타일 */
    		.addReplyContentsDiv {margin-left: 60px;}
+   		
+   		/* 캘린더 이벤트 글자 크기 */
+   		.custom-event {font-size: 1.5em; padding: 10px;}
+   		
     </style>
 
 	<script src="../../resources/js/core/jquery-3.7.1.min.js"></script>

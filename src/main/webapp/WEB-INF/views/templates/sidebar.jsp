@@ -4,7 +4,7 @@
 <!-- Sidebar -->
 <div class="sidebar" data-background-color="bright">
 
-	<div class="sidebar-logo">
+	<div class="sidebar-logo" style="margin-top: 15px;">
 		<!-- Logo Header -->
 		<div class="logo-header" data-background-color="bright">
 			<sec:authorize access="isAuthenticated()">
@@ -125,7 +125,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a data-bs-toggle="collapse" href="/">
+					<a href="/schedule/calendar">
 						<i class="far fa-calendar-alt"></i>
 						<p>캘린더</p>
 					</a>
@@ -285,7 +285,7 @@
 								<div class="collapse" id="approvalOption">
 									<ul class="nav nav-collapse subnav">
 										<li>
-											<a href="#">
+											<a href="../approval/signaturePad">
 												<span class="col-sm-1"></span>
 												<span class="sub-item">서명 관리</span>
 											</a>
