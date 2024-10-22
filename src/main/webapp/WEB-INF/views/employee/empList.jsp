@@ -71,7 +71,7 @@
 												<th scope="col">주소</th>
 												<th scope="col">부서 이름</th>
 												<th scope="col">직급 이름</th>
-												<th scope="col">직급 이름</th>
+												<th scope="col">직책 이름</th>
 												<th scope="col">발령</th>
 											</tr>
 										</thead>
@@ -91,7 +91,7 @@
 														<button type="button" class="btn btn-primary"
 															data-bs-toggle="modal"
 															data-bs-target="#modal-${vo.empNum}"
-															onclick="setEmployeeDetails('${vo.empNum}', '${vo.empId}', '${vo.empName}', '${vo.empRegistry}', '${vo.empGender}', '${vo.empAddress}', '${vo.deptName}', '${vo.posName}')">
+															onclick="setEmployeeDetails('${vo.empNum}', '${vo.empId}', '${vo.empName}', '${vo.empRegistry}', '${vo.empGender}', '${vo.empAddress}', '${vo.deptName}', '${vo.posName}','${vo.roleName}')">
 															발령</button>
 													</td>
 												</tr>
@@ -132,7 +132,7 @@
 																</p>
 																<p>
 																<strong>직책 이름:</strong> <span
-																id="modalPosName-${vo.empNum}">${vo.roleName}</span>
+																id="modalRoleName-${vo.empNum}">${vo.roleName}</span>
 																</p>
 																<form action="/employee/empListUpdate" method="post"> 								
 												<p>

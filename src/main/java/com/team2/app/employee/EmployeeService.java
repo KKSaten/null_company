@@ -151,8 +151,12 @@ public class EmployeeService {
 		return employeeMapper.empList();
 	}
 	
-	public int empListUpdate(Integer empNum,Long posNum,Long roleNum,Long deptNum)throws Exception{
-		return employeeMapper.empListUpdate(empNum,posNum,deptNum,roleNum);
+	public int empListUpdate(EmployeeVO employeeVO)throws Exception{
+		return employeeMapper.empListUpdate(employeeVO);
+		
+	}
+	public int empListInsert(EmployeeVO employeeVO)throws Exception{
+		return employeeMapper.empListInsert(employeeVO);
 		
 	}
 }

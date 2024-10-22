@@ -234,8 +234,9 @@ public class EmployeeContoller {
 		return employeeVO;
 	}
 	@PostMapping("empListUpdate")
-	public String empListUpdate(Integer empNum,Long posNum,Long roleNum,Long deptNum)throws Exception{
-		employeeService.empListUpdate(empNum,posNum,deptNum,roleNum);
+	public String empListUpdate(EmployeeVO employeeVO)throws Exception{
+		employeeService.empListUpdate(employeeVO);
+		employeeService.empListInsert(employeeVO);
 		return "redirect:/employee/empList";
 	}
 }

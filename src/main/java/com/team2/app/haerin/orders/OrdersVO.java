@@ -23,4 +23,6 @@ public class OrdersVO {
 	    private String newPosition;           // 발령 직위
 	    private String previousDepartment;    // 이전 부서
 	    private String newDepartment;         // 발령 부서
+	    private String previousRole;     
+	    private String newRole;               
 }
