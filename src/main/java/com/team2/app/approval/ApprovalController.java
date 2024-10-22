@@ -50,11 +50,13 @@ public class ApprovalController {
 		}
 		model.addAttribute("list", list);
 		
-		/*
-		 * List<DocTypeVO> docList = approvalService.getDocType(); for(DocTypeVO dcli :
-		 * docList) { log.info("docList :" + ""+ dcli); } model.addAttribute("docList",
-		 * docList);
-		 */
+		
+		List<DocTypeVO> docList = approvalService.getDocType();
+		for(DocTypeVO dcli : docList) {
+			log.info("docList :" + ""+ dcli.getDocTemplateVO().size());
+		}
+		model.addAttribute("docList", docList);
+		 
 		
 	}
 	
@@ -69,6 +71,12 @@ public class ApprovalController {
 	}
 	
 	
+	@GetMapping("signaturePad")
+	public void sign(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+		
+		model.addAttribute("empVO", empVO);
+		
+	}
 	
 	
 }

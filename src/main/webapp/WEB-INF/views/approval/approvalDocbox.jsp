@@ -203,34 +203,33 @@
 					<!-- 모달 -->
 					<div class="modal fade" id="docModal" tabindex="-1" aria-labelledby="docModalLabel" aria-hidden="true">
 					    <div class="modal-dialog">
-					        <div class="modal-content">
-					            <div class="modal-header">
-					                <h5 class="modal-title" id="docModalLabel">기안서 선택</h5>
+					        <div class="modal-content" style="padding: 10px 30px 10px 30px;">
+					            <div class="modal-header" style="border:none; ">
+					                <h5 class="modal-title" id="docModalLabel">기안서 작성</h5>
 					                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					            </div>
-					            <div class="modal-body">
-					                <p>문서 선택</p>
+					            <div class="modal-body" style="border : 1px solid #ddd; border-radius:10px; padding: 20px 30px 10px 30px;">
+					                <p style="color: #434343; font-weight: 600; margin-bottom: 0;">문서 선택</p>
+					                <p style="color: #bbb; font-size:14px;">작성하실 문서의 유형을 선택해주세요</p>
 
-									<ul class="nav nav-collapse">
-										<c:forEach var="docType" items="${docList}">
+									<ul style="list-style: none; line-height: 185%; margin-left: 5px; padding-left: 5px;">
+										<c:forEach items="${docList}" var="docType">
 										    <li>
-										        <a data-bs-toggle="collapse" href="#docType_${docType.docTypeCode}">
-										            <i class="fas fa-file"></i>
-										            <p>${docType.docTypeName}</p>
-										            <span class="caret"></span>
+										        <a data-bs-toggle="collapse" href="#docType_${docType.docTypecode}" style="color: #555; font-size:15px;">
+										            <i class="fas fa-caret-down" style="margin-right: 20px;"></i>
+										            <i class="fas fa-archive"></i>
+										            <span>${docType.docTypename}</span>
 										        </a>
-										        <div class="collapse" id="docType_${docType.docTypeCode}">
-										            <ul class="nav nav-collapse subnav">
-<%-- 										                <c:forEach var="template" items="${templateList}">
-										                    <c:if test="${template.docTypeCode == docType.docTypeCode}">
-										                        <li>
-										                            <div onclick="selectTemplate('${template.templateCode}', '${template.templateName}')">
-										                                <span class="col-sm-1"></span>
-										                                <span class="sub-item">${template.templateName}</span>
-										                            </div>
-										                        </li>
-										                    </c:if>
-										                </c:forEach> --%>
+										        <div class="collapse" id="docType_${docType.docTypecode}">
+										            <ul style="list-style : none; line-height: 170%;">
+										                <c:forEach items="${docType.docTemplateVO}" var="template">
+									                        <li>
+									                        	<div class="template-item" data-template-code="${template.docTemplatecode}" style="cursor: pointer; color: #555; margin-left: 20px;">
+									                                <i class="far fa-file-alt"></i>
+									                                <span>${template.templateName}</span>
+									                        	</div>
+									                        </li>
+										                </c:forEach>
 										            </ul>
 										        </div>
 										    </li>
@@ -238,9 +237,9 @@
 									</ul>
 
 					            </div>
-					            <div class="modal-footer">
-					                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-					                <button type="button" class="btn btn-primary" id="submitDoc">제출</button>
+					            <div class="modal-footer" style="border:none;">
+					                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					                <button type="button" class="btn btn-primary" id="submitDoc">작성</button>
 					            </div>
 					        </div>
 					    </div>
@@ -285,16 +284,54 @@
 
       });
     </script>
-    
-    
+	    
 	<script>
-		let selectedTemplate = null;
+	    // 선택된 항목을 저장하는 변수
+	    let selectedTemplate = null;
 	
-		function selectTemplate(templateCode, templateName) {
-		    selectedTemplate = { code: templateCode, name: templateName };
-		    console.log("선택된 템플릿:", selectedTemplate);
-		}
-	</script>    
+	    // 모든 template-item 요소를 가져옴
+	    document.querySelectorAll('.template-item').forEach(item => {
+	        item.addEventListener('click', function() {
+	            // 이전에 선택된 항목이 있으면 해제
+	            if (selectedTemplate) {
+	                selectedTemplate.style.backgroundColor = ''; // 선택 해제 시 원래 색상으로
+	            }
+	
+	            // 현재 클릭된 항목을 선택
+	            selectedTemplate = this;
+	            selectedTemplate.style.backgroundColor = '#e1f3fd'; // 선택된 항목 강조
+	
+	            // templateName 저장 (추후 제출 시 활용 가능)
+	            const selectedTemplateName = this.getAttribute('data-template-name');
+	            console.log('선택된 템플릿:', selectedTemplateName);
+	        });
+	    });
+	
+	    // 작성 버튼 클릭 시
+	    document.getElementById('submitDoc').addEventListener('click', function() {
+	        if (selectedTemplate) {
+	            const docTemplatecode = selectedTemplate.getAttribute('data-template-code');
+	            location.href = '/approval/write?docTemplatecode=' + docTemplatecode;
+	        } else {
+	            alert('문서 양식을 선택해주세요.');
+	        }
+	    });
+	    
+	    // 모달이 열릴 때 초기화
+	    const docModal = document.getElementById('docModal');
+	    docModal.addEventListener('show.bs.modal', function () {
+	        // 선택된 템플릿 초기화
+	        if (selectedTemplate) {
+	            selectedTemplate.style.backgroundColor = ''; // 선택 해제
+	            selectedTemplate = null;
+	        }
+
+	        // 모든 collapse를 닫음
+	        document.querySelectorAll('.collapse').forEach(collapse => {
+	            collapse.classList.remove('show');
+	        });
+	    });	    
+	</script>      
     
     
     
