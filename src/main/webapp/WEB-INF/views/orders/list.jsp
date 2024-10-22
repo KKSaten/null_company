@@ -72,6 +72,7 @@
 														<th scope="col">사번</th>
 														<th scope="col">성명</th>
 														<th scope="col">이전 직위 → 발령 직위</th>
+														<th scope="col">이전 직책 → 발령 직책</th>
 														<th scope="col">이전 부서 → 발령 부서</th>
 
 														<th scope="col">발령 구분</th>
@@ -85,7 +86,7 @@
 														<td>${vo.empNum}</td>
 														<td>${vo.empName}</td>
 														<td>${vo.previousPosition} ➡️ ${vo.newPosition}</td>
-													
+														<td>${vo.previousRole} ➡️ ${vo.newRole}</td>
 														<td>${vo.previousDepartment} ➡️ ${vo.newDepartment}</td>
 														<td>
 														  <c:choose>

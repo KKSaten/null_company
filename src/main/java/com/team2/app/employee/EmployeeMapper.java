@@ -41,5 +41,7 @@ public interface EmployeeMapper {
 	
 	public List<PositionsVO> getPos (EmployeeVO employeeVO) throws Exception;
 	
-	public int empListUpdate(Integer empNum,Long posNum,Long deptNum,Long roleNum)throws Exception;
+	public int empListUpdate(EmployeeVO employeeVO)throws Exception;
+	public int empListInsert(EmployeeVO employeeVO)throws Exception;
+
 }

@@ -174,16 +174,32 @@
 
 <update id="empListUpdate" parameterType="EmployeeVO">
 UPDATE EMPLOYEE E
-JOIN ORDERS O ON O.EMP_NUM = E.EMP_NUM  -- 필요한 경우 적절한 조건으로 조인
 SET 
     E.DEPT_NUM = #{deptNum},        -- 새 부서 번호
-    E.ROLE_NUM = #{roleNum},       -- 새 직책 번호
-    E.POS_NUM = #{posNum}          -- 새 직책 번호 추가
+    E.POS_NUM = #{posNum},          -- 새 직책 번호 추가
+    E.ROLE_NUM = #{roleNum}       -- 새 직책 번호
 WHERE 
-    E.EMP_NUM = #{empNum} AND       -- 업데이트할 직원 번호
-    O.ORDER_NUM = #{orderNum};      -- 특정 주문 번호로 필터링
-
+    E.EMP_NUM = #{empNum};          -- 업데이트할 직원 번호
  
 </update>
+<insert id="empListInsert" parameterType="EmployeeVO">
+INSERT INTO ORDERS (
+    APPOINTMENT_DATE, 
+    ORDER_DATE, 
+    ORDER_SITUATION, 
+    EMP_NUM, 
+    DEPARTMENT_NUM, 
+    POS_NUM,               -- 직책 번호
+    ROLE_NUM               -- 역할 번호
+) VALUES (
+    CURDATE(),                  -- 발령 일자
+    NOW(),                      -- 등록일자
+    1,                          -- 발령 확정 (true)
+    #{empNum},                 -- 실제 사원번호 (업데이트한 직원 번호)
+    #{deptNum},                -- 변경된 부서 번호
+    #{posNum},                 -- 변경된 직책 번호 (POS_NUM)
+    #{roleNum}                 -- 변경된 직급 번호 (ROLE_NUM)
+);
+</insert>
 
 </mapper>
