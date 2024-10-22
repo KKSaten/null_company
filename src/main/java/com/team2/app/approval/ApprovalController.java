@@ -49,6 +49,13 @@ public class ApprovalController {
 			log.info("list :" + ""+li.getApprLineVO().size());
 		}
 		model.addAttribute("list", list);
+		
+		/*
+		 * List<DocTypeVO> docList = approvalService.getDocType(); for(DocTypeVO dcli :
+		 * docList) { log.info("docList :" + ""+ dcli); } model.addAttribute("docList",
+		 * docList);
+		 */
+		
 	}
 	
 

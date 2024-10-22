@@ -65,7 +65,8 @@
 								<div class="card-header">
 									<div class="d-flex align-items-center">
 										<h4 class="card-title">결재함</h4>
-										<button class="btn btn-primary ms-auto" style="border: 1px solid #cccccc;" onclick="location.href='./write'">
+										<button class="btn btn-primary ms-auto" id="alert_select_doc_type"
+										 data-bs-toggle="modal" data-bs-target="#docModal" style="border: 1px solid #cccccc;">
 											기안서 작성
 										</button>										
 									</div>
@@ -112,16 +113,17 @@
 														<td> <!-- 기안자 -->
 															<div class="profile-container" style="display: flex; align-items: center;">
 																<!-- 프로필 사진 -->
-																<a href="/employee/mypage" class="logo" style="margin-right: 10px;">
-																	<img src="/file/employee/${item.fileName}" alt="profile photo"
-																	class="navbar-brand" height="50" style="border-radius: 50%;" />
+																<div class="avatar"  style="margin-right: 10px;">
+																<a href="/employee/detail" class="logo">
+																	<img src="/file/employee/${item.fileName}" alt="profile photo" class="avatar-img rounded-circle"/>
 																</a>
+																</div>
 																<!-- 이름 및 직급 정보 -->
 																<div class="profile-info">
 																	<p class="name" style="margin: 0; font-weight: bold;">${item.empName}</p>
 																	<p class="position" style="font-size: 14px; color: gray; margin: 0;">${item.deptName} - ${item.posName}</p>
 																</div>
-															</div>
+															</div>															
 														</td>
 														
 														<td style="text-align:left !important;"> ${item.docDraftdate} </td> <!-- 기안일 -->
@@ -188,6 +190,71 @@
 						</div>
 					</div>
 					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- 모달 -->
+					<div class="modal fade" id="docModal" tabindex="-1" aria-labelledby="docModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <h5 class="modal-title" id="docModalLabel">기안서 선택</h5>
+					                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					            </div>
+					            <div class="modal-body">
+					                <p>문서 선택</p>
+
+									<ul class="nav nav-collapse">
+										<c:forEach var="docType" items="${docList}">
+										    <li>
+										        <a data-bs-toggle="collapse" href="#docType_${docType.docTypeCode}">
+										            <i class="fas fa-file"></i>
+										            <p>${docType.docTypeName}</p>
+										            <span class="caret"></span>
+										        </a>
+										        <div class="collapse" id="docType_${docType.docTypeCode}">
+										            <ul class="nav nav-collapse subnav">
+<%-- 										                <c:forEach var="template" items="${templateList}">
+										                    <c:if test="${template.docTypeCode == docType.docTypeCode}">
+										                        <li>
+										                            <div onclick="selectTemplate('${template.templateCode}', '${template.templateName}')">
+										                                <span class="col-sm-1"></span>
+										                                <span class="sub-item">${template.templateName}</span>
+										                            </div>
+										                        </li>
+										                    </c:if>
+										                </c:forEach> --%>
+										            </ul>
+										        </div>
+										    </li>
+										</c:forEach>																
+									</ul>
+
+					            </div>
+					            <div class="modal-footer">
+					                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					                <button type="button" class="btn btn-primary" id="submitDoc">제출</button>
+					            </div>
+					        </div>
+					    </div>
+					</div>					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 			
 				</div> <!-- page-inner -->
 			</div> <!-- container -->
@@ -218,5 +285,18 @@
 
       });
     </script>
+    
+    
+	<script>
+		let selectedTemplate = null;
+	
+		function selectTemplate(templateCode, templateName) {
+		    selectedTemplate = { code: templateCode, name: templateName };
+		    console.log("선택된 템플릿:", selectedTemplate);
+		}
+	</script>    
+    
+    
+    
 </body>
 </html>
