@@ -11,5 +11,7 @@ public interface ScheduleMapper {
 	
 	
 	List<ScheduleVO> getList(EmployeeVO employeeVO) throws Exception;
+	
+	int modifySchedule(ScheduleVO scheduleVO) throws Exception;
 
 }

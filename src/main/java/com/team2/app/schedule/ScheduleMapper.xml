@@ -30,5 +30,14 @@
 			<result column="DEPT_NUM" property="deptNum"/>
 		</association>
 	</resultMap>
+	
+	
+	<update id="modifySchedule" parameterType="ScheduleVO">
+		UPDATE SCHEDULE
+		SET
+			SCHEDULE_TITLE = #{scheduleTitle}, SCHEDULE_CONTENTS= #{scheduleContents},
+			SCHEDULE_START= #{scheduleStart}, SCHEDULE_END= #{scheduleEnd}, SCHEDULE_CATEGORY= #{scheduleCategory} 
+		WHERE SCHEDULE_NUM = #{scheduleNum}
+	</update>
 
 </mapper>
