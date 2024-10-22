@@ -6,9 +6,29 @@
   
 <mapper namespace="com.team2.app.schedule.ScheduleMapper">
 	
-	<select id="getList" resultType="ScheduleVO" parameterType="EmployeeVO">
-		SELECT * FROM SCHEDULE
-		WHERE EMP_NUM = #{empNum}
+	<select id="getList" resultMap="ScheduleInfo" parameterType="EmployeeVO">
+		SELECT * FROM
+			SCHEDULE S
+		LEFT JOIN
+			EMPLOYEE E
+		ON (S.EMP_NUM = E.EMP_NUM)
+		WHERE
+			S.EMP_NUM = #{empNum}
 	</select>
+	<resultMap type="ScheduleVO" id="ScheduleInfo">
+		<id column="SCHEDULE_NUM" property="scheduleNum"/>
+		<result column="EMP_NUM" property="empNum"/>
+		<result column="SCHEDULE_TITLE" property="scheduleTitle"/>
+		<result column="SCHEDULE_CONTENTS" property="scheduleContents"/>
+		<result column="SCHEDULE_START" property="scheduleStart"/>
+		<result column="SCHEDULE_END" property="scheduleEnd"/>
+		<result column="SCHEDULE_CATEGORY" property="scheduleCategory"/>
+		<result column="SCHEDULE_PRIVATE" property="schedulePrivate"/>
+		
+		<association property="employeeVO" javaType="EmployeeVO">
+			<result column="EMP_NAME" property="empName"/>
+			<result column="DEPT_NUM" property="deptNum"/>
+		</association>
+	</resultMap>
 
 </mapper>
