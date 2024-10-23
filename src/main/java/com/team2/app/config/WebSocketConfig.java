@@ -1,24 +1,35 @@
 package com.team2.app.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+
+import com.team2.app.chat.WebSocketHandler;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
-@EnableWebSocketMessageBroker
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer  {
+@EnableWebSocket
+@Slf4j
+public class WebSocketConfig implements WebSocketConfigurer  {
 	
-    @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic"); // 메세지 브로커 설정
-        config.setApplicationDestinationPrefixes("/chat"); // 애플리케이션 목적지 접두사
-    }
+	@Autowired
+	private WebSocketHandler webSocketHandler;
 
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat").withSockJS(); // WebSocket 엔드포인트 설정
-    }
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		
+		registry
+			.addHandler(webSocketHandler, "/chat")
+			.setAllowedOrigins("/")
+			.withSockJS();
+		
+	}
+	
+
 	
 }

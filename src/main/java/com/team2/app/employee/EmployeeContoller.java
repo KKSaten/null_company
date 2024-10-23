@@ -226,6 +226,7 @@ public class EmployeeContoller {
 		
 		return employeeVO;
 	}
+	
 	@PostMapping("empListUpdate")
 	public String empListUpdate(EmployeeVO employeeVO)throws Exception{
 		employeeService.empListUpdate(employeeVO);
