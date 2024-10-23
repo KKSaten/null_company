@@ -84,14 +84,14 @@
 													<td>${vo.empRegistry}</td>
 													<td>${vo.empGender}</td>
 													<td>${vo.empAddress}</td>
-													<td>${vo.deptName}</td>
-													<td>${vo.posName}</td>
-													<td>${vo.roleName}</td>
+													<td>${vo.deptVO.deptName}</td>
+													<td>${vo.posVO.posName}</td>
+													<td>${vo.roleVO.roleName}</td>
 													<td>
 														<button type="button" class="btn btn-primary"
 															data-bs-toggle="modal"
 															data-bs-target="#modal-${vo.empNum}"
-															onclick="setEmployeeDetails('${vo.empNum}', '${vo.empId}', '${vo.empName}', '${vo.empRegistry}', '${vo.empGender}', '${vo.empAddress}', '${vo.deptName}', '${vo.posName}','${vo.roleName}')">
+															onclick="setEmployeeDetails('${vo.empNum}', '${vo.empId}', '${vo.empName}', '${vo.empRegistry}', '${vo.empGender}', '${vo.empAddress}', '${vo.deptVO.deptName}', '${vo.posVO.posName}','${vo.roleVO.roleName}')">
 															발령</button>
 													</td>
 												</tr>
@@ -124,15 +124,15 @@
 												
 																<p>
 																	<strong>부서 이름:</strong> <span
-																		id="modalDeptName-${vo.empNum}">${vo.deptName}</span>
+																		id="modalDeptName-${vo.empNum}">${vo.deptVO.deptName}</span>
 																</p>
 																<p>
 																	<strong>직급 이름:</strong> <span
-																		id="modalPosName-${vo.empNum}">${vo.posName}</span>
+																		id="modalPosName-${vo.empNum}">${vo.posVO.posName}</span>
 																</p>
 																<p>
 																<strong>직책 이름:</strong> <span
-																id="modalRoleName-${vo.empNum}">${vo.roleName}</span>
+																id="modalRoleName-${vo.empNum}">${vo.roleVO.roleName}</span>
 																</p>
 																<form action="/employee/empListUpdate" method="post"> 								
 												<p>

@@ -171,8 +171,8 @@ public class EmployeeService {
 
 	
 	
-	public List<EmployeeVO> empList() throws Exception {
-		return employeeMapper.empList();
+	public List<EmployeeVO> empList(EmployeeVO employeeVO) throws Exception {
+		return employeeMapper.empList(employeeVO);
 	}
 	
 	public int empListUpdate(EmployeeVO employeeVO)throws Exception{
