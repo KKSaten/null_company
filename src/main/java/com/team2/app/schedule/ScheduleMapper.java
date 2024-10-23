@@ -13,5 +13,11 @@ public interface ScheduleMapper {
 	List<ScheduleVO> getList(EmployeeVO employeeVO) throws Exception;
 	
 	int modifySchedule(ScheduleVO scheduleVO) throws Exception;
+	
+	int deleteSchedule(ScheduleVO scheduleVO) throws Exception;
+	
+	int writeSchedule(ScheduleVO scheduleVO) throws Exception;
+	
+	int dragUpdateSchedule(ScheduleVO scheduleVO) throws Exception;
 
 }

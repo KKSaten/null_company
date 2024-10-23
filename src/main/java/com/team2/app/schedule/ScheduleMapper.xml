@@ -13,7 +13,7 @@
 			EMPLOYEE E
 		ON (S.EMP_NUM = E.EMP_NUM)
 		WHERE
-			S.EMP_NUM = #{empNum}
+			E.DEPT_NUM = #{deptNum}
 	</select>
 	<resultMap type="ScheduleVO" id="ScheduleInfo">
 		<id column="SCHEDULE_NUM" property="scheduleNum"/>
@@ -36,7 +36,29 @@
 		UPDATE SCHEDULE
 		SET
 			SCHEDULE_TITLE = #{scheduleTitle}, SCHEDULE_CONTENTS= #{scheduleContents},
-			SCHEDULE_START= #{scheduleStart}, SCHEDULE_END= #{scheduleEnd}, SCHEDULE_CATEGORY= #{scheduleCategory} 
+			SCHEDULE_START= #{scheduleStart}, SCHEDULE_END= DATE_ADD(#{scheduleEnd},INTERVAL 1 MINUTE),
+			SCHEDULE_CATEGORY= #{scheduleCategory} 
+		WHERE SCHEDULE_NUM = #{scheduleNum}
+	</update>
+	
+	<delete id="deleteSchedule" parameterType="ScheduleVO">
+		DELETE FROM SCHEDULE 
+		WHERE SCHEDULE_NUM = #{scheduleNum}
+	</delete>
+	
+	<insert id="writeSchedule" parameterType="ScheduleVO">
+		INSERT INTO SCHEDULE
+			(SCHEDULE_NUM, EMP_NUM, SCHEDULE_TITLE, SCHEDULE_CONTENTS, SCHEDULE_START, SCHEDULE_END, SCHEDULE_CATEGORY)
+		VALUES
+			(NULL, #{empNum}, #{scheduleTitle}, #{scheduleContents},
+			#{scheduleStart}, DATE_ADD(#{scheduleEnd},INTERVAL 1 MINUTE), #{scheduleCategory})
+	</insert>
+	
+	<!-- 이벤트를 드래그해서 수정하는 쿼리 -->
+	<update id="dragUpdateSchedule" parameterType="ScheduleVO">
+		UPDATE SCHEDULE
+		SET
+			SCHEDULE_START= #{scheduleStart}, SCHEDULE_END= DATE_ADD(#{scheduleEnd},INTERVAL 1 MINUTE)
 		WHERE SCHEDULE_NUM = #{scheduleNum}
 	</update>
 

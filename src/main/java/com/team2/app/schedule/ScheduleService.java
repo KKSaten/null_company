@@ -24,4 +24,19 @@ public class ScheduleService {
 		
 		return scheduleMapper.modifySchedule(scheduleVO);
 	}
+	
+	public int deleteSchedule(ScheduleVO scheduleVO) throws Exception{
+		
+		return scheduleMapper.deleteSchedule(scheduleVO);
+	}
+	
+	public int writeSchedule(ScheduleVO scheduleVO) throws Exception{
+		
+		return scheduleMapper.writeSchedule(scheduleVO);
+	}
+	
+	public int dragUpdateSchedule(ScheduleVO scheduleVO) throws Exception{
+		
+		return scheduleMapper.dragUpdateSchedule(scheduleVO);
+	}
 }

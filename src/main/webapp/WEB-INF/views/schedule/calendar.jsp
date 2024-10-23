@@ -22,8 +22,8 @@
 
 
 
-			<!-- 캘린더 상세 이벤트 모달창 -->
-			<div id="addEventModal" class="modal">
+			<!-- 캘린더 상세 이벤트 모달창, 수정과 삭제 진행 -->
+			<div id="detailEventModal" class="modal">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-body">
@@ -54,8 +54,49 @@
 						        	<option value="기타">기타</option>						        
 						        </select>
 						        <br>
-						        	
-					            <button type="submit" id="modifyBtn" class="submitBtn btn btn-secondary">수정</button>
+						        
+						        <!-- '수정은 form 태그를 이용해서 작동하고,
+						        '삭제'는 JS에서 a 태그의 href 값을 만들어줘서 작동 -->
+					            <button type="submit" id="modifyBtn" class="submitBtn btn btn-warning">수정</button>
+					            <a href="" id="deleteBtn" class="submitBtn btn btn-danger">삭제</a>
+				        	</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 일정 추가 관련 모달창 -->
+			<div id="addEventModal" class="modal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<form action="/schedule/write" method="POST">			
+						        <label for="scheduleTitle2">일정</label>
+						        <input type="text" id="scheduleTitle2" name="scheduleTitle">
+						        <br>
+						
+						        <label for="scheduleContents2">내용</label>
+						        <input type="text" id="scheduleContents2" name="scheduleContents">
+						        <br>
+						
+						        <label for="scheduleStart2">시작일</label>
+						        <input type="date" id="scheduleStart2" name="scheduleStart">
+						        <br>
+						
+						        <label for="scheduleEnd2">종료일</label>
+						        <input type="date" id="scheduleEnd2" name="scheduleEnd">
+						        <br>
+						        
+						        <label>카테고리</label>
+						        <select class="modal-select" id="scheduleCategory2" name="scheduleCategory">
+						        	<option value="연차">연차</option>
+						        	<option value="회의">회의</option>
+						        	<option value="마감">마감</option>						        
+						        	<option value="기타">기타</option>						        
+						        </select>
+						        <br>
+						        
+					            <button type="submit" id="addBtn" class="submitBtn btn btn-primary">등록</button>
 				        	</form>
 						</div>
 					</div>
