@@ -199,18 +199,45 @@
 		WHERE EMP_ID = #{empId}
 	</update>
 	
-	<select id="empList" resultType="EmployeeVO">
-		SELECT *
-		FROM 
-		    EMPLOYEE E
-		LEFT JOIN 
-		    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM  
-		LEFT JOIN 
-		    POSITIONS P ON E.POS_NUM = P.POS_NUM  
-		LEFT JOIN 
-		    ROLE R ON E.ROLE_NUM = R.ROLE_NUM   
+	
+    <resultMap id="employeeResultMap" type="EmployeeVO">
+        <id property="empNum" column="EMP_NUM"/>
+        <result property="empId" column="EMP_ID"/>
+        <result property="empName" column="EMP_NAME"/>
+        <result property="empPwd" column="EMP_PWD"/>
+        <result property="empRegistry" column="EMP_REGISTRY"/>
+        <result property="empGender" column="EMP_GENDER"/>
+        <result property="empAddress" column="EMP_ADDRESS"/>
+        <result property="deptNum" column="DEPT_NUM"/>
+        <result property="roleNum" column="ROLE_NUM"/>
+        <result property="posNum" column="POS_NUM"/>
+        <result property="hiredate" column="HIREDATE"/>
+        <result property="outdate" column="OUTDATE"/>
+        <result property="enabled" column="ENABLED"/>
+        
+		<association property="roleVO" javaType="com.team2.app.role.RoleVO">
+			<id property="roleNum" column="ROLE_NUM"/>
+			<result property="roleName" column="ROLE_NAME"/>
+		</association>
+		
+		<association property="deptVO" javaType="com.team2.app.department.DepartmentVO">
+			<id property="deptNum" column="DEPT_NUM"/>
+			<result property="deptName" column="DEPT_NAME"/>
+		</association>
+		
+		<association property="posVO" javaType="com.team2.app.positions.PositionsVO">
+			<id property="posNum" column="POS_NUM"/>
+			<result property="posName" column="POS_NAME"/>
+		</association>
+    </resultMap>
 
-</select>
+    <select id="empList" resultMap="employeeResultMap" parameterType="EmployeeVO">
+        SELECT E.*, D.*, P.*, R.* 
+        FROM EMPLOYEE E
+        LEFT JOIN DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM  
+        LEFT JOIN POSITIONS P ON E.POS_NUM = P.POS_NUM  
+        LEFT JOIN ROLE R ON E.ROLE_NUM = R.ROLE_NUM
+    </select>
 
 <update id="empListUpdate" parameterType="EmployeeVO">
 UPDATE EMPLOYEE E

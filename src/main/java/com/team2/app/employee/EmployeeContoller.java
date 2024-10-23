@@ -201,7 +201,7 @@ public class EmployeeContoller {
 	
 	@GetMapping("empList")
 	public void empList(Model model ) throws Exception{
-		
+
 		List<EmployeeVO> list = employeeService.empList();
 		log.info("=========================empList:{}",list);
 
