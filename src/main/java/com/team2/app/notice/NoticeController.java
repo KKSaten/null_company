@@ -137,4 +137,13 @@ public class NoticeController {
 		
 		return jsonObject;
 	}
+	
+	
+	@GetMapping("preview")
+	public void preview(Model model) throws Exception{
+		
+		List<NoticeVO> list = noticeService.preview();
+		
+		model.addAttribute("list", list);
+	}
 }

@@ -24,4 +24,6 @@ public interface NoticeMapper {
 	int deletePost(NoticeVO noticeVO) throws Exception;
 	
 	int saveFile(NoticeFileVO noticeFileVO) throws Exception;
+	
+	List<NoticeVO> preview() throws Exception;
 }

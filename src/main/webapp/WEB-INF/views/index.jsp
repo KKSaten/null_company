@@ -121,28 +121,11 @@
                   <div class="card-header">
                     <div class="card-head-row">
                       <div class="card-title">공지사항</div>
-                      <div class="card-tools">
-                        <a
-                          href="#"
-                          class="btn btn-label-success btn-round btn-sm me-2"
-                        >
-                          <span class="btn-label">
-                            <i class="fa fa-pencil"></i>
-                          </span>
-                          Export
-                        </a>
-                        <a href="#" class="btn btn-label-info btn-round btn-sm">
-                          <span class="btn-label">
-                            <i class="fa fa-print"></i>
-                          </span>
-                          Print
-                        </a>
-                      </div>
                     </div>
                   </div>
                   <div class="card-body">
-                    <div class="chart-container" style="min-height: 375px">
-                      <canvas id="statisticsChart"></canvas>
+                    <div class="chart-container" style="max-height: 375px; min-height: 375px; overflow:auto">
+                    	<div id="indexNotice"><!-- 공지사항 미리보기 영역 --></div>
                     </div>
                     <div id="myChartLegend"></div>
                   </div>
@@ -638,6 +621,7 @@
                 </div>
             </div>
             <script src="/resources/js/employee/index.js"></script>
+            <script src="/resources/js/notice/preview.js"></script>
             <c:import url="templates/footer.jsp"></c:import>
 
       
