@@ -112,5 +112,16 @@
 		VALUES
 			(#{noticeNum}, #{fileName}, #{oriName})
 	</insert>
+	
+	<!-- 인덱스 페이지에 공지사항 미리보기 만드는 쿼리문 -->
+	<select id="preview" resultMap="getNoticeList">
+		SELECT * FROM NOTICE_BOARD NB
+			LEFT JOIN EMPLOYEE E 
+				ON (NB.EMP_NUM = E.EMP_NUM)
+			LEFT JOIN DEPARTMENT D
+				ON (E.DEPT_NUM = D.DEPT_NUM)
+		ORDER BY NOTICE_NUM DESC
+		LIMIT 0, 10	
+	</select>
 
 </mapper>

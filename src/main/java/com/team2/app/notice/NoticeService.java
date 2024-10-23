@@ -109,5 +109,11 @@ public class NoticeService {
 		
 		return noticeMapper.deletePost(noticeVO);
 	}
+	
+	
+	public List<NoticeVO> preview() throws Exception{
+		
+		return noticeMapper.preview();
+	}
 
 }
