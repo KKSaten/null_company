@@ -5,6 +5,9 @@ import lombok.Data;
 @Data
 public class Pager {
 	
+	private String search;
+	private Integer kind;
+	
 	private Long page=1L;
 	private Long perPage = 10L;
 	private Long totalPage;

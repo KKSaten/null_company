@@ -9,22 +9,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <c:import url="../templates/header.jsp"></c:import>
-<title>List</title>
-<style>
-/* 기본 여백 및 간격 조정 */
-.form-group {
-	margin-bottom: 1rem; /* 아래 여백 추가 */
-}
-
-.input-group {
-	width: 100%; /* 전체 너비 사용 */
-}
-
-.card-body .form-select {
-	width: 20px; /* 원하는 너비로 조정 */
-	min-width: 20px; /* 최소 너비 설정 */
+<style type="text/css">
+.fixed-table {
+	width: 600px; /* 테이블의 고정 너비 */
+	height: 300px; /* 테이블의 고정 높이 */
+	table-layout: fixed; /* 셀 크기 고정을 위해 필요 */
+	border-collapse: collapse; /* 테두리 겹침 방지 */
 }
 </style>
+<title>List</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -42,36 +35,45 @@
 						<div class="card-header">
 							<h3>검색</h3>
 						</div>
-						<div class="card-body d-flex justify-content-center">
-							<div class="input-group mb-3">
-								<select class="form-select" id="searchType">
-									<option value="1" selected>검색</option>
-									<option value="2">사번</option>
-									<option value="3">이름</option>
-								</select> <input type="text" class="form-control" id="searchValue"
-									placeholder="검색어" aria-label="검색어">
-								<button type="button" class="btn btn-primary" id="searchButton">검색</button>
+						<form>
+							<div class="card-body d-flex justify-content-center">
+								<div class="form-group"
+									style="width: 28%; align-content: center;">
+									<label for="kind" style="display: block; margin-bottom: 5px;">검색</label>
+									<div class="input-group">
+										<select class="form-select" id="kind" name="kind"
+											style="max-width: 120px;">
+											<option value="0" selected>분류</option>
+											<option value="1">사번</option>
+											<option value="2">이름</option>
+										</select> <input type="text" class="form-control" id="search"
+											placeholder="검색어" aria-label="검색어" style="max-width: 200px;"
+											name="search">
+										<button class="btn btn-primary"
+											id="searchButton">검색</button>
+									</div>
+								</div>
+								<!-- 부서 검색 -->
+								<div class="form-group">
+									<label for="deptName">부서</label><select class="form-select"
+										id="deptName" name="deptNum">
+										<option value="">전체</option>
+										<c:forEach items="${deptList}" var="deptList">
+											<option value="${deptList.deptNum}">${deptList.deptName}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<!-- 재직 여부 -->
+								<div class="form-group">
+									<label for="enabledFlag">재직 여부</label> <select class="form-select"
+										id="enabledFlag" name="enabledFlag">
+										<option value="">전체</option>
+										<option value="1">재직 중</option>
+										<option value="2">퇴직</option>
+									</select>
+								</div>
 							</div>
-							<!-- 부서 검색 -->
-							<div class="form-group">
-								<label for="deptName">부서</label> <label for="enabled">재직
-									여부</label> <select class="form-select" id="deptName" name="deptNum">
-									<option value="">전체</option>
-									<c:forEach items="${deptList}" var="deptList">
-										<option value="${deptList.deptNum}">${deptList.deptName}</option>
-									</c:forEach>
-								</select>
-							</div>
-							<!-- 재직 여부 -->
-							<div class="form-group">
-								<label for="enabled">재직 여부</label> <select class="form-select"
-									id="enabled" name="enabled">
-									<option value="">전체</option>
-									<option value="true">재직 중</option>
-									<option value="false">퇴직</option>
-								</select>
-							</div>
-						</div>
+						</form>
 					</div>
 
 					<div class="card">
@@ -80,33 +82,32 @@
 						</div>
 
 						<div class="card-body d-flex justify-content-center">
-							<div class="col-md-6">
-								<table class="table table-bordered table-hover text-center mt-4">
-									<thead>
-										<tr>
-											<th scope="col">사번</th>
-											<th scope="col">이름</th>
-											<th scope="col">부서</th>
-											<th scope="col">재직여부</th>
+							<table
+								class="table table-bordered table-hover text-center mt-4 fixed-table">
+								<thead>
+									<tr>
+										<th scope="col">사번</th>
+										<th scope="col">이름</th>
+										<th scope="col">부서</th>
+										<th scope="col">재직여부</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${list}" var="list">
+										<tr
+											onclick="location.href='/employee/detail?empId=${list.empId}'"
+											style="cursor: pointer;">
+											<td>${list.empId}</td>
+											<td>${list.empName}</td>
+											<td>${list.deptVO.deptName}</td>
+											<td><c:choose>
+													<c:when test="${list.enabled}">재직 중</c:when>
+													<c:otherwise>퇴직</c:otherwise>
+												</c:choose></td>
 										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${list}" var="list">
-											<tr
-												onclick="location.href='/employee/detail?empId=${list.empId}'"
-												style="cursor: pointer;">
-												<td>${list.empId}</td>
-												<td>${list.empName}</td>
-												<td>${list.deptVO.deptName}</td>
-												<td><c:choose>
-														<c:when test="${list.enabled}">재직 중</c:when>
-														<c:otherwise>퇴직</c:otherwise>
-													</c:choose></td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
 						<div class="card-footer">
 							<ul class="pagination pg-primary justify-content-center">

@@ -7,7 +7,7 @@
 <mapper namespace="com.team2.app.employee.EmployeeMapper">
 
 
-	<select id="getList" parameterType="Pager" resultMap="employeeInfo">
+	<select id="getList" parameterType="java.util.Map" resultMap="employeeInfo">
 		SELECT E.*, R.*, D.*, P.*, EF.*
 		FROM EMPLOYEE E
 			INNER JOIN
@@ -22,13 +22,53 @@
 			INNER JOIN
 			EMP_FILE EF
 			ON (E.EMP_NUM=EF.EMP_NUM)
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="vo.empId!=null">
+				E.EMP_ID=#{vo.empId}
+			</if>
+			<if test="vo.empName!=null">
+				AND E.EMP_NAME LIKE CONCAT('%', #{vo.empName}, '%')
+			</if>
+			<if test="vo.deptNum!=null">
+				AND E.DEPT_NUM=#{vo.deptNum}
+			</if>
+			<if test="vo.posNum!=null">
+				AND E.POS_NUM=#{vo.posNum}
+			</if>
+			<if test="vo.roleNum!=null">
+				AND E.ROLE_NUM=#{vo.roleNum}
+			</if>
+			<if test="vo.hiredate==null">
+				AND E.ENABLED=#{vo.enabled}
+			</if>
+		</trim>
 		ORDER BY E.EMP_NUM ASC
-		LIMIT #{startRow}, #{perPage} 
+		LIMIT #{pager.startRow}, #{pager.perPage} 
 	</select>
 	
-	<select id="getTotal" parameterType="Pager" resultType="Long">
+	<select id="getTotal" parameterType="EmployeeVO" resultType="Long">
 		SELECT COUNT(*)
 		FROM EMPLOYEE
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="empId!=null">
+				EMP_ID=#{empId}
+			</if>
+			<if test="empName!=null">
+				AND EMP_NAME LIKE CONCAT('%', #{empName}, '%')
+			</if>
+			<if test="deptNum!=null">
+				AND DEPT_NUM=#{deptNum}
+			</if>
+			<if test="posNum!=null">
+				AND POS_NUM=#{posNum}
+			</if>
+			<if test="roleNum!=null">
+				AND ROLE_NUM=#{roleNum}
+			</if>
+			<if test="hiredate==null">
+				AND ENABLED=#{enabled}
+			</if>
+		</trim>
 	</select>
 	
 	

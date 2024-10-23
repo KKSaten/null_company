@@ -51,8 +51,20 @@ public class EmployeeContoller {
 	// ============================== 인사
 	
 	@GetMapping("list")
-	public void getList(Model model, Pager pager) throws Exception {
-		List<EmployeeVO> list = employeeService.getList(pager);
+	public void getList(Model model, Pager pager, EmployeeVO employeeVO, Integer enabledFlag) throws Exception {
+		
+		log.info("pager : {}", pager);
+		log.info("vo : {}", employeeVO);
+		
+		if(enabledFlag==null) {
+			employeeVO.setHiredate(new Date(1L));
+		} else if(enabledFlag==1) {
+			employeeVO.setEnabled(true);
+		} else if(enabledFlag==2) {
+			employeeVO.setEnabled(false);
+		}
+		
+		List<EmployeeVO> list = employeeService.getList(pager, employeeVO);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pager", pager);

@@ -52,15 +52,31 @@ public class EmployeeService {
 	@Value("${app.upload}")
 	private String path;
 	
-	public List<EmployeeVO> getList(Pager pager) throws Exception {
+	public List<EmployeeVO> getList(Pager pager, EmployeeVO employeeVO) throws Exception {
+		
+		if(pager.getKind()==null) {
+		} else if(pager.getKind()==0) {
+			pager.setSearch("");
+		} else if(pager.getKind()==1) {
+			employeeVO.setEmpId(pager.getSearch());
+		} else if(pager.getKind()==2){
+			employeeVO.setEmpName(pager.getSearch());
+		}
 		
 		pager.makeRow();
 		
-		Long total = employeeMapper.getTotal();
+		Long total = employeeMapper.getTotal(employeeVO);
 		
 		pager.makeNum(total);
 		
-		return employeeMapper.getList(pager);
+		log.info("total Count : {}", total);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("pager", pager);
+		map.put("vo", employeeVO);
+		
+		return employeeMapper.getList(map);
 	}
 	
 	public List<RoleVO> getRole (EmployeeVO employeeVO) throws Exception {

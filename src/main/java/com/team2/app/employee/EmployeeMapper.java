@@ -15,9 +15,9 @@ import com.team2.app.util.Pager;
 @Mapper
 public interface EmployeeMapper {
 	
-	public List<EmployeeVO> getList(Pager pager) throws Exception;
+	public List<EmployeeVO> getList(Map<String, Object> map) throws Exception;
 	
-	public Long getTotal() throws Exception;
+	public Long getTotal(EmployeeVO employeeVO) throws Exception;
 	
 	public int delete (EmployeeVO employeeVO) throws Exception;
 	
