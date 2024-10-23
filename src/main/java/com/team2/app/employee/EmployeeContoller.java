@@ -200,9 +200,9 @@ public class EmployeeContoller {
 	}
 	
 	@GetMapping("empList")
-	public void empList(Model model) throws Exception{
+	public void empList(Model model,EmployeeVO employeeVO) throws Exception{
 		
-		List<EmployeeVO> list = employeeService.empList();
+		List<EmployeeVO> list = employeeService.empList(employeeVO);
 		model.addAttribute("list", list);
 	}
 	

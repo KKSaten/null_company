@@ -9,3 +9,4 @@ public class DepartmentVO {
 	private String deptName;
 
 }
+ 

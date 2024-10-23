@@ -87,8 +87,10 @@ ON DUPLICATE KEY UPDATE
 	</insert>
 	
 	<select id="statusCheck" parameterType="CommuteVO" >
-		SELECT COMMUTE_STATUS FROM COMMUTE 
-		WHERE EMP_NUM = #{empNum}
+		SELECT COMMUTE_STATUS 
+		FROM COMMUTE 
+		WHERE EMP_NUM =#{empNum}
+		AND date(COMMUTE_INTIME) = CURDATE();
 	</select>
 
 </mapper>

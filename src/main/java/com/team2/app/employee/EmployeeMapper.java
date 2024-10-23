@@ -33,7 +33,7 @@ public interface EmployeeMapper {
 	
 	public int addrUpdate(EmployeeVO employeeVO) throws Exception;
 	
-	public List<EmployeeVO> empList()throws Exception;
+	public List<EmployeeVO> empList(EmployeeVO employeeVO)throws Exception;
 	
 	public List<RoleVO> getRole (EmployeeVO employeeVO) throws Exception;
 	
