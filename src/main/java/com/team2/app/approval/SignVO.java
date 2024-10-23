@@ -15,7 +15,7 @@ public class SignVO {
 	
 	private String signTitle;
 	private String signImage;
-	private String signRepresent;
+	private String signDefault;
 	private Timestamp signDate;
 	
 	

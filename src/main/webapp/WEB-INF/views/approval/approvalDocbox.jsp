@@ -27,8 +27,8 @@
 				<div class="page-inner">
 
 					<div class="page-header mt-3">
-						<h3 class="fw-bold mb-3">전자결재</h3>
-						<ul class="breadcrumbs mb-3">
+						<h3 class="fw-bold mb-1">전자결재</h3>
+						<ul class="breadcrumbs mb-1">
 							<li class="nav-home">
 								<a href="/">
 									<i class="icon-home"></i>
@@ -64,9 +64,8 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title" style="margin-top: 10px;">결재함</h4>
-										<button class="btn btn-primary ms-auto" id="alert_select_doc_type"
-										 data-bs-toggle="modal" data-bs-target="#docModal" style="border: 1px solid #cccccc;">
+										<h4 class="card-title">결재함</h4>
+										<button class="btn btn-primary ms-auto" id="alert_select_doc_type" data-bs-toggle="modal" data-bs-target="#docModal">
 											기안서 작성
 										</button>										
 									</div>

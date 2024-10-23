@@ -15,8 +15,6 @@ public class ApprHistoryVO {
 	
 	private Integer approver;
 	
-	private Long signNum;
-	
 	private String apprLevel;
 	
 	private Timestamp apprDate;

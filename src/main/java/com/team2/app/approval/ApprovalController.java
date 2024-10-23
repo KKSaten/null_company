@@ -39,9 +39,7 @@ public class ApprovalController {
 	@GetMapping("approvalDocbox")
 	public void approvalDocbox(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO appr, Model model, HttpSession session) throws Exception {
 		
-		/*
-		 * 접속 중인 ID의 정보를 @AuthenticationPrincipal로 가져옴
-		 */
+		//접속 중인 ID의 정보를 @AuthenticationPrincipal로 가져옴
 		
 		List<ApprDocVO> list = approvalService.getList(empVO); 
 		for(ApprDocVO li : list) {
@@ -79,8 +77,31 @@ public class ApprovalController {
 		
 	}
 	
+	@PostMapping("signaturePad/setDefaultSign")
+	@ResponseBody
+	public int setDefaultSign(@AuthenticationPrincipal EmployeeVO empVO, SignVO signVO) throws Exception {
+		
+		signVO.setSignUser(empVO.getEmpNum());
+		
+		int result = approvalService.setDefaultSign(signVO);
+		
+		log.info("setDefaultSign Result: " + result);
+		
+		return result;
+	}
 	
-	@PostMapping("signaturePad")
+	
+	@PostMapping("signaturePad/deleteSign")
+	@ResponseBody
+	public int deleteSign(SignVO signVO) throws Exception {
+		
+		int result = approvalService.deleteSign(signVO);
+		
+		return result;
+	}	
+	
+	
+	@PostMapping("signaturePad/canvas")
 	@ResponseBody // 왜 쓴건지 까먹어서 적어두는 주석
 		// 해당 메서드의 반환값을 HTTP 응답의 본문에 직접 작성하도록 지시하는 어노테이션
 		// 이 어노테이션이 없으면 기본적으로 뷰 이름(예: JSP 파일)으로 해석되며, 클라이언트에 HTML 형식의 응답을 전송하게 됨
@@ -101,6 +122,8 @@ public class ApprovalController {
 		return result;
 		
 	}
+	
+
 	
 	
 }

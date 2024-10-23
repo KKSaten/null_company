@@ -111,16 +111,29 @@
 		WHERE SIGN_USER = #{empNum}
 	</select>
 	
+	
 	<insert id="saveSign" parameterType="SignVO">
 		INSERT INTO SIGN (SIGN_USER, SIGN_TITLE, SIGN_IMAGE, SIGN_DATE)
 		VALUES (#{signUser}, #{signTitle}, #{signImage}, now())
 	</insert>	
 	
 	
+	<update id="setSignNull" parameterType="SignVO">
+		UPDATE SIGN
+		SET SIGN_DEFAULT = NULL
+		WHERE SIGN_USER = #{signUser}
+	</update>
+	<update id="setDefaultSign" parameterType="SignVO">
+		UPDATE SIGN
+		SET SIGN_DEFAULT = 'y'
+		WHERE SIGN_NUM = #{signNum}
+	</update>	
 	
 	
-	
-	
+	<delete id="deleteSign">
+		DELETE FROM SIGN
+		WHERE SIGN_NUM = #{signNum}
+	</delete>
 	
 	
 	

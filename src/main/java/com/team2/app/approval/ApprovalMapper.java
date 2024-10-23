@@ -18,4 +18,9 @@ public interface ApprovalMapper {
 	
 	public int saveSign(SignVO signVO) throws Exception;
 	
+	public int setSignNull(SignVO signVO) throws Exception;
+	public int setDefaultSign(SignVO signVO) throws Exception;
+	
+	public int deleteSign(SignVO signVO) throws Exception;
+	
 }

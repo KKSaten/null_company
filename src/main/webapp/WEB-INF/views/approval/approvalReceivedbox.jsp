@@ -27,8 +27,8 @@
 				<div class="page-inner">
 
 					<div class="page-header mt-3">
-						<h3 class="fw-bold mb-3">전자결재</h3>
-						<ul class="breadcrumbs mb-3">
+						<h3 class="fw-bold mb-1">전자결재</h3>
+						<ul class="breadcrumbs mb-1">
 							<li class="nav-home">
 								<a href="/">
 									<i class="icon-home"></i>

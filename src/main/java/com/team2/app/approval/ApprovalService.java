@@ -50,5 +50,20 @@ public class ApprovalService {
 		return result;
 	}
 	
+	public int setDefaultSign(SignVO signVO) throws Exception {
+		
+		int result = 0;
+		result += approvalMapper.setSignNull(signVO);
+		result += approvalMapper.setDefaultSign(signVO);
+		
+		return result;
+	}
+	
+	public int deleteSign(SignVO signVO) throws Exception {
+		
+		int result = approvalMapper.deleteSign(signVO);
+		
+		return result;
+	}	
 	
 }
