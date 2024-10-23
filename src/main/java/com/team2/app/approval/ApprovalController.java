@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team2.app.employee.EmployeeVO;
 
@@ -28,11 +29,7 @@ public class ApprovalController {
 	
 	@Autowired
 	private ApprovalService approvalService;
-	
-	@GetMapping("approvalDraftbox")
-	public void approvalDraftbox(Model model) throws Exception {
-		
-	}
+
 	
 	@GetMapping("approvalReceivedbox")
 	public void approvalReceivedbox(Model model) throws Exception {
@@ -74,14 +71,24 @@ public class ApprovalController {
 	
 	
 	@GetMapping("signaturePad")
-	public void sign(@AuthenticationPrincipal EmployeeVO empVO, SignVO signVO, Model model) throws Exception {
+	public void sign(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
 		
+		List<SignVO> signList = approvalService.signList(empVO);
 		
+		model.addAttribute("signList", signList);
 		
 	}
 	
+	
 	@PostMapping("signaturePad")
-	public void saveSign(@AuthenticationPrincipal EmployeeVO empVO,
+	@ResponseBody // 왜 쓴건지 까먹어서 적어두는 주석
+		// 해당 메서드의 반환값을 HTTP 응답의 본문에 직접 작성하도록 지시하는 어노테이션
+		// 이 어노테이션이 없으면 기본적으로 뷰 이름(예: JSP 파일)으로 해석되며, 클라이언트에 HTML 형식의 응답을 전송하게 됨
+		// @ResponseBody를 사용하면 메서드의 반환값이 JSON 형태로 클라이언트에 직접 전송되므로
+		// 비동기식 요청(예: AJAX)에서 데이터를 처리할 때 유용함
+		// 반환값이 void일 경우, 클라이언트는 응답 본문을 받을 수 없으므로
+		// 반드시 JSON 형태의 데이터를 반환해야 클라이언트 측에서 response.json()으로 처리할 수 있게 되는 것
+	public int saveSign(@AuthenticationPrincipal EmployeeVO empVO,
 						@ModelAttribute SignVO signVO,
 						Model model) throws Exception {
 		
@@ -91,6 +98,7 @@ public class ApprovalController {
 		
 		int result = approvalService.saveSign(signVO);
 		
+		return result;
 		
 	}
 	

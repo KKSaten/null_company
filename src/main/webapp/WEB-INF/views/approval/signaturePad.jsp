@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,31 +61,48 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">서명 관리</h4>										
+										<h4 class="card-title" style="margin-top: 10px;">서명 관리</h4>	
+							            <c:if test="${fn:length(signList) < 3}">
+							                <button class="btn btn-primary ms-auto" id="alert_signature_pad" data-bs-toggle="modal" data-bs-target="#signModal">서명 추가</button>
+							            </c:if>																			
 									</div>
 								</div>
 								<div class="card-body">
 								
-								
-								
-								<div class="container" style="text-align: center;">
-
-									<div class="d-flex justify-content-between" style="width: 100%; margin-bottom: 20px; padding: 20px; border: 1px solid #ccc;">
-										<h1>서명 리스트</h1>
-									</div>
-									
-									<div class="d-flex justify-content-between" style="width: 100%;">
-									    <div>
-									        <button class="btn btn-primary" id="alert_signature_pad" data-bs-toggle="modal" data-bs-target="#signModal" >서명 추가</button>
-									    </div>
-									    <div class="d-flex">
-									        <button class="btn btn-border btn-primary ms-2">대표 서명 설정</button>
-									        <button class="btn btn-danger ms-2" id="">서명 삭제</button>
-									    </div>
-									</div>
-								</div>
-																	
-									
+					
+									<div class="container" style="text-align: center; width: 90%;">
+										<table class="table table-borderless">
+											<tbody>
+												<c:forEach items="${signList}" var="sign">
+													<tr>																												
+														<td style="width: 30%;" >
+															<div style="padding: 15px; border: 1px solid #ccc; display: inline-block;">
+																<img src="/file/signature/${sign.signImage}" style="width: 384px; height: 216px;">
+															</div>
+														</td>
+														<td style="text-align: left; width: 15%;">
+															<div style="font-size: 18px; font-weight: 600;">${sign.signTitle}</div>
+															<div>${sign.signDate}</div>
+														</td>
+														<td style="text-align: right; width: 30%;">
+															<c:choose>
+																<c:when test="${sign.signRepresent == 'y'}">
+																	<button class="btn btn-border btn-success ms-2" style="background-color: #fff !important;" disabled>
+																		<i class="fas fa-check" style="color:#31ce36;"></i>　대표 서명
+																	</button>
+																</c:when>
+																<c:otherwise>
+																	<button class="btn btn-border btn-primary ms-2">대표 서명 설정</button>
+																</c:otherwise>
+															</c:choose>
+															<button class="btn btn-danger ms-2">서명 삭제</button>
+														</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>								
+										
 									
 								</div>
 							</div>
@@ -189,14 +207,14 @@
 		        return;
 		    }
 
-		    // 서명 PNG 이미지를 Base64로 변환
+		    // 서명 PNG 이미지를 Base64 문자열 형태로 인코딩
 		    const imgURL = signaturePad.toDataURL('image/png');
 
 		    // FormData 객체 생성
 		    const formData = new FormData();
 		    
 		    // 파라미터 추가
-		    formData.append('signatureImage', imgURL);
+		    formData.append('signImage', imgURL);
 		    const signTitle = document.getElementById('signTitle').value;
 		    formData.append('signTitle', signTitle);
 
@@ -206,11 +224,16 @@
 		        body: formData
 		    })
 		    .then(response => response.json())
+/* 		    .then(response => {
+		        console.log('응답 받음:', response); // 응답 확인
+		        return response.json();
+		    }) */		    
 		    .then(data => {
 		        console.log('성공:', data);
 		        // 모달 닫기 및 서명 초기화
 		        $('#signModal').modal('hide');
 		        signaturePad.clear(); // 서명 패드 초기화
+		        window.location.href = '/approval/signaturePad'; //리다이렉트
 		    })
 		    .catch((error) => {
 		        console.error('실패:', error);

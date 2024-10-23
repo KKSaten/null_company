@@ -17,12 +17,9 @@ public class ApprovalService {
 	@Autowired
 	private SignManager signManager;
 	
+	//경로 설정
 	@Value("${app.upload}")
 	private String path;
-	
-	public void approvalDraftbox() throws Exception {
-		
-	}
 	
 	
 	public void approvalReceivedbox() throws Exception {
@@ -35,6 +32,10 @@ public class ApprovalService {
 	
 	public List<DocTypeVO> getDocType() throws Exception {
 		return approvalMapper.getDocType();
+	}
+	
+	public List<SignVO> signList(EmployeeVO empVO) throws Exception {
+		return approvalMapper.signList(empVO);
 	}
 	
 	public int saveSign(SignVO signVO) throws Exception {

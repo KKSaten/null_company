@@ -106,9 +106,14 @@
 	</resultMap>
 	
 	
+	<select id="signList" parameterType="EmployeeVO" resultType="SignVO">
+		SELECT * FROM SIGN
+		WHERE SIGN_USER = #{empNum}
+	</select>
+	
 	<insert id="saveSign" parameterType="SignVO">
-		INSERT INTO SIGN (SIGN_USER, SIGN_TITLE, SIGN_IMAGE)
-		VALUES (#{signUser}, #{signTitle}, #{signImage})
+		INSERT INTO SIGN (SIGN_USER, SIGN_TITLE, SIGN_IMAGE, SIGN_DATE)
+		VALUES (#{signUser}, #{signTitle}, #{signImage}, now())
 	</insert>	
 	
 	

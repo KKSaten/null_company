@@ -64,7 +64,7 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">결재함</h4>
+										<h4 class="card-title" style="margin-top: 10px;">결재함</h4>
 										<button class="btn btn-primary ms-auto" id="alert_select_doc_type"
 										 data-bs-toggle="modal" data-bs-target="#docModal" style="border: 1px solid #cccccc;">
 											기안서 작성

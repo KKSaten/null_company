@@ -14,6 +14,8 @@ public interface ApprovalMapper {
 	
 	public List<DocTypeVO> getDocType() throws Exception;
 	
+	public List<SignVO> signList(EmployeeVO empVO) throws Exception;
+	
 	public int saveSign(SignVO signVO) throws Exception;
 	
 }
