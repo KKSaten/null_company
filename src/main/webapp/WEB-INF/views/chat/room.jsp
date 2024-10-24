@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="UTF-8">
 <head>
@@ -21,6 +22,10 @@
         .message {
             margin: 5px 0;
         }
+        .my-message {
+            margin-left: auto; /* 오른쪽 정렬 */
+            text-align: right; /* 오른쪽 정렬 */
+        }
     </style>
 </head>
 <body>
@@ -34,24 +39,29 @@
             </div>
         </div>
     </div>
+    <sec:authentication property="principal" var="vo"/>
+	    <input type="hidden" value="${vo.empId}" id="id">
 
     <script>
-        var sock = new SockJS('/chat');
+        let roomId = 1;
+
+        var sock = new SockJS('/chat/room?roomId='+roomId);
 
         const chatContainer = document.getElementById('chatContainer');
         const messageInput = document.getElementById('messageInput');
         const sendButton = document.getElementById('sendButton');
+        const id = document.getElementById('id');
 
 
         sock.onopen = function() {
             console.log('open');
-            sock.send('test');
         };
 
         sock.onmessage = function(e) {
             console.log('message', e.data);
+            let name = e.data.split(' : ')[0];
+            addMessageToChat(e.data,id.value==name);
 
-            addMessageToChat(e.data);
         };
 
         sock.onclose = function() {
@@ -59,22 +69,34 @@
         };
 
             // 메시지를 채팅창에 추가하는 함수
-    function addMessageToChat(message) {
+    function addMessageToChat(message, isMyMessage) {
         const messageElement = document.createElement('div');
-        messageElement.className = 'message';
+        messageElement.className = 'message' + (isMyMessage ? ' my-message' : '');
         messageElement.textContent = message;
         chatContainer.appendChild(messageElement);
         chatContainer.scrollTop = chatContainer.scrollHeight; // 스크롤을 가장 아래로 이동
     }
 
-    // 메시지 전송 버튼 클릭 시
-    sendButton.onclick = function() {
-        const message = messageInput.value;
-        if (message) {
-            sock.send(message); // 서버로 메시지 전송
-            messageInput.value = ''; // 입력 필드 초기화
+    // 메시지 전송 함수
+    function sendMessage() {
+            const message = messageInput.value;
+            if (message) {
+                
+                sock.send(message); // 서버로 메시지 전송
+                messageInput.value = ''; // 입력 필드 초기화
+            }
         }
-    };
+
+        // 메시지 전송 버튼 클릭 시
+        sendButton.onclick = sendMessage;
+
+        // Enter 키를 눌렀을 때 메시지 전송
+        messageInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // 기본 동작 방지 (줄 바꿈 방지)
+                sendMessage(); // 메시지 전송 함수 호출
+            }
+        });
 
 
 
