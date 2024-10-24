@@ -13,7 +13,7 @@
 
 <title>Document</title>
 <script src="/resources/js/core/jquery-3.7.1.min.js"></script>
-<script src="/resources/js/plugin/summernote/summernote-lite.min.js"></script>
+<script src="/resources/js/plugin/summernote/summernote-lite.js"></script>
 <script src="/resources/js/plugin/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="/resources/css/summernote-lite.css"/>
 

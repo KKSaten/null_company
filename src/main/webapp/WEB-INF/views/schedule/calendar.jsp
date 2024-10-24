@@ -21,8 +21,7 @@
 			<c:import url="../templates/topbar.jsp"></c:import>
 
 
-
-			<!-- 캘린더 상세 이벤트 모달창, 수정과 삭제 진행 -->
+			<!-- 이벤트 클릭시 보여주는 modal, 수정과 삭제 진행 -->
 			<div id="detailEventModal" class="modal">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -57,15 +56,21 @@
 						        
 						        <!-- '수정은 form 태그를 이용해서 작동하고,
 						        '삭제'는 JS에서 a 태그의 href 값을 만들어줘서 작동 -->
-					            <button type="submit" id="modifyBtn" class="submitBtn btn btn-warning">수정</button>
-					            <a href="" id="deleteBtn" class="submitBtn btn btn-danger">삭제</a>
+						        <!-- 작성자 본인만 수정/삭제가 가능하도록
+						        스크립트에 로그인한 사용자 정보를 넘겨주기 위해 input hidden 작성 -->
+						        <sec:authorize access="isAuthenticated()">
+						        <sec:authentication property="principal" var="loginVO"/>
+						        	<input type="hidden" id="loginUser" value="${loginVO.empNum }">
+									<button type="submit" id="modifyBtn" class="submitBtn btn btn-warning">수정</button>
+									<a href="" id="deleteBtn" class="submitBtn btn btn-danger">삭제</a>
+						        </sec:authorize>
 				        	</form>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			<!-- 일정 추가 관련 모달창 -->
+			<!-- 일정 추가 클릭시 보여주는 modal -->
 			<div id="addEventModal" class="modal">
 				<div class="modal-dialog">
 					<div class="modal-content">
