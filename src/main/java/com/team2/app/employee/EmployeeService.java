@@ -139,7 +139,7 @@ public class EmployeeService {
 		String pwd = passwordEncoder.encode(employeeVO.getEmpPwd());
 		employeeVO.setEmpPwd(pwd);
 		
-		//DB insert쿼리
+		//DB insert쿼리 
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("employeeVO", employeeVO);		
@@ -171,8 +171,8 @@ public class EmployeeService {
 
 	
 	
-	public List<EmployeeVO> empList(EmployeeVO employeeVO) throws Exception {
-		return employeeMapper.empList(employeeVO);
+	public List<EmployeeVO> empList( ) throws Exception {
+		return employeeMapper.empList();
 	}
 	
 	public int empListUpdate(EmployeeVO employeeVO)throws Exception{
