@@ -88,7 +88,7 @@ danger-color : #f3545d
 body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, .btn-simple, .alert, a, .td-name, td, button.close {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Public Sans', sans-serif; }
+  font-family: '맑은 고딕', 맑은 고딕; }
 
 body, html {
   font-size: 14px;
@@ -2966,7 +2966,13 @@ label.error {
     margin-top: 18px;
     font-weight: 300; }
 
+
+
+
+
+
 /*      Custom Summernote     */
+/*
 .note-editor.note-frame {
   border: 0px !important;
   box-shadow: none !important; }
@@ -2983,8 +2989,10 @@ label.error {
   .note-editor.note-frame .note-editing-area .note-editable {
     margin-top: 15px !important;
     border: 2px solid #eee !important; }
+*/
 
 /*     Table    */
+
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
   vertical-align: middle; }
 .table > tbody > tr > td, .table > tbody > tr > th {
@@ -3107,6 +3115,11 @@ label.error {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar; }
+
+
+
+
+
 
 /*     Navbar     */
 .navbar .navbar-nav .nav-item {
@@ -3913,12 +3926,12 @@ label.error {
     border-color: #1572E8 !important; }
 
 .btn-secondary {
-  background: #6c757d !important;
-  border-color: #6c757d !important; }
+  background: #6861CE !important;
+  border-color: #6861CE !important; }
   .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:disabled {
     color: #ffffff !important;
-    background: #6c757d !important;
-    border-color: #6c757d !important; }
+    background: #6861CE !important;
+    border-color: #6861CE !important; }
 
 .btn-info {
   background: #48ABF7 !important;
