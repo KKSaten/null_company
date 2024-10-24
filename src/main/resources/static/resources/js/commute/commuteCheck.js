@@ -48,7 +48,38 @@ if (clockInButton) {
         console.error("Error fetching status:", error);
     });
 }
-
+// 출근하기 버튼 클릭 이벤트 추가
+clockInButton.addEventListener("click", function (e) {
+    swal({
+        title: "출근하시겠습니까?",
+        text: "",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                visible: true,
+                text: "취소",
+                className: "btn btn-danger",
+            },
+            confirm: {
+                text: "승인",
+                className: "btn btn-success",
+            },
+        },
+    }).then((willClockIn) => {
+        if (willClockIn) {
+            clockIn(); // 출근 처리
+            toggleButtons(); // 출근 후 버튼 전환
+        } else {
+            swal("출근처리를 실패하였습니다", {
+                buttons: {
+                    confirm: {
+                        className: "btn btn-danger",
+                    },
+                },
+            });
+        }
+    });
+});
 
     clockOutButton.addEventListener("click", function (e) {
         swal({
