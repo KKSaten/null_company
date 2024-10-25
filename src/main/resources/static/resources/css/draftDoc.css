@@ -1,0 +1,48 @@
+.calendar-icon {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #888;
+}
+.datepicker-input {
+	box-sizing: border-box;
+	cursor: pointer;
+	border: 1px solid #eaeaea;
+}
+.table > tbody > tr > td, .table > tbody > tr > th {
+	padding: 8px 15px !important;
+	text-align: left !important;			
+}
+.custom > td, .custom > th, .draftBtn, .tempBtn, .cancelBtn {
+	font-size: 16px !important;
+}
+.paramBtn {
+	width: 100%;
+	font-size: 16px;
+	border: 1px solid #eaeaea;
+	background: none;
+}
+.draftBtn, .tempBtn {
+	float: right;
+}
+.draftBtn {
+	margin-left: 10px;		
+}
+.cancelBtn {
+	float: left;
+}
+.defaultSignDiv > #defaultSign {
+	zoom:1.5;
+	position: relative;
+	top: 2.5px;
+	margin-left: 5px;
+	margin-right: 5px;		
+}
+.defaultSignDiv > label{
+	position:relative;
+	top: -1px;
+	font-size: 16px !important;
+	font-weight: 600;
+	color: #000 !important;
+}
