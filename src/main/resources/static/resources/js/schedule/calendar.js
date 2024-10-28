@@ -4,6 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
 
+        googleCalendarApiKey : "",
+        eventSources :[ 
+            {
+                googleCalendarId : '',
+                color: 'white',
+                textColor: 'red'
+            } 
+        ],
+
+
         // 기본 설정 영역
         initialView: 'dayGridMonth', // 최초로 보여지는 화면
         selectable: true,   // 셀을 클릭할 수 있다
@@ -73,6 +83,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // 데이터를 백엔드에서 받아오지 않고 스크립트에서 콜백 함수로 처리
         // info에 이벤트에 대한 데이터가 담겨있다
         eventClick: function(info) {
+
+            // 구글 캘린더로 가져온 공휴일은 클릭 이벤트 자체가 실행되지 않게 하는 코드
+            // 이걸 하지 않으면 클릭시 연결된 구글 캘린더 url로 이동된다.
+            if(info.event.extendedProps.contents == undefined){
+                // 클릭 시 기본 동작 중지
+                info.jsEvent.preventDefault();
+                info.jsEvent.stopPropagation();
+
+                return;
+            }
                     
             // 각 필드에 이벤트 정보 설정
             document.getElementById('scheduleNum').value = info.event.id;
@@ -132,9 +152,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         /* Fullcalendar는 기본적으로 이벤트에 title, start만 보여줌
             때문에 원하는 내용을 보여주기 위해 렌더링되는 내용을 커스터마이즈 하는 코드 */
-        eventContent: function(arg) {
-            let { event } = arg;
-            let authorName = event.extendedProps.authorName; // 일정 작성자 이름
+        eventContent: function(info) {
+            let authorName = info.event.extendedProps.authorName; // 일정 작성자 이름
+
+            /* 구글 캘린더로 가져온 공휴일은 작성자 이름이 undefined이기 때문에
+                공휴일은 이름을 보여주지 않고 title만 표시한다 */
+            if(authorName == undefined){
+                return {
+                    html:
+                    `
+                        <div>
+                            <span>${info.event.title}</span><br>
+                        </div>
+                    `
+                };
+            }
         
             // 커스터마이즈된 HTML 반환
             return {
@@ -142,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `
                     <div>
                         <strong>${authorName}</strong><br>
-                        <span>${event.title}</span><br>
+                        <span>${info.event.title}</span><br>
                     </div>
                 `
             };
