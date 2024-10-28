@@ -139,12 +139,12 @@
 								                    <strong>발령 부서 :</strong> 
 													<input type="hidden" name="empNum" value="${vo.empNum}" />
 								                    <select id="deptSelect-${vo.empNum}"name="deptNum" class="form-select">
-								                        <option value="${vo.deptNum}" disabled selected>부서 선택</option>
-								                        <option value="1">인사</option>
-								                        <option value="2">생산</option>
-								                        <option value="3">품질</option>
-														<option value="4">개발</option>
-														<option value="5">영업</option>
+								                     	
+								                        <option value="1" ${vo.deptNum eq 1 ? 'selected' : ''}>인사</option>
+								                        <option value="2"${vo.deptNum eq 2 ? 'selected' : ''}>생산</option>
+								                        <option value="3"${vo.deptNum eq 3 ? 'selected' : ''}>품질</option>
+														<option value="4" ${vo.deptNum eq 4 ? 'selected' : ''}>개발</option>
+														<option value="5" ${vo.deptNum eq 5 ? 'selected' : ''}>영업</option>
 								                        <!-- 추가 부서 옵션 -->
 								                    </select>
 								                </p>
@@ -152,28 +152,28 @@
 								                    <strong>발령 직급 :</strong>
 										
 								                    <select  name="posNum" class="form-select">
-								                        <option value="${vo.posNum}" disabled selected>직급 선택</option>
-								                        <option value="1">사원</option>
-								                        <option value="2">대리</option>
-								                        <option value="3">과장</option>
-														<option value="6">차장</option>
-														<option value="7">부장</option>
-														<option value="8">임원</option>
-														<option value="9">사장</option>
+								                       
+								                        <option value="1" ${vo.posNum eq 1 ? 'selected' : ''}>사원</option>
+								                        <option value="2" ${vo.posNum eq 2 ? 'selected' : ''}>대리</option>
+								                        <option value="3" ${vo.posNum eq 3 ? 'selected' : ''}>과장</option>
+														<option value="6" ${vo.posNum eq 6 ? 'selected' : ''}>차장</option>
+														<option value="7" ${vo.posNum eq 7 ? 'selected' : ''}>부장</option>
+														<option value="8" ${vo.posNum eq 8 ? 'selected' : ''}>임원</option>
+														<option value="9" ${vo.posNum eq 9 ? 'selected' : ''}>사장</option>
 								                        <!-- 추가 직급 옵션 -->
 								                    </select>
 			              						  </p>
 												  <strong>발령 직책 :</strong>
 												  									
 												  	   <select  name="roleNum" class="form-select">
-								                        <option value="${vo.roleNum}" disabled selected>직책 선택</option>
-															  							                        <option value="1">부서원</option>
-															  							          		       <option value="2">부 부서장</option>
-															  							                        <option value="3">부서장</option>
-															  													<option value="4">임원</option>
-															  													<option value="5">사장</option>
-															  													<option value="6">인사팀원</option>
-															  													<option value="7">인사팀장</option>
+								                       
+		  							                        <option value="1" ${vo.roleNum eq 1 ? 'selected' : ''}>부서원</option>
+		  							          		       <option value="2" ${vo.roleNum eq 2 ? 'selected' : ''}>부 부서장</option>
+		  							                        <option value="3" ${vo.roleNum eq 3 ? 'selected' : ''}>부서장</option>
+		  													<option value="4" ${vo.roleNum eq 4 ? 'selected' : ''}>임원</option>
+		  													<option value="5" ${vo.roleNum eq 5 ? 'selected' : ''}>사장</option>
+		  													<option value="6" ${vo.roleNum eq 6 ? 'selected' : ''}>인사팀원</option>
+		  													<option value="7" ${vo.roleNum  eq 7 ? 'selected' : ''}>인사팀장</option>
 												  							                        <!-- 추가 직급 옵션 -->
 												  							                    </select>
 												  		              						  </p>		
