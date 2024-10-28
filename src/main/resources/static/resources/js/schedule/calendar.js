@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
 
-        googleCalendarApiKey : "AIzaSyCOezFD94o9I25l3b7f3O27KAsjAcCk0HY",
+        googleCalendarApiKey : "",
         eventSources :[ 
             {
-                googleCalendarId : 'l9ijikc83v1ne5s61er6tava4iplm8id@import.calendar.google.com',
+                googleCalendarId : '',
                 color: 'white',
                 textColor: 'red'
             } 
