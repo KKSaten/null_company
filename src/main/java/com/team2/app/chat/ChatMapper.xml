@@ -8,5 +8,36 @@
   	<select id="getList" resultType="RoomVO">
   		SELECT * FROM ROOM
   	</select>
+  	
+  	<select id="empList" parameterType="DepartmentVO" resultMap="EmpRole">
+  		SELECT E.*, R.*
+  		FROM EMPLOYEE E
+  			LEFT JOIN
+  			ROLE R
+  			USING (ROLE_NUM)
+  		WHERE E.DEPT_NUM = #{deptNum}
+  		ORDER BY E.ROLE_NUM ASC
+  	</select>
+  	
+  	<resultMap type="EmployeeVO" id="EmpRole">
+  		<id property="empNum" column="EMP_NUM"/>
+		<result property="empId" column="EMP_ID"/>
+		<result property="empName" column="EMP_NAME"/>
+		<result property="empPwd" column="EMP_PWD"/>
+		<result property="empRegistry" column="EMP_REGISTRY"/>
+		<result property="empGender" column="EMP_GENDER"/>
+		<result property="empAddress" column="EMP_ADDRESS"/>
+		<result property="roleNum" column="ROLE_NUM"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="posNum" column="POS_NUM"/>
+		<result property="hiredate" column="HIREDATE"/>
+		<result property="outdate" column="OUTDATE"/>
+		<result property="enabled" column="ENABLED"/>
+		
+		<association property="roleVO" javaType="RoleVO">
+			<id property="roleNum" column="ROLE_NUM"/>
+			<result property="roleName" column="ROLE_NAME"/>
+		</association>
+  	</resultMap>
   
   </mapper>
