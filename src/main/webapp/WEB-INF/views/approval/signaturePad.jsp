@@ -11,6 +11,20 @@
 	<c:import url="../templates/header.jsp"></c:import>
 
 	<title>서명 관리</title>
+	
+	<style type="text/css">
+	
+		.signImage {
+			width: 384px;
+			height: 216px;	
+		}
+				
+		/* 기본 라디오 버튼 숨기기 */
+		.selectSignTd {
+			display: none;
+		}
+				
+	</style>
 </head>
 <body>
 	<div class="wrapper">
@@ -55,66 +69,31 @@
 
 
 					<div class="row">
-
-
+					
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
 										<h4 class="card-title">서명 관리</h4>	
-							            <c:if test="${fn:length(signList) < 3}">
-							                <button class="btn btn-primary ms-auto" id="alert_signature_pad" data-bs-toggle="modal" data-bs-target="#signModal">
-							                	서명 추가
-							                </button>
-							            </c:if>																			
+						                <button class="btn btn-primary ms-auto" id="alert_signature_pad" style="display: none;" data-bs-toggle="modal" data-bs-target="#signModal">
+						                	서명 추가
+						                </button>							            																			
 									</div>
 								</div>
 								<div class="card-body">
-								
-					
 									<div class="container" style="text-align: center; width: 90%;">
-										<table class="table table-borderless">
+										<table class="table table-borderless signListTable">
 											<tbody>
-												<c:if test="${empty signList}">
-													<div style="color:#666; font-size: 18px;">저장한 서명이 없습니다.</div>
-												</c:if>
-												<c:if test="${not empty signList}">
-													<c:forEach items="${signList}" var="sign">
-														<tr>																												
-															<td style="width: 30%;" >
-																<div style="padding: 15px; border: 1px solid #ccc; display: inline-block;">
-																	<img src="/file/signature/${sign.signImage}" style="width: 384px; height: 216px;">
-																</div>
-															</td>
-															<td style="text-align: left; width: 15%;">
-																<div style="font-size: 18px; font-weight: 600;">${sign.signTitle}</div>
-																<div>${sign.signDate}</div>
-															</td>
-															<td style="text-align: right; width: 30%;">
-																<c:choose>
-																	<c:when test="${sign.signDefault == 'y'}">
-																		<button class="btn btn-border btn-success ms-2" style="background-color: #fff !important;" disabled>
-																			<i class="fas fa-check" style="color:#31ce36;"></i>　대표 서명
-																		</button>
-																	</c:when>
-																	<c:otherwise>
-																		<button class="btn btn-border btn-primary ms-2" id="setDefaultSign_${sign.signNum}">대표 서명 설정</button>
-																	</c:otherwise>
-																</c:choose>
-																<button class="btn btn-danger ms-2" id="deleteSign_${sign.signNum}">서명 삭제</button>
-															</td>
-														</tr>
-													</c:forEach>
-												</c:if>
+												<!-- 서명 리스트 signManager.js 처리 -->
 											</tbody>
 										</table>
 									</div>								
-										
-									
-								</div>
+								</div> <!-- card body -->
+																
 							</div>
 						</div>
-					</div>
+						
+					</div> <!-- row -->
 
 
 
@@ -171,7 +150,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 	<script src="/resources/js/approval/signManager.js"></script>
 
-
+	<script type="text/javascript">
+		// 첫 로드 때 서명 리스트 불러오기
+		document.addEventListener('DOMContentLoaded', updateSignList);
+	</script>
 
 </body>
 </html>

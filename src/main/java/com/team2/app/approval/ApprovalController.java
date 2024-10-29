@@ -59,13 +59,30 @@ public class ApprovalController {
 	
 
 	@GetMapping("write")
-	public String write(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+	public String writePage(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
 		
 		model.addAttribute("empVO", empVO);
+		
+		//서명 모달창
+		List<SignVO> signList = approvalService.signList(empVO);	
+		model.addAttribute("signList", signList);
 		
 		return "approval/draftDoc";
 		
 	}
+	
+	@PostMapping("write")
+	public void write(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	@GetMapping("signaturePad")
@@ -73,8 +90,17 @@ public class ApprovalController {
 		
 		List<SignVO> signList = approvalService.signList(empVO);
 		
-		model.addAttribute("signList", signList);
+		model.addAttribute("signList", signList);	
 		
+	}
+	
+	@GetMapping("signaturePad/list")
+	@ResponseBody
+	public List<SignVO> signList(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+		
+		List<SignVO> signList = approvalService.signList(empVO);
+		
+		return signList;	
 	}
 	
 	@PostMapping("signaturePad/setDefaultSign")
@@ -93,7 +119,7 @@ public class ApprovalController {
 	
 	@PostMapping("signaturePad/deleteSign")
 	@ResponseBody
-	public int deleteSign(SignVO signVO) throws Exception {
+	public int deleteSign(@AuthenticationPrincipal EmployeeVO empVO, SignVO signVO) throws Exception {
 		
 		int result = approvalService.deleteSign(signVO);
 		
@@ -109,7 +135,7 @@ public class ApprovalController {
 		// 비동기식 요청(예: AJAX)에서 데이터를 처리할 때 유용함
 		// 반환값이 void일 경우, 클라이언트는 응답 본문을 받을 수 없으므로
 		// 반드시 JSON 형태의 데이터를 반환해야 클라이언트 측에서 response.json()으로 처리할 수 있게 되는 것
-	public int saveSign(@AuthenticationPrincipal EmployeeVO empVO,
+	public List<SignVO> saveSign(@AuthenticationPrincipal EmployeeVO empVO,
 						@ModelAttribute SignVO signVO,
 						Model model) throws Exception {
 		
@@ -119,7 +145,9 @@ public class ApprovalController {
 		
 		int result = approvalService.saveSign(signVO);
 		
-		return result;
+		List<SignVO> signList = approvalService.signList(empVO);
+		
+		return signList;
 		
 	}
 	
