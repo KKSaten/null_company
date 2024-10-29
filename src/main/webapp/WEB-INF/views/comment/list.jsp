@@ -7,7 +7,7 @@
 		<ul class="no_dot custom-comment1">
 			<c:choose>
 				<c:when test="${commentVO.commentDel eq false }">
-					<li class="custom-comment2">이정효 인사팀 ${commentVO.commentDate}
+					<li class="custom-comment2">${commentVO.employeeVO.empName} ${commentVO.departmentVO.deptName} ${commentVO.commentDate}
 						<a type="button" class="commentMod" data-comment-num="${commentVO.commentNum }">&nbsp; 수정</a>
 						<a type="button" class="commentDel" data-comment-num="${commentVO.commentNum }">삭제</a>
 						<a type="button" class="replyAdd" data-comment-num="${commentVO.commentNum }">답글</a>
@@ -55,7 +55,7 @@
 							<ul class="no_dot custom-comment1">
 								<c:choose>
 									<c:when test="${replyVO.replyDel eq false }">
-										<li class="replyDate">${replyVO.replyDate}
+										<li class="replyDate">${replyVO.employeeVO.empName} ${replyVO.departmentVO.deptName} ${replyVO.replyDate}
 											<a type="button" class="replyMod" data-reply-num="${replyVO.replyNum }">&nbsp; 수정</a>
 											<a type="button" class="replyDel" data-reply-num="${replyVO.replyNum }">삭제</a>
 										</li>
