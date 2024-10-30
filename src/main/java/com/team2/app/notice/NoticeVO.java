@@ -5,6 +5,7 @@ import java.util.List;
 import com.team2.app.department.DepartmentVO;
 import com.team2.app.employee.EmployeeVO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -12,7 +13,9 @@ public class NoticeVO {
 
 	private Long noticeNum;
 	private Integer empNum;
+	@NotBlank
 	private String noticeTitle;
+	@NotBlank
 	private String noticeContents;
 	private Long noticeHit;
 	private String noticeDate;

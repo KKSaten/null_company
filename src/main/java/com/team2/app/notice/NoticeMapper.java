@@ -12,6 +12,8 @@ public interface NoticeMapper {
 	List<NoticeVO> getList(Pager pager) throws Exception;
 		
 		long getTotalCount(Pager pager) throws Exception;
+		
+		int getEmpNum(NoticeVO noticeVO) throws Exception;
 	
 	NoticeVO getPost(NoticeVO noticeVO) throws Exception;
 	

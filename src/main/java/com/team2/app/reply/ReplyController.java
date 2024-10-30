@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -59,7 +60,16 @@ public class ReplyController {
 	
 	
 	@GetMapping("modify")
-	public String modifyReply(CommentVO commentVO, ReplyVO replyVO, Model model) throws Exception{
+	public String modifyReply(@AuthenticationPrincipal EmployeeVO employeeVO, CommentVO commentVO, ReplyVO replyVO, Model model) throws Exception{
+		
+		int empNum = replyService.getEmpNum(replyVO);
+		
+		if(employeeVO.getEmpNum() != empNum) {
+			model.addAttribute("result", "작성자 본인만 수정이 가능합니다");
+			model.addAttribute("url", "/notice/list");
+			
+			return "commons/message";
+		}
 		
 		List<CommentVO> list = commentService.getCommentList(commentVO);
 		

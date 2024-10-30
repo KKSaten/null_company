@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -98,7 +99,17 @@ public class CommentController {
 	
 	
 	@GetMapping("modify")
-	public String modifyComment(CommentVO commentVO, Model model) throws Exception{
+	public String modifyComment(@AuthenticationPrincipal EmployeeVO employeeVO, CommentVO commentVO, Model model) throws Exception{
+		
+		int empNum = commentService.getEmpNum(commentVO);
+		
+		if(employeeVO.getEmpNum() != empNum) {
+			
+			model.addAttribute("result", "수정은 작성자 본인만 가능합니다");
+			model.addAttribute("url", "/notice/post?noticeNum="+commentVO.getNoticeNum());
+			
+			return "commons/message";
+		}
 		
 		// 1. getList 메서드를 재활용하여 댓글 목록을 가져온다
 		// 2. '수정'버튼을 클릭한 댓글의 commentNum을 AJAX 를 통해 받아온 다음, target 이라는 이름으로 model 에 담는다

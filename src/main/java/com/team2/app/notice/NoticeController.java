@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ import com.team2.app.department.DepartmentVO;
 import com.team2.app.employee.EmployeeVO;
 import com.team2.app.util.Pager;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -67,11 +69,18 @@ public class NoticeController {
 	}
 	
 	@GetMapping("write")
-	public void writePost() throws Exception{}
+	public void writePost() throws Exception {}
 	
 	@PostMapping("write")
-	public String writePost(@AuthenticationPrincipal EmployeeVO employeeVO, NoticeVO noticeVO, MultipartFile[] attaches) throws Exception{
-				
+	public String writePost(@AuthenticationPrincipal EmployeeVO employeeVO, @Valid NoticeVO noticeVO, BindingResult bindingResult, MultipartFile[] attaches, Model model) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("result", "비어있는 입력란을 모두 채워주세요");
+			model.addAttribute("url", "/notice/write");
+			
+			return "commons/message";
+		}
+		
 		noticeVO.setEmpNum(employeeVO.getEmpNum());
 		
 		int result = noticeService.writePost(noticeVO, attaches);
@@ -80,7 +89,7 @@ public class NoticeController {
 	}
 	
 	@GetMapping("modify")
-	public void modifyPost(NoticeVO noticeVO, Model model) throws Exception{
+	public String modifyPost(@AuthenticationPrincipal EmployeeVO employeeVO, NoticeVO noticeVO, Model model) throws Exception{
 		
 		// 수정 페이지에서 기존에 작성한 글을 보여주기 위한 코드
 		// 1. post.jsp에서 수정하기 버튼 클릭시 해당 글의 noticeNum을 보냄
@@ -88,11 +97,27 @@ public class NoticeController {
 		// 3. 조회한 게시글 정보를 modify.jsp에 보냄으로서 기존에 작성한 글을 보여줄 수 있음
 		noticeVO = noticeService.getPost(noticeVO);
 		
+		if(employeeVO.getEmpNum() != noticeVO.getEmpNum()) {
+			model.addAttribute("result", "작성자만 수정이 가능합니다");
+			model.addAttribute("url", "/notice/list");
+			
+			return "commons/message";
+		}
+		
 		model.addAttribute("noticeVO", noticeVO);
+		
+		return "notice/modify";
 	}
 	
 	@PostMapping("modify")
-	public String modifyPost(NoticeVO noticeVO, MultipartFile[] attaches) throws Exception{
+	public String modifyPost(@Valid NoticeVO noticeVO, BindingResult bindingResult, MultipartFile[] attaches, Model model) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("result", "비어있는 입력란을 모두 채워주세요");
+			model.addAttribute("url", "/notice/modify?noticeNum="+ noticeVO.getNoticeNum());
+			
+			return "commons/message";
+		}
 		
 		int result = noticeService.modifyPost(noticeVO, attaches);
 		
@@ -101,7 +126,16 @@ public class NoticeController {
 	
 	
 	@GetMapping("delete")
-	public String deletePost(NoticeVO noticeVO) throws Exception{
+	public String deletePost(@AuthenticationPrincipal EmployeeVO employeeVO, NoticeVO noticeVO, Model model) throws Exception{
+		
+		int empNum = noticeService.getEmpNum(noticeVO);
+		
+		if(employeeVO.getEmpNum() != empNum) {
+			model.addAttribute("result", "작성자만 삭제가 가능합니다");
+			model.addAttribute("url", "/notice/list");
+			
+			return "commons/message";
+		}
 		
 		int result = noticeService.deletePost(noticeVO);
 		

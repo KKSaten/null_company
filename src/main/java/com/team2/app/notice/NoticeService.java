@@ -115,5 +115,10 @@ public class NoticeService {
 		
 		return noticeMapper.preview();
 	}
+	
+	public int getEmpNum(NoticeVO noticeVO) throws Exception{
+		
+		return noticeMapper.getEmpNum(noticeVO);
+	}
 
 }

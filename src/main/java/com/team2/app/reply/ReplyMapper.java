@@ -14,5 +14,7 @@ public interface ReplyMapper {
 	
 	int deleteReply(ReplyVO replyVO) throws Exception;
 	
+		int getEmpNum(ReplyVO replyVO) throws Exception;
+	
 
 }

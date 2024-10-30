@@ -6,6 +6,7 @@ import com.team2.app.department.DepartmentVO;
 import com.team2.app.employee.EmployeeVO;
 import com.team2.app.reply.ReplyVO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -15,6 +16,7 @@ public class CommentVO {
 	private Long commentNum;
 	private Long noticeNum;
 	private Integer empNum;
+	@NotBlank
 	private String commentContents;
 	private String commentDate;
 	private boolean commentDel;
