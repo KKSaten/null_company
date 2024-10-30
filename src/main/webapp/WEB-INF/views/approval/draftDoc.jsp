@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,29 +29,23 @@
         });
     </script>
     
-	<style>
-	    .calendar-icon {
-	        position: absolute;
-	        right: 10px;
-	        top: 50%;
-	        transform: translateY(-50%);
-	        color: #888;
-	    }
-	    .datepicker-input {
-			box-sizing: border-box;
-			cursor: pointer;
-			border: 1px solid #eaeaea;
-	    }
-		.table > tbody > tr > td, .table > tbody > tr > th {
-			padding: 8px 15px !important;
+	<link rel="stylesheet" href="/resources/css/draftDoc.css"/>   
+	
+	<style type="text/css">
+		.signImage {
+			width: 240px;
+			height: 135px;	
 		}
-		.custom > td, .custom > th {
-			font-size: 16px !important;
+		.selectSignRadio {
+			width: 20px;
+			height: 20px;
+			cursor: pointer;	
 		}
-		.summernote {
-			text-align: left !important;
-		}	    	    
-	</style>    
+		.signModalBox {
+			box-shadow: 5px 5px 15px #4a4a4a;
+			margin-top: 100px !important;
+		}
+	</style>	
 
 </head>
 <body>
@@ -61,9 +56,37 @@
 				<c:import url="../templates/topbar.jsp"></c:import>
 			</div>
 
-			<div class="container" style="width: 1260px !important;">
+			<div class="container">
 				<div class="page-inner">
 
+					<div class="page-header mt-3">
+						<h3 class="fw-bold mb-1">전자결재</h3>
+						<ul class="breadcrumbs mb-1">
+							<li class="nav-home">
+								<a href="/">
+									<i class="icon-home"></i>
+								</a>
+							</li>
+							<li class="separator">
+								<i class="icon-arrow-right"></i>
+							</li>
+							<li class="nav-item">
+								<a href="#">전자결재</a>
+							</li>							
+							<li class="separator">
+								<i class="icon-arrow-right"></i>
+							</li>
+							<li class="nav-item">
+								<a href="/approval/approvalDocbox">결재함</a>
+							</li>
+							<li class="separator">
+								<i class="icon-arrow-right"></i>
+							</li>
+							<li class="nav-item">
+								<a href="/approval/approvalDocbox">기안상신함</a>
+							</li>
+						</ul>
+					</div>
 
 					<div class="row">
 
@@ -77,21 +100,21 @@
 									</div>
 								</div>
 								<div class="card-body">
-									<div class="container" style="text-align: center; width: 90%;">
+									<div class="container" style="text-align: center; width: 70%; margin-top: 15px;">
 										<table class="table table-bordered">
 											<tbody>
 
 												<tr class="custom">																												
-													<th style="text-align: left; width: 15%;" >
+													<th style="width: 25%;" >
 														기안일
 													</th>
-													<td style="text-align: left; width: 15%;" id="draftDate">
+													<td style="width: 25%;" id="draftDate">
 														<!-- 날짜 -->
 													</td>
-													<th style="text-align: left; width: 15%;">
+													<th style="width: 25%;">
 														만료일
 													</th>
-													<td style="text-align: left; width: 15%;">
+													<td style="width: 25%;">
 										                <div class="datepicker-container" style="position: relative; display: inline-block;">
 										                    <input type="text" id="expiryDate" class="datepicker-input">
 										                    <i class="far fa-calendar-alt calendar-icon"></i>
@@ -99,41 +122,80 @@
 													</td>													
 												</tr>
 												<tr class="custom">																												
-													<th style="text-align: left;">
+													<th>
 														결재선
 													</th>
 													<td colspan= 3>
-														결재선 설정
+														<button type="button" class="btn btn-light paramBtn" id="apprLineBtn" data-bs-toggle="modal" data-bs-target="#apprLineModal">
+															결재선 설정
+														</button>
 													</td>													
 												</tr>
 												<tr class="custom">																												
-													<th style="text-align: left;">
+													<th>
 														참조 및 참조부서
 													</th>
 													<td colspan= 2>
-														참조자
+														<button type="button" class="btn btn-light paramBtn" id="">
+															참조자 설정
+														</button>
 													</td>
 													<td>
-														참조부서
+														<button type="button" class="btn btn-light paramBtn" id="">
+															참조 부서 설정
+														</button>
 													</td>													
 												</tr>
+												<tr class="custom">																												
+													<th>
+														서명
+													</th>
+													<td colspan= 2>
+														<button type="button" class="btn btn-light paramBtn" id="signListModalBtn" data-bs-toggle="modal" data-bs-target="#signListModal">
+															서명 선택
+														</button>
+														<input type="hidden" name="signNum" id="hiddenSignNum">																												
+													</td>
+													<th>
+														<div class="defaultSignDiv">
+															<input type="checkbox" id="defaultSign">
+															<label for="defaultSign">대표 서명 사용</label>													
+														</div>
+													</th>
+												</tr>												
 												<tr class="custom">																												
 													<th style="text-align: left;">
 														문서 제목
 													</th>
 													<td colspan= 3 id="docTitleInput">
-														<input type="text" style="width: 100%; border: 1px solid #eaeaea;">
+														<input type="text" placeholder=" 문서 제목을 입력하세요."; style="width: 100%; border: 1px solid #eaeaea;">
 													</td>													
 												</tr>
 												<tr>
 													<td colspan= 4 class="summernote">
 														<textarea class="form-control" id="summernote" name="noticeContents" aria-label="With textarea"></textarea>														
 													</td>
-												</tr>												
+												</tr>
+												<tr style="border: none !important;">
+													<td colspan= 4 style="border: none !important; padding: 20px 0px 0px 0px !important;">
+														<button type="button" class="btn btn-outline-danger cancelBtn" onclick="location.href='/approval/approvalDocbox'">
+															작성 취소
+														</button>													
+														<button type="button" class="btn btn-primary draftBtn">
+															상신
+														</button>
+														<button type="button" class="btn btn-outline-primary tempBtn">
+															임시 저장
+														</button>													
+													</td>
+												</tr>
 
 											</tbody>
 										</table>
-									</div>								
+									</div>
+									
+
+									
 								</div>
 								
 							</div>
@@ -143,7 +205,153 @@
 
 
 
-				</div>
+
+
+
+
+
+
+
+					<!-- 결재라인 모달 -->
+					<div class="modal fade" id="apprLineModal" tabindex="-1" aria-labelledby="apprLineModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-xl">
+							<div class="modal-content" style="padding: 10px 30px 10px 30px;">
+								<div class="modal-header" style="border:none; ">
+									<h5 class="modal-title" id="apprLineModalLabel">결재선 설정</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body" style="border : 1px solid #ddd; border-radius:10px; padding: 20px 30px 10px 30px;">
+									<p style="color: #434343; font-weight: 600; margin-bottom: 0;">사원 검색</p>
+									<p style="color: #bbb; font-size:14px;">작성하실 문서의 유형을 선택해주세요</p>
+
+									<ul style="list-style: none; line-height: 185%; margin-left: 5px; padding-left: 5px;">
+										<c:forEach items="${docList}" var="docType">
+										    <li>
+										        <a data-bs-toggle="collapse" href="#docType_${docType.docTypecode}" style="color: #555; font-size:15px;">
+										            <i class="fas fa-caret-down" style="margin-right: 20px;"></i>
+										            <i class="fas fa-archive"></i>
+										            <span>${docType.docTypename}</span>
+										        </a>
+										        <div class="collapse" id="docType_${docType.docTypecode}">
+										            <ul style="list-style : none; line-height: 170%;">
+										                <c:forEach items="${docType.docTemplateVO}" var="template">
+									                        <li>
+									                        	<div class="template-item" data-template-code="${template.docTemplatecode}" style="cursor: pointer; color: #555; margin-left: 20px;">
+									                                <i class="far fa-file-alt"></i>
+									                                <span>${template.templateName}</span>
+									                        	</div>
+									                        </li>
+										                </c:forEach>
+										            </ul>
+										        </div>
+										    </li>
+										</c:forEach>																
+									</ul>
+
+					            </div>
+								<div class="modal-footer" style="border:none;">
+									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-primary" id="submitDoc">저장</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+					<!-- 서명 리스트 모달 -->
+					<div class="modal fade" id="signListModal" tabindex="-1" aria-labelledby="signListModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-xl">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="signListModalLabel">서명 선택</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>							
+								<div class="modal-body">
+	
+									<div class="row">
+									
+										<div class="col-md-12">
+											<div class="card">
+												<div class="card-header">
+													<div class="d-flex align-items-center">
+														<h4 class="card-title">서명 관리</h4>	
+										                <button class="btn btn-primary ms-auto" id="alert_signature_pad" style="display: none;" onclick="openSignModal()">
+										                	서명 추가
+										                </button>							            																			
+													</div>
+												</div>
+												<div class="card-body">
+													<div class="container" style="text-align: center; width: 90%;">
+														<table class="table table-borderless signListTable">
+															<tbody>
+																<!-- signManager.js 처리 -->
+															</tbody>
+														</table>
+													</div>								
+												</div> <!-- card body -->
+																				
+											</div>
+										</div>
+										
+									</div> <!-- row -->
+					        
+								</div>
+								<div class="modal-footer" style="border:none;">
+									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-primary" id="submitSign">선택</button>
+								</div>
+							</div>
+						</div>
+					</div>					
+					
+					
+					
+					
+					
+					<!-- 서명 작성 모달 -->
+					<div class="modal fade" id="signModal" tabindex="-1" aria-labelledby="signModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content signModalBox">
+								<div class="modal-header">
+									<h5 class="modal-title" id="signModalLabel">서명 추가</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>							
+								<div class="modal-body">
+	
+									<div class="container" style="text-align: center; border: 1px solid #ddd; padding: 10px;">
+										<div style="margin-top: 10px;">
+											<canvas id="signature-pad" width="430px" height="240px"></canvas>
+										</div>
+										
+										<div style="margin-top: 10px; margin-bottom: 5px;">
+											<!-- 지우기, 되돌리기-->
+											<button class="button" data-action="clear" style="width: 45px; height: 33px; border: 2px solid #ddd; border-radius: 5px;">
+												<i class="fas fa-eraser" style="font-size: 18px;"></i>
+											</button>
+											<button class="button" data-action="undo" style="width: 45px; height: 33px; border: 2px solid #ddd; border-radius: 5px;">
+												<i class="fas fa-undo"></i>
+											</button>
+										</div>
+										
+									</div>
+					        
+								</div>
+								<div class="modal-footer" style="display: flex; align-items: center; justify-content: space-between;">
+									<input type="text" class="form-control" id="signTitle" placeholder="서명 제목을 입력해주세요." style="flex: 1; margin-left: 5px; font-size: 16px;"/>
+									<button type="button" class="btn btn-primary" id="saveSignBtn" style="margin-right: 5px; font-size: 16px;">저장</button>
+								</div>
+							</div>
+						</div>
+					</div>					
+
+
+
+
+
+				</div> <!-- page inner -->
 			</div>
 
 			<c:import url="../templates/footer.jsp"></c:import>
@@ -172,7 +380,15 @@
 	    });	    
 	    
 	</script>
-
+	
+	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>	
+	<script src="/resources/js/approval/signManager.js"></script>
+	
+	<script type="text/javascript">
+		$('#signListModal').on('shown.bs.modal', function () {
+		    updateSignList(); // 서명 목록 업데이트 함수 호출
+		});	
+	</script>
 
 </body>
 </html>
