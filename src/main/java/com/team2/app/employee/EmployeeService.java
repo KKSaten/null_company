@@ -183,4 +183,12 @@ public class EmployeeService {
 		return employeeMapper.empListInsert(employeeVO);
 		
 	}
+	
+	
+	// 결재 라인용 각 부서별 사원 목록
+	public List<DeptEmpVO> deptEmpList() throws Exception {
+		return employeeMapper.deptEmpList();
+	}
+	
+	
 }

@@ -239,34 +239,76 @@
         LEFT JOIN ROLE R ON E.ROLE_NUM = R.ROLE_NUM
     </select>
 
-<update id="empListUpdate" parameterType="EmployeeVO">
-UPDATE EMPLOYEE E
-SET 
-    E.DEPT_NUM = #{deptNum},        -- 새 부서 번호
-    E.POS_NUM = #{posNum},          -- 새 직책 번호 추가
-    E.ROLE_NUM = #{roleNum}       -- 새 직책 번호
-WHERE 
-    E.EMP_NUM = #{empNum};          -- 업데이트할 직원 번호
- 
-</update>
-<insert id="empListInsert" parameterType="EmployeeVO">
-INSERT INTO ORDERS (
-    APPOINTMENT_DATE, 
-    ORDER_DATE, 
-    ORDER_SITUATION, 
-    EMP_NUM, 
-    DEPARTMENT_NUM, 
-    POS_NUM,               -- 직책 번호
-    ROLE_NUM               -- 역할 번호
-) VALUES (
-    CURDATE(),                  -- 발령 일자
-    NOW(),                      -- 등록일자
-    1,                          -- 발령 확정 (true)
-    #{empNum},                 -- 실제 사원번호 (업데이트한 직원 번호)
-    #{deptNum},                -- 변경된 부서 번호
-    #{posNum},                 -- 변경된 직책 번호 (POS_NUM)
-    #{roleNum}                 -- 변경된 직급 번호 (ROLE_NUM)
-);
-</insert>
+	<update id="empListUpdate" parameterType="EmployeeVO">
+		UPDATE EMPLOYEE E
+		SET 
+		    E.DEPT_NUM = #{deptNum},        -- 새 부서 번호
+		    E.POS_NUM = #{posNum},          -- 새 직책 번호 추가
+		    E.ROLE_NUM = #{roleNum}       -- 새 직책 번호
+		WHERE 
+		    E.EMP_NUM = #{empNum};          -- 업데이트할 직원 번호
+	 
+	</update>
+	<insert id="empListInsert" parameterType="EmployeeVO">
+		INSERT INTO ORDERS (
+		    APPOINTMENT_DATE, 
+		    ORDER_DATE, 
+		    ORDER_SITUATION, 
+		    EMP_NUM, 
+		    DEPARTMENT_NUM, 
+		    POS_NUM,               -- 직책 번호
+		    ROLE_NUM               -- 역할 번호
+		) VALUES (
+		    CURDATE(),                  -- 발령 일자
+		    NOW(),                      -- 등록일자
+		    1,                          -- 발령 확정 (true)
+		    #{empNum},                 -- 실제 사원번호 (업데이트한 직원 번호)
+		    #{deptNum},                -- 변경된 부서 번호
+		    #{posNum},                 -- 변경된 직책 번호 (POS_NUM)
+		    #{roleNum}                 -- 변경된 직급 번호 (ROLE_NUM)
+		);
+	</insert>
+	
+
+	<!-- 결재라인용 각 부서-사원 목록 -->
+	<select id="deptEmpList" resultMap="DeptEmp">
+		SELECT DEPT.*, EMP.*, P.POS_NAME 
+		FROM
+			DEPARTMENT DEPT
+			JOIN
+			EMPLOYEE EMP
+			ON DEPT.DEPT_NUM = EMP.DEPT_NUM
+			LEFT JOIN
+			POSITIONS P
+			ON EMP.POS_NUM = P.POS_NUM
+		ORDER BY EMP.POS_NUM ASC
+	</select>
+	<resultMap type="DeptEmpVO" id="DeptEmp">
+		<id property="deptNum" column="DEPT_NUM"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		
+		<collection property="employeeVO" javaType="java.util.List" ofType="EmployeeVO">
+	        <id property="empNum" column="EMP_NUM"/>
+	        <result property="empId" column="EMP_ID"/>
+	        <result property="empName" column="EMP_NAME"/>
+	        <result property="empPwd" column="EMP_PWD"/>
+	        <result property="empRegistry" column="EMP_REGISTRY"/>
+	        <result property="empGender" column="EMP_GENDER"/>
+	        <result property="empAddress" column="EMP_ADDRESS"/>
+	        <result property="deptNum" column="DEPT_NUM"/>
+	        <result property="roleNum" column="ROLE_NUM"/>
+	        <result property="posNum" column="POS_NUM"/>
+	        <result property="hiredate" column="HIREDATE"/>
+	        <result property="outdate" column="OUTDATE"/>
+	        <result property="enabled" column="ENABLED"/>
+	        <result property="posName" column="POS_NAME"/>		
+		</collection>		
+	</resultMap>
+	
+	
+	
+	
+	
+	
 
 </mapper>

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team2.app.employee.DeptEmpVO;
+import com.team2.app.employee.EmployeeService;
 import com.team2.app.employee.EmployeeVO;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +31,9 @@ public class ApprovalController {
 	
 	@Autowired
 	private ApprovalService approvalService;
+	
+	@Autowired
+	private EmployeeService employeeService;
 
 	
 	@GetMapping("approvalReceivedbox")
@@ -36,36 +41,43 @@ public class ApprovalController {
 		
 	}	
 	
+	// 기안 상신함
 	@GetMapping("approvalDocbox")
 	public void approvalDocbox(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO appr, Model model, HttpSession session) throws Exception {
 		
 		//접속 중인 ID의 정보를 @AuthenticationPrincipal로 가져옴
 		
+		// 기안서 리스트
 		List<ApprDocVO> list = approvalService.getList(empVO); 
 		for(ApprDocVO li : list) {
 			log.info("list :" + ""+li.getApprLineVO().size());
 		}
 		model.addAttribute("list", list);
 		
-		
+		// 기안서 작성시 문서 유형 리스트
 		List<DocTypeVO> docList = approvalService.getDocType();
 		for(DocTypeVO dcli : docList) {
 			log.info("docList :" + dcli.getDocTemplateVO().size());
 		}
-		model.addAttribute("docList", docList);
-		 
-		
+		model.addAttribute("docList", docList);	
 	}
 	
-
+	
+	// 기안서 작성 페이지
 	@GetMapping("write")
 	public String writePage(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
 		
 		model.addAttribute("empVO", empVO);
 		
-		//서명 모달창
+		// 서명 리스트 모달
 		List<SignVO> signList = approvalService.signList(empVO);	
 		model.addAttribute("signList", signList);
+		
+		
+		// 결재선 사원 리스트 모달
+		List<DeptEmpVO> deptEmpList = employeeService.deptEmpList();
+		model.addAttribute("deptEmpList", deptEmpList);
+		
 		
 		return "approval/draftDoc";
 		
@@ -84,7 +96,7 @@ public class ApprovalController {
 	
 	
 	
-	
+	// 서명 관리 페이지
 	@GetMapping("signaturePad")
 	public void sign(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
 		
@@ -94,6 +106,7 @@ public class ApprovalController {
 		
 	}
 	
+	// 기안서 작성시 서명 리스트 모달
 	@GetMapping("signaturePad/list")
 	@ResponseBody
 	public List<SignVO> signList(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
@@ -103,6 +116,8 @@ public class ApprovalController {
 		return signList;	
 	}
 	
+	
+	// 대표 서명 설정
 	@PostMapping("signaturePad/setDefaultSign")
 	@ResponseBody
 	public int setDefaultSign(@AuthenticationPrincipal EmployeeVO empVO, SignVO signVO) throws Exception {
@@ -117,6 +132,21 @@ public class ApprovalController {
 	}
 	
 	
+	// 기안서 작성시 대표 설정된 서명 불러오기
+	@PostMapping("signaturePad/getDefaultSign")
+	@ResponseBody
+	public SignVO getDefaultSign(@AuthenticationPrincipal EmployeeVO empVO, SignVO signVO) throws Exception {
+		
+		signVO.setSignUser(empVO.getEmpNum());
+		
+		signVO = approvalService.getDefaultSign(signVO);
+		
+		log.info("getDefaultSign Result: " + signVO);
+		
+		return signVO;
+	}	
+	
+	// 서명 삭제
 	@PostMapping("signaturePad/deleteSign")
 	@ResponseBody
 	public int deleteSign(@AuthenticationPrincipal EmployeeVO empVO, SignVO signVO) throws Exception {
@@ -126,7 +156,7 @@ public class ApprovalController {
 		return result;
 	}	
 	
-	
+	// 서명 작성 
 	@PostMapping("signaturePad/canvas")
 	@ResponseBody // 왜 쓴건지 까먹어서 적어두는 주석
 		// 해당 메서드의 반환값을 HTTP 응답의 본문에 직접 작성하도록 지시하는 어노테이션

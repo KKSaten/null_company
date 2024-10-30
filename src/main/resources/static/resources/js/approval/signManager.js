@@ -153,16 +153,24 @@ document.getElementById('submitSign').addEventListener('click', function() {
     const selectedSign = document.querySelector('input.selectSignRadio:checked');
     
     if (selectedSign) {
-        // 선택된 서명의 정보를 가져오기
 		const signRow = selectedSign.closest('tr');
-		const signTitle = signRow.querySelector('.signTitleValue').innerText; // 서명 제목 가져오기
-		const signNum = selectedSign.getAttribute('data-sign-num'); // signNum 가져오기
-		
+		const signTitle = signRow.querySelector('.signTitleValue').innerText;
+		const signNum = selectedSign.getAttribute('data-sign-num');
+		const isDefaultSign = selectedSign.hasAttribute('checked'); // 대표 서명 여부 확인
+
 		document.getElementById('hiddenSignNum').value = signNum;
 		
         // 서명 선택 버튼의 텍스트 및 name 속성 업데이트
-        const signSelectButton = document.getElementById('signListModalBtn');
-		signSelectButton.innerText = signTitle; // 버튼 텍스트 변경
+		const signSelectButton = document.getElementById('signListModalBtn');
+		signSelectButton.innerText = signTitle; // 서명 이름 삽입
+		
+		// 새로 선택한 서명이 대표 서명이 아닐 경우 대표 서명 체크 해제
+		const defaultSignCheckbox = document.getElementById('defaultSign');
+		if (!isDefaultSign) {
+		    defaultSignCheckbox.checked = false;
+		} else {
+			defaultSignCheckbox.checked = true;
+		}		
 		
 		// 모달 닫기
 		const signListModal = document.getElementById('signListModal');
@@ -178,3 +186,40 @@ document.getElementById('submitSign').addEventListener('click', function() {
 		alert("서명을 선택해 주세요."); // 선택 안 된 경우 메시지 표시
 	}
 });
+
+
+
+// 대표 서명 체크박스 클릭 이벤트 추가
+document.getElementById('defaultSign').addEventListener('click', function() {
+    const isChecked = this.checked;
+    if (isChecked) {
+        // 대표 서명으로 설정된 서명 값 찾기
+		fetch('/approval/signaturePad/getDefaultSign', {
+		    method: 'POST',
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({ requestType: 'getDefaultSign' }) // 요청에 필요한 데이터 포함
+		})
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.signNum) {
+                    // 대표 서명 값이 있을 경우 값 삽입
+                    document.getElementById('hiddenSignNum').value = data.signNum;
+                    document.getElementById('signListModalBtn').innerText = data.signTitle;
+                } else {
+                    alert("대표 서명이 설정되지 않았습니다.");
+                    this.checked = false; // 체크 해제
+                }
+            })
+            .catch(error => {
+                console.error('대표 서명 값 가져오기 실패:', error);
+                this.checked = false; // 체크 해제
+            });
+    } else {
+        // 체크 해제 시 기본값으로 초기화
+        document.getElementById('hiddenSignNum').value = '';
+        document.getElementById('signListModalBtn').innerText = '서명 선택';
+    }
+});
+

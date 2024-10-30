@@ -89,10 +89,10 @@
 	<select id="getDocType" resultMap="Template">
 		SELECT TYPE.*, TEMPLATE.*
 		FROM
-		DOC_TYPE TYPE
-		LEFT JOIN
-		DOC_TEMPLATE TEMPLATE
-		ON TYPE.DOC_TYPECODE = TEMPLATE.DOC_TYPECODE
+			DOC_TYPE TYPE
+			LEFT JOIN
+			DOC_TEMPLATE TEMPLATE
+			ON TYPE.DOC_TYPECODE = TEMPLATE.DOC_TYPECODE
 	</select>
 	<resultMap type="DocTypeVO" id="Template">
 		<id property="docTypecode" column="DOC_TYPECODE"/>
@@ -128,6 +128,13 @@
 		SET SIGN_DEFAULT = 'y'
 		WHERE SIGN_NUM = #{signNum}
 	</update>	
+	
+	
+	<select id="getDefaultSign" parameterType="SignVO" resultType="SignVO">
+		SELECT *
+		FROM SIGN
+		WHERE SIGN_USER = #{signUser} AND SIGN_DEFAULT = 'y'
+	</select>
 	
 	
 	<delete id="deleteSign">

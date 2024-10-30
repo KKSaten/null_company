@@ -43,5 +43,7 @@ public interface EmployeeMapper {
 	
 	public int empListUpdate(EmployeeVO employeeVO)throws Exception;
 	public int empListInsert(EmployeeVO employeeVO)throws Exception;
-
+	
+	
+	public List<DeptEmpVO> deptEmpList() throws Exception;
 }

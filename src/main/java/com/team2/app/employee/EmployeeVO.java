@@ -42,7 +42,7 @@ public class EmployeeVO implements UserDetails {
 	private DepartmentVO deptVO;
 	private PositionsVO posVO;
 	private Pager pager;
-	
+	private String posName;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
