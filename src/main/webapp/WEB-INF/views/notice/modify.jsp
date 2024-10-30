@@ -52,7 +52,7 @@
 								<div class="card-body">
 									<div class="input-group mb-6 custom-write1">
 										<textarea class="form-control custom-write3" id="summernote"
-											name="noticeContents" aria-label="With textarea">${noticeVO.noticeContents }</textarea>
+											name="noticeContents" aria-label="With textarea">${noticeVO.noticeContents}</textarea>
 									</div>
 								</div>
 							<button type="submit" class="custom-write1 custom-write2 btn btn-outline-warning">

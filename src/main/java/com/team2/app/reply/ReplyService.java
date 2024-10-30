@@ -28,6 +28,10 @@ public class ReplyService {
 		return replyMapper.deleteReply(replyVO);
 	}
 	
+	public int getEmpNum(ReplyVO replyVO) throws Exception{
+		
+		return replyMapper.getEmpNum(replyVO);
+	}
 	
 
 }

@@ -3,6 +3,7 @@ package com.team2.app.reply;
 import com.team2.app.department.DepartmentVO;
 import com.team2.app.employee.EmployeeVO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -12,6 +13,7 @@ public class ReplyVO {
 	private Long replyNum;
 	private Long commentNum;
 	private Integer empNum;
+	@NotBlank
 	private String replyContents;
 	private String replyDate;
 	private boolean replyDel;

@@ -18,6 +18,11 @@ public class CommentService {
 		return commentMapper.getCommentList(commentVO);
 	}
 	
+	public int getEmpNum(CommentVO commentVO) throws Exception{
+		
+		return commentMapper.getEmpNum(commentVO);
+	}
+	
 	public int writeComment(CommentVO commentVO) throws Exception{
 		
 		return commentMapper.writeComment(commentVO);

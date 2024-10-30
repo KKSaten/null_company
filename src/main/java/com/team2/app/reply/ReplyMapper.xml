@@ -23,4 +23,9 @@
 		WHERE REPLY_NUM = #{replyNum}
 	</update>
 	
+	<select id="getEmpNum" parameterType="ReplyVO">
+		SELECT EMP_NUM FROM REPLY
+		WHERE REPLY_NUM = #{replyNum}
+	</select>
+	
 </mapper>
