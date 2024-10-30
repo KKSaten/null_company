@@ -220,7 +220,7 @@
 									<div class="u-text">
 										<h4>${vo.empName}</h4>
 										<p class="text-muted">hello@example.com</p>
-										<a href="/employee/mypage"
+										<a href="/employee/detail"
 											class="btn btn-xs btn-secondary btn-sm">내 정보</a>
 									</div>
 								</div>

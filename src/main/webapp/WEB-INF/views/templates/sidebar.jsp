@@ -107,6 +107,16 @@
 									<span class="sub-item">부서관리</span>
 								</a>
 							</li>
+							<li>
+								<a href="/role/list">
+									<span class="sub-item">직책관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="/positions/list">
+									<span class="sub-item">직위관리</span>
+								</a>
+							</li>
 						</ul>
 					</div>
 				</li>

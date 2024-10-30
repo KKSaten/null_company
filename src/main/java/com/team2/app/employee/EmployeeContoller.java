@@ -79,6 +79,42 @@ public class EmployeeContoller {
 		
 	} 
 	
+	@PostMapping("list")
+	public void getList(Model model, Pager pager, EmployeeVO employeeVO, Integer enabledFlag, String good) throws Exception {
+		
+		log.info("pager : {}", pager);
+		log.info("vo : {}", employeeVO);
+		
+		pager.setPage(1L);
+		
+		if(enabledFlag==null) {
+			employeeVO.setHiredate(new Date(1L));
+		} else if(enabledFlag==1) {
+			employeeVO.setEnabled(true);
+		} else if(enabledFlag==2) {
+			employeeVO.setEnabled(false);
+		}
+		
+		if(employeeVO.getDeptNum()!=null) {
+			model.addAttribute("dept",employeeVO.getDeptNum());
+		}
+		
+		List<EmployeeVO> list = employeeService.getList(pager, employeeVO);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pager", pager);
+		
+		List<DepartmentVO> deptList = employeeService.getDept(null);
+		List<PositionsVO> posList = employeeService.getPos(null);
+		List<RoleVO> roleList = employeeService.getRole(null);
+		
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("posList", posList);
+		model.addAttribute("roleList", roleList);
+		model.addAttribute("flag",enabledFlag);
+		
+	} 
+	
 	@GetMapping("delete")
 	public void delete(EmployeeVO employeeVO) throws Exception {
 		int result = employeeService.delete(employeeVO);
@@ -162,7 +198,7 @@ public class EmployeeContoller {
 	}
 	
 	@PostMapping("join")
-	public void join(EmployeeVO employeeVO, MultipartFile attach) throws Exception {
+	public String join(EmployeeVO employeeVO, MultipartFile attach) throws Exception {
 			
 		log.info("=========================================");
 		log.info("join employee: {}", employeeVO);
@@ -171,6 +207,8 @@ public class EmployeeContoller {
 			
 		log.info("=========================================");
 		log.info("등록 성공");
+		
+		return "redirect:/employee/join";
 		
 	}
 

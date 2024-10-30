@@ -3,11 +3,11 @@ function addPerson (deptNum) {
     const icon = document.getElementById("icon"+deptNum);
     const deptList = document.getElementsByClassName("deptList");
     const allIcon = document.getElementsByClassName("allIcon");
-    //이미 열려있는 항목 전부 닫기
+
+   
    if(icon.classList.contains("degree")){
        icon.classList.remove("degree");
         const fadein = parenttd.childNodes;
-
 
         fadein.forEach((f, index)=>{
             f.classList.replace("fade-in", "fade-out")
@@ -15,11 +15,13 @@ function addPerson (deptNum) {
             setTimeout(() => {
                 f.classList.replace("show", "hide") // 일정 시간 후 'show' 클래스를 추가하여 애니메이션 실행
             }, 10 * (index+1)); // 타임아웃을 0으로 설정하여 바로 실행되도록 함
-
-            // f.remove();
         })
-       
 
+        console.log(fadein.firstChild())
+       
+        // while (fadein.firstChild) {
+        //     fadein.removeChild(fadein.firstChild);
+        // }
        
        return;
    }

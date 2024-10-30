@@ -25,7 +25,7 @@
 				<div class="page-inner">
 					<div class="card">
 						<div class="card-header">
-							<h1>직책 관리</h1>
+							<h1>직위 관리</h1>
 						</div>
 						<div class="card-body">
 							<div class="col-md-6 ms-auto me-auto">
@@ -33,8 +33,8 @@
 									<thead>
 										<tr align="center">
 											<th scope="col">순번</th>
-											<th scope="col">직책 번호</th>
-											<th scope="col">직책 이름</th>
+											<th scope="col">직위 번호</th>
+											<th scope="col">직위 이름</th>
 											<th scope="col">수정</th>
 											<th scope="col">사용여부</th>
 										</tr>

@@ -11,7 +11,7 @@
 <c:import url="../templates/header.jsp"></c:import>
 <style type="text/css">
 .fixed-table {
-	width: 600px; /* 테이블의 고정 너비 */
+	width: 800px; /* 테이블의 고정 너비 */
 	height: 300px; /* 테이블의 고정 높이 */
 	table-layout: fixed; /* 셀 크기 고정을 위해 필요 */
 	border-collapse: collapse; /* 테두리 겹침 방지 */
@@ -35,7 +35,7 @@
 						<div class="card-header">
 							<h3>검색</h3>
 						</div>
-						<form>
+						<form action="list" method="post">
 							<div class="card-body d-flex justify-content-center">
 								<div class="form-group"
 									style="width: 28%; align-content: center;">
@@ -81,6 +81,7 @@
 							<h1>사원 목록</h1>
 						</div>
 
+						<a class="btn btn-primary col-1 m-2" href="join">사원 등록</a>
 						<div class="card-body d-flex justify-content-center">
 							<table
 								class="table table-bordered table-hover text-center mt-4 fixed-table">
@@ -89,6 +90,8 @@
 										<th scope="col">사번</th>
 										<th scope="col">이름</th>
 										<th scope="col">부서</th>
+										<th scope="col">직위</th>
+										<th scope="col">직책</th>
 										<th scope="col">재직여부</th>
 									</tr>
 								</thead>
@@ -100,6 +103,8 @@
 											<td>${list.empId}</td>
 											<td>${list.empName}</td>
 											<td>${list.deptVO.deptName}</td>
+											<td>${list.posVO.posName}</td>
+											<td>${list.roleVO.roleName}</td>
 											<td><c:choose>
 													<c:when test="${list.enabled}">재직 중</c:when>
 													<c:otherwise>퇴직</c:otherwise>
@@ -117,7 +122,7 @@
 								<c:forEach begin="${pager.startPage}" end="${pager.lastPage}"
 									step="1" var="i">
 									<li class="page-item ${i eq pager.page?'active':''}"><a
-										class="page-link" href="list?page=${i}">${i}</a></li>
+										class="page-link" href="list?page=${i}&kind=${pager.kind}&search=${pager.search}&deptNum=${dept}&enabledFlag=${flag}">${i}</a></li>
 								</c:forEach>
 								<li class="page-item"><a class="page-link" href="#"
 									aria-label="Next"> <span aria-hidden="true">»</span> <span
