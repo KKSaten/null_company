@@ -9,12 +9,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <c:import url="../templates/header.jsp"></c:import>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
 .allIcon {
@@ -23,28 +17,6 @@
 
 .degree {
 	transform: rotate(90deg);
-}
-
-.fade-in {
-    opacity: 0; /* 초기 상태는 투명함 */
-    transform: translateY(-10px); /* 위쪽으로 살짝 이동 */
-    transition: opacity 0.5s ease, transform 0.5s ease; /* 애니메이션 효과 */
-}
-
-.fade-in.show {
-    opacity: 1; /* 완전히 보이게 함 */
-    transform: translateY(0); /* 원래 위치로 이동 */
-}
-
-.fade-out {
-    opacity: 1; /* 초기 상태는 보임 */
-    transform: translateY(0); /* 원래 위치 */
-    transition: opacity 0.5s ease, transform 0.5s ease; /* 애니메이션 효과 */
-}
-
-.fade-out.hide {
-    opacity: 0; /* 투명하게 만듦 */
-    transform: translateY(-10px); /* 위쪽으로 살짝 이동 */
 }
 </style>
 <title>채팅방 리스트</title>
@@ -157,12 +129,9 @@
 						</div>
 					</div>
 				</div>
-
-
 				<c:import url="../templates/footer.jsp"></c:import>
 			</div>
 		</div>
-
 
 		<!-- Modal -->
 		<div class="modal fade" id="addModal" tabindex="-1"
@@ -184,20 +153,32 @@
 							<table>
 								<thead style="height: 40px; vertical-align: top;">
 									<tr>
-										<th scope="col">부서</th>
+										<th scope="col"><h4></h4></th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${deptList}" var="deptList">
 										<tr>
-											<td>
-												<div onclick="addPerson(`${deptList.deptNum}`)"
-													style="cursor: pointer;">
-													<i class="fas fa-caret-right allIcon"
-														id="icon${deptList.deptNum}"></i> ${deptList.deptName}
-												</div>
-												<div class="deptList" id="dept${deptList.deptNum}"></div>
-											</td>
+											<td><a data-bs-toggle="collapse"
+												href="#collapse${deptList.deptNum}" role="button"
+												aria-expanded="false"
+												aria-controls="collapse${deptList.deptNum}"
+												style="color: black;"
+												onclick="chCaret(`${deptList.deptNum}`)"><i
+													class="fas fa-caret-right allIcon"
+													id="icon${deptList.deptNum}"></i> ${deptList.deptName} </a>
+
+												<div class="collapse" id="collapse${deptList.deptNum}">
+													<c:forEach items="${empList}" var="empList">
+														<c:if test="${deptList.deptNum eq empList.deptNum}">
+															<div onclick="alert(`${empList.empNum}`)">
+																<i class="fas fa-user" id="icon${deptList.deptNum}"
+																	style="margin-left: 40px;"></i>
+																${empList.roleVO.roleName} ${empList.empName} <br>
+															</div>
+														</c:if>
+													</c:forEach>
+												</div></td>
 										</tr>
 									</c:forEach>
 								</tbody>

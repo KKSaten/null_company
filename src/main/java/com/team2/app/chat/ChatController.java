@@ -32,15 +32,20 @@ public class ChatController {
 	@Autowired
 	DepartmentService departmentService;
 	
+	@Autowired
+	EmployeeService employeeService;
+	
 	
 	@GetMapping("list")
 	public void getList(Model model) throws Exception {
 		List<RoomVO> roomList = chatService.getList();
 		
 		List<DepartmentVO> deptList = departmentService.getList();
+		List<EmployeeVO> empList = employeeService.empList();
 		
 		model.addAttribute("roomList", roomList);
 		model.addAttribute("deptList", deptList);
+		model.addAttribute("empList", empList);
 		
 	}
 	
