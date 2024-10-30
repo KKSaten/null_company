@@ -7,9 +7,19 @@
 <mapper namespace="com.team2.app.comment.CommentMapper">
 
 	<select id="getCommentList" resultMap="getReplyList" parameterType="CommentVO">
-		SELECT * FROM COMMENT C
-		LEFT JOIN REPLY R
-		ON (C.COMMENT_NUM = R.COMMENT_NUM)
+		SELECT C.*, R.*, E.EMP_NAME AS COMMENT_EMP_NAME, D.DEPT_NAME AS COMMENT_DEPT_NAME,
+	           RE.EMP_NAME AS REPLY_EMP_NAME, RD.DEPT_NAME AS REPLY_DEPT_NAME 
+		FROM COMMENT C
+			LEFT JOIN REPLY R
+				ON (C.COMMENT_NUM = R.COMMENT_NUM)
+			LEFT JOIN EMPLOYEE E
+				ON (C.EMP_NUM = E.EMP_NUM)
+			LEFT JOIN DEPARTMENT D
+				ON (E.DEPT_NUM = D.DEPT_NUM)
+			LEFT JOIN EMPLOYEE RE
+				ON (R.EMP_NUM = RE.EMP_NUM)
+			LEFT JOIN DEPARTMENT RD
+				ON (RE.DEPT_NUM = RD.DEPT_NUM)
 		WHERE C.NOTICE_NUM = #{noticeNum}
 	</select>
 	
@@ -21,6 +31,18 @@
 		<result column="COMMENT_DATE" property="commentDate"></result>
 		<result column="COMMENT_DEL" property="commentDel"></result>
 		
+		<!-- Comment 작성자 정보 -->
+		<association property="employeeVO" javaType="EmployeeVO">
+			<result column="COMMENT_EMP_NAME" property="empName"/>
+			<result column="DEPT_NUM" property="deptNum"/>
+		</association>
+		
+		<!-- Comment 소속 부서 정보 -->
+		<association property="departmentVO" javaType="DepartmentVO">
+			<result column="COMMENT_DEPT_NAME" property="deptName"/>
+		</association>
+		
+		<!-- Reply 리스트 -->
 		<collection property="replyList" javaType="java.util.List" ofType="ReplyVO">
 			<id column="REPLY_NUM" property="replyNum"></id>
 			<result column="COMMENT_NUM" property="commentNum"></result>
@@ -28,6 +50,17 @@
 			<result column="REPLY_CONTENTS" property="replyContents"></result>
 			<result column="REPLY_DATE" property="replyDate"></result>
 			<result column="REPLY_DEL" property="replyDel"></result>
+			
+			<!-- Reply 작성자 정보 -->
+			<association property="employeeVO" javaType="EmployeeVO">
+				<result column="REPLY_EMP_NAME" property="empName"/>
+				<result column="REPLY_DEPT_NUM" property="deptNum"/>
+			</association>
+			
+			<!-- Reply 소속 부서 정보 -->
+			<association property="departmentVO" javaType="DepartmentVO">
+				<result column="REPLY_DEPT_NAME" property="deptName"/>
+			</association>
 		</collection>
 	</resultMap>
 	
