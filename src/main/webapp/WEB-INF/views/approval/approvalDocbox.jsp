@@ -191,13 +191,7 @@
 					
 					
 					
-					
-					
-					
-					
-					
-					
-					
+			
 					
 					<!-- 모달 -->
 					<div class="modal fade" id="docModal" tabindex="-1" aria-labelledby="docModalLabel" aria-hidden="true">
@@ -246,14 +240,8 @@
 					
 					
 					
-					
-					
-					
-					
-					
-					
-					
-			
+
+
 				</div> <!-- page-inner -->
 			</div> <!-- container -->
 			
@@ -285,8 +273,9 @@
     </script>
 	    
 	<script>
-	    // 선택된 항목을 저장하는 변수
-	    let selectedTemplate = null;
+
+	    let selectedTemplate = null; // 마우스 클릭된 항목
+	    let hoveredTemplate = null; // 마우스 오버된 항목
 	
 	    // 모든 template-item 요소를 가져옴
 	    document.querySelectorAll('.template-item').forEach(item => {
@@ -298,11 +287,21 @@
 	
 	            // 현재 클릭된 항목을 선택
 	            selectedTemplate = this;
-	            selectedTemplate.style.backgroundColor = '#e1f3fd'; // 선택된 항목 강조
-	
-	            // templateName 저장 (추후 제출 시 활용 가능)
-	            const selectedTemplateName = this.getAttribute('data-template-name');
-	            console.log('선택된 템플릿:', selectedTemplateName);
+	            selectedTemplate.style.backgroundColor = '#e1f3fd'; // 선택된 항목 강조       
+	        });
+	        item.addEventListener('mouseover', function() {
+	            // 현재 마우스 오버된 항목 강조
+	            hoveredTemplate = this;
+	            hoveredTemplate.style.backgroundColor = '#eaeaea';
+	        });
+	        item.addEventListener('mouseout', function() {
+	        	// 마우스 아웃된 항목 강조 해제
+	            if (hoveredTemplate === selectedTemplate) {
+	                hoveredTemplate.style.backgroundColor = '#e1f3fd'; // 클릭된 항목은 강조 유지
+	            } else {
+	                hoveredTemplate.style.backgroundColor = '';
+	            }
+	            hoveredTemplate = null;
 	        });
 	    });
 	

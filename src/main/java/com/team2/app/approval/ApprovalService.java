@@ -59,6 +59,14 @@ public class ApprovalService {
 		return result;
 	}
 	
+	public SignVO getDefaultSign(SignVO signVO) throws Exception {
+		
+		signVO = approvalMapper.getDefaultSign(signVO);
+		
+		return signVO;
+		
+	}
+	
 	public int deleteSign(SignVO signVO) throws Exception {
 		
 		int result = approvalMapper.deleteSign(signVO);

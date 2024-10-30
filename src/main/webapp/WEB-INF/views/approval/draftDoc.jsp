@@ -45,6 +45,11 @@
 			box-shadow: 5px 5px 15px #4a4a4a;
 			margin-top: 100px !important;
 		}
+		.apprLineTable > tbody > tr > th, .apprLineTable > tbody > tr > td {
+			padding-left: 5px !important;
+			padding-right: 5px !important;
+			font-size: 15px;
+		}
 	</style>	
 
 </head>
@@ -168,12 +173,14 @@
 														문서 제목
 													</th>
 													<td colspan= 3 id="docTitleInput">
-														<input type="text" placeholder=" 문서 제목을 입력하세요."; style="width: 100%; border: 1px solid #eaeaea;">
+														<input type="text" placeholder=" 문서 제목을 입력하세요."; style="width: 100%; border: 1px solid #eaeaea;" name="docTitle">
+														<input type="hidden" name="docTypecode" id="hiddenDocTypecode">
+														<input type="hidden" name="docTemplatecode" id="hiddenDocTemplatecode">
 													</td>													
 												</tr>
 												<tr>
 													<td colspan= 4 class="summernote">
-														<textarea class="form-control" id="summernote" name="noticeContents" aria-label="With textarea"></textarea>														
+														<textarea class="form-control" id="summernote" name="docContent" aria-label="With textarea"></textarea>														
 													</td>
 												</tr>
 												<tr style="border: none !important;">
@@ -207,11 +214,6 @@
 
 
 
-
-
-
-
-
 					<!-- 결재라인 모달 -->
 					<div class="modal fade" id="apprLineModal" tabindex="-1" aria-labelledby="apprLineModalLabel" aria-hidden="true">
 						<div class="modal-dialog modal-xl">
@@ -220,38 +222,115 @@
 									<h5 class="modal-title" id="apprLineModalLabel">결재선 설정</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
-								<div class="modal-body" style="border : 1px solid #ddd; border-radius:10px; padding: 20px 30px 10px 30px;">
-									<p style="color: #434343; font-weight: 600; margin-bottom: 0;">사원 검색</p>
-									<p style="color: #bbb; font-size:14px;">작성하실 문서의 유형을 선택해주세요</p>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-md-5">
+											<div class="modalBody1" style="border : 1px solid #ddd; border-radius:10px; padding: 20px 30px 10px 30px;">
+												<strong style="color: #434343; font-size: 16px; margin-bottom: 0;">사원 검색</strong>
+												<p style="color: #bbb; font-size:14px;">결재선에 등록할 사원을 선택해주세요</p>
+												
+												<!-- 검색 창 위치 -->
+												<i class="fas fa-search" style="margin-left: 5px; margin-right: 5px; zoom: 1.5; "></i>
+												<input type="text" id="searchEmpName" placeholder="사원 검색" style="width: 60%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+    											
+    											
+												<ul style="list-style: none; line-height: 185%; margin-top: 15px; margin-left: 5px; padding-left: 5px;">
+													<c:forEach items="${deptEmpList}" var="deptList">
+													    <li>
+													        <a data-bs-toggle="collapse" href="#deptNum_${deptList.deptNum}" style="color: #555; font-size:15px;">
+													            <i class="fas fa-caret-down" style="margin-right: 25px;"></i>
+													            <i class="fas fa-briefcase" style="margin-right: 5px; zoom: 1.2;"></i>
+													            <span>${deptList.deptName}</span>
+													        </a>
+													        <div class="collapse" id="deptNum_${deptList.deptNum}">
+													            <ul style="list-style : none; line-height: 170%;">
+													                <c:forEach items="${deptList.employeeVO}" var="empList">
+												                        <li>
+												                        	<div class="emp-item" style="color: #555; margin-left: 25px;">
+												                                <i class="fas fa-user" style="margin-right: 5px; color: #0275d8; "></i>
+												                                <strong class="posName" style="color: #0275d8;">${empList.posName}</strong>
+												                                <span class="empName">${empList.empName}</span>
+												                                <input class="hiddenEmpNum" type="hidden" value="${empList.empNum}">
+												                                <input class="hiddenDeptName" type="hidden" value="${deptList.deptName}">
+												                                <i class="fas fa-plus approverPlusBtn" style="position: relative; top: 3px; zoom:1.2; float: right; margin-right: 40px; color:#0275d8; cursor: pointer;"></i>
+												                        	</div>
+												                        </li>
+													                </c:forEach>
+													            </ul>
+													        </div>
+													    </li>
+													</c:forEach>																
+												</ul>
+												
+											</div> <!-- modalBody1 -->
+										</div>
+										
+										<div class="col-md-7">
+											<div class="modalBody2" style="border : 1px solid #ddd; border-radius:10px; padding: 5px 10px 10px 10px;">
+												
+												<table class="table table-borderless apprLineTable" style="margin-top: 0px;">
+													<thead>
+														<tr>
+															<th colspan=5 style="font-size: 16px; padding-left: 10px !important; color: #434343; ">
+																결재 라인
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th style="width: 10%;">
+															
+															</th>
+															<th style="width: 20%;">
+																결재자
+															</th>
+															<th style="width: 15%;">
+																소속
+															</th>
+															<th style="width: 15%;">
+																직급
+															</th>
+															<th style="width: 40%; text-align: center !important;">
+																결재순서
+															</th>
+														</tr>
+														<tr>
+															<td>
+																<i class="fas fa-pen" style="zoom: 1.3; margin-left: 10px;"></i>
+															</td>
+															<td>
+																${empVO.empName}
+															</td>
+															<td>
+																${empVO.deptVO.deptName}
+															</td>
+															<td>
+																${empVO.posVO.posName}
+															</td>
+															<td style="text-align: center !important;">
+																기안
+															</td>
+														</tr>
+														
+														<!-- apprLineManager.js -->
 
-									<ul style="list-style: none; line-height: 185%; margin-left: 5px; padding-left: 5px;">
-										<c:forEach items="${docList}" var="docType">
-										    <li>
-										        <a data-bs-toggle="collapse" href="#docType_${docType.docTypecode}" style="color: #555; font-size:15px;">
-										            <i class="fas fa-caret-down" style="margin-right: 20px;"></i>
-										            <i class="fas fa-archive"></i>
-										            <span>${docType.docTypename}</span>
-										        </a>
-										        <div class="collapse" id="docType_${docType.docTypecode}">
-										            <ul style="list-style : none; line-height: 170%;">
-										                <c:forEach items="${docType.docTemplateVO}" var="template">
-									                        <li>
-									                        	<div class="template-item" data-template-code="${template.docTemplatecode}" style="cursor: pointer; color: #555; margin-left: 20px;">
-									                                <i class="far fa-file-alt"></i>
-									                                <span>${template.templateName}</span>
-									                        	</div>
-									                        </li>
-										                </c:forEach>
-										            </ul>
-										        </div>
-										    </li>
-										</c:forEach>																
-									</ul>
+		
+													</tbody>
+												</table>
+												
+												
+												
+																							
+											</div> <!-- modalBody2 -->
+										</div>										
+									</div>
+									
 
 					            </div>
+					            
 								<div class="modal-footer" style="border:none;">
 									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">취소</button>
-									<button type="button" class="btn btn-primary" id="submitDoc">저장</button>
+									<button type="button" class="btn btn-primary" id="submitApprLine">저장</button>
 								</div>
 							</div>
 						</div>
@@ -359,10 +438,13 @@
 	</div>
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
+	
 	<script src="/resources/js/approval/write.js"></script>
+	<script src="/resources/js/approval/apprLineManager.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>	
+	<script src="/resources/js/approval/signManager.js"></script>
 	
 	<script>
-	
 	    // 기안일
 	    const draftDate = new Date();
 	    document.getElementById('draftDate').textContent = draftDate.toISOString().substring(0, 10);	
@@ -377,17 +459,13 @@
 	        $(".calendar-icon").on("click", function() {
 	            $("#expiryDate").datepicker("show");
 	        });
-	    });	    
-	    
+	    });	        
 	</script>
-	
-	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>	
-	<script src="/resources/js/approval/signManager.js"></script>
 	
 	<script type="text/javascript">
 		$('#signListModal').on('shown.bs.modal', function () {
 		    updateSignList(); // 서명 목록 업데이트 함수 호출
-		});	
+		});
 	</script>
 
 </body>
