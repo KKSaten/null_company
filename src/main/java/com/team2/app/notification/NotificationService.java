@@ -31,14 +31,26 @@ public class NotificationService {
 		log.info("=============== 알림 Sse 연결");
 		log.info("emitter 생성");
 		// 시간제한있는 SseEmitter 객체 생성
-		SseEmitter emitter = new SseEmitter(DEFAULT_TIMEOUT);
+		SseEmitter emitter = new SseEmitter(30000L);
 
 		log.info("SseEmitter: {}", employeeVO.getEmpNum());
 		String emitterId = employeeVO.getEmpNum().toString();
 		
 		// 시간 초과나 비동기 요청이 안되면 자동으로 삭제
-		emitter.onCompletion(() -> emitters.remove(emitterId));
-		emitter.onTimeout(() -> emitters.remove(emitterId));
+		emitter.onCompletion(() -> {
+			log.info("========================== Completion 종료");
+			emitters.remove(emitterId);
+		});
+		
+		emitter.onTimeout(() -> {
+			log.info("========================== TimeOut 종료");
+			emitters.remove(emitterId);
+		});
+		
+		emitter.onError((error) -> {
+			log.info("========================== Error 종료");
+			emitters.remove(emitterId);
+		});
 		
 		// 각 emitterId와 emitter 객체 저장
 		save(emitterId, emitter);
@@ -47,7 +59,6 @@ public class NotificationService {
 		notificationVO.setNotificationContent(employeeVO.getEmpId() + "SseEmitter 연결 성공");
 		notificationVO.setNotificationType(NotificationType.CONNECT);
 		notificationVO.setUrl("");
-		
 		// 최초 연결시 더미데이터가 없으면 503 오류가 발생하기 때문에 해당 더미 데이터 생성
 		sendToClient(emitter, emitterId, notificationVO);
 
@@ -56,14 +67,18 @@ public class NotificationService {
 
 		// lastEventId 있다는것은 연결 종료, 그래서 해당 데이터가 남아있는지 살펴보고 있다면 남은 데이터를 전송
 		if (!lastEventId.isEmpty()) {
-			log.info("lastEventId");
+			log.info("lastEventId is not empty!");
 			Map<String, Object> events = findEventCache(employeeVO);
+			
+			log.info("events size : {}", events.size());
 			
 			//lastEventId 이후의 이벤트들에 대해서만 필터링하여 가져와서 메세지를 보낸다.
 			events.entrySet().stream().filter(entry -> lastEventId.compareTo(entry.getKey()) < 0).forEach(entry -> {
 				try {
+					log.info("lastEventId message: {}", emitter);
 					sendToClient(emitter, entry.getKey(), (NotificationVO) entry.getValue());
 				} catch (Exception e) {
+					log.info("lastEventId Error");
 					e.printStackTrace();
 				}
 			});
@@ -81,9 +96,10 @@ public class NotificationService {
 				log.info("send emitterId: {}", emitterId);
 				log.info("send emitter: {}", emitter);
 				saveEventCache(emitterId, notificationVO);
+				log.info("eventsCache size : {}", eventCache.size());
 				sendToClient(emitter, emitterId, notificationVO);
 			} catch (Exception e) {
-				
+				emitters.remove(emitterId);
 				e.printStackTrace();
 			}
 		});
@@ -93,8 +109,11 @@ public class NotificationService {
 	public void sendAll(NotificationVO notificationVO) throws Exception {
 		emitters.forEach((id, em) -> {
 			try {
+				saveEventCache(id, notificationVO);
+				log.info("eventsCache size : {}", eventCache.size());
 				sendToClient(em, id, notificationVO);
 			} catch (Exception e) {
+				emitters.remove(id);
 				e.printStackTrace();
 			}
 		});
