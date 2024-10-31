@@ -1,13 +1,18 @@
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+
+    const fetchResponse = await fetch('/schedule/apiKey');
+    const fetchData = await fetchResponse.json();
+    const apiKey = fetchData.apiKey;
+    const calendarId = fetchData.calendarId;
 
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
 
-        googleCalendarApiKey : "",
+        googleCalendarApiKey : apiKey,
         eventSources :[ 
             {
-                googleCalendarId : '',
+                googleCalendarId : calendarId,
                 color: 'white',
                 textColor: 'red'
             } 

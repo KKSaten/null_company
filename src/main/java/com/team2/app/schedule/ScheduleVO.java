@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class ScheduleVO {
 
-	
 	private Long scheduleNum;
 	private Integer empNum;
 	private String scheduleTitle;

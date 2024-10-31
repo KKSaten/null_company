@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.team2.app.employee.EmployeeVO;
 
@@ -22,10 +24,26 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/schedule/*")
 @Slf4j
 public class ScheduleController {
-
+	
+	@Value("${google.calendar.api-key}")
+	private String googleCalendarApiKey;
+	
+	@Value("${google.Calendar.Id}")
+	private String googleCalendarId;
 	
 	@Autowired
 	private ScheduleService scheduleService;
+	
+	
+	@GetMapping("apiKey")
+	@ResponseBody
+	public Map<String, String> getApiKey() {
+		
+		return Map.of(
+				"apiKey", googleCalendarApiKey,
+				"calendarId", googleCalendarId
+				);
+	}
 	
 	
 	@GetMapping("calendar")
@@ -119,7 +137,15 @@ public class ScheduleController {
 			return "success";
 		}else {
 	        return "fail";
-		}
+		}	
+	}
+	
+	
+	@GetMapping("preview")
+	public void previewSchedule(@AuthenticationPrincipal EmployeeVO employeeVO, Model model) throws Exception{
 		
+		List<ScheduleVO> list = scheduleService.previewSchedule(employeeVO);
+		
+		model.addAttribute("list", list);
 	}
 }

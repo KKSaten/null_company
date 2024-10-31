@@ -21,5 +21,7 @@ public interface ScheduleMapper {
 	int writeSchedule(ScheduleVO scheduleVO) throws Exception;
 	
 	int dragUpdateSchedule(ScheduleVO scheduleVO) throws Exception;
+	
+	List<ScheduleVO> previewSchedule(EmployeeVO employeeVO) throws Exception;
 
 }
