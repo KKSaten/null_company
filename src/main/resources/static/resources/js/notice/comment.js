@@ -40,6 +40,8 @@ commentBtn.addEventListener("click", ()=>{
             alert("댓글이 정상적으로 등록되었습니다.");
             commentContents.value="";
             getList();
+        }else{
+            alert("댓글을 입력해주세요");
         }
     })
 })
@@ -114,6 +116,8 @@ commentDiv.addEventListener("click", (e)=>{
             if(r>0){    
                 alert("댓글이 정상적으로 수정되었습니다.");
                 getList(); 
+            }else{
+                alert("공백으로 수정은 불가능합니다");
             }
         })
     }
@@ -164,6 +168,8 @@ commentDiv.addEventListener("click", (e)=>{
             if(r>0){    
                 alert("댓글이 정상적으로 등록되었습니다.");
                 getList();
+            }else{
+                alert("답글을 입력해주세요");
             }
         })
     }
@@ -211,6 +217,8 @@ commentDiv.addEventListener("click", (e)=>{
             if(r>0){    
                 alert("답글이 정상적으로 수정되었습니다.");
                 getList(); 
+            }else{
+                alert("공백으로 수정은 불가능합니다");
             }
         })
     }

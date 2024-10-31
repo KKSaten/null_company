@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.team2.app.comment.CommentService;
 import com.team2.app.comment.CommentVO;
 import com.team2.app.employee.EmployeeVO;
+
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -43,7 +46,15 @@ public class ReplyController {
 	
 	
 	@PostMapping("write")
-	public String writeReply(ReplyVO replyVO, Model model) throws Exception{
+	public String writeReply(@Valid ReplyVO replyVO, BindingResult bindingResult, Model model) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			int result = 0;
+			
+			model.addAttribute("result", result);
+			
+			return "commons/result";
+		}
 		
 		SecurityContext context = SecurityContextHolder.getContext();	
 		Authentication authentication = context.getAuthentication();
@@ -80,7 +91,15 @@ public class ReplyController {
 	}
 	
 	@PostMapping("modify")
-	public String modifyReply(ReplyVO replyVO, Model model) throws Exception{
+	public String modifyReply(@Valid ReplyVO replyVO, BindingResult bindingResult, Model model) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			int result = 0;
+			
+			model.addAttribute("result", result);
+			
+			return "commons/result";
+		}
 		
 		int result = replyService.modifyReply(replyVO);
 		
