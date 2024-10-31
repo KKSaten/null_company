@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.team2.app.department.DepartmentVO;
+import com.team2.app.haerin.orders.OrdersVO;
 import com.team2.app.positions.PositionsVO;
 import com.team2.app.role.RoleVO;
 import com.team2.app.util.FileVO;
@@ -41,9 +42,11 @@ public interface EmployeeMapper {
 	
 	public List<PositionsVO> getPos (EmployeeVO employeeVO) throws Exception;
 	
-	public int empListUpdate(EmployeeVO employeeVO)throws Exception;
-	public int empListInsert(EmployeeVO employeeVO)throws Exception;
+	public int empListUpdate(OrdersVO ordersVO)throws Exception;
+	public int empListInsert(OrdersVO ordersVO)throws Exception;
 	
 	
 	public List<DeptEmpVO> deptEmpList() throws Exception;
+
+	public void vacationAdd(EmployeeVO employeeV);
 }

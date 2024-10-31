@@ -4,39 +4,46 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team2.app.haerin.orders.OrdersMapper">
+
 <select id="list" resultType="OrdersVO">
-   SELECT 
-        O.ORDER_NUM AS orderNum,                  -- 발령 번호
-        O.APPOINTMENT_DATE AS appointmentDate,    -- 발령 일자
-        E.EMP_NUM AS empNum,                      -- 사번
-        E.EMP_NAME AS empName,                    -- 성명
-        P_PREV.POS_NAME AS previousPosition,      -- 이전 직위
-        P_NEW.POS_NAME AS newPosition,            -- 발령 직위
-        D_PREV.DEPT_NAME AS previousDepartment,   -- 이전 부서
-        D_NEW.DEPT_NAME AS newDepartment,         -- 발령 부서
-        R_PREV.ROLE_NAME AS previousRole,         -- 이전 직책
-        R_NEW.ROLE_NAME AS newRole,               -- 발령 직책
-        O.ORDER_SITUATION AS orderSituation       -- 발령 구분
+    SELECT 
+        O.ORDER_NUM AS orderNum,                      -- 발령 번호
+        O.APPOINTMENT_DATE AS appointmentDate,        -- 발령 일자
+        O.ORDER_DATE AS orderDate,                    -- 등록 일자
+        E.EMP_NUM AS empNum,                          -- 사번
+        E.EMP_NAME AS empName,                        -- 성명
+        O.PREV_POS_NUM AS prevPosNum,                 -- 이전 직위 번호
+        O.PREV_ROLE_NUM AS prevRoleNum,               -- 이전 직책 번호
+        O.PREV_DEPARTMENT_NUM AS prevDepartmentNum,   -- 이전 부서 번호
+        O.POS_NUM AS posNum,                          -- 발령 직위 번호
+        O.DEPARTMENT_NUM AS departmentNum,            -- 발령 부서 번호
+        O.ROLE_NUM AS roleNum,                        -- 발령 직책 번호
+        O.ORDER_SITUATION AS orderSituation,           -- 발령 구분
+        D.DEPT_NAME AS departmentName,
+        P.POS_NAME AS posName,
+        R.ROLE_NAME AS RoleName,
+        PD.DEPT_NAME AS prevDepartmentName,
+        PP.POS_NAME AS prevPosName,
+        PR.ROLE_NAME AS prevRoleName
     FROM 
         ORDERS O
-    JOIN 
+    INNER JOIN 
         EMPLOYEE E ON O.EMP_NUM = E.EMP_NUM
-    LEFT JOIN 
-        POSITIONS P_PREV ON P_PREV.POS_NUM = E.POS_NUM           -- 이전 직위
-    LEFT JOIN 
-        POSITIONS P_NEW ON P_NEW.POS_NUM = O.POS_NUM             -- 발령 직위
-    LEFT JOIN 
-        DEPARTMENT D_PREV ON D_PREV.DEPT_NUM = E.DEPT_NUM        -- 이전 부서
-    LEFT JOIN 
-        DEPARTMENT D_NEW ON D_NEW.DEPT_NUM = O.DEPARTMENT_NUM    -- 발령 부서
-    LEFT JOIN 
-        ROLE R_PREV ON R_PREV.ROLE_NUM = E.ROLE_NUM              -- 이전 직책
-    LEFT JOIN 
-        ROLE R_NEW ON R_NEW.ROLE_NUM = O.ROLE_NUM                -- 발령 직책
+    INNER JOIN 
+        DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM      -- 부서 조인
+    INNER JOIN 
+        POSITIONS P ON E.POS_NUM = P.POS_NUM          -- 직책 조인
+    INNER JOIN 
+        ROLE R ON E.ROLE_NUM = R.ROLE_NUM             -- 역할 조인
+    INNER JOIN 
+        DEPARTMENT PD ON O.PREV_DEPARTMENT_NUM = PD.DEPT_NUM       -- 부서 조인
+    INNER JOIN 
+        POSITIONS PP ON O.PREV_POS_NUM = PP.POS_NUM          -- 직책 조인
+    INNER JOIN 
+        ROLE PR ON O.PREV_ROLE_NUM = PR.ROLE_NUM             -- 역할 조인
     ORDER BY 
-        O.APPOINTMENT_DATE ASC;                                  -- 발령 일자 기준 정렬
+        O.ORDER_NUM DESC;                        -- 발령 일자 기준 정렬
 </select>
-
 
 
 </mapper>

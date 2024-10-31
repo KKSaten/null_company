@@ -85,9 +85,9 @@
 														<td>${vo.appointmentDate}</td>
 														<td>${vo.empNum}</td>
 														<td>${vo.empName}</td>
-														<td>${vo.previousPosition} ➡️ ${vo.newPosition}</td>
-														<td>${vo.previousRole} ➡️ ${vo.newRole}</td>
-														<td>${vo.previousDepartment} ➡️ ${vo.newDepartment}</td>
+														<td>${vo.prevPosName} ➡️ ${vo.posName}</td>
+														<td>${vo.prevRoleName} ➡️ ${vo.roleName}</td>
+														<td>${vo.prevDepartmentName} ➡️ ${vo.departmentName}</td>
 														<td>
 														  <c:choose>
 											                <c:when test="${vo.orderSituation == true}" >

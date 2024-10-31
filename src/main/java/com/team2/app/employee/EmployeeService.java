@@ -27,6 +27,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.app.department.DepartmentVO;
+import com.team2.app.haerin.orders.OrdersVO;
 import com.team2.app.positions.PositionsVO;
 import com.team2.app.role.RoleVO;
 import com.team2.app.util.FileManager;
@@ -161,7 +162,8 @@ public class EmployeeService {
 			fileVO.setEmpNum(employeeVO.getEmpNum());
 			fileVO.setOriName(attach.getOriginalFilename());
 			fileVO.setFileName(fileName);
-			
+			//vacation insert만들기
+			employeeMapper.vacationAdd(employeeVO);
 			employeeMapper.saveFile(fileVO);
 			
 		}
@@ -178,12 +180,12 @@ public class EmployeeService {
 		return employeeMapper.empList();
 	}
 	
-	public int empListUpdate(EmployeeVO employeeVO)throws Exception{
-		return employeeMapper.empListUpdate(employeeVO);
+	public int empListUpdate(OrdersVO ordersVO)throws Exception{
+		return employeeMapper.empListUpdate(ordersVO);
 		
 	}
-	public int empListInsert(EmployeeVO employeeVO)throws Exception{
-		return employeeMapper.empListInsert(employeeVO);
+	public int empListInsert(OrdersVO ordersVO)throws Exception{
+		return employeeMapper.empListInsert(ordersVO);
 		
 	}
 	
