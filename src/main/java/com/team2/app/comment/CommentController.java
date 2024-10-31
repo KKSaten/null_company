@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.team2.app.notification.NotificationService;
 import com.team2.app.notification.NotificationType;
 import com.team2.app.notification.NotificationVO;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -51,7 +53,15 @@ public class CommentController {
 	}
 	
 	@PostMapping("write")
-	public String writeComment(CommentVO commentVO, Model model) throws Exception{
+	public String writeComment(@Valid CommentVO commentVO, BindingResult bindingResult, Model model) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			int result = 0;
+			
+			model.addAttribute("result", result);
+			
+			return "commons/result";
+		}
 		
 		SecurityContext context = SecurityContextHolder.getContext();	
 		Authentication authentication = context.getAuthentication();
@@ -127,7 +137,15 @@ public class CommentController {
 	
 	
 	@PostMapping("modify")
-	public String modifyComment2(CommentVO commentVO, Model model) throws Exception{
+	public String modifyComment2(@Valid CommentVO commentVO, BindingResult bindingResult, Model model) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			int result = 0;
+			
+			model.addAttribute("result", result);
+			
+			return "commons/result";
+		}
 		
 		int result = commentService.modifyComment(commentVO);
 		

@@ -44,4 +44,9 @@ public class ScheduleService {
 		
 		return scheduleMapper.dragUpdateSchedule(scheduleVO);
 	}
+	
+	public List<ScheduleVO> previewSchedule(EmployeeVO employeeVO) throws Exception{
+		
+		return scheduleMapper.previewSchedule(employeeVO);
+	}
 }
