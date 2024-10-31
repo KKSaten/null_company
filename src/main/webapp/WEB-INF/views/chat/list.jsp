@@ -144,18 +144,23 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
+						<h6>채팅방 이름</h6>
 						<div class="input-icon blank ">
 							<span class="input-icon-addon"> <i class="far fa-comments"></i>
 							</span> <input type="text" class="form-control" id="roomName"
 								placeholder="채팅방 이름" name="roomName"></input>
 						</div>
-						<div class="card shadow-none" style="padding-left: 35px;">
+						<br>
+						<h6>대화상대 초대</h6>
+						<div id="roomMember" class="mb-3">
+										
+						</div>
+						
+						<div class="card shadow-none" style="padding-left: 15px;">
 							<table>
-								<thead style="height: 40px; vertical-align: top;">
-									<tr>
-										<th scope="col"><h4></h4></th>
-									</tr>
+								<thead>
 								</thead>
+								
 								<tbody>
 									<c:forEach items="${deptList}" var="deptList">
 										<tr>
@@ -171,7 +176,7 @@
 												<div class="collapse" id="collapse${deptList.deptNum}">
 													<c:forEach items="${empList}" var="empList">
 														<c:if test="${deptList.deptNum eq empList.deptNum}">
-															<div onclick="alert(`${empList.empNum}`)">
+															<div onclick="alert(`${empList.empNum}`)" style="cursor:pointer;">
 																<i class="fas fa-user" id="icon${deptList.deptNum}"
 																	style="margin-left: 40px;"></i>
 																${empList.roleVO.roleName} ${empList.empName} <br>

@@ -3,3 +3,12 @@ function chCaret(deptNum){
 
     icon.classList.toggle('degree');
 }
+
+
+
+function addMember (empNum) {
+
+    let roomMember = [];
+    roomMember.push(empNum);
+
+}

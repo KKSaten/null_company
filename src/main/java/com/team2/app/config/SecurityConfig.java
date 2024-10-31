@@ -60,10 +60,6 @@ public class SecurityConfig {
 				(csrf)->
 				csrf.disable()
 				);
-//			.cors()
-//			.and()
-//			.csrf()
-//			.disable();
 		
 		security
 			.authorizeHttpRequests(
