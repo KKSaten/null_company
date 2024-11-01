@@ -18,6 +18,27 @@
 .degree {
 	transform: rotate(90deg);
 }
+
+.circular-image {
+	width: 50px; /* 원하는 크기로 조정 */
+	height: 50px; /* width와 동일하게 설정 */
+	border-radius: 50%; /* 원형으로 만들기 */
+	object-fit: cover; /* 이미지가 비율에 맞게 잘림 */
+	border: 2px solid #c3e0ff; /* 테두리 추가 (선택 사항) */
+}
+
+.roomMemberdiv {
+	width: 493px;
+	height: 88px;
+}
+
+.roomMemberover {
+	overflow: auto;
+}
+
+.addMemberColor {
+	color: blue;
+}
 </style>
 <title>채팅방 리스트</title>
 </head>
@@ -152,15 +173,13 @@
 						</div>
 						<br>
 						<h6>대화상대 초대</h6>
-						<div id="roomMember" class="mb-3">
-										
-						</div>
-						
-						<div class="card shadow-none" style="padding-left: 15px;">
+						<div id="roomMemberdiv" class="row row-cols-5 my-3"></div>
+
+						<div class="card shadow-none py-3" style="padding-left: 15px;">
 							<table>
 								<thead>
 								</thead>
-								
+
 								<tbody>
 									<c:forEach items="${deptList}" var="deptList">
 										<tr>
@@ -176,7 +195,8 @@
 												<div class="collapse" id="collapse${deptList.deptNum}">
 													<c:forEach items="${empList}" var="empList">
 														<c:if test="${deptList.deptNum eq empList.deptNum}">
-															<div onclick="alert(`${empList.empNum}`)" style="cursor:pointer;">
+															<div onclick="manageMember(${empList.empNum})"
+																style="cursor: pointer;" id="addMember${empList.empNum}">
 																<i class="fas fa-user" id="icon${deptList.deptNum}"
 																	style="margin-left: 40px;"></i>
 																${empList.roleVO.roleName} ${empList.empName} <br>
@@ -195,7 +215,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-warning"
 							data-bs-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary">만들기</button>
+						<button type="button" class="btn btn-primary" id="makeChatBtn">만들기</button>
 					</div>
 				</div>
 			</div>

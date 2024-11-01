@@ -41,7 +41,6 @@ public class EmployeeVO implements UserDetails {
 	private RoleVO roleVO;
 	private DepartmentVO deptVO;
 	private PositionsVO posVO;
-	private Pager pager;
 	private String posName;
 	
 	@Override

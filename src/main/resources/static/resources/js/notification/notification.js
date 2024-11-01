@@ -10,7 +10,7 @@ function clickNotify(data) {
 	content.target = data.notificationContent;
 
 	$.notify(content, {
-	  type: 'secondary',
+	  type: 'primary',
 	  placement: {
 		from: 'bottom',
 		align: 'right',
