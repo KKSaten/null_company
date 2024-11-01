@@ -62,6 +62,189 @@ document.querySelectorAll('.emp-item').forEach(item => {
 
 
 
+/*// 모달이 열릴 때 초기화
+const apprLineModal = document.getElementById('apprLineModal');
+apprLineModal.addEventListener('show.bs.modal', function () {
+    // 선택된 템플릿 초기화
+    if (selectedEmp) {
+        selectedEmp.style.backgroundColor = ''; // 선택 해제
+        selectedEmp = null;
+    }
+
+    // 모든 collapse를 닫음
+    document.querySelectorAll('.collapse').forEach(collapse => {
+        collapse.classList.remove('show');
+    });
+});	*/    
+
+
+
+
+// 사원 리스트에서 결재 라인에 결재자로 추가 기능
+
+// 결재자 수 카운트
+let approverCount = 0;
+// 추가된 결재자 리스트
+let addedApprovers = [];
+
+
+// 결재선 설정 버튼에 값을 담기 위한 리스트
+let empNames = [];
+let posNames = [];
+
+// 좌측 사원 리스트에 있는 추가 버튼
+$("#apprLineModalBody1").on("click", ".approverPlusBtn", function(){
+
+	const empNum = $(this).siblings('.hiddenEmpNum').val();	
+    const empName = $(this).siblings('.empName').text();
+    const deptName = $(this).siblings('.hiddenDeptName').val();
+    const posName = $(this).siblings('.posName').text();	
+    
+	approverCount++;
+
+    // 결재 라인에 추가할 새로운 구조 생성
+    const newApprovalLine = `
+        <tr class="approverField">
+            <td colspan="5" style="text-align: center !important; padding: 0 !important;">
+                <i class="fas fa-caret-down" style="zoom: 2.0;"></i>
+            </td>
+        </tr>
+        <tr class="approverField approverFieldApprover">
+            <td>
+                <i class="fas fa-minus removeApprover" style="zoom: 1.5; color: #d9534f; cursor: pointer; margin-left: 10px; position: relative; top: 1px;"></i>
+            </td>
+            <td>
+				${empName}
+				<input class="hiddenEmpNum" type="hidden" value="${empNum}">
+			</td>
+            <td>${posName}</td>
+            <td>${deptName}</td>
+            <td>결재 ${approverCount}</td>
+        </tr>
+    `;
+
+    // apprLineTable에 새로운 결재 라인 추가
+    $('.apprLineTable tbody').append(newApprovalLine);
+			
+	
+	addedApprovers.push(empNum); // 추가된 사원 empNum 저장
+	empNames.push(empName);
+	posNames.push(posName);
+	
+	$(this).hide(); // 추가한 사원의 + 버튼 숨김
+	
+	if (approverCount >= 3) { // 결재자는 최대 3명까지만 추가
+		$('.approverPlusBtn').hide();
+	    return;
+	}
+	
+
+})
+
+
+// 결재자 제거
+$('#apprLineModalBody2').on('click','.removeApprover' , function() {
+	
+	const currentRow = $(this).closest('tr');
+	const empNum = currentRow.find('.hiddenEmpNum').val();
+	const empName = currentRow.find('.empName').text().trim();
+	const posName = currentRow.find('.posName').text().trim();
+	
+	// 현재 행 이후의 모든 결재자들 제거
+	let nextRowRemoveCount = 0;
+	currentRow.nextAll().each(function() {
+	    const nextEmpNum = $(this).find('.hiddenEmpNum').val();
+	    addedApprovers = addedApprovers.filter(code => code !== nextEmpNum); // 다음 모든 결재자 empNum 제거
+		
+		nextRowRemoveCount++;
+		
+		
+		//요것들 지금 작동안함
+		const nextEmpName = $(this).find('.empName').text().trim();
+		empNames = empNames.filter(code => code !== nextEmpName);		
+		
+		const nextPosName = $(this).find('.posName').text().trim();
+		posNames = posNames.filter(code => code !== nextPosName);		
+		
+		
+	});
+	currentRow.nextAll().remove(); // 제거한 결재자 이후의 결재자까지 모두 삭제
+	
+	approverCount = approverCount - (nextRowRemoveCount/2); // 화살표 행까지 같이 지워야해서
+	
+	currentRow.prev().remove(); // 현재 결재자 행 이전 행(화살표 아이콘) 삭제
+	currentRow.remove(); // 현재 결재자 행을 삭제
+	
+	// 추가된 empNum 리스트에서 제거
+	addedApprovers = addedApprovers.filter(code => code !== empNum);
+	
+	
+	
+	
+	//요것들 지금 작동안함
+	empNames = empNames.filter(code => code !== empName);
+	posNames = posNames.filter(code => code !== posName);
+	
+	
+	
+	
+	
+	alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);
+	
+	approverCount --;
+
+    // 결재자 수가 3명 미만이 되면 추가 버튼 다시 보임
+    if (approverCount < 3) {
+        $('.approverPlusBtn').show();
+    } else {
+		$('.approverPlusBtn').hide();
+	}
+	
+	// 결재라인 리스트에 결재자가 추가되어있는지 판별
+	$('.emp-item').each(function () {
+	    const empNumInList = $(this).find('.hiddenEmpNum').val();
+	    if (!addedApprovers.includes(empNumInList)) { // 결재자가 아닌 경우 + 버튼 보이기
+	        $(this).find('.approverPlusBtn').show(); 
+	    } else {
+	        $(this).find('.approverPlusBtn').hide(); 
+	    }
+	});
+	
+});
+	
+	
+// 결재라인 저장
+$('#submitApprLine').on('click', function() {
+	
+	const apprLineBtn = document.getElementById('apprLineBtn');
+	let apprLineText = '';
+	
+	if (!empNames[0]) {
+		apprLineText = '결재선 설정';
+	}
+	if (empNames[0]) {
+		apprLineText += `(${posNames[0]}) ${empNames[0]}`;
+	}
+	if (empNames[1]) {
+		if (apprLineText) apprLineText += ' <i class="fas fa-caret-right" style="zoom:1.3; margin-left: 10px; margin-right: 10px; position:relative; top: 1px;"></i> ';
+		apprLineText += `(${posNames[1]}) ${empNames[1]}`;
+	}
+	if (empNames[2]) {
+		if (apprLineText) apprLineText += ' <i class="fas fa-caret-right" style="zoom:1.3; margin-left: 10px; margin-right: 10px; position:relative; top: 1px;"></i> ';
+		apprLineText += `(${posNames[2]}) ${empNames[2]}`;
+	}
+	
+	alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);
+	
+	apprLineBtn.innerHTML = apprLineText;
+	
+	// 모달 닫기
+	const apprLineModal = document.getElementById('apprLineModal');
+	const modal = bootstrap.Modal.getInstance(apprLineModal); // 기존 인스턴스 가져오기
+	modal.hide(); // 모달 닫기
+});
+	
+
 // 모달이 열릴 때 초기화
 const apprLineModal = document.getElementById('apprLineModal');
 apprLineModal.addEventListener('show.bs.modal', function () {
@@ -75,85 +258,24 @@ apprLineModal.addEventListener('show.bs.modal', function () {
     document.querySelectorAll('.collapse').forEach(collapse => {
         collapse.classList.remove('show');
     });
-});	    
-
-
-
-// 사원 리스트에서 결재 라인에 결재자로 추가 기능
-$(document).ready(function() {
 	
-	// 결재자 수 카운트
-	let approverCount = 0;
-	// 추가된 결재자 리스트
-	let addedApprovers = [];
 	
-    $('.approverPlusBtn').on('click', function() {
-		
-		if (approverCount >= 3) {
-		    return;
-		}
-		
-		const empNum = $(this).siblings('.hiddenEmpNum').val();
-		if (addedApprovers.includes(empNum)) { // 이미 추가된 사원인지 체크
-			return;
-		}
-		
-        const empName = $(this).siblings('.empName').text();
-        const deptName = $(this).siblings('.hiddenDeptName').val();
-        const posName = $(this).siblings('.posName').text();
-        
-        // 결재 라인에 추가할 새로운 구조 생성
-        const newApprovalLine = `
-            <tr>
-                <td colspan="5" style="text-align: center !important;">
-                    <i class="fas fa-caret-down" style="zoom: 1.5;"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <i class="fas fa-times removeApprover" style="zoom: 1.5; color: #d9534f; cursor: pointer; margin-left: 10px;"></i>
-                </td>
-                <td>${empName}</td>
-                <td>${deptName}</td>
-                <td>${posName}</td>
-                <td style="text-align: center;">
-				</td>
-            </tr>
-        `;
+	// 초기화 로직
+	const apprLineBtn = document.getElementById('apprLineBtn');
+	//if(apprLineBtn.innerText == '결재선 설정') {
+		approverCount = 0;
+		addedApprovers = [];
+		empNames = [];
+		posNames = [];
+		$('.approverField').remove(); // 결재 라인 초기화
+		$('.approverPlusBtn').show(); // 모든 + 버튼 다시 보이기		
+	//}
+	
+});	
 
-        // apprLineTable에 새로운 결재 라인 추가
-        $('.apprLineTable tbody').append(newApprovalLine);
-		
-		
-		
-		approverCount++;
-		addedApprovers.push(empNum); // 추가된 사원 empNum 저장
-		$(this).hide(); // 추가한 사원의 + 버튼 숨김
-		
-		// 결재자 수 3명 찍으면 + 버튼 감추기
-		if (approverCount >= 3) {
-		    $('.approverPlusBtn').hide();
-		}
-		
-		// 결재자 제거
-		$('.removeApprover').last().on('click', function() {
-		    // 해당 결재자 행 삭제
-		    $(this).closest('tr').prev().remove(); // caret-down 아이콘 삭제
-		    $(this).closest('tr').remove(); // 클릭한 <tr> 삭제
-		    approverCount--; // 결재자 수 감소
-			
-			// 추가된 empNum 리스트에서 제거
-			const removedEmpNum = $(this).closest('tr').find('td').eq(1).text(); // 사원 이름으로 대체하여 코드 찾기
-			addedApprovers = addedApprovers.filter(code => code !== removedEmpNum);
+	
+$('#apprLineModal').on('hidden.bs.modal', function () {
+	
 
-		    // 결재자 수가 3명 미만이 되면 추가 버튼 다시 보임
-		    if (approverCount < 3) {
-		        $('.approverPlusBtn').show();
-		    }
-			
-			// 제거된 사원의 + 버튼 다시 보이기
-			$('.hiddenEmpNum .approverPlusBtn').show();
-		});
-		
-    });
+	
 });
