@@ -50,6 +50,15 @@
 			padding-right: 5px !important;
 			font-size: 15px;
 		}
+		.approverPlusBtn {
+			position: relative;
+			top: 3px;
+			zoom:1.2;
+			float: right;
+			margin-right: 40px;
+			color:#0275d8;
+			cursor: pointer;
+		}		
 	</style>	
 
 </head>
@@ -134,6 +143,9 @@
 														<button type="button" class="btn btn-light paramBtn" id="apprLineBtn" data-bs-toggle="modal" data-bs-target="#apprLineModal">
 															결재선 설정
 														</button>
+														<input type="hidden" name="approver" id="hiddenApprover1">
+														<input type="hidden" name="approver" id="hiddenApprover2">
+														<input type="hidden" name="approver" id="hiddenApprover3">
 													</td>													
 												</tr>
 												<tr class="custom">																												
@@ -225,9 +237,9 @@
 								<div class="modal-body">
 									<div class="row">
 										<div class="col-md-5">
-											<div class="modalBody1" style="border : 1px solid #ddd; border-radius:10px; padding: 20px 30px 10px 30px;">
+											<div class="modalBody1" id="apprLineModalBody1" style="border : 1px solid #ddd; border-radius:10px; padding: 20px 30px 10px 30px;">
 												<strong style="color: #434343; font-size: 16px; margin-bottom: 0;">사원 검색</strong>
-												<p style="color: #bbb; font-size:14px;">결재선에 등록할 사원을 선택해주세요</p>
+												<p style="color: #bbb; font-size:14px;">결재선에 등록할 사원을 순서대로 선택해주세요</p>
 												
 												<!-- 검색 창 위치 -->
 												<i class="fas fa-search" style="margin-left: 5px; margin-right: 5px; zoom: 1.5; "></i>
@@ -247,12 +259,26 @@
 													                <c:forEach items="${deptList.employeeVO}" var="empList">
 												                        <li>
 												                        	<div class="emp-item" style="color: #555; margin-left: 25px;">
-												                                <i class="fas fa-user" style="margin-right: 5px; color: #0275d8; "></i>
+												                                <c:choose>
+												                                	<c:when test="${empList.empNum != empVO.empNum}">
+														                                <i class="fas fa-user" style="margin-right: 5.5px; color: #0275d8; zoom: 1.1;"></i>
+												                                	</c:when>
+												                                	<c:otherwise>
+												                                		<i class="fas fa-user-edit" style="margin-right: 0px; color: #5cb85c; zoom: 1.1;"></i>
+												                                	</c:otherwise>
+												                                </c:choose>												                        	
 												                                <strong class="posName" style="color: #0275d8;">${empList.posName}</strong>
 												                                <span class="empName">${empList.empName}</span>
 												                                <input class="hiddenEmpNum" type="hidden" value="${empList.empNum}">
 												                                <input class="hiddenDeptName" type="hidden" value="${deptList.deptName}">
-												                                <i class="fas fa-plus approverPlusBtn" style="position: relative; top: 3px; zoom:1.2; float: right; margin-right: 40px; color:#0275d8; cursor: pointer;"></i>
+												                                
+												                                <c:choose>
+												                                	<c:when test="${empList.empNum != empVO.empNum}">
+													                                	<i class="fas fa-plus approverPlusBtn"></i>
+												                                	</c:when>
+												                                	<c:otherwise>
+												                                	</c:otherwise>
+												                                </c:choose>
 												                        	</div>
 												                        </li>
 													                </c:forEach>
@@ -266,7 +292,7 @@
 										</div>
 										
 										<div class="col-md-7">
-											<div class="modalBody2" style="border : 1px solid #ddd; border-radius:10px; padding: 5px 10px 10px 10px;">
+											<div class="modalBody2" id="apprLineModalBody2" style="border : 1px solid #ddd; border-radius:10px; padding: 5px 10px 10px 10px;">
 												
 												<table class="table table-borderless apprLineTable" style="margin-top: 0px;">
 													<thead>
@@ -281,16 +307,16 @@
 															<th style="width: 10%;">
 															
 															</th>
-															<th style="width: 20%;">
+															<th style="width: 30%;">
 																결재자
-															</th>
-															<th style="width: 15%;">
-																소속
 															</th>
 															<th style="width: 15%;">
 																직급
 															</th>
-															<th style="width: 40%; text-align: center !important;">
+															<th style="width: 20%;">
+																소속
+															</th>
+															<th style="width: 25%;">
 																결재순서
 															</th>
 														</tr>
@@ -300,14 +326,15 @@
 															</td>
 															<td>
 																${empVO.empName}
+																<input id="hiddenDraftEmpNum" type="hidden" value="${empVO.empNum}">
+															</td>
+															<td>
+																${empVO.posVO.posName}
 															</td>
 															<td>
 																${empVO.deptVO.deptName}
 															</td>
 															<td>
-																${empVO.posVO.posName}
-															</td>
-															<td style="text-align: center !important;">
 																기안
 															</td>
 														</tr>
