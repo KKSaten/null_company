@@ -50,6 +50,9 @@
 			padding-right: 5px !important;
 			font-size: 15px;
 		}
+		.apprLineTable > tbody > .approverFieldApprover > td {
+			background-color: #f6f6f6 !important;
+		}					
 		.approverPlusBtn {
 			position: relative;
 			top: 3px;
@@ -237,7 +240,7 @@
 								<div class="modal-body">
 									<div class="row">
 										<div class="col-md-5">
-											<div class="modalBody1" id="apprLineModalBody1" style="border : 1px solid #ddd; border-radius:10px; padding: 20px 30px 10px 30px;">
+											<div class="modalBody1" id="apprLineModalBody1" style="border : 1px solid #ddd; border-radius:10px; padding: 20px 30px 10px 30px; min-height: 360px;">
 												<strong style="color: #434343; font-size: 16px; margin-bottom: 0;">사원 검색</strong>
 												<p style="color: #bbb; font-size:14px;">결재선에 등록할 사원을 순서대로 선택해주세요</p>
 												
@@ -292,7 +295,7 @@
 										</div>
 										
 										<div class="col-md-7">
-											<div class="modalBody2" id="apprLineModalBody2" style="border : 1px solid #ddd; border-radius:10px; padding: 5px 10px 10px 10px;">
+											<div class="modalBody2" id="apprLineModalBody2" style="border : 1px solid #ddd; border-radius:10px; padding: 5px 10px 10px 10px; height: 360px;">
 												
 												<table class="table table-borderless apprLineTable" style="margin-top: 0px;">
 													<thead>
@@ -307,13 +310,13 @@
 															<th style="width: 10%;">
 															
 															</th>
-															<th style="width: 30%;">
+															<th style="width: 25%;">
 																결재자
 															</th>
 															<th style="width: 15%;">
 																직급
 															</th>
-															<th style="width: 20%;">
+															<th style="width: 25%;">
 																소속
 															</th>
 															<th style="width: 25%;">
@@ -322,7 +325,7 @@
 														</tr>
 														<tr>
 															<td>
-																<i class="fas fa-pen" style="zoom: 1.3; margin-left: 10px;"></i>
+																<!-- <i class="fas fa-pen" style="zoom: 1.3; margin-left: 10px;"></i> -->
 															</td>
 															<td>
 																${empVO.empName}
