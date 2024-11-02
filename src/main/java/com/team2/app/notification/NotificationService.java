@@ -1,7 +1,9 @@
 package com.team2.app.notification;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -31,25 +33,34 @@ public class NotificationService {
 		log.info("=============== 알림 Sse 연결");
 		log.info("emitter 생성");
 		// 시간제한있는 SseEmitter 객체 생성
-		SseEmitter emitter = new SseEmitter(30000L);
+		SseEmitter emitter = new SseEmitter(DEFAULT_TIMEOUT);
 
 		log.info("SseEmitter: {}", employeeVO.getEmpNum());
-		String emitterId = employeeVO.getEmpNum().toString();
+		String emitterId = employeeVO.getEmpNum().toString()+System.currentTimeMillis();;
 		
 		// 시간 초과나 비동기 요청이 안되면 자동으로 삭제
 		emitter.onCompletion(() -> {
 			log.info("========================== Completion 종료");
-			emitters.remove(emitterId);
+			try {
+				delete(employeeVO.getEmpId().toString());
+			} catch (Exception e1) {
+			}
 		});
 		
 		emitter.onTimeout(() -> {
 			log.info("========================== TimeOut 종료");
-			emitters.remove(emitterId);
+			try {
+				delete(employeeVO.getEmpId().toString());
+			} catch (Exception e1) {
+			}
 		});
 		
 		emitter.onError((error) -> {
 			log.info("========================== Error 종료");
-			emitters.remove(emitterId);
+			try {
+				delete(employeeVO.getEmpId().toString());
+			} catch (Exception e1) {
+			}
 		});
 		
 		// 각 emitterId와 emitter 객체 저장
@@ -61,6 +72,7 @@ public class NotificationService {
 		notificationVO.setUrl("");
 		// 최초 연결시 더미데이터가 없으면 503 오류가 발생하기 때문에 해당 더미 데이터 생성
 		sendToClient(emitter, emitterId, notificationVO);
+		
 
 		log.info("emitters length : {}", emitters.size());
 		log.info("emitterId : {}", emitterId);
@@ -99,8 +111,10 @@ public class NotificationService {
 				log.info("eventsCache size : {}", eventCache.size());
 				sendToClient(emitter, emitterId, notificationVO);
 			} catch (Exception e) {
-				emitters.remove(emitterId);
-				e.printStackTrace();
+				try {
+					delete(notificationVO.getEmployeeVO().getEmpId().toString());
+				} catch (Exception e1) {
+				}
 			}
 		});
 	}
@@ -113,8 +127,10 @@ public class NotificationService {
 				log.info("eventsCache size : {}", eventCache.size());
 				sendToClient(em, id, notificationVO);
 			} catch (Exception e) {
-				emitters.remove(id);
-				e.printStackTrace();
+				try {
+					delete(notificationVO.getEmployeeVO().getEmpId().toString());
+				} catch (Exception e1) {
+				}
 			}
 		});
 	}
@@ -158,9 +174,15 @@ public class NotificationService {
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
-	// Sse 객제 삭제
+	// Sse 객체 삭제
 	public void delete(String emitterId) throws Exception {
-		log.info("delete");
-		emitters.remove(emitterId);
+
+		 Iterator<Map.Entry<String, SseEmitter>> iterator = emitters.entrySet().iterator();
+	        while (iterator.hasNext()) {
+	            Entry<String, SseEmitter> entry = iterator.next();
+	            if (entry.getKey().startsWith(emitterId)) {
+	                iterator.remove(); // 조건에 맞는 항목 삭제
+	            }
+	        }
 	}
 }

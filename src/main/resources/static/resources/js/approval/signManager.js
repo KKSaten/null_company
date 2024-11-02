@@ -122,6 +122,7 @@ function openSignModal() {
 
 // 서명 저장 버튼 클릭 이벤트
 document.getElementById('saveSignBtn').addEventListener('click', function() {
+	
 	if (signaturePad.isEmpty()) {
 		alert("서명을 입력해 주세요.");
 		return;

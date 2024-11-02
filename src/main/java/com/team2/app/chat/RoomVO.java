@@ -1,8 +1,9 @@
 package com.team2.app.chat;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.team2.app.employee.EmployeeVO;
 
 import lombok.Data;
@@ -10,10 +11,10 @@ import lombok.Data;
 @Data
 public class RoomVO {
 	
-	private Integer RoomNum;
-	private String RoomName;
-	private LocalDateTime createTime;
-	private List<EmployeeVO> empList;
+	private Integer roomNum;
+	private String roomName;
+	private Date createTime;
+	private List<EmployeeVO> roomMember;
 	private List<ChatVO> chatList;
 	
 }

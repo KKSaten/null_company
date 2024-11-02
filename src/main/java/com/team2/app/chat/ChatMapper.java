@@ -13,6 +13,9 @@ public interface ChatMapper {
 	
 	public List<RoomVO> getList() throws Exception;
 	
-	public List<EmployeeVO> empList(DepartmentVO departmentVO) throws Exception;
+	public int makeRoom (RoomVO roomVO) throws Exception;
 
+	public EmployeeVO getEmpDetail(EmployeeVO employeeVO) throws Exception;
+	
+	public List<EmployeeVO> empList(DepartmentVO departmentVO) throws Exception;
 }

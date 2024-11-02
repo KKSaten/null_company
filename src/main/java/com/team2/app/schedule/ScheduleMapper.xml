@@ -69,4 +69,14 @@
 		WHERE SCHEDULE_NUM = #{scheduleNum}
 	</update>
 
+	<select id="previewSchedule" resultMap="ScheduleInfo" parameterType="EmployeeVO">
+		SELECT * FROM SCHEDULE S
+			LEFT JOIN EMPLOYEE E
+			ON (S.EMP_NUM = E.EMP_NUM)
+		WHERE
+		E.DEPT_NUM = #{deptNum} AND
+		((S.SCHEDULE_START &lt; CURRENT_DATE() AND CURRENT_DATE() &lt; S.SCHEDULE_END) OR
+		S.SCHEDULE_START = CURRENT_DATE())
+	</select>
+
 </mapper>

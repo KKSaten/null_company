@@ -49,26 +49,24 @@ public class ChatController {
 		
 	}
 	
-    @PostMapping("add")
-    public void add() throws Exception {
-    }
-    
-    @ResponseBody
-    @PostMapping("getEmp")
-    public List<EmployeeVO> getEmp(@RequestBody DepartmentVO departmentVO) throws Exception {
+    @PostMapping("makeRoom")
+    public void makeRoom(@RequestBody RoomVO roomVO) throws Exception {
+    	log.info("makeRoom vo {}", roomVO);
     	
-    	log.info("dept vo : {}", departmentVO);
-    	List<EmployeeVO> empList = chatService.empList(departmentVO);
-    	
-    	return empList;
-    }
-    
-    @GetMapping("test")
-    public void test() throws Exception {
+    	chatService.makeRoom(roomVO);
     }
 	
     @GetMapping("room")
     public void room() throws Exception {
+    }
+    
+    @ResponseBody
+    @PostMapping("getEmpDetail")
+    public EmployeeVO getEmpDetail (@RequestBody EmployeeVO employeeVO) throws Exception {
+    	
+    	employeeVO = chatService.getEmpDetail(employeeVO);
+    	
+    	return employeeVO;
     }
 	
 }
