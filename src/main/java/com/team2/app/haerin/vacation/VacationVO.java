@@ -11,10 +11,11 @@ public class VacationVO {
 	private String vacationTotal;
 	private String vacationLeftoverDate;
 	private String empName;
-	private String empNum;
+	private Integer empNum;
 	private String posName;
 	 private String deptName; // 부서 이름 필드 추가
 	 private VacationCountVO vacationCountVO;
 	 private String date;
 	 private Integer dating;
+	 private Date createdDate;
 }

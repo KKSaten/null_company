@@ -19,6 +19,7 @@ public class Pager {
 	private boolean next;
 	
 	private Long deptNum;
+	private Long posNum;
 	
 	
 	

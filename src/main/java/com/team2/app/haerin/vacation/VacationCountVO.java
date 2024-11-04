@@ -7,6 +7,7 @@ import lombok.Data;
 public class VacationCountVO {
 
 	private Long vacationNum;
+	private Date createdDate;
 	private Date vacationStartDate;
 	private Date vacationEndDate;
 }
