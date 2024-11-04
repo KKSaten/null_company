@@ -34,7 +34,7 @@
 	</select>
 	
 	<select id="getChat" parameterType="RoomVO" resultMap="ChatEmp">
-		SELECT C.*, E.*
+		SELECT C.*, E.*, EF.*
 		FROM CHAT C
 			LEFT JOIN
 			EMPLOYEE E
@@ -42,17 +42,18 @@
 			LEFT JOIN
 			EMP_FILE EF
 			USING (EMP_NUM)
-		WHERE ROOM_NUM = #{roomNum}
+		WHERE C.ROOM_NUM = #{roomNum}
 	</select>
 	
 	<resultMap type="ChatVO" id="ChatEmp">
 		<id property="chatNum" column="CHAT_NUM"/>
 		<result property="roomNum" column="ROOM_NUM"/>
 		<result property="empNum" column="EMP_NUM"/>
+		<result property="chatContents" column="CHAT_CONTENTS"/>
 		<result property="createTime" column="CREATETIME"/>
 		
 		<association property="employeeVO" javaType="EmployeeVO" >
-			<id property="empName" column="EMP_NUM"/>
+			<id property="empName" column="EMP_NAME"/>
 			
 			<association property="employeeFileVO" javaType="EmployeeFileVO">
 				<id property="fileNum" column="FILE_NUM"/>

@@ -1,6 +1,5 @@
 let roomNum = document.getElementById('roomNum')
-			
-
+let fileName = document.getElementById('fileName')
 
 			var sock = new SockJS('/chat/room?roomId=' + roomNum.value);
 
@@ -27,10 +26,18 @@ let roomNum = document.getElementById('roomNum')
 			// 메시지를 채팅창에 추가하는 함수
 			function addMessageToChat(message, isMyMessage) {
 				const messageElement = document.createElement('div');
+				const img = document.createElement('img');
+				img.src='/file/'+fileName;
 				messageElement.className = 'message'
 						+ (isMyMessage ? ' my-message' : '');
-				messageElement.textContent = message;
+				
+				messageElement.appendChild(img);
+				
+				const textNode = document.createTextNode(message);
+				messageElement.appendChild(textNode);
+
 				chatContainer.appendChild(messageElement);
+
 				chatContainer.scrollTop = chatContainer.scrollHeight; // 스크롤을 가장 아래로 이동
 			}
 

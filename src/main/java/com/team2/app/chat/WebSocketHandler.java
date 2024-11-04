@@ -54,17 +54,20 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		URI uri = session.getUri();
 		String roomNum = uri.getQuery().substring(uri.getQuery().lastIndexOf('=') + 1);
 		log.info("connect roomNum : {}", roomNum);
+		
+		// sessionList 추가 전 방의 socket이 있으면 참여 메세지 전송
+		if(!sessionList.get(roomNum).isEmpty()) {
+			messageTo.saveText(employeeVO.getEmpName() + " 님이 채팅방에 들어왔습니다.");
+			for (WebSocketSession socket: sessionList.get(roomNum)) {
+				
+				socket.sendMessage(new TextMessage(messageTo.getPayload()));
+			}
+		}
 
 		// 클라이언트 id ,websocket session 저장
 		sessionList.putIfAbsent(roomNum, Collections.synchronizedSet(new HashSet<>()));
 		sessionList.get(roomNum).add(session);
 		
-		if(!sessionList.get(roomNum).isEmpty()) {
-			messageTo.saveText(employeeVO.getEmpName() + " 님이 채팅방에 들어왔습니다.");
-			for (WebSocketSession socket: sessionList.get(roomNum)) {
-				socket.sendMessage(new TextMessage(messageTo.getPayload()));
-			}
-		}
 	}
 
 
@@ -73,8 +76,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		log.info("==================== message send");
 		log.info("session Id : {}", session.getId());
 		log.info("message : {}", message.toString());
+		
+		Authentication authentication = (Authentication) session.getPrincipal();
+		EmployeeVO employeeVO = (EmployeeVO) authentication.getPrincipal();
 
-		messageTo.saveText(session.getPrincipal().getName() + " : ");
+		messageTo.saveText(employeeVO.getEmpName() + " : ");
 		
 		URI uri = session.getUri();
 		String roomNum = uri.getQuery().substring(uri.getQuery().lastIndexOf('=') + 1);
@@ -83,8 +89,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			socket.sendMessage(new TextMessage(messageTo.getPayload() + message.getPayload()));
 		}
 		
-		Authentication authentication = (Authentication) session.getPrincipal();
-		EmployeeVO employeeVO = (EmployeeVO) authentication.getPrincipal();
 		
 		ChatVO chatVO = new ChatVO();
 		chatVO.setEmpNum(employeeVO.getEmpNum());
@@ -97,7 +101,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
 	@Override
 	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-		// TODO Auto-generated method stub
 		super.handleTransportError(session, exception);
 	}
 

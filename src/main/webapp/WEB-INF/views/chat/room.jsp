@@ -29,11 +29,21 @@ body {
 
 .message {
 	margin: 5px 0;
+	position: relative;
+	padding-left: 20px;
 }
 
 .my-message {
 	margin-left: auto; /* 오른쪽 정렬 */
 	text-align: right; /* 오른쪽 정렬 */
+}
+
+.read-count {
+    position: absolute;
+    bottom: 0; /* 아래쪽에 위치 */
+    left: 0; /* 왼쪽에 위치 */
+    font-size: 0.7em; /* 작은 크기로 설정 */
+    color: gray;
 }
 </style>
 
@@ -59,12 +69,14 @@ body {
 							<div class="container mt-5">
 								<h2 class="text-center">채팅방</h2>
 								<div class="chat-container" id="chatContainer">
-									<c:forEach items="${roomVO.chatList}" var="chatList">
+									<c:forEach items="${vo.chatList}" var="chatList">
 										<div
 											class="message ${chatList.empNum eq empVO.empNum?'my-message':''}">
+											 <span class="read-count">${chatList.readCount}</span>
+											 <span>
 											<img
 												src="/file/employee/${chatList.employeeVO.employeeFileVO.fileName}">
-											${chatList.employeeVO.empName} : ${chatList.chatContents}
+											${chatList.employeeVO.empName} : ${chatList.chatContents}</span>
 										</div>
 									</c:forEach>
 								</div>
@@ -78,7 +90,8 @@ body {
 							</div>
 						</div>
 						<input type="hidden" value="${vo.roomNum}" id="roomNum"> <input
-							type="hidden" value="${empVO.empId}" id="empName">
+							type="hidden" value="${empVO.empName}" id="empName"><input
+							type="hidden" value="${empVO.employeeFileVO.fileName}" id="fileName">
 						<div class="card-footer"></div>
 					</div>
 				</div>
