@@ -121,7 +121,7 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${roomList}" var="roomList">
-											<tr onclick="location.href='/employee/detail?empId='"
+											<tr onclick="location.href='room?roomNum=${roomList.roomNum}'"
 												style="cursor: pointer;">
 												<td>${roomList.roomNum}</td>
 												<td>${roomList.roomName}</td>

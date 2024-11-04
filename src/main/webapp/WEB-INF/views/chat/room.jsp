@@ -1,139 +1,91 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="UTF-8">
 <head>
-    <meta charset="UTF-8">
-    <title>Chat Room</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .chat-container {
-            height: 70vh;
-            overflow-y: auto;
-            border: 1px solid #ced4da;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #ffffff;
-        }
-        .message {
-            margin: 5px 0;
-        }
-        .my-message {
-            margin-left: auto; /* 오른쪽 정렬 */
-            text-align: right; /* 오른쪽 정렬 */
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<c:import url="../templates/header.jsp"></c:import>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<style>
+body {
+	background-color: #f8f9fa;
+}
+
+.chat-container {
+	height: 70vh;
+	overflow-y: auto;
+	border: 1px solid #ced4da;
+	margin-bottom: 20px;
+	padding: 10px;
+	background-color: #ffffff;
+}
+
+.message {
+	margin: 5px 0;
+}
+
+.my-message {
+	margin-left: auto; /* 오른쪽 정렬 */
+	text-align: right; /* 오른쪽 정렬 */
+}
+</style>
+
+<title>채팅방 리스트</title>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center">채팅방</h2>
-        <div class="chat-container" id="chatContainer"></div>
-        <div class="input-group">
-            <input type="text" id="messageInput" class="form-control" placeholder="메시지를 입력하세요...">
-            <div class="input-group-append">
-                <button id="sendButton" class="btn btn-primary">전송</button>
-            </div>
-        </div>
-    </div>
-    <sec:authentication property="principal" var="vo"/>
-	    <input type="hidden" value="${vo.empId}" id="id">
+	<div class="wrapper">
+		<div class="main-panel">
+			<div class="main-header">
+				<c:import url="../templates/sidebar.jsp"></c:import>
+				<c:import url="../templates/topbar.jsp"></c:import>
+			</div>
+			<sec:authentication property="principal" var="empVO" />
+			<div class="container">
+				<div class="page-inner">
 
-    <script>
-        let roomId = 1;
+					<div class="card">
+						<div class="card-header">
+							<h1>채팅방</h1>
+						</div>
 
-        var sock = new SockJS('/chat/room?roomId='+roomId);
-
-        const chatContainer = document.getElementById('chatContainer');
-        const messageInput = document.getElementById('messageInput');
-        const sendButton = document.getElementById('sendButton');
-        const id = document.getElementById('id');
-
-
-        sock.onopen = function() {
-            console.log('open');
-        };
-
-        sock.onmessage = function(e) {
-            console.log('message', e.data);
-            let name = e.data.split(' : ')[0];
-            addMessageToChat(e.data,id.value==name);
-
-        };
-
-        sock.onclose = function() {
-            console.log('close');
-        };
-
-            // 메시지를 채팅창에 추가하는 함수
-    function addMessageToChat(message, isMyMessage) {
-        const messageElement = document.createElement('div');
-        messageElement.className = 'message' + (isMyMessage ? ' my-message' : '');
-        messageElement.textContent = message;
-        chatContainer.appendChild(messageElement);
-        chatContainer.scrollTop = chatContainer.scrollHeight; // 스크롤을 가장 아래로 이동
-    }
-
-    // 메시지 전송 함수
-    function sendMessage() {
-            const message = messageInput.value;
-            if (message) {
-                
-                sock.send(message); // 서버로 메시지 전송
-                messageInput.value = ''; // 입력 필드 초기화
-            }
-        }
-
-        // 메시지 전송 버튼 클릭 시
-        sendButton.onclick = sendMessage;
-
-        // Enter 키를 눌렀을 때 메시지 전송
-        messageInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault(); // 기본 동작 방지 (줄 바꿈 방지)
-                sendMessage(); // 메시지 전송 함수 호출
-            }
-        });
-
-
-
-        // var stompClient = null;
-
-        // function connect() {
-        //     var socket = new SockJS('/chat/room');
-        //     stompClient = Stomp.over(socket);
-        //     stompClient.connect({}, function (frame) {
-        //         console.log('Connected: ' + frame);
-        //         stompClient.subscribe('/topic/messages', function (message) {
-        //             showMessage(JSON.parse(message.body));
-        //         });
-        //     });
-        // }
-
-        // function sendMessage() {
-        //     var messageContent = document.getElementById('message').value;
-        //     var message = {
-        //         sender: "User", // 사용자 이름이나 ID를 사용할 수 있습니다.
-        //         content: messageContent,
-        //         type: "CHAT"
-        //     };
-        //     stompClient.send("/chat/send", {}, JSON.stringify(message)); // 메시지 전송
-        //     document.getElementById('message').value = ''; // 입력 필드 비우기
-        // }
-
-        // function showMessage(message) {
-        //     var messagesElement = document.getElementById('messages');
-        //     var messageElement = document.createElement('li');
-        //     messageElement.appendChild(document.createTextNode(message.sender + ": " + message.content));
-        //     messagesElement.appendChild(messageElement); // 메시지 추가
-        // }
-
-        // window.onload = function() {
-        //     connect(); // 페이지 로드 시 연결
-        // };
-    </script>
+						<div class="card-body d-flex justify-content-center">
+							<div class="container mt-5">
+								<h2 class="text-center">채팅방</h2>
+								<div class="chat-container" id="chatContainer">
+									<c:forEach items="${roomVO.chatList}" var="chatList">
+										<div
+											class="message ${chatList.empNum eq empVO.empNum?'my-message':''}">
+											<img
+												src="/file/employee/${chatList.employeeVO.employeeFileVO.fileName}">
+											${chatList.employeeVO.empName} : ${chatList.chatContents}
+										</div>
+									</c:forEach>
+								</div>
+								<div class="input-group">
+									<input type="text" id="messageInput" class="form-control"
+										placeholder="메시지를 입력하세요...">
+									<div class="input-group-append">
+										<button id="sendButton" class="btn btn-primary">전송</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" value="${vo.roomNum}" id="roomNum"> <input
+							type="hidden" value="${empVO.empId}" id="empName">
+						<div class="card-footer"></div>
+					</div>
+				</div>
+				<c:import url="../templates/footer.jsp" />
+			</div>
+		</div>
+		<script src="/resources/js/chat/room.js" />
+		<c:import url="../templates/bootfooter.jsp"></c:import>
 </body>
 </html>

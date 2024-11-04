@@ -14,6 +14,9 @@ public class ChatVO {
     private Integer roomNum;
     private Integer empNum;
     private String chatContents;
-    private Date createTime;  
+    private Date createTime;
+    private Integer readCount;
+    private EmployeeVO employeeVO;
+    
     
 }

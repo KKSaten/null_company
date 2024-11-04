@@ -4,7 +4,11 @@ import java.awt.TextArea;
 import java.io.IOException;
 import java.net.URI;
 import java.security.Principal;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -29,14 +33,18 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
 	@Autowired
 	private Message messageTo;
+	
+	@Autowired
+	private ChatService chatService;
 
-	private Map<String, WebSocketSession> sessionList = new ConcurrentHashMap<String, WebSocketSession>();
-
+	private Map<String, Set<WebSocketSession>> sessionList = new ConcurrentHashMap<String, Set<WebSocketSession>>();
+    private final Map<WebSocketSession, String> sessionUserMap = new HashMap<>();
+    
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		log.info("====================== chat connection");
 		log.info("chat connection : {}", session.isOpen());
-		
+
 		// 연결된 직원 정보
 		Authentication authentication = (Authentication) session.getPrincipal();
 		EmployeeVO employeeVO = (EmployeeVO) authentication.getPrincipal();
@@ -44,44 +52,46 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
 		// 연결된 채팅방 번호
 		URI uri = session.getUri();
-		String roomNum = uri.getQuery().substring(uri.getQuery().lastIndexOf('=')+1);
+		String roomNum = uri.getQuery().substring(uri.getQuery().lastIndexOf('=') + 1);
 		log.info("connect roomNum : {}", roomNum);
-		
-		
-		String sessionId = employeeVO.getEmpId();
-		messageTo.saveText(sessionId + " 님이 채팅방에 들어왔습니다.");
 
 		// 클라이언트 id ,websocket session 저장
-		sessionList.put(sessionId, session);
-		if (sessionList.size() != 0) {
-			sessionList.forEach((id, socket) -> {
-				if (!id.equals(sessionId)) {
-					try {
-						socket.sendMessage(new TextMessage(messageTo.getPayload()));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					log.info("text 전송");
-				}
-			});
+		sessionList.putIfAbsent(roomNum, Collections.synchronizedSet(new HashSet<>()));
+		sessionList.get(roomNum).add(session);
+		
+		if(!sessionList.get(roomNum).isEmpty()) {
+			messageTo.saveText(employeeVO.getEmpName() + " 님이 채팅방에 들어왔습니다.");
+			for (WebSocketSession socket: sessionList.get(roomNum)) {
+				socket.sendMessage(new TextMessage(messageTo.getPayload()));
+			}
 		}
-
 	}
+
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-
+		log.info("==================== message send");
+		log.info("session Id : {}", session.getId());
 		log.info("message : {}", message.toString());
 
 		messageTo.saveText(session.getPrincipal().getName() + " : ");
-
-		sessionList.forEach((key, value) -> {
-			try {
-				value.sendMessage(new TextMessage(messageTo.getPayload() + message.getPayload()));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
+		
+		URI uri = session.getUri();
+		String roomNum = uri.getQuery().substring(uri.getQuery().lastIndexOf('=') + 1);
+		
+		for (WebSocketSession socket: sessionList.get(roomNum)) {
+			socket.sendMessage(new TextMessage(messageTo.getPayload() + message.getPayload()));
+		}
+		
+		Authentication authentication = (Authentication) session.getPrincipal();
+		EmployeeVO employeeVO = (EmployeeVO) authentication.getPrincipal();
+		
+		ChatVO chatVO = new ChatVO();
+		chatVO.setEmpNum(employeeVO.getEmpNum());
+		chatVO.setRoomNum(Integer.parseInt(roomNum));
+		chatVO.setChatContents(message.getPayload());
+		
+		chatService.addChat(chatVO);
 
 	}
 

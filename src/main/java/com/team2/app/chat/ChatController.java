@@ -57,7 +57,13 @@ public class ChatController {
     }
 	
     @GetMapping("room")
-    public void room() throws Exception {
+    public void room(RoomVO roomVO, Model model) throws Exception {
+    	roomVO = chatService.getRoomDetail(roomVO);
+    	
+    	log.info("room Detail : {}", roomVO);
+    	
+    	model.addAttribute("vo", roomVO);
+    	
     }
     
     @ResponseBody
