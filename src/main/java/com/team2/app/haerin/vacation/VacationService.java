@@ -5,21 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team2.app.haerin.commute.CommuteVO;
+
 @Service
 public class VacationService {
 	@Autowired 
 	private VacationMapper vacationMapper;
 	
-	public void myVacation()throws Exception{
-		
+	public List<VacationVO> myVacation(VacationVO vacationVO) throws Exception {
+		 return vacationMapper.myVacation(vacationVO);
 	}
+	public List<VacationVO>  myListDetail(VacationVO vacationVO)throws Exception{
+		return vacationMapper.myListDetail(vacationVO	);
+	}
+	
 	public List<VacationVO> list()throws Exception{
 		return vacationMapper.list();
 		}
 	public List<VacationVO>  listDetail()throws Exception{
 		return vacationMapper.listDetail();
 	}
-	public void updateVacation(String empNum, String vacationLeftoverDate) {
-        vacationMapper.updateVacation(empNum, vacationLeftoverDate);
+	public void updateVacation(VacationVO vacationVO) {
+        vacationMapper.updateVacation(vacationVO);
     }
 }
