@@ -61,7 +61,17 @@
 			margin-right: 40px;
 			color:#0275d8;
 			cursor: pointer;
-		}		
+		}
+		.draftDocumentTemplate > tbody > tr > th, .draftDocumentTemplate > tbody > tr > td {
+			text-align: center !important;
+			border: 1px solid #acacac !important;
+		}
+		.draftDocumentTemplate > tbody > tr > th {
+			background-color: #eaeaea;
+		}
+		.draftDocumentTemplate > tbody > tr > .draftDocumentTemplateTitle, .draftDocumentTemplate > tbody > .hiddenSpace > td {
+			border: none !important;
+		}					
 	</style>	
 
 </head>
@@ -194,9 +204,123 @@
 													</td>													
 												</tr>
 												<tr>
-													<td colspan= 4 class="summernote">
-														<textarea class="form-control" id="summernote" name="docContent" aria-label="With textarea"></textarea>														
+													<td colspan= 4>
+														
+														
+														<div style="border: 1px solid #666; padding: 20px; margin-top: 10px;">
+															<table class="table table-borderless draftDocumentTemplate">
+																<tbody>
+																	<tr>
+																		<td colspan=8 rowspan=2 class="draftDocumentTemplateTitle"
+																		style="width: 55%; font-size: 30px; padding-left: 10px !important; color: #333; font-weight: 600;">
+																			연차 휴가신청서
+																		</td>
+																		
+																		<td colspan=4 style="width: 15%; font-weight: 600;">
+																			기안자
+																		</td>
+																		<td colspan=4 style="width: 15%; font-weight: 600;">
+																			중간 결재자
+																		</td>
+																		<td colspan=4 style="width: 15%; font-weight: 600;">
+																			최종 결재자
+																		</td>
+																	</tr>
+																	<tr>
+																		<td colspan=4 style="height: 80px !important; padding: 0px !important;" id="drafterSign">
+																			
+																		</td>
+																		
+																		<td colspan=4>
+																		
+																		</td>
+																		
+																		<td colspan=4>
+																		
+																		</td>
+																		
+																	</tr>
+																	<tr class="hiddenSpace">
+																		<td style="height: 30px;"><td></td><td></td><td></td><td></td>
+																		<td></td><td></td><td></td><td></td><td></td>
+																		<td></td><td></td><td></td><td></td><td></td>
+																		<td></td><td></td><td></td><td></td><td></td> <!-- 너비 조정용 -->
+
+																	</tr>
+																	<tr>
+																		<th colspan=3>
+																			신&nbsp;&nbsp;청&nbsp;&nbsp;자
+																		</th>
+																		<td colspan=7>
+																			${empVO.empName}
+																		</td>
+																		<th colspan=3>
+																			부&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서
+																		</th>
+																		<td colspan=7>
+																			${empVO.deptVO.deptName}
+																		</td>
+																	</tr>
+																	<tr>
+																		<th colspan=3>
+																			직&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;위
+																		</th>
+																		<td colspan=7>
+																			${empVO.posVO.posName}
+																		</td>
+																		<th colspan=3>
+																			잔여&nbsp;연차
+																		</th>
+																		<td colspan=7>
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th colspan=3>
+																			휴가&nbsp;기간
+																		</th>
+																		<td colspan=10>
+																			
+																		</td>
+																		<th colspan=3>
+																			일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수
+																		</th>
+																		<td colspan=4>
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th colspan=3>
+																			사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;유
+																		</th>
+																		<td colspan=17 style="height: 100px;">
+																		</td>
+																	</tr>
+																	<tr>
+																		<td colspan=20 style="border: none !important; padding-top: 30px !important;">
+																			상기와 같이 요청하고자 하오니 허가하여 주시기 바랍니다.
+																		</td>
+																	</tr>																																
+	
+			
+					
+																</tbody>
+															</table>														
+														</div>
+														
+														
+														
+														
+														
 													</td>
+												
+												
+												
+												
+												
+													<!-- <td colspan= 4 class="summernote">
+														<textarea class="form-control" id="summernote" name="docContent" aria-label="With textarea"></textarea>														
+													</td> -->
 												</tr>
 												<tr style="border: none !important;">
 													<td colspan= 4 style="border: none !important; padding: 20px 0px 0px 0px !important;">
@@ -274,6 +398,7 @@
 												                                <span class="empName">${empList.empName}</span>
 												                                <input class="hiddenEmpNum" type="hidden" value="${empList.empNum}">
 												                                <input class="hiddenDeptName" type="hidden" value="${deptList.deptName}">
+												                                <input class="hiddenPosNum" type="hidden" value="${empList.posNum}">
 												                                
 												                                <c:choose>
 												                                	<c:when test="${empList.empNum != empVO.empNum}">
