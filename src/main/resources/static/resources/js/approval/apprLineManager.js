@@ -99,7 +99,8 @@ $("#apprLineModalBody1").on("click", ".approverPlusBtn", function(){
     const empName = $(this).siblings('.empName').text();
     const deptName = $(this).siblings('.hiddenDeptName').val();
     const posName = $(this).siblings('.posName').text();	
-    
+	const posNum = $(this).siblings('.hiddenPosNum').val();
+	
 	approverCount++;
 
     // 결재 라인에 추가할 새로운 구조 생성
@@ -116,6 +117,7 @@ $("#apprLineModalBody1").on("click", ".approverPlusBtn", function(){
             <td>
 				${empName}
 				<input class="hiddenEmpNum" type="hidden" value="${empNum}">
+				<input class="hiddenPosNum" type="hidden" value="${posNum}">
 			</td>
             <td>${posName}</td>
             <td>${deptName}</td>
@@ -138,6 +140,14 @@ $("#apprLineModalBody1").on("click", ".approverPlusBtn", function(){
 	    return;
 	}
 	
+	// 추가한 사원보다 직위가 낮은 사원의 + 버튼 숨김
+	$('.emp-item').each(function() {
+		const currentPosNum = $(this).find('.hiddenPosNum').val();
+		if (parseInt(currentPosNum) < parseInt(posNum)) {
+			$(this).find('.approverPlusBtn').hide();
+		}
+	});	
+	
 
 })
 
@@ -147,24 +157,32 @@ $('#apprLineModalBody2').on('click','.removeApprover' , function() {
 	
 	const currentRow = $(this).closest('tr');
 	const empNum = currentRow.find('.hiddenEmpNum').val();
-	const empName = currentRow.find('.empName').text().trim();
-	const posName = currentRow.find('.posName').text().trim();
+	
+	//const empName = currentRow.find('.empName').text().trim();
+	//const posName = currentRow.find('.posName').text().trim();
+	const empName = currentRow.children('td').eq(1).text().trim();
+	const posName = currentRow.children('td').eq(2).text().trim();
+	
 	
 	// 현재 행 이후의 모든 결재자들 제거
 	let nextRowRemoveCount = 0;
 	currentRow.nextAll().each(function() {
 	    const nextEmpNum = $(this).find('.hiddenEmpNum').val();
-	    addedApprovers = addedApprovers.filter(code => code !== nextEmpNum); // 다음 모든 결재자 empNum 제거
+		if(nextEmpNum) {
+		    addedApprovers = addedApprovers.filter(code => code !== nextEmpNum); // 다음 모든 결재자 empNum 제거		
+		}
 		
 		nextRowRemoveCount++;
 		
-		
 		//요것들 지금 작동안함
-		const nextEmpName = $(this).find('.empName').text().trim();
-		empNames = empNames.filter(code => code !== nextEmpName);		
-		
-		const nextPosName = $(this).find('.posName').text().trim();
-		posNames = posNames.filter(code => code !== nextPosName);		
+		//const nextEmpName = $(this).find('.empName').text().trim();
+		//empNames = empNames.filter(code => code !== nextEmpName);		
+		//const nextPosName = $(this).find('.posName').text().trim();
+		//posNames = posNames.filter(code => code !== nextPosName);	
+		const nextEmpName = $(this).children('td').eq(1).text().trim();
+		empNames = empNames.filter(name => name !== nextEmpName);
+		const nextPosName = $(this).children('td').eq(2).text().trim();
+		posNames = posNames.filter(pos => pos !== nextPosName);		
 		
 		
 	});
@@ -178,18 +196,14 @@ $('#apprLineModalBody2').on('click','.removeApprover' , function() {
 	// 추가된 empNum 리스트에서 제거
 	addedApprovers = addedApprovers.filter(code => code !== empNum);
 	
-	
-	
-	
 	//요것들 지금 작동안함
-	empNames = empNames.filter(code => code !== empName);
-	posNames = posNames.filter(code => code !== posName);
+	//empNames = empNames.filter(code => code !== empName);
+	//posNames = posNames.filter(code => code !== posName);
+	empNames = empNames.filter(name => name !== empName);
+	posNames = posNames.filter(pos => pos !== posName)
 	
-	
-	
-	
-	
-	alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);
+
+	//alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);
 	
 	approverCount --;
 
@@ -200,10 +214,16 @@ $('#apprLineModalBody2').on('click','.removeApprover' , function() {
 		$('.approverPlusBtn').hide();
 	}
 	
+	// 남아있는 결재자 중 가장 높은 직위의 posNum 찾기
+	let highestPosNum = Math.max(...addedApprovers.map(emp => {
+		return $('#apprLineModalBody1').find(`.hiddenEmpNum[value="${emp}"]`).siblings('.hiddenPosNum').val();
+	}));	
+	
 	// 결재라인 리스트에 결재자가 추가되어있는지 판별
 	$('.emp-item').each(function () {
 	    const empNumInList = $(this).find('.hiddenEmpNum').val();
-	    if (!addedApprovers.includes(empNumInList)) { // 결재자가 아닌 경우 + 버튼 보이기
+		const posNumInList = $(this).find('.hiddenPosNum').val();
+	    if (!addedApprovers.includes(empNumInList) && posNumInList >= highestPosNum) {
 	        $(this).find('.approverPlusBtn').show(); 
 	    } else {
 	        $(this).find('.approverPlusBtn').hide(); 
@@ -234,7 +254,7 @@ $('#submitApprLine').on('click', function() {
 		apprLineText += `(${posNames[2]}) ${empNames[2]}`;
 	}
 	
-	alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);
+	//alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);
 	
 	apprLineBtn.innerHTML = apprLineText;
 	
@@ -262,14 +282,14 @@ apprLineModal.addEventListener('show.bs.modal', function () {
 	
 	// 초기화 로직
 	const apprLineBtn = document.getElementById('apprLineBtn');
-	//if(apprLineBtn.innerText == '결재선 설정') {
+	if(apprLineBtn.innerText == '결재선 설정') {
 		approverCount = 0;
 		addedApprovers = [];
 		empNames = [];
 		posNames = [];
 		$('.approverField').remove(); // 결재 라인 초기화
 		$('.approverPlusBtn').show(); // 모든 + 버튼 다시 보이기		
-	//}
+	}
 	
 });	
 

@@ -39,8 +39,8 @@ function updateSignList() {
 					row.innerHTML = `
 						<td style="width: 5%;" class="selectSignTd">
 							${sign.signDefault === 'y'
-							? `<input type="radio" name="selectSignRadioButton" data-sign-num="${sign.signNum}" class="selectSignRadio" checked>`
-							: `<input type="radio" name="selectSignRadioButton" data-sign-num="${sign.signNum}" class="selectSignRadio">`}
+							? `<input type="radio" name="selectSignRadioButton" data-sign-num="${sign.signNum}" data-sign-image-path="/file/signature/${sign.signImage}" class="selectSignRadio" checked>`
+							: `<input type="radio" name="selectSignRadioButton" data-sign-num="${sign.signNum}" data-sign-image-path="/file/signature/${sign.signImage}" class="selectSignRadio">`}
 						</td>
                         <td style="width: 30%;">
                             <div style="padding: 15px; border: 1px solid #ccc; display: inline-block;">
@@ -158,6 +158,9 @@ document.getElementById('submitSign').addEventListener('click', function() {
 		const signTitle = signRow.querySelector('.signTitleValue').innerText;
 		const signNum = selectedSign.getAttribute('data-sign-num');
 		const isDefaultSign = selectedSign.hasAttribute('checked'); // 대표 서명 여부 확인
+		const signImagePath = selectedSign.getAttribute('data-sign-image-path'); // 서명 이미지 경로
+		
+		console.log("서명 이미지 경로:", signImagePath); // 경로 출력
 
 		document.getElementById('hiddenSignNum').value = signNum;
 		
@@ -171,7 +174,11 @@ document.getElementById('submitSign').addEventListener('click', function() {
 		    defaultSignCheckbox.checked = false;
 		} else {
 			defaultSignCheckbox.checked = true;
-		}		
+		}	
+		
+		// 기안자 서명 이미지 삽입
+		const drafterSign = document.getElementById('drafterSign');
+		drafterSign.innerHTML = `<img src="${signImagePath}" alt="서명 이미지" style="max-height: 80px; margin: 0px !important;">`;		
 		
 		// 모달 닫기
 		const signListModal = document.getElementById('signListModal');
