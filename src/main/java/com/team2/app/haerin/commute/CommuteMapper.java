@@ -26,5 +26,5 @@ public interface CommuteMapper {
 	
 	public int absentUpdate(CommuteVO commuteVO)throws Exception;
 
-	public int statusCheck(CommuteVO commuteVO)throws Exception;
+	public Integer statusCheck(CommuteVO commuteVO)throws Exception;
 }

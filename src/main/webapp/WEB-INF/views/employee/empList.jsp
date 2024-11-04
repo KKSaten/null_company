@@ -138,13 +138,17 @@
 												<p>
 								                    <strong>발령 부서 :</strong> 
 													<input type="hidden" name="empNum" value="${vo.empNum}" />
-								                    <select id="deptSelect-${vo.empNum}"name="deptNum" class="form-select">
+													<input type="hidden" name="prevPosNum" value="${vo.posNum}">
+													<input type="hidden" name="prevDepartmentNum" value="${vo.deptNum}">
+													<input type="hidden" name="prevRoleNum" value="${vo.roleNum}">
+								                    <select id="deptSelect-${vo.empNum}"name="departmentNum" class="form-select">
 								                     	
 								                        <option value="1" ${vo.deptNum eq 1 ? 'selected' : ''}>인사</option>
-								                        <option value="2"${vo.deptNum eq 2 ? 'selected' : ''}>생산</option>
-								                        <option value="3"${vo.deptNum eq 3 ? 'selected' : ''}>품질</option>
-														<option value="4" ${vo.deptNum eq 4 ? 'selected' : ''}>개발</option>
+								                        <option value="2"${vo.deptNum eq 2 ? 'selected' : ''}>기획</option>
+								                        <option value="3"${vo.deptNum eq 3 ? 'selected' : ''}>제작</option>
+														<option value="4" ${vo.deptNum eq 4 ? 'selected' : ''}>미디어</option>
 														<option value="5" ${vo.deptNum eq 5 ? 'selected' : ''}>영업</option>
+														<option value="6" ${vo.deptNum eq 6 ? 'selected' : ''}>경연진</option>
 								                        <!-- 추가 부서 옵션 -->
 								                    </select>
 								                </p>

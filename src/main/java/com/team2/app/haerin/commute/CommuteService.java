@@ -47,7 +47,7 @@ public class CommuteService {
 		public int absentUpdate(CommuteVO commuteVO) throws Exception {
 			return commuteMapper.absentUpdate(commuteVO);
 		}
-		public int statusCheck(CommuteVO commuteVO)throws Exception{
+		public Integer statusCheck(CommuteVO commuteVO)throws Exception{
 			return commuteMapper.statusCheck(commuteVO);
 		}
 }

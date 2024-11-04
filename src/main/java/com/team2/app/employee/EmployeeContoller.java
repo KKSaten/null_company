@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.app.department.DepartmentVO;
+import com.team2.app.haerin.orders.OrdersVO;
 import com.team2.app.notification.NotificationService;
 import com.team2.app.notification.NotificationType;
 import com.team2.app.notification.NotificationVO;
@@ -268,9 +269,9 @@ public class EmployeeContoller {
 	}
 	
 	@PostMapping("empListUpdate")
-	public String empListUpdate(EmployeeVO employeeVO)throws Exception{
-		employeeService.empListUpdate(employeeVO);
-		employeeService.empListInsert(employeeVO);
+	public String empListUpdate(OrdersVO ordersVO)throws Exception{
+		employeeService.empListUpdate(ordersVO);
+		employeeService.empListInsert(ordersVO);
 		return "redirect:/employee/empList";
 	}
 }

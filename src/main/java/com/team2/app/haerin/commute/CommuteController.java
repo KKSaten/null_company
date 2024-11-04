@@ -194,7 +194,7 @@ public class CommuteController {
 	
 	@PostMapping("statusCheck")
 	@ResponseBody
-	public int statusCheck( ) throws Exception{
+	public Integer statusCheck( ) throws Exception{
 		// 로그인한 사용자 아이디 가져오기
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();

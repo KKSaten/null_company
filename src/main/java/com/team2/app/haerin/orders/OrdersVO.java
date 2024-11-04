@@ -2,27 +2,38 @@ package com.team2.app.haerin.orders;
 
 import java.sql.Date;
 
-
+import com.team2.app.department.DepartmentVO;
+import com.team2.app.positions.PositionsVO;
+import com.team2.app.role.RoleVO;
 
 import lombok.Data;
 @Data
 public class OrdersVO {
 
 	private String orderNum;
-	private String empNum;
+	private Integer empNum;
 	private Date orderDate;
+	
 	private Long departmentNum;
+	private String departmentName;
+
 	private Long posNum;
+	private String posName;
+	
+	private Long roleNum;
+	private String roleName;
+
 	private Date appointmentDate;
 	private boolean orderSituation;
 	private String empName;
-	
-	
 	  
-	    private String previousPosition;      // 이전 직위
-	    private String newPosition;           // 발령 직위
-	    private String previousDepartment;    // 이전 부서
-	    private String newDepartment;         // 발령 부서
-	    private String previousRole;     
-	    private String newRole;               
+    private Long prevPosNum;      // 이전 직위
+	private String prevPosName;
+
+    private Long prevDepartmentNum;    // 이전 부서
+	private String prevDepartmentName;
+
+    private Long prevRoleNum;     
+	private String prevRoleName;
+     
 }
