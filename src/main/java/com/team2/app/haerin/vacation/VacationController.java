@@ -5,12 +5,18 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.team2.app.employee.EmployeeVO;
+import com.team2.app.haerin.commute.CommuteVO;
 
 import lombok.extern.java.Log;
 
@@ -22,9 +28,22 @@ public class VacationController {
 	
 	//사용자 휴가 신청
 	@GetMapping("myVacation")
-	public void myVacation() throws Exception{
+	public void myVacation(Model model) throws Exception{
+		// 로그인한 사용자 아이디 가져오기
+				SecurityContext context = SecurityContextHolder.getContext();
+				Authentication authentication = context.getAuthentication();
+				EmployeeVO temp = (EmployeeVO) authentication.getPrincipal();
+				VacationVO vacationVO = new VacationVO();
+				vacationVO.setEmpNum(temp.getEmpNum());
 		
+				List<VacationVO>list = vacationService.myListDetail(vacationVO);
+				model.addAttribute("ar",list);
+				List<VacationVO> ar = vacationService.myVacation(vacationVO);
+			
+				model.addAttribute("list", ar);
+
 	}
+
 	
 	//전체 사원 잔여 휴가 리스트
 	@GetMapping("list")
@@ -34,11 +53,11 @@ public class VacationController {
 		
 	}
 	@PostMapping("list")
-	public String updateVacation(@Param("empNum") String empNum, @Param("vacationLeftoverDate") String vacationLeftoverDate)throws Exception{
+	public String updateVacation(VacationVO vacationVO)throws Exception{
 		    // 휴가 정보를 업데이트하는 로직을 추가하세요.
 			
 		    // 업데이트가 완료되면 원하는 페이지로 리다이렉트하거나 모델에 데이터를 추가할 수 있습니다.
-			vacationService.updateVacation(empNum,vacationLeftoverDate);
+			vacationService.updateVacation(vacationVO);
 		    return "redirect:/vacation/list";  // 필요한 페이지로 리다이렉트합니다.
 		}
 	
@@ -51,5 +70,6 @@ public class VacationController {
 		
 	}
 	
-	
+
+		
 }

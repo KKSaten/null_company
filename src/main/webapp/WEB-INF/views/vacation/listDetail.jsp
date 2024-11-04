@@ -69,6 +69,7 @@
 														<th scope="col">부서</th>
 														<th scope="col">직급</th>
 														<th scope="col">휴가일</th>
+														<th scope="col">휴가 신청일</th>
 														<th scope="col">승인</th>
 													</tr>
 												</thead>
@@ -80,16 +81,8 @@
 															<td>${vo.deptName}</td>
 															<td>${vo.posName}</td>
 															<td>${vo.date} (${vo.dating}일)</td>
-															 <td><div style="color: blue;font-weight: bold;">승인</div>
-													            <%-- <c:choose>
-													                <c:when test="${vo.date == 1}">
-													                  <div style="color: blue;font-weight: bold;">승인</div>
-													                </c:when>
-													   
-													               <c:when test="${vo.date == null || vo.commuteStatus == 0}">
-													                  <div style="color: red;font-weight: bold;">반려</div>
-													                </c:when>
-													            </c:choose> --%>
+															<td>${vo.createdDate}</td>
+															 <td><button><a herf="/vacation/update"></a></button>
 													        </td>
 													    </tr>
 					                          </c:forEach>
