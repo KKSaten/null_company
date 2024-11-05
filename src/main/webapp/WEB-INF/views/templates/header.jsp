@@ -43,7 +43,8 @@
     	.custom-post2 {font-weight: bold !important}
     	.custom-post2 {margin-top: 50px}
     	.custom-post2 {margin-left: 30px}
-    	.custom-post2 {height: 500px}
+    	.custom-post2 {height: auto}
+    	.custom-post2 {min-height: 500px}
     	.custom-write1 {margin-top: 50px}
     	.custom-write2 {margin-left: 30px}
     	.custom-write3 {margin-left: 15px}
