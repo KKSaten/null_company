@@ -28,22 +28,48 @@ body {
 }
 
 .message {
-	margin: 5px 0;
-	position: relative;
-	padding-left: 20px;
+	display: flex;
+	align-items: center;
+	margin: 10px 0;
+	max-width: 80%; /* 메시지의 최대 너비 */
+	padding: 10px;
+	border-radius: 15px;
+	position: relative; /* 그림자 효과를 위해 position 속성 추가 */
 }
 
 .my-message {
-	margin-left: auto; /* 오른쪽 정렬 */
-	text-align: right; /* 오른쪽 정렬 */
+	background-color: #e1ffc7; /* 내 메시지 배경색 (연두색) */
+	margin-left: auto; /* 내 메시지는 오른쪽 정렬 */
+	border-top-right-radius: 0; /* 오른쪽 위 모서리 둥글지 않게 */
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.other-message {
+	background-color: #f1f1f1; /* 다른 사람의 메시지 배경색 (회색) */
+	border-top-left-radius: 0; /* 왼쪽 위 모서리 둥글지 않게 */
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }
 
 .read-count {
-    position: absolute;
-    bottom: 0; /* 아래쪽에 위치 */
-    left: 0; /* 왼쪽에 위치 */
-    font-size: 0.7em; /* 작은 크기로 설정 */
-    color: gray;
+	font-size: 12px; /* 읽음 수의 글씨 크기 */
+	color: #999; /* 읽음 수의 색상 */
+	align-self: baseline;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.chat-content {
+	display: flex;
+	align-items: center; /* 이미지와 텍스트 정렬 */
+	max-width: 100%;
+}
+
+.rounded-image {
+	width: 50px; /* 이미지 너비 */
+	height: 50px; /* 이미지 높이 */
+	border-radius: 50%; /* 동그란 형태 */
+	object-fit: cover; /* 이미지 비율 유지 */
+	margin-right: 10px; /* 이미지와 텍스트 간격 */
 }
 </style>
 
@@ -67,16 +93,32 @@ body {
 
 						<div class="card-body d-flex justify-content-center">
 							<div class="container mt-5">
-								<h2 class="text-center">채팅방</h2>
 								<div class="chat-container" id="chatContainer">
-									<c:forEach items="${vo.chatList}" var="chatList">
-										<div
-											class="message ${chatList.empNum eq empVO.empNum?'my-message':''}">
-											 <span class="read-count">${chatList.readCount}</span>
-											 <span>
+									<c:forEach items="${vo.chatList}" var="chatVO">
+										<c:if test="${chatVO.employeeVO.empNum ne empVO.empNum}">
 											<img
-												src="/file/employee/${chatList.employeeVO.employeeFileVO.fileName}">
-											${chatList.employeeVO.empName} : ${chatList.chatContents}</span>
+												src="/file/employee/${chatVO.employeeVO.employeeFileVO.fileName}"
+												class="rounded-image" alt="Employee Image">
+											<strong>${chatVO.employeeVO.empName}</strong>
+										</c:if>
+										<div
+											class="message ${chatVO.employeeVO.empNum eq empVO.empNum ? 'my-message' : 'other-message'}"
+											style="width: fit-content;">
+											<c:choose>
+												<c:when test="${chatVO.employeeVO.empNum ne empVO.empNum}">
+													<span class="chat-content">
+														<p>${chatVO.chatContents}</p>
+													</span>
+													<span class="read-count">${chatVO.readCount}</span>
+												</c:when>
+												<c:otherwise>
+													<span class="read-count">${chatVO.readCount}</span>
+													<span class="chat-content">
+														<p>${chatVO.chatContents}</p>
+													</span>
+												</c:otherwise>
+											</c:choose>
+
 										</div>
 									</c:forEach>
 								</div>
@@ -91,7 +133,8 @@ body {
 						</div>
 						<input type="hidden" value="${vo.roomNum}" id="roomNum"> <input
 							type="hidden" value="${empVO.empName}" id="empName"><input
-							type="hidden" value="${empVO.employeeFileVO.fileName}" id="fileName">
+							type="hidden" value="${empVO.employeeFileVO.fileName}"
+							id="fileName">
 						<div class="card-footer"></div>
 					</div>
 				</div>

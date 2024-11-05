@@ -43,6 +43,7 @@
 <title>채팅방 리스트</title>
 </head>
 <body>
+<sec:authentication property="principal" var="vo"/>
 	<div class="wrapper">
 		<div class="main-panel">
 			<div class="main-header">
@@ -194,7 +195,7 @@
 
 												<div class="collapse" id="collapse${deptList.deptNum}">
 													<c:forEach items="${empList}" var="empList">
-														<c:if test="${deptList.deptNum eq empList.deptNum}">
+														<c:if test="${deptList.deptNum eq empList.deptNum and empList.empNum ne vo.empNum}">
 															<div onclick="manageMember(${empList.empNum})"
 																style="cursor: pointer;" id="addMember${empList.empNum}">
 																<i class="fas fa-user" id="icon${deptList.deptNum}"

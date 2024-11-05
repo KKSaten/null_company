@@ -14,7 +14,7 @@ public class RoomVO {
 	private Integer roomNum;
 	private String roomName;
 	private Date createTime;
-	private List<EmployeeVO> roomMember;
+	private List<RoomMemberVO> roomMember;
 	private List<ChatVO> chatList;
 	
 }

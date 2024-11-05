@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,19 +51,32 @@ public class ChatController {
 	}
 	
     @PostMapping("makeRoom")
-    public void makeRoom(@RequestBody RoomVO roomVO) throws Exception {
+    public String makeRoom(@RequestBody RoomVO roomVO, @AuthenticationPrincipal EmployeeVO employeeVO, Model model) throws Exception {
     	log.info("makeRoom vo {}", roomVO);
     	
-    	chatService.makeRoom(roomVO);
+    	List<RoomMemberVO> list = roomVO.getRoomMember();
+    	RoomMemberVO roomMemberVO = new RoomMemberVO();
+    	roomMemberVO.setEmpNum(employeeVO.getEmpNum());
+    	list.add(roomMemberVO);
+    	roomVO.setRoomMember(list);
+    	
+    	int result = chatService.makeRoom(roomVO);
+    	
+    	model.addAttribute("result", result);
+    	
+    	return "commons/result";
     }
 	
     @GetMapping("room")
     public void room(RoomVO roomVO, Model model) throws Exception {
     	roomVO = chatService.getRoomDetail(roomVO);
     	
-    	log.info("room Detail : {}", roomVO);
+    	log.info("Room Detail : {}", roomVO);
+    	log.info("Chat Detail : {}", roomVO.getChatList());
     	
     	model.addAttribute("vo", roomVO);
+    	
+    	
     	
     }
     
