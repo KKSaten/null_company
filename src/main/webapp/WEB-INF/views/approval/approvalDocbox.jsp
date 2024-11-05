@@ -217,10 +217,9 @@
 										            <ul style="list-style : none; line-height: 170%;">
 										                <c:forEach items="${docType.docTemplateVO}" var="template">
 									                        <li>
-									                        	<div class="template-item" data-template-code="${template.docTemplatecode}" style="cursor: pointer; color: #555; margin-left: 20px;">
+									                        	<div class="template-item" data-template-code="${template.docTemplatecode}" data-type-code="${template.docTypecode}" style="cursor: pointer; color: #555; margin-left: 20px;">
 									                                <i class="far fa-file-alt"></i>
 									                                <span>${template.templateName}</span>
-									                                <input type="hidden" id="hiddenDocTypecode" value="${template.docTypecode}">
 									                        	</div>
 									                        </li>
 										                </c:forEach>
@@ -310,7 +309,7 @@
 	    document.getElementById('submitDoc').addEventListener('click', function() {
 	        if (selectedTemplate) {
 	            const docTemplatecode = selectedTemplate.getAttribute('data-template-code');
-	            const docTypecode = document.getElementById('hiddenDocTypecode').value;
+	            const docTypecode = selectedTemplate.getAttribute('data-type-code');
 	            location.href = '/approval/write?docTypecode=' + docTypecode + '&docTemplatecode=' + docTemplatecode;
 	        } else {
 	            alert('문서 양식을 선택해주세요.');

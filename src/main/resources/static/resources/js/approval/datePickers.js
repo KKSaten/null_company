@@ -6,20 +6,31 @@ document.getElementById('draftDateValue').textContent = draftDate.toISOString().
 document.addEventListener('DOMContentLoaded', function() {
     const expiryDate = new Date();
     expiryDate.setFullYear(today.getFullYear() + 2);
-    document.getElementById('expiryDate').value = expiryDate.toISOString().substring(0, 10);
+    document.getElementById('expiryDate').value = expiryDate.toISOString().substring(0, 10);	
 });
 $(function() {
     $(".calendar-icon").on("click", function() {
         $("#expiryDate").datepicker("show");
     });
 });
+$(function() {
+    // datepicker 초기화
+    $("#expiryDate").datepicker({
+        dateFormat: "yy-mm-dd" // 날짜 형식 설정
+    });
+});
+
+
 
 // 연차 날짜
-const vacationStart = new Date();
-const vacationEnd = new Date();
 document.addEventListener('DOMContentLoaded', function() {
-	document.getElementById('vacationStart').value = '연차 시작 날짜';
-	document.getElementById('vacationEnd').value = '연차 종료 날짜';
+	const vacationStart = document.getElementById('vacationStart');
+	const vacationEnd = document.getElementById('vacationEnd');
+	
+	if (vacationStart || vacationEnd) {
+		vacationStart.value = '연차 시작 날짜';
+		vacationEnd.value = '연차 종료 날짜';
+	}
 });
 $(function() {
     $(".calendar-icon-vacSt").on("click", function() {
@@ -87,3 +98,24 @@ $(function() {
 });
 
 
+
+
+
+
+//인사 발령 날짜
+document.addEventListener('DOMContentLoaded', function() {
+	const ordersDate = document.getElementById('ordersDate');
+	if (ordersDate) {
+		ordersDate.value = '인사 발령 일자';
+	}
+});
+$(function() {
+    $(".calendar-icon-ordersDate").on("click", function() {
+        $("#ordersDate").datepicker("show");
+    });
+});
+$(function() {
+	$("#ordersDate").datepicker({
+	    dateFormat: 'yy-mm-dd',
+	});   
+});
