@@ -25,4 +25,8 @@ public interface ApprovalMapper {
 	
 	public int deleteSign(SignVO signVO) throws Exception;
 	
+	public int draftDoc(ApprDocVO apprDocVO) throws Exception;
+	
+	public int saveApprLine(ApprLineVO apprLineVO) throws Exception;
+	
 }

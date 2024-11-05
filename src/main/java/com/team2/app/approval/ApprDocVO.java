@@ -1,5 +1,6 @@
 package com.team2.app.approval;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class ApprDocVO {
 	private String docTitle;
 	private byte[] docContent;
 	
-	private Timestamp docUpdatedate;
-	private Timestamp docDraftdate;
-	private Timestamp docExpirydate;
+	private Date docUpdatedate;
+	private Date docDraftdate;
+	private Date docExpirydate;
 	
 	private String approvalResult;
 	

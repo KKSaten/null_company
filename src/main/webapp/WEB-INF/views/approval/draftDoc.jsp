@@ -28,51 +28,9 @@
             });
         });
     </script>
+        
     
-	<link rel="stylesheet" href="/resources/css/draftDoc.css"/>   
-	
-	<style type="text/css">
-		.signImage {
-			width: 240px;
-			height: 135px;	
-		}
-		.selectSignRadio {
-			width: 20px;
-			height: 20px;
-			cursor: pointer;	
-		}
-		.signModalBox {
-			box-shadow: 5px 5px 15px #4a4a4a;
-			margin-top: 100px !important;
-		}
-		.apprLineTable > tbody > tr > th, .apprLineTable > tbody > tr > td {
-			padding-left: 5px !important;
-			padding-right: 5px !important;
-			font-size: 15px;
-		}
-		.apprLineTable > tbody > .approverFieldApprover > td {
-			background-color: #f6f6f6 !important;
-		}					
-		.approverPlusBtn {
-			position: relative;
-			top: 3px;
-			zoom:1.2;
-			float: right;
-			margin-right: 40px;
-			color:#0275d8;
-			cursor: pointer;
-		}
-		.draftDocumentTemplate > tbody > tr > th, .draftDocumentTemplate > tbody > tr > td {
-			text-align: center !important;
-			border: 1px solid #acacac !important;
-		}
-		.draftDocumentTemplate > tbody > tr > th {
-			background-color: #eaeaea;
-		}
-		.draftDocumentTemplate > tbody > tr > .draftDocumentTemplateTitle, .draftDocumentTemplate > tbody > .hiddenSpace > td {
-			border: none !important;
-		}					
-	</style>	
+	<link rel="stylesheet" href="/resources/css/draftDoc.css"/>	
 
 </head>
 <body>
@@ -116,236 +74,239 @@
 					</div>
 
 					<div class="row">
-
-						<div class="col-md-12">
-							<div class="card">
-							
-							
-								<div class="card-header">
-									<div class="d-flex align-items-center">
-										<h4 class="card-title">기안서 작성</h4>																			
-									</div>
-								</div>
-								<div class="card-body">
-									<div class="container" style="text-align: center; width: 70%; margin-top: 15px;">
-										<table class="table table-bordered">
-											<tbody>
-
-												<tr class="custom">																												
-													<th style="width: 25%;" >
-														기안일
-													</th>
-													<td style="width: 25%;" id="draftDate">
-														<!-- 날짜 -->
-													</td>
-													<th style="width: 25%;">
-														만료일
-													</th>
-													<td style="width: 25%;">
-										                <div class="datepicker-container" style="position: relative; display: inline-block;">
-										                    <input type="text" id="expiryDate" class="datepicker-input">
-										                    <i class="far fa-calendar-alt calendar-icon"></i>
-										                </div>
-													</td>													
-												</tr>
-												<tr class="custom">																												
-													<th>
-														결재선
-													</th>
-													<td colspan= 3>
-														<button type="button" class="btn btn-light paramBtn" id="apprLineBtn" data-bs-toggle="modal" data-bs-target="#apprLineModal">
-															결재선 설정
-														</button>
-														<input type="hidden" name="approver" id="hiddenApprover1">
-														<input type="hidden" name="approver" id="hiddenApprover2">
-														<input type="hidden" name="approver" id="hiddenApprover3">
-													</td>													
-												</tr>
-												<tr class="custom">																												
-													<th>
-														참조 및 참조부서
-													</th>
-													<td colspan= 2>
-														<button type="button" class="btn btn-light paramBtn" id="">
-															참조자 설정
-														</button>
-													</td>
-													<td>
-														<button type="button" class="btn btn-light paramBtn" id="">
-															참조 부서 설정
-														</button>
-													</td>													
-												</tr>
-												<tr class="custom">																												
-													<th>
-														서명
-													</th>
-													<td colspan= 2>
-														<button type="button" class="btn btn-light paramBtn" id="signListModalBtn" data-bs-toggle="modal" data-bs-target="#signListModal">
-															서명 선택
-														</button>
-														<input type="hidden" name="signNum" id="hiddenSignNum">																												
-													</td>
-													<th>
-														<div class="defaultSignDiv">
-															<input type="checkbox" id="defaultSign">
-															<label for="defaultSign">대표 서명 사용</label>													
-														</div>
-													</th>
-												</tr>												
-												<tr class="custom">																												
-													<th style="text-align: left;">
-														문서 제목
-													</th>
-													<td colspan= 3 id="docTitleInput">
-														<input type="text" placeholder=" 문서 제목을 입력하세요."; style="width: 100%; border: 1px solid #eaeaea;" name="docTitle">
-														<input type="hidden" name="docTypecode" id="hiddenDocTypecode">
-														<input type="hidden" name="docTemplatecode" id="hiddenDocTemplatecode">
-													</td>													
-												</tr>
-												<tr>
-													<td colspan= 4>
-														
-														
-														<div style="border: 1px solid #666; padding: 20px; margin-top: 10px;">
-															<table class="table table-borderless draftDocumentTemplate">
-																<tbody>
-																	<tr>
-																		<td colspan=8 rowspan=2 class="draftDocumentTemplateTitle"
-																		style="width: 55%; font-size: 30px; padding-left: 10px !important; color: #333; font-weight: 600;">
-																			연차 휴가신청서
-																		</td>
-																		
-																		<td colspan=4 style="width: 15%; font-weight: 600;">
-																			기안자
-																		</td>
-																		<td colspan=4 style="width: 15%; font-weight: 600;">
-																			중간 결재자
-																		</td>
-																		<td colspan=4 style="width: 15%; font-weight: 600;">
-																			최종 결재자
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan=4 style="height: 80px !important; padding: 0px !important;" id="drafterSign">
-																			
-																		</td>
-																		
-																		<td colspan=4>
-																		
-																		</td>
-																		
-																		<td colspan=4>
-																		
-																		</td>
-																		
-																	</tr>
-																	<tr class="hiddenSpace">
-																		<td style="height: 30px;"><td></td><td></td><td></td><td></td>
-																		<td></td><td></td><td></td><td></td><td></td>
-																		<td></td><td></td><td></td><td></td><td></td>
-																		<td></td><td></td><td></td><td></td><td></td> <!-- 너비 조정용 -->
-
-																	</tr>
-																	<tr>
-																		<th colspan=3>
-																			신&nbsp;&nbsp;청&nbsp;&nbsp;자
-																		</th>
-																		<td colspan=7>
-																			${empVO.empName}
-																		</td>
-																		<th colspan=3>
-																			부&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서
-																		</th>
-																		<td colspan=7>
-																			${empVO.deptVO.deptName}
-																		</td>
-																	</tr>
-																	<tr>
-																		<th colspan=3>
-																			직&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;위
-																		</th>
-																		<td colspan=7>
-																			${empVO.posVO.posName}
-																		</td>
-																		<th colspan=3>
-																			잔여&nbsp;연차
-																		</th>
-																		<td colspan=7>
-																			
-																		</td>
-																	</tr>
-																	<tr>
-																		<th colspan=3>
-																			휴가&nbsp;기간
-																		</th>
-																		<td colspan=10>
-																			
-																		</td>
-																		<th colspan=3>
-																			일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수
-																		</th>
-																		<td colspan=4>
-																			
-																		</td>
-																	</tr>
-																	<tr>
-																		<th colspan=3>
-																			사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;유
-																		</th>
-																		<td colspan=17 style="height: 100px;">
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan=20 style="border: none !important; padding-top: 30px !important;">
-																			상기와 같이 요청하고자 하오니 허가하여 주시기 바랍니다.
-																		</td>
-																	</tr>																																
-	
-			
-					
-																</tbody>
-															</table>														
-														</div>
-														
-														
-														
-														
-														
-													</td>
-												
-												
-												
-												
-												
-													<!-- <td colspan= 4 class="summernote">
-														<textarea class="form-control" id="summernote" name="docContent" aria-label="With textarea"></textarea>														
-													</td> -->
-												</tr>
-												<tr style="border: none !important;">
-													<td colspan= 4 style="border: none !important; padding: 20px 0px 0px 0px !important;">
-														<button type="button" class="btn btn-outline-danger cancelBtn" onclick="location.href='/approval/approvalDocbox'">
-															작성 취소
-														</button>													
-														<button type="button" class="btn btn-primary draftBtn">
-															상신
-														</button>
-														<button type="button" class="btn btn-outline-primary tempBtn">
-															임시 저장
-														</button>													
-													</td>
-												</tr>
-
-											</tbody>
-										</table>
-									</div>
-									
-
-									
-								</div>
+						
+						
+						<form id="draftDocForm" action="/approval/write" method="post">
+							<div class="col-md-12">
+								<div class="card">
 								
+								
+									<div class="card-header">
+										<div class="d-flex align-items-center">
+											<h4 class="card-title">기안서 작성</h4>																			
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="container" style="text-align: center; width: 70%; margin-top: 15px;">
+											<table class="table table-bordered">
+												<tbody>
+	
+													<tr class="custom">																												
+														<th style="width: 25%;" >
+															기안일
+														</th>
+														<td style="width: 25%;" id="draftDateValue">
+															<!-- 날짜 -->
+														</td>
+														<th style="width: 25%;">
+															만료일
+														</th>
+														<td style="width: 25%;">
+											                <div class="datepicker-container" style="position: relative; display: inline-block;">
+											                    <input type="text" id="expiryDate" class="datepicker-input" name="docExpirydate">
+											                    <i class="far fa-calendar-alt calendar-icon"></i>
+											                </div>
+														</td>													
+													</tr>
+													<tr class="custom">																												
+														<th>
+															결재선
+														</th>
+														<td colspan= 3>
+															<button type="button" class="btn btn-light paramBtn" id="apprLineBtn" data-bs-toggle="modal" data-bs-target="#apprLineModal">
+																결재선 설정
+															</button>
+															<input type="hidden" name="approver" id="hiddenApprover1">
+															<input type="hidden" name="approver" id="hiddenApprover2">
+															<input type="hidden" name="approver" id="hiddenApprover3">
+														</td>													
+													</tr>
+													<tr class="custom">																												
+														<th>
+															참조 및 참조부서
+														</th>
+														<td colspan= 2>
+															<button type="button" class="btn btn-light paramBtn" id="">
+																참조자 설정
+															</button>
+														</td>
+														<td>
+															<button type="button" class="btn btn-light paramBtn" id="">
+																참조 부서 설정
+															</button>
+														</td>													
+													</tr>
+													<tr class="custom">																												
+														<th>
+															서명
+														</th>
+														<td colspan= 2>
+															<button type="button" class="btn btn-light paramBtn" id="signListModalBtn" data-bs-toggle="modal" data-bs-target="#signListModal">
+																서명 선택
+															</button>
+															<input type="hidden" name="signNum" id="hiddenSignNum">																												
+														</td>
+														<th>
+															<div class="defaultSignDiv">
+																<input type="checkbox" id="defaultSign">
+																<label for="defaultSign">대표 서명 사용</label>													
+															</div>
+														</th>
+													</tr>												
+													<tr class="custom">																												
+														<th style="text-align: left;">
+															문서 제목
+														</th>
+														<td colspan= 3 id="docTitleInput">
+															<input type="text" placeholder=" 문서 제목을 입력하세요." style="width: 100%; border: 1px solid #eaeaea;" id="docTitle" name="docTitle">
+															<input type="hidden" id="hiddenDocWriter" value="${empVO.empNum}" name="docWriter">
+															<input type="hidden" id="hiddenDocTypecode" value="${apprDocVO.docTypecode}" name="docTypecode">
+															<input type="hidden" id="hiddenDocTemplatecode" value="${apprDocVO.docTemplatecode}" name="docTemplatecode">
+														</td>													
+													</tr>
+													<tr>
+														<td colspan= 4>
+															
+															<div id="docContent">
+																<div style="border: 1px solid #666; padding: 20px; margin-top: 10px; margin-bottom: 10px;">
+																	<table class="table table-borderless draftDocumentTemplate">
+																		<tbody>
+																		
+																			<tr>
+																				<td colspan=11 rowspan=2 class="draftDocumentTemplateTitle"
+																				style="width: 55%; font-size: 30px; padding-left: 10px !important; color: #333; font-weight: 600;">
+																					연차 휴가신청서
+																				</td>
+																				
+																				<td colspan=3 style="width: 15%; font-weight: 600;">
+																					기안자
+																				</td>
+																				<td colspan=3 style="width: 15%; font-weight: 600;">
+																					중간 결재자
+																				</td>
+																				<td colspan=3 style="width: 15%; font-weight: 600;">
+																					최종 결재자
+																				</td>
+																			</tr>
+																			<tr>
+																				<td colspan=3 style="height: 75px !important; padding: 0px !important;" id="drafterSign">
+																					
+																				</td>
+																				
+																				<td colspan=3 style="height: 75px !important; padding: 0px !important;" id="midApprSign">
+																				
+																				</td>
+																				
+																				<td colspan=3 style="height: 75px !important; padding: 0px !important;" id="finApprSign">
+																				
+																				</td>
+																				
+																			</tr>
+																			<tr class="hiddenSpace">
+																				<td style="height: 30px;"><td></td><td></td><td></td><td></td>
+																				<td></td><td></td><td></td><td></td><td></td>
+																				<td></td><td></td><td></td><td></td><td></td>
+																				<td></td><td></td><td></td><td></td><td></td> <!-- 너비 조정용 -->
+		
+																			</tr>
+																			<tr>
+																				<th colspan=3>
+																					신&nbsp;&nbsp;청&nbsp;&nbsp;자
+																				</th>
+																				<td colspan=7>
+																					${empVO.empName}
+																				</td>
+																				<th colspan=3>
+																					부&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서
+																				</th>
+																				<td colspan=7>
+																					${empVO.deptVO.deptName}
+																				</td>
+																			</tr>
+																			<tr>
+																				<th colspan=3>
+																					직&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;위
+																				</th>
+																				<td colspan=7>
+																					${empVO.posVO.posName}
+																				</td>
+																				<th colspan=3>
+																					잔여&nbsp;연차
+																				</th>
+																				<td colspan=7>
+																					
+																				</td>
+																			</tr>
+																			<tr>
+																				<th colspan=3>
+																					휴가&nbsp;기간
+																				</th>
+																				<td colspan=12>
+																					<div>
+																		                <div class="datepicker-container" style="position: relative; display: inline-block;">
+																		                    <input type="text" id="vacationStart" class="datepicker-input">
+																		                    <i class="far fa-calendar-alt calendar-icon-vacSt"></i>
+																		                </div>																			
+																		                    <span style="font-size: 20px;">&nbsp;~&nbsp;</span>
+																						<div class="datepicker-container" style="position: relative; display: inline-block;">
+																		                    <input type="text" id="vacationEnd" class="datepicker-input">
+																		                    <i class="far fa-calendar-alt calendar-icon-vacEnd"></i>
+																						</div>
+																					</div>
+																				</td>
+																				<th colspan=3 style="padding-left: 10px !important; padding-right: 10px !important;">
+																					사용&nbsp;연차
+																				</th>
+																				<td colspan=2 id="dayDifference">
+																					
+																				</td>
+																			</tr>
+																			<tr>
+																				<th colspan=3>
+																					사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;유
+																				</th>
+																				<td colspan=17 style="height: 200px; padding: 3px !important;">
+																					<textarea style="width: 100%; height: 100%; margin: 3px !important; position: relative; top: 3px; right: 3px; border: none;" placeholder=" 사유를 입력해 주세요."></textarea>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td colspan=20 style="border: none !important; padding-top: 30px !important;">
+																					상기와 같이 요청하고자 하오니 허가하여 주시기 바랍니다.
+																				</td>
+																			</tr>	
+																																																		
+																		</tbody>
+																	</table>														
+																</div> <!-- 유형별 기안서 -->
+															</div>
+															
+														</td>
+													</tr>
+													<tr style="border: none !important;">
+														<td colspan= 4 style="border: none !important; padding: 20px 0px 0px 0px !important;">
+															<button type="button" class="btn btn-outline-danger cancelBtn" onclick="location.href='/approval/approvalDocbox'">
+																작성 취소
+															</button>													
+															<button type="submit" class="btn btn-primary draftBtn" id="draftBtn">
+																상신
+															</button>
+															<button type="submit" class="btn btn-outline-primary tempBtn" id="tempBtn">
+																임시 저장
+															</button>													
+														</td>
+													</tr>
+	
+												</tbody>
+											</table>
+										</div>
+										
+	
+										
+									</div>
+									
+								</div> <!-- card -->
 							</div>
-						</div>
+						</form>
 						
 					</div>
 
@@ -599,23 +560,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>	
 	<script src="/resources/js/approval/signManager.js"></script>
 	
-	<script>
-	    // 기안일
-	    const draftDate = new Date();
-	    document.getElementById('draftDate').textContent = draftDate.toISOString().substring(0, 10);	
-		
-	    //만료일
-	    document.addEventListener('DOMContentLoaded', function() {
-	        const expiryDate = new Date();
-	        expiryDate.setFullYear(today.getFullYear() + 2);
-	        document.getElementById('expiryDate').value = expiryDate.toISOString().substring(0, 10);
-	    });
-	    $(function() {
-	        $(".calendar-icon").on("click", function() {
-	            $("#expiryDate").datepicker("show");
-	        });
-	    });	        
-	</script>
+	<script src="/resources/js/approval/datePickers.js"></script>
 	
 	<script type="text/javascript">
 		$('#signListModal').on('shown.bs.modal', function () {

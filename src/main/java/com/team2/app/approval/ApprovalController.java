@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team2.app.employee.DeptEmpVO;
@@ -49,23 +50,23 @@ public class ApprovalController {
 		
 		// 기안서 리스트
 		List<ApprDocVO> list = approvalService.getList(empVO); 
-		for(ApprDocVO li : list) {
-			log.info("list :" + ""+li.getApprLineVO().size());
-		}
+//		for(ApprDocVO li : list) {
+//			log.info("list :" + ""+li.getApprLineVO().size());
+//		}
 		model.addAttribute("list", list);
 		
 		// 기안서 작성시 문서 유형 리스트
 		List<DocTypeVO> docList = approvalService.getDocType();
-		for(DocTypeVO dcli : docList) {
-			log.info("docList :" + dcli.getDocTemplateVO().size());
-		}
+//		for(DocTypeVO dcli : docList) {
+//			log.info("docList :" + dcli.getDocTemplateVO().size());
+//		}
 		model.addAttribute("docList", docList);	
 	}
 	
 	
 	// 기안서 작성 페이지
 	@GetMapping("write")
-	public String writePage(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+	public String writePage(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO apprDocVO, Model model) throws Exception {
 		
 		model.addAttribute("empVO", empVO);
 		
@@ -73,10 +74,12 @@ public class ApprovalController {
 		List<SignVO> signList = approvalService.signList(empVO);	
 		model.addAttribute("signList", signList);
 		
-		
 		// 결재선 사원 리스트 모달
 		List<DeptEmpVO> deptEmpList = employeeService.deptEmpList();
 		model.addAttribute("deptEmpList", deptEmpList);
+		
+		// 문서 타입
+		model.addAttribute("apprDocVO", apprDocVO);
 		
 		
 		return "approval/draftDoc";
@@ -84,9 +87,39 @@ public class ApprovalController {
 	}
 	
 	@PostMapping("write")
-	public void write(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+	@ResponseBody
+	public int write(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO apprDocVO, ApprLineVO apprLineVO,
+				@RequestParam Integer[] approver, Model model) throws Exception {
+		
+		int result = 0;
+		
+		result = approvalService.draftDoc(apprDocVO);
+		
+		Long generatedDocNum = apprDocVO.getDocNum();
+		
+		apprLineVO.setDocNum(generatedDocNum);
+		
+		if(approver.length == 0) {
+			log.error("결재자가 없습니다");
+			return 0;
+		}
+		else if(approver.length >= 1) {
+			int i = 1;
+			for(Integer appr : approver) {
+				if(appr == null) {
+					break;
+				}
+				apprLineVO.setApprover(appr);
+				apprLineVO.setApprTurn(i);
+				int r = approvalService.saveApprLine(apprLineVO);
+				i++;
+				
+				result += r*10;
+			}
+		}
 		
 		
+		return result;
 		
 	}
 	

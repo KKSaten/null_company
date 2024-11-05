@@ -143,7 +143,7 @@ $("#apprLineModalBody1").on("click", ".approverPlusBtn", function(){
 	// 추가한 사원보다 직위가 낮은 사원의 + 버튼 숨김
 	$('.emp-item').each(function() {
 		const currentPosNum = $(this).find('.hiddenPosNum').val();
-		if (parseInt(currentPosNum) < parseInt(posNum)) {
+		if (parseInt(currentPosNum) <= parseInt(posNum)) {
 			$(this).find('.approverPlusBtn').hide();
 		}
 	});	
@@ -166,6 +166,7 @@ $('#apprLineModalBody2').on('click','.removeApprover' , function() {
 	
 	// 현재 행 이후의 모든 결재자들 제거
 	let nextRowRemoveCount = 0;
+	
 	currentRow.nextAll().each(function() {
 	    const nextEmpNum = $(this).find('.hiddenEmpNum').val();
 		if(nextEmpNum) {
@@ -195,6 +196,9 @@ $('#apprLineModalBody2').on('click','.removeApprover' , function() {
 	
 	// 추가된 empNum 리스트에서 제거
 	addedApprovers = addedApprovers.filter(code => code !== empNum);
+	console.log('결재자1: ' +  addedApprovers[0])
+	console.log('결재자2: ' +  addedApprovers[1])
+	console.log('결재자3: ' +  addedApprovers[2])
 	
 	//요것들 지금 작동안함
 	//empNames = empNames.filter(code => code !== empName);
@@ -223,7 +227,7 @@ $('#apprLineModalBody2').on('click','.removeApprover' , function() {
 	$('.emp-item').each(function () {
 	    const empNumInList = $(this).find('.hiddenEmpNum').val();
 		const posNumInList = $(this).find('.hiddenPosNum').val();
-	    if (!addedApprovers.includes(empNumInList) && posNumInList >= highestPosNum) {
+	    if (!addedApprovers.includes(empNumInList) && posNumInList > highestPosNum) {
 	        $(this).find('.approverPlusBtn').show(); 
 	    } else {
 	        $(this).find('.approverPlusBtn').hide(); 
@@ -244,14 +248,17 @@ $('#submitApprLine').on('click', function() {
 	}
 	if (empNames[0]) {
 		apprLineText += `(${posNames[0]}) ${empNames[0]}`;
+		document.getElementById('hiddenApprover1').value = addedApprovers[0];
 	}
 	if (empNames[1]) {
 		if (apprLineText) apprLineText += ' <i class="fas fa-caret-right" style="zoom:1.3; margin-left: 10px; margin-right: 10px; position:relative; top: 1px;"></i> ';
 		apprLineText += `(${posNames[1]}) ${empNames[1]}`;
+		document.getElementById('hiddenApprover2').value = addedApprovers[1];
 	}
 	if (empNames[2]) {
 		if (apprLineText) apprLineText += ' <i class="fas fa-caret-right" style="zoom:1.3; margin-left: 10px; margin-right: 10px; position:relative; top: 1px;"></i> ';
 		apprLineText += `(${posNames[2]}) ${empNames[2]}`;
+		document.getElementById('hiddenApprover3').value = addedApprovers[2];
 	}
 	
 	//alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);

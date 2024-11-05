@@ -143,6 +143,17 @@
 	</delete>
 	
 	
+	<insert id="draftDoc" parameterType="ApprDocVO" useGeneratedKeys="true" keyProperty="docNum">
+		INSERT INTO APPROVAL_DOCBOX
+		VALUES(null, #{docWriter}, #{docTypecode}, #{docTemplatecode}, null, #{docTitle}, #{docContent}, now(), now(), #{docExpirydate}, '진행')
+	</insert>
+	
+	
+	<insert id="saveApprLine" parameterType="ApprLineVO">
+		INSERT INTO APPROVAL_LINE
+		VALUES(null, #{docNum}, #{docTemplatecode}, #{approver}, '대기', #{apprTurn})
+	</insert>
+	
 	
 	
 	

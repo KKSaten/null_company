@@ -72,6 +72,21 @@ public class ApprovalService {
 		int result = approvalMapper.deleteSign(signVO);
 		
 		return result;
-	}	
+	}
+	
+	public int draftDoc(ApprDocVO apprDocVO) throws Exception {
+		
+		int result = approvalMapper.draftDoc(apprDocVO);
+		
+		return result;
+	}
+	
+	public int saveApprLine(ApprLineVO apprLineVO) throws Exception {
+		
+		int result = approvalMapper.saveApprLine(apprLineVO);
+		
+		return result;
+		
+	}
 	
 }
