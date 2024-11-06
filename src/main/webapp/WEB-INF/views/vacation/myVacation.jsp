@@ -66,14 +66,18 @@
 														data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
 												<div class="modal-body">
+													<form action="/vacation/vacationAdd" method="post"> 
 													<h6>📝휴가 일정 입력</h6>
-
+													<input type="date" name="vacationStartDate"></input> ~
+													<input type="date" name="vacationEndDate"></input>
+													
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-success btn-border"
 														data-bs-dismiss="modal">취소</button>
-													<button type="button" class="btn btn-success">휴가
+													<button type="submit" class="btn btn-success">휴가
 														신청</button>
+														</from>
 												</div>
 											</div>
 										</div>
