@@ -1,16 +1,20 @@
 package com.team2.app.haerin.vacation;
 
 import java.lang.ProcessBuilder.Redirect;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,7 +73,47 @@ public class VacationController {
 		model.addAttribute("list",list);
 		
 	}
-	
 
-		
+	@PostMapping("/vacation/vacationAdd")
+	public String vacationAdd(@RequestParam("vacationStartDate") String vacationStartDateStr,
+	                          @RequestParam("vacationEndDate") String vacationEndDateStr,
+	                          @ModelAttribute VacationVO vacationVO) throws Exception {
+
+	    // 날짜 형식 지정
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+	    // String을 java.util.Date로 변환
+	    java.util.Date vacationStartDateUtil = sdf.parse(vacationStartDateStr);
+	    java.util.Date vacationEndDateUtil = sdf.parse(vacationEndDateStr);
+
+	    // java.util.Date를 java.sql.Date로 변환
+	    java.sql.Date vacationStartDate = new java.sql.Date(vacationStartDateUtil.getTime());
+	    java.sql.Date vacationEndDate = new java.sql.Date(vacationEndDateUtil.getTime());
+
+	    // 로그인한 사용자 아이디 가져오기
+	    SecurityContext context = SecurityContextHolder.getContext();
+	    Authentication authentication = context.getAuthentication();
+	    EmployeeVO temp = (EmployeeVO) authentication.getPrincipal();
+	    vacationVO.setEmpNum(temp.getEmpNum());
+
+	    // vacationVO 내의 vacationCountVO를 가져오기
+	    VacationCountVO vacationCountVO = vacationVO.getVacationCountVO();
+	    
+	    // vacationCountVO가 null인 경우 새로 생성하여 할당
+	    if (vacationCountVO == null) {
+	        vacationCountVO = new VacationCountVO();
+	        vacationVO.setVacationCountVO(vacationCountVO);
+	    }
+
+	    // vacationStartDate와 vacationEndDate를 vacationCountVO에 설정
+	    vacationCountVO.setVacationStartDate(vacationStartDate);
+	    vacationCountVO.setVacationEndDate(vacationEndDate);
+
+	    // vacationAdd 로직 처리
+	    vacationService.vacationAdd(vacationVO);
+
+	    return "redirect:/vacation/list";  // 적절한 리다이렉트
+	}
+
+
 }

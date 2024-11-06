@@ -40,7 +40,7 @@
 		    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM 
 		JOIN 
 		    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
-		JOIN 
+		JOIN  
 		    POSITIONS P ON E.POS_NUM = P.POS_NUM;	    
 	</select>
 	
@@ -94,5 +94,17 @@
 		    POSITIONS P ON E.POS_NUM = P.POS_NUM
 				 WHERE E.EMP_NUM = #{empNum};    
 	</select>
+	
+	
+<insert id="vacationAdd" parameterType="com.team2.app.haerin.vacation.VacationVO">
+    INSERT INTO VACATION_COUNT (VACATION_NUM,CREATED_DATE, VACATION_START_DATE, VACATION_END_DATE)
+    VALUES (
+        (SELECT VACATION_NUM FROM VACATION WHERE EMP_NUM = #{empNum}),
+        CURDATE(),
+        #{vacationCountVO.vacationStartDate},  <!-- vacationStartDate -->
+        #{vacationCountVO.vacationEndDate}    <!-- vacationEndDate -->
+    );
+</insert>
 
+	
 </mapper>

@@ -19,5 +19,6 @@ public interface VacationMapper {
 	public List<VacationVO> list()throws Exception;
 	public List<VacationVO> listDetail()throws Exception;
 	public void updateVacation(VacationVO vacationVO);
+	public void vacationAdd(VacationVO vacationVO)throws Exception;
 
 }
