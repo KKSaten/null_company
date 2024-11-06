@@ -1,0 +1,76 @@
+.table > tbody > tr > td, .table > tbody > tr > th {
+	padding: 8px 15px !important;
+	text-align: left !important;			
+}
+.custom > td, .custom > th, .draftBtn, .tempBtn, .cancelBtn {
+	font-size: 16px !important;
+}
+.paramBtn {
+	width: 100%;
+	font-size: 16px;
+	border: 1px solid #eaeaea;
+	background: none;
+}
+.draftBtn, .tempBtn {
+	float: right;
+}
+.draftBtn {
+	margin-left: 10px;		
+}
+.cancelBtn {
+	float: left;
+}
+.defaultSignDiv > #defaultSign {
+	zoom:1.5;
+	position: relative;
+	top: 2.5px;
+	margin-left: 5px;
+	margin-right: 5px;		
+}
+.defaultSignDiv > label{
+	position:relative;
+	top: -1px;
+	font-size: 16px !important;
+	font-weight: 600;
+	color: #000 !important;
+}
+.signImage {
+	width: 240px;
+	height: 135px;	
+}
+.selectSignRadio {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;	
+}
+.signModalBox {
+	box-shadow: 5px 5px 15px #4a4a4a;
+	margin-top: 100px !important;
+}
+.apprLineTable > tbody > tr > th, .apprLineTable > tbody > tr > td {
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+	font-size: 15px;
+}
+.apprLineTable > tbody > .approverFieldApprover > td {
+	background-color: #f6f6f6 !important;
+}					
+.approverPlusBtn {
+	position: relative;
+	top: 3px;
+	zoom:1.2;
+	float: right;
+	margin-right: 40px;
+	color:#0275d8;
+	cursor: pointer;
+}
+.draftDocumentTemplate > tbody > tr > th, .draftDocumentTemplate > tbody > tr > td {
+	text-align: center !important;
+	border: 1px solid #acacac !important;
+}
+.draftDocumentTemplate > tbody > tr > th {
+	background-color: #eaeaea;
+}
+.draftDocumentTemplate > tbody > tr > .draftDocumentTemplateTitle, .draftDocumentTemplate > tbody > .hiddenSpace > td {
+	border: none !important;
+}

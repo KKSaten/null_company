@@ -114,8 +114,23 @@ document.getElementById('draftBtn').addEventListener('click', function(event) {
 		return;
 	}
 	
-	const formData = new FormData(document.getElementById('draftDocForm'));	
+	
+	const inputs = document.querySelectorAll(".inputValue");
+	inputs.forEach(input => {
+		if (input.tagName.toLowerCase() === "textarea") {
+		    // textarea는 'value' 속성 대신 텍스트 콘텐츠를 설정합니다.
+		    input.textContent = input.value;
+			//결재자 쪽에서 input 값을 수정할 수 없도록
+			input.setAttribute("readonly", true);
+		} else {
+		    // input 요소는 'value' 속성을 설정합니다.
+		    input.setAttribute("value", input.value);
+			input.setAttribute("readonly", true);
+		}
+	});
+	
 
+	const formData = new FormData(document.getElementById('draftDocForm'));
 	const docContent = document.getElementById('docContent').innerHTML;
 	formData.append('docContent', docContent);
 	

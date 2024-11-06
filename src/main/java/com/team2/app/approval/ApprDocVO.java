@@ -36,5 +36,7 @@ public class ApprDocVO {
 	
 	private String tempStorage;
 	
+	private String contents="";
+	
 	
 }

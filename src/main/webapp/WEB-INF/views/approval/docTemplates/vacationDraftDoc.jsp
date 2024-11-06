@@ -76,12 +76,12 @@
 				<td colspan=12>
 					<div>
 		                <div class="datepicker-container" style="position: relative; display: inline-block;">
-		                    <input type="text" id="vacationStart" class="datepicker-input">
+		                    <input type="text" id="vacationStart" class="datepicker-input inputValue">
 		                    <i class="far fa-calendar-alt calendar-icon-vacSt"></i>
 		                </div>																			
 		                    <span style="font-size: 20px;">&nbsp;~&nbsp;</span>
 						<div class="datepicker-container" style="position: relative; display: inline-block;">
-		                    <input type="text" id="vacationEnd" class="datepicker-input">
+		                    <input type="text" id="vacationEnd" class="datepicker-input inputValue">
 		                    <i class="far fa-calendar-alt calendar-icon-vacEnd"></i>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 					사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;유
 				</th>
 				<td colspan=17 style="height: 200px; padding: 3px !important;">
-					<textarea style="width: 100%; height: 100%; margin: 3px !important; position: relative; top: 3px; right: 3px; border: none;" placeholder=" 사유를 입력해 주세요."></textarea>
+					<textarea class="inputValue" style="width: 100%; height: 100%; margin: 3px !important; position: relative; top: 3px; right: 3px; border: none;" placeholder=" 사유를 입력해 주세요."></textarea>
 				</td>
 			</tr>
 			<tr>

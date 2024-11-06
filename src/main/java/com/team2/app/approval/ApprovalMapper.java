@@ -10,7 +10,11 @@ import com.team2.app.employee.EmployeeVO;
 @Mapper
 public interface ApprovalMapper {
 	
+	public List<ApprDocVO> getReceivedList(EmployeeVO empVO) throws Exception;
+	
 	public List<ApprDocVO> getList(EmployeeVO empVO) throws Exception;
+	
+	public ApprDocVO getDetail(ApprDocVO apprDocVO) throws Exception;
 	
 	public List<DocTypeVO> getDocType() throws Exception;
 	
@@ -28,5 +32,7 @@ public interface ApprovalMapper {
 	public int draftDoc(ApprDocVO apprDocVO) throws Exception;
 	
 	public int saveApprLine(ApprLineVO apprLineVO) throws Exception;
+	
+	public int aprlStart(ApprLineVO apprLineVO) throws Exception;
 	
 }

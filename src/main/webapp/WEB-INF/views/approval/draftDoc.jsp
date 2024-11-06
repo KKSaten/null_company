@@ -94,6 +94,7 @@
 													<tr class="custom">																												
 														<th style="width: 25%;" >
 															기안일
+														
 														</th>
 														<td style="width: 25%;" id="draftDateValue">
 															<!-- 날짜 -->
