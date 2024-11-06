@@ -60,3 +60,102 @@ $(document).ready(function() {
 		});
 	}
 });
+
+
+// 임시 저장
+document.getElementById('tempBtn').addEventListener('click', function(event) {	
+	
+	event.preventDefault(); // 버튼 클릭으로 발생한 submit 중지
+
+	const formData = new FormData(document.getElementById('draftDocForm'));	
+
+	const docContent = document.getElementById('docContent').innerHTML;
+	formData.append('docContent', docContent);
+	
+	const tempStorage = 's';
+	formData.append('tempStorage', tempStorage);
+	
+	// Ajax 요청
+	fetch('/approval/write', {
+	    method: 'POST',
+	    body: formData
+	})
+	.then(response => {
+	    if (!response.ok) {
+	        throw new Error('췤더마이크로폰원투원투제이슨이즈낫옼께이 : ' + response.status);
+	    }
+	    return response.json(); // 응답을 JSON으로 변환	
+	})
+	.then(data => {
+		alert("이후 임시보관함에서 수정하실 수 있습니다.")
+		console.log('성공: ', data);
+		location.href = '/approval/approvalDocbox';
+	})
+	.catch(error => {
+		alert("Error");
+	    console.error('에러났슈: ', error);
+	});
+	
+
+});
+
+
+// 상신
+document.getElementById('draftBtn').addEventListener('click', function(event) {	
+	
+	event.preventDefault(); // 버튼 클릭으로 발생한 submit 중지
+	
+	const docTitle = document.getElementById('docTitle').value.trim(); // 문서 제목 가져오기
+	const apprLine = document.getElementById('apprLineBtn').innerText;
+	const sign = document.getElementById('signListModalBtn').innerText; 
+	
+	if (docTitle == "" || apprLine == "결재선 설정" || sign == "서명 선택") {
+		alert("빈칸 입력 바랍니다.");
+		return;
+	}
+	
+	
+	const inputs = document.querySelectorAll(".inputValue");
+	inputs.forEach(input => {
+		if (input.tagName.toLowerCase() === "textarea") {
+		    // textarea는 'value' 속성 대신 텍스트 콘텐츠를 설정합니다.
+		    input.textContent = input.value;
+			//결재자 쪽에서 input 값을 수정할 수 없도록
+			input.setAttribute("readonly", true);
+		} else {
+		    // input 요소는 'value' 속성을 설정합니다.
+		    input.setAttribute("value", input.value);
+			input.setAttribute("readonly", true);
+		}
+	});
+	
+
+	const formData = new FormData(document.getElementById('draftDocForm'));
+	const docContent = document.getElementById('docContent').innerHTML;
+	formData.append('docContent', docContent);
+	
+	// Ajax 요청
+	fetch('/approval/write', {
+	    method: 'POST',
+	    body: formData
+	})
+	.then(response => {
+	    if (!response.ok) {
+	        throw new Error('췤더마이크로폰원투원투제이슨이즈낫옼께이 : ' + response.status);
+	    }
+	    return response.json(); // 응답을 JSON으로 변환	
+	})
+	.then(data => {
+		console.log('성공: ', data);
+		location.href = '/approval/approvalDocbox';
+	})
+	.catch(error => {
+		alert("Error");
+	    console.error('에러났슈: ', error);
+	});
+	
+
+});
+
+
+

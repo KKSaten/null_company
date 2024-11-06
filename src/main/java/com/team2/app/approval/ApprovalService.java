@@ -22,13 +22,18 @@ public class ApprovalService {
 	private String path;
 	
 	
-	public void approvalReceivedbox() throws Exception {
-		
+	public List<ApprDocVO> getReceivedList(EmployeeVO empVO) throws Exception {
+		return approvalMapper.getReceivedList(empVO);
 	}
 	
 	public List<ApprDocVO> getList(EmployeeVO empVO) throws Exception {
 		return approvalMapper.getList(empVO);
 	}
+	
+	public ApprDocVO getDetail(ApprDocVO apprDocVO) throws Exception {
+		return approvalMapper.getDetail(apprDocVO);
+	}
+	
 	
 	public List<DocTypeVO> getDocType() throws Exception {
 		return approvalMapper.getDocType();
@@ -72,6 +77,29 @@ public class ApprovalService {
 		int result = approvalMapper.deleteSign(signVO);
 		
 		return result;
-	}	
+	}
+	
+	public int draftDoc(ApprDocVO apprDocVO) throws Exception {
+		
+		int result = approvalMapper.draftDoc(apprDocVO);
+		
+		return result;
+	}
+	
+	public int saveApprLine(ApprLineVO apprLineVO) throws Exception {
+		
+		int result = approvalMapper.saveApprLine(apprLineVO);
+		
+		return result;
+		
+	}
+	
+	public int aprlStart(ApprLineVO apprLineVO) throws Exception {
+		
+		int result = approvalMapper.aprlStart(apprLineVO);
+		
+		return result;
+	}
+	
 	
 }
