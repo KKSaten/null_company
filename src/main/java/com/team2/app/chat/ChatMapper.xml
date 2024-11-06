@@ -17,83 +17,96 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-	
-	<select id="getRoomDetail" parameterType="RoomVO" resultType="RoomVO">
+
+	<insert id="addMember" parameterType="RoomVO">
+		INSERT INTO ROOM_MEMBER (ROOM_NUM, EMP_NUM)
+		VALUES
+		<foreach collection="roomMember" item="roomMember"
+			separator=",">
+			(#{roomNum}, #{roomMember.empNum})
+		</foreach>
+	</insert>
+
+	<select id="getRoomDetail" parameterType="RoomVO"
+		resultType="RoomVO">
 		SELECT *
 		FROM ROOM
 		WHERE ROOM_NUM=#{roomNum}
 	</select>
-	
-	<select id="getRoomMember" parameterType="RoomVO" resultType="EmployeeVO">
-		SELECT RM.*, E.*
-		FROM ROOMMEMBER RM
-			LEFT JOIN
-			EMPLOYEE E
-			USING (EMP_NUM)
-		WHERE RM.ROOM_NUM = #{roomNum}
+
+	<select id="getRoomMember" parameterType="RoomVO"
+		resultType="RoomMemberVO">
+		SELECT *
+		FROM ROOM_MEMBER
+		WHERE ROOM_NUM = #{roomNum}
 	</select>
-	
-	<select id="getChat" parameterType="RoomVO" resultMap="ChatEmp">
-		SELECT C.*, E.*, EF.*
+
+	<select id="getChat" parameterType="java.util.List"
+		resultMap="ChatEmp">
+		SELECT C.*, RM.*, E.*, EF.*
 		FROM CHAT C
-			LEFT JOIN
-			EMPLOYEE E
-			USING (EMP_NUM)
-			LEFT JOIN
-			EMP_FILE EF
-			USING (EMP_NUM)
-		WHERE C.ROOM_NUM = #{roomNum}
+		LEFT JOIN
+		ROOM_MEMBER RM
+		USING (MEMBER_NUM)
+		LEFT JOIN
+		EMPLOYEE E
+		ON RM.EMP_NUM = E.EMP_NUM
+		LEFT JOIN
+		EMP_FILE EF
+		ON RM.EMP_NUM = EF.EMP_NUM
+		WHERE C.MEMBER_NUM IN
+		<foreach collection="roomMemberVOs" item="roomMemberVO" open="(" separator="," close=")">
+			#{roomMemberVO.memberNum}
+		</foreach>
 	</select>
-	
+
 	<resultMap type="ChatVO" id="ChatEmp">
-		<id property="chatNum" column="CHAT_NUM"/>
-		<result property="roomNum" column="ROOM_NUM"/>
-		<result property="empNum" column="EMP_NUM"/>
-		<result property="chatContents" column="CHAT_CONTENTS"/>
-		<result property="createTime" column="CREATETIME"/>
-		
-		<association property="employeeVO" javaType="EmployeeVO" >
-			<id property="empName" column="EMP_NAME"/>
-			
-			<association property="employeeFileVO" javaType="EmployeeFileVO">
-				<id property="fileNum" column="FILE_NUM"/>
-				<result property="fileName" column="FILE_NAME"/>
+		<id property="chatNum" column="CHAT_NUM" />
+		<result property="memberNum" column="MEMBER_NUM" />
+		<result property="chatContents" column="CHAT_CONTENTS" />
+		<result property="createTime" column="CREATETIME" />
+
+		<association property="employeeVO" javaType="EmployeeVO">
+			<id property="empNum" column="EMP_NUM"/>
+			<result property="empName" column="EMP_NAME" />
+
+			<association property="employeeFileVO"
+				javaType="EmployeeFileVO">
+				<id property="fileNum" column="FILE_NUM" />
+				<result property="fileName" column="FILE_NAME" />
 			</association>
 		</association>
 	</resultMap>
-	
-	<select id="getReadCount" parameterType="ChatVO" resultType="Integer">
+
+	<select id="getReadCount" parameterType="ChatVO"
+		resultType="Integer">
 		SELECT COUNT(READ_NUM)
 		FROM READ_STATUS
-		WHERE EMP_NUM = #{empNum} AND CHAT_NUM=#{chatNum} AND IS_READ=0
+		WHERE CHAT_NUM=#{chatNum} AND  IS_READ=0
 	</select>
-	
+
 	<insert id="addChat" parameterType="ChatVO">
-		INSERT INTO CHAT (ROOM_NUM, EMP_NUM, CHAT_CONTENTS)
-		VALUES (#{roomNum}, #{empNum}, #{chatContents})
-		<selectKey order="AFTER" keyProperty="chatNum" resultType="int">
+		INSERT INTO CHAT (MEMBER_NUM, CHAT_CONTENTS)
+		VALUES (#{memberNum}, #{chatContents})
+		<selectKey order="AFTER" keyProperty="chatNum"
+			resultType="int">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-	
+
 	<insert id="addRead" parameterType="ChatVO">
-		INSERT INTO READ_STATUS (CHAT_NUM, EMP_NUM)
-		VALUES (#{chatNum}, #{empNum})
+		INSERT INTO READ_STATUS
+		(CHAT_NUM, MEMBER_NUM)
+		VALUES (#{chatNum}, #{memberNum})
 	</insert>
-	
+
 	<update id="chReadStatus" parameterType="ChatVO">
 		UPDATE READ_STATUS
-		SET IS_READ=1
-		WHERE CHAT_NUM = #{chatNum} AND EMP_NUM = #{empNum}
+		SET
+		IS_READ=1
+		WHERE CHAT_NUM = #{chatNum} AND MEMBER_NUM = #{memberNum}
 	</update>
 
-	<insert id="addMember" parameterType="RoomVO">
-		INSERT INTO ROOMMEMBER (ROOM_NUM, EMP_NUM)
-		VALUES
-		<foreach collection="roomMember" item="emp" separator=",">
-			(#{roomNum}, #{emp.empNum})
-		</foreach>
-	</insert>
 
 	<select id="getEmpDetail" parameterType="EmployeeVO"
 		resultMap="EmpInfo">
@@ -111,7 +124,8 @@
 		LEFT JOIN
 		POSITIONS P
 		USING (POS_NUM)
-		WHERE E.EMP_NUM = #{empNum}
+		WHERE
+		E.EMP_NUM = #{empNum}
 	</select>
 
 	<resultMap type="EmployeeVO" id="EmpInfo">
@@ -152,13 +166,21 @@
 		</association>
 	</resultMap>
 
+	<select id="getMemberDetail" parameterType="RoomMemberVO"
+		resultType="RoomMemberVO">
+		SELECT *
+		FROM ROOM_MEMBER
+		WHERE ROOM_NUM = #{roomNum} AND EMP_NUM = #{empNum}
+	</select>
+
 	<select id="empList" parameterType="DepartmentVO"
 		resultMap="EmpInfo">
 		SELECT E.*, R.*
 		FROM EMPLOYEE E
 		LEFT JOIN
 		ROLE R
-		USING (ROLE_NUM)
+		USING
+		(ROLE_NUM)
 		WHERE E.DEPT_NUM = #{deptNum}
 		ORDER BY E.ROLE_NUM ASC
 	</select>

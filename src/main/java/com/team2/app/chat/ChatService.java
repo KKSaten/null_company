@@ -1,5 +1,6 @@
 package com.team2.app.chat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,9 @@ public class ChatService {
 		int result = chatMapper.makeRoom(roomVO);
 
 		if (result > 0) {
+			
 			result = chatMapper.addMember(roomVO);
+			
 		}
 
 		log.info("makeRoom Service vo : {}", roomVO);
@@ -39,46 +42,55 @@ public class ChatService {
 		roomVO = chatMapper.getRoomDetail(roomVO);
 
 		// 채팅방 인원 불러오기
-		roomVO.setRoomMember(chatMapper.getRoomMember(roomVO));
+		List<RoomMemberVO> roomMemberlist = chatMapper.getRoomMember(roomVO);
+		roomVO.setRoomMember(roomMemberlist);
 		
-		List<ChatVO> list = chatMapper.getChat(roomVO);
+		List<ChatVO> chatList = chatMapper.getChat(roomMemberlist);
 		
-		for(ChatVO chatVO: list) {
-			
+		// 이전 채팅 불러오기
+		roomVO.setChatList(chatList);
+
+		for(ChatVO chatVO: chatList) {
 			chatVO.setReadCount(chatMapper.getReadCount(chatVO));
 		}
-
-		// 이전 채팅 불러오기
-		roomVO.setChatList(list);
 
 		return roomVO;
 	}
 
-	public void addChat(ChatVO chatVO) throws Exception {
+	public ChatVO addChat(ChatVO chatVO, RoomMemberVO roomMemberVO) throws Exception {
+		
 		chatMapper.addChat(chatVO);
+		
+		RoomVO roomVO = new RoomVO();
+		roomVO.setRoomNum(roomMemberVO.getRoomNum());
 
 		// 채팅방 인원 불러오기
-		RoomVO roomVO = new RoomVO();
-		roomVO.setRoomNum(chatVO.getRoomNum());
-		List<EmployeeVO> list = chatMapper.getRoomMember(roomVO);
+		List<RoomMemberVO> list = chatMapper.getRoomMember(roomVO);
 
 		// 채팅방 인원 마다 읽음 여부 생성
-		for (EmployeeVO employeeVO : list) {
-			ChatVO vo = new ChatVO();
-			vo.setChatNum(chatVO.getChatNum());
-			vo.setRoomNum(chatVO.getRoomNum());
-			vo.setEmpNum(employeeVO.getEmpNum());
-			chatMapper.addRead(vo);
+		for (RoomMemberVO vo : list) {
+			ChatVO addChatVO = new ChatVO();
+			addChatVO.setChatNum(chatVO.getChatNum());
+			addChatVO.setMemberNum(vo.getMemberNum());
+			chatMapper.addRead(addChatVO);
 		}
 		
 		//나의 읽음상태 변경
 		chatMapper.chReadStatus(chatVO);
 		
+		int read = chatMapper.getReadCount(chatVO);
+		chatVO.setReadCount(read);
+		
+		return chatVO;
 		
 	}
 
 	public EmployeeVO getEmpDetail(EmployeeVO employeeVO) throws Exception {
 		return chatMapper.getEmpDetail(employeeVO);
+	}
+	
+	public RoomMemberVO getMemberDetail(RoomMemberVO roomMemberVO) throws Exception {
+		return chatMapper.getMemberDetail(roomMemberVO);
 	}
 
 	public List<EmployeeVO> empList(DepartmentVO departmentVO) throws Exception {

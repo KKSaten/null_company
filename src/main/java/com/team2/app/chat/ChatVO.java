@@ -11,8 +11,7 @@ import lombok.Data;
 @Data
 public class ChatVO {
     private Integer chatNum;
-    private Integer roomNum;
-    private Integer empNum;
+    private Integer memberNum;
     private String chatContents;
     private Date createTime;
     private Integer readCount;
