@@ -101,7 +101,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		//채팅 작성 후 채팅방에 websocket이 살아있는 사람 읽음 표시
 		Set<WebSocketSession> set = sessionList.get(roomNum);
 		log.info("set size : {}", set.size());
-		if(!set.isEmpty()) {
+		if(set != null) {
 			for(WebSocketSession socket:set) {
 				Integer empNum = sessionUserMap.get(socket);
 				log.info("socket socket: {}", socket);
@@ -167,9 +167,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			chatVO.setChatContents(message.getPayload());
 			ChatVO vo = chatService.addChat(chatVO, roomMemberVO);
 			chatVO.setChatNum(vo.getChatNum());
+			chatVO.setCreateTime(vo.getCreateTime());
 		}
 		
 		chatVO.setMemberNum(roomMemberVO.getMemberNum());
+		
+		log.info("getchatvo: {}", chatVO);
 		
 		return chatVO;
 	}

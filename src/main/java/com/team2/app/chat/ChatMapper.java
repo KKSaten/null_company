@@ -29,6 +29,8 @@ public interface ChatMapper {
 	
 	public Integer getReadCount (ChatVO chatVO) throws Exception;
 	
+	public ChatVO getChatTime(ChatVO chatVO) throws Exception;
+	
 	public void addChat (ChatVO chatVO) throws Exception;
 	
 	public void addRead (ChatVO chatVO) throws Exception;

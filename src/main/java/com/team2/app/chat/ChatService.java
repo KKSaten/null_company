@@ -1,5 +1,7 @@
 package com.team2.app.chat;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +106,9 @@ public class ChatService {
 			
 			//나의 읽음상태 변경
 			chatMapper.chReadStatus(chatVO);
+			
+			ChatVO vo = chatMapper.getChatTime(chatVO);
+	        chatVO.setCreateTime(vo.getCreateTime());
 		}
 		
 		return chatVO;

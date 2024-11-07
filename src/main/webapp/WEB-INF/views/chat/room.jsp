@@ -28,8 +28,8 @@ body {
 }
 
 .message-container {
-    position: relative; /* 자식 요소의 위치를 상대적으로 설정 */
-    margin-bottom: 20px; /* 메시지와 시간 사이의 여백 */
+	position: relative; /* 자식 요소의 위치를 상대적으로 설정 */
+	margin-bottom: 20px; /* 메시지와 시간 사이의 여백 */
 }
 
 .message {
@@ -76,11 +76,12 @@ body {
 	object-fit: cover; /* 이미지 비율 유지 */
 	margin-right: 10px; /* 이미지와 텍스트 간격 */
 }
+
 .timestamp {
-    bottom: -20px; /* 메시지 박스의 아래쪽으로 나가게 설정 */
-    right: 10px; /* 오른쪽에 위치 */
-    font-size: 12px; /* 작은 글씨 크기 */
-    color: #777; /* 연한 회색 글자 */
+	bottom: -20px; /* 메시지 박스의 아래쪽으로 나가게 설정 */
+	right: 10px; /* 오른쪽에 위치 */
+	font-size: 12px; /* 작은 글씨 크기 */
+	color: #777; /* 연한 회색 글자 */
 }
 </style>
 
@@ -108,35 +109,36 @@ body {
 									<c:set var="previousItem" value="${null}" />
 									<c:forEach items="${vo.chatList}" var="chatVO">
 										<c:if test="${chatVO.employeeVO.empNum ne empVO.empNum}">
-										<c:if test="${chatVO.employeeVO.empNum ne previousItem}">
-											
-											<img
-												src="/file/employee/${chatVO.employeeVO.employeeFileVO.fileName}"
-												class="rounded-image" alt="Employee Image">
-											<strong>${chatVO.employeeVO.empName}</strong>
+											<c:if test="${chatVO.employeeVO.empNum ne previousItem}">
+
+												<img
+													src="/file/employee/${chatVO.employeeVO.employeeFileVO.fileName}"
+													class="rounded-image" alt="Employee Image">
+												<strong>${chatVO.employeeVO.empName}</strong>
 											</c:if>
 										</c:if>
 										<div class="message-container">
-										<div
-											class="message ${chatVO.employeeVO.empNum eq empVO.empNum ? 'my-message' : 'other-message'}"
-											style="width: fit-content;">
-											<c:choose>
-												<c:when test="${chatVO.employeeVO.empNum ne empVO.empNum}">
-													<span class="chat-content">
-														<p>${chatVO.chatContents}</p>
-													</span>
-													<span class="read-count">${chatVO.readCount}</span>
-												</c:when>
-												<c:otherwise>
-													<span class="read-count">${chatVO.readCount}</span>
-													<span class="chat-content">
-														<p>${chatVO.chatContents}</p>
-													</span>
-												</c:otherwise>
-											</c:choose>
+											<div
+												class="message ${chatVO.employeeVO.empNum eq empVO.empNum ? 'my-message' : 'other-message'}"
+												style="width: fit-content;">
+												<c:choose>
+													<c:when test="${chatVO.employeeVO.empNum ne empVO.empNum}">
+														<span class="chat-content">
+															<p>${chatVO.chatContents}</p>
+														</span>
+														<span class="read-count">${chatVO.readCount}</span>
+													</c:when>
+													<c:otherwise>
+														<span class="read-count">${chatVO.readCount}</span>
+														<span class="chat-content">
+															<p>${chatVO.chatContents}</p>
+														</span>
+													</c:otherwise>
+												</c:choose>
 
-										</div>
-										<div class="timestamp" style="${chatVO.employeeVO.empNum eq empVO.empNum ?'position:absolute;':''}">${chatVO.createTime}</div>
+											</div>
+											<div class="timestamp"
+												style="${chatVO.employeeVO.empNum eq empVO.empNum ?'position:absolute;':''}">${chatVO.getFormattedCreateTime()}</div>
 										</div>
 										<c:set var="previousItem" value="${chatVO.employeeVO.empNum}" />
 									</c:forEach>
