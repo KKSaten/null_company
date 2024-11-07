@@ -1,6 +1,6 @@
 package com.team2.app.chat;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,8 +13,8 @@ public class RoomVO {
 	
 	private Integer roomNum;
 	private String roomName;
-	private Date createTime;
-	private List<EmployeeVO> roomMember;
+	private Timestamp createTime;
+	private List<RoomMemberVO> roomMember;
 	private List<ChatVO> chatList;
 	
 }

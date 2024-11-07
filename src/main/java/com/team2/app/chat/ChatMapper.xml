@@ -2,85 +2,202 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.team2.app.chat.ChatMapper">
-  
-  	
-  	
-  	<select id="getList" resultType="RoomVO">
-  		SELECT * FROM ROOM
-  	</select>
-  	
-  	<insert id="makeRoom" parameterType="RoomVO">
-  		INSERT INTO ROOM (ROOM_NAME)
-  		VALUES (#{roomName})
-  		<selectKey keyProperty="roomNum" resultType="int" order="AFTER">
-  			SELECT LAST_INSERT_ID()
-  		</selectKey>
-  	</insert>
-  	
-  	<select id="getEmpDetail" parameterType="EmployeeVO" resultMap="EmpInfo">
-  		SELECT E.*, EF.*, R.*, D.*, P.*
-  		FROM EMPLOYEE E
-  			LEFT JOIN
-  			EMP_FILE EF
-  			USING (EMP_NUM)
-  			LEFT JOIN
-  			ROLE R
-  			USING (ROLE_NUM)
-  			LEFT JOIN
-  			DEPARTMENT D
-  			USING (DEPT_NUM)
-  			LEFT JOIN
-  			POSITIONS P
-  			USING (POS_NUM)
-  		WHERE E.EMP_NUM = #{empNum}
-  	</select>
-  	
-  	<resultMap type="EmployeeVO" id="EmpInfo">
-  		<id property="empNum" column="EMP_NUM"/>
-		<result property="empId" column="EMP_ID"/>
-		<result property="empName" column="EMP_NAME"/>
-		<result property="empPwd" column="EMP_PWD"/>
-		<result property="empRegistry" column="EMP_REGISTRY"/>
-		<result property="empGender" column="EMP_GENDER"/>
-		<result property="empAddress" column="EMP_ADDRESS"/>
-		<result property="roleNum" column="ROLE_NUM"/>
-		<result property="deptNum" column="DEPT_NUM"/>
-		<result property="posNum" column="POS_NUM"/>
-		<result property="hiredate" column="HIREDATE"/>
-		<result property="outdate" column="OUTDATE"/>
-		<result property="enabled" column="ENABLED"/>
-		
-		<association property="employeeFileVO" javaType="EmployeeFileVO">
-			<id property="fileNum" column="FILE_NUM"/>
-			<result property="fileName" column="FILE_NAME"/>
-			<result property="oriName" column="ORI_NAME"/>
+
+<mapper namespace="com.team2.app.chat.ChatMapper">
+
+	<select id="getList" parameterType="EmployeeVO" resultType="RoomVO">
+		SELECT *
+		FROM ROOM R
+		LEFT JOIN 
+		ROOM_MEMBER RM
+		USING (ROOM_NUM)
+		WHERE RM.EMP_NUM = #{empNum}
+	</select>
+
+	<insert id="makeRoom" parameterType="RoomVO">
+		INSERT INTO ROOM (ROOM_NAME)
+		VALUES (#{roomName})
+		<selectKey keyProperty="roomNum" resultType="int"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<insert id="addMember" parameterType="RoomVO">
+		INSERT INTO ROOM_MEMBER (ROOM_NUM, EMP_NUM)
+		VALUES
+		<foreach collection="roomMember" item="roomMember"
+			separator=",">
+			(#{roomNum}, #{roomMember.empNum})
+		</foreach>
+	</insert>
+
+	<select id="getRoomDetail" parameterType="RoomVO"
+		resultType="RoomVO">
+		SELECT *
+		FROM ROOM
+		WHERE ROOM_NUM=#{roomNum}
+	</select>
+	
+	<select id="getPreChat" parameterType="RoomVO" resultType="ChatVO">
+		SELECT CHAT_NUM
+		FROM CHAT
+	</select>
+	
+	<update id="chPreStatus" parameterType="ChatVO">
+		UPDATE READ_STATUS
+		SET IS_READ = 1
+		WHERE CHAT_NUM = #{chatNum} AND MEMBER_NUM = #{memberNum}
+	</update>
+
+	<select id="getRoomMember" parameterType="RoomVO"
+		resultType="RoomMemberVO">
+		SELECT *
+		FROM ROOM_MEMBER
+		WHERE ROOM_NUM = #{roomNum}
+	</select>
+
+	<select id="getChat" parameterType="java.util.List"
+		resultMap="ChatEmp">
+		SELECT C.*, RM.*, E.*, EF.*
+		FROM CHAT C
+		LEFT JOIN
+		ROOM_MEMBER RM
+		USING (MEMBER_NUM)
+		LEFT JOIN
+		EMPLOYEE E
+		ON RM.EMP_NUM = E.EMP_NUM
+		LEFT JOIN
+		EMP_FILE EF
+		ON RM.EMP_NUM = EF.EMP_NUM
+		WHERE C.MEMBER_NUM IN
+		<foreach collection="roomMemberVOs" item="roomMemberVO" open="(" separator="," close=")">
+			#{roomMemberVO.memberNum}
+		</foreach>
+	</select>
+
+	<resultMap type="ChatVO" id="ChatEmp">
+		<id property="chatNum" column="CHAT_NUM" />
+		<result property="memberNum" column="MEMBER_NUM" />
+		<result property="chatContents" column="CHAT_CONTENTS" />
+		<result property="createTime" column="CREATETIME" />
+
+		<association property="employeeVO" javaType="EmployeeVO">
+			<id property="empNum" column="EMP_NUM"/>
+			<result property="empName" column="EMP_NAME" />
+
+			<association property="employeeFileVO"
+				javaType="EmployeeFileVO">
+				<id property="fileNum" column="FILE_NUM" />
+				<result property="fileName" column="FILE_NAME" />
+			</association>
 		</association>
-		
+	</resultMap>
+
+	<select id="getReadCount" parameterType="ChatVO"
+		resultType="Integer">
+		SELECT COUNT(READ_NUM)
+		FROM READ_STATUS
+		WHERE CHAT_NUM=#{chatNum} AND  IS_READ=0
+	</select>
+
+	<insert id="addChat" parameterType="ChatVO">
+		INSERT INTO CHAT (MEMBER_NUM, CHAT_CONTENTS)
+		VALUES (#{memberNum}, #{chatContents})
+		<selectKey order="AFTER" keyProperty="chatNum"
+			resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<insert id="addRead" parameterType="ChatVO">
+		INSERT INTO READ_STATUS
+		(CHAT_NUM, MEMBER_NUM)
+		VALUES (#{chatNum}, #{memberNum})
+	</insert>
+
+	<update id="chReadStatus" parameterType="ChatVO">
+		UPDATE READ_STATUS
+		SET
+		IS_READ=1
+		WHERE CHAT_NUM = #{chatNum} AND MEMBER_NUM = #{memberNum}
+	</update>
+
+
+	<select id="getEmpDetail" parameterType="EmployeeVO"
+		resultMap="EmpInfo">
+		SELECT E.*, EF.*, R.*, D.*, P.*
+		FROM EMPLOYEE E
+		LEFT JOIN
+		EMP_FILE EF
+		USING (EMP_NUM)
+		LEFT JOIN
+		ROLE R
+		USING (ROLE_NUM)
+		LEFT JOIN
+		DEPARTMENT D
+		USING (DEPT_NUM)
+		LEFT JOIN
+		POSITIONS P
+		USING (POS_NUM)
+		WHERE
+		E.EMP_NUM = #{empNum}
+	</select>
+
+	<resultMap type="EmployeeVO" id="EmpInfo">
+		<id property="empNum" column="EMP_NUM" />
+		<result property="empId" column="EMP_ID" />
+		<result property="empName" column="EMP_NAME" />
+		<result property="empPwd" column="EMP_PWD" />
+		<result property="empRegistry" column="EMP_REGISTRY" />
+		<result property="empGender" column="EMP_GENDER" />
+		<result property="empAddress" column="EMP_ADDRESS" />
+		<result property="roleNum" column="ROLE_NUM" />
+		<result property="deptNum" column="DEPT_NUM" />
+		<result property="posNum" column="POS_NUM" />
+		<result property="hiredate" column="HIREDATE" />
+		<result property="outdate" column="OUTDATE" />
+		<result property="enabled" column="ENABLED" />
+
+		<association property="employeeFileVO"
+			javaType="EmployeeFileVO">
+			<id property="fileNum" column="FILE_NUM" />
+			<result property="fileName" column="FILE_NAME" />
+			<result property="oriName" column="ORI_NAME" />
+		</association>
+
 		<association property="roleVO" javaType="RoleVO">
-			<id property="roleNum" column="ROLE_NUM"/>
-			<result property="roleName" column="ROLE_NAME"/>
+			<id property="roleNum" column="ROLE_NUM" />
+			<result property="roleName" column="ROLE_NAME" />
 		</association>
-		
+
 		<association property="deptVO" javaType="DepartmentVO">
-			<id property="deptNum" column="DEPT_NUM"/>
-			<result property="deptName" column="DEPT_NAME"/>
+			<id property="deptNum" column="DEPT_NUM" />
+			<result property="deptName" column="DEPT_NAME" />
 		</association>
-		
+
 		<association property="posVO" javaType="PositionsVO">
-			<id property="posNum" column="POS_NUM"/>
-			<result property="posName" column="POS_NAME"/>
+			<id property="posNum" column="POS_NUM" />
+			<result property="posName" column="POS_NAME" />
 		</association>
-  	</resultMap>
-  
-  	<select id="empList" parameterType="DepartmentVO" resultMap="EmpInfo">
-  		SELECT E.*, R.*
-  		FROM EMPLOYEE E
-  			LEFT JOIN
-  			ROLE R
-  			USING (ROLE_NUM)
-  		WHERE E.DEPT_NUM = #{deptNum}
-  		ORDER BY E.ROLE_NUM ASC
-  	</select>
-  </mapper>
+	</resultMap>
+
+	<select id="getMemberDetail" parameterType="RoomMemberVO"
+		resultType="RoomMemberVO">
+		SELECT *
+		FROM ROOM_MEMBER
+		WHERE ROOM_NUM = #{roomNum} AND EMP_NUM = #{empNum}
+	</select>
+
+	<select id="empList" parameterType="DepartmentVO"
+		resultMap="EmpInfo">
+		SELECT E.*, R.*
+		FROM EMPLOYEE E
+		LEFT JOIN
+		ROLE R
+		USING
+		(ROLE_NUM)
+		WHERE E.DEPT_NUM = #{deptNum}
+		ORDER BY E.ROLE_NUM ASC
+	</select>
+</mapper>

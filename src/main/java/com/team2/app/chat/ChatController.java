@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +38,8 @@ public class ChatController {
 	
 	
 	@GetMapping("list")
-	public void getList(Model model) throws Exception {
-		List<RoomVO> roomList = chatService.getList();
+	public void getList(Model model, @AuthenticationPrincipal EmployeeVO employeeVO) throws Exception {
+		List<RoomVO> roomList = chatService.getList(employeeVO);
 		
 		List<DepartmentVO> deptList = departmentService.getList();
 		List<EmployeeVO> empList = employeeService.empList();
@@ -50,14 +51,53 @@ public class ChatController {
 	}
 	
     @PostMapping("makeRoom")
-    public void makeRoom(@RequestBody RoomVO roomVO) throws Exception {
+    public String makeRoom(@RequestBody RoomVO roomVO, @AuthenticationPrincipal EmployeeVO employeeVO, Model model) throws Exception {
     	log.info("makeRoom vo {}", roomVO);
     	
-    	chatService.makeRoom(roomVO);
+    	List<RoomMemberVO> list = roomVO.getRoomMember();
+    	RoomMemberVO roomMemberVO = new RoomMemberVO();
+    	roomMemberVO.setEmpNum(employeeVO.getEmpNum());
+    	list.add(roomMemberVO);
+    	roomVO.setRoomMember(list);
+    	
+    	int result = chatService.makeRoom(roomVO);
+    	
+    	model.addAttribute("result", result);
+    	
+    	return "commons/result";
     }
 	
     @GetMapping("room")
-    public void room() throws Exception {
+    public String room(RoomVO roomVO, Model model, @AuthenticationPrincipal EmployeeVO employeeVO) throws Exception {
+    	chatService.chPreStatus(roomVO, employeeVO);
+    	
+    	roomVO = chatService.getRoomDetail(roomVO);
+    	
+    	List<RoomMemberVO> list = roomVO.getRoomMember();
+    	
+    	int count = 0;
+    	
+    	for(RoomMemberVO roomMemberVO:list) {
+    		
+    		if(roomMemberVO.getEmpNum() != employeeVO.getEmpNum()) {
+    			count += 1;
+    		}
+    		
+    	}
+    	if(count == list.size()) {
+    		model.addAttribute("result", "참여한 방이 아닙니다.");
+    		model.addAttribute("url","/chat/list");
+    		
+    		return "commons/message";
+    	}
+    	
+    	log.info("Room Detail : {}", roomVO);
+    	log.info("Chat Detail : {}", roomVO.getChatList());
+    	
+    	
+    	model.addAttribute("vo", roomVO);
+    	
+    	return "chat/room";
     }
     
     @ResponseBody

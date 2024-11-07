@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
@@ -43,6 +44,7 @@
 <title>채팅방 리스트</title>
 </head>
 <body>
+	<sec:authentication property="principal" var="vo" />
 	<div class="wrapper">
 		<div class="main-panel">
 			<div class="main-header">
@@ -115,18 +117,31 @@
 										<tr>
 											<th scope="col">채팅방 번호</th>
 											<th scope="col">채팅방 이름</th>
-											<th scope="col">참여 인원</th>
+											<th scope="col">참여 인원수</th>
 											<th scope="col">최근 메시지 시간</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${roomList}" var="roomList">
-											<tr onclick="location.href='/employee/detail?empId='"
+											<tr
+												onclick="location.href='room?roomNum=${roomList.roomNum}'"
 												style="cursor: pointer;">
 												<td>${roomList.roomNum}</td>
 												<td>${roomList.roomName}</td>
-												<td>${roomList.createTime}</td>
-												<td>//</td>
+												<td>${fn:length(roomList.roomMember)}</td>
+												<td><c:choose>
+														<c:when test="${empty roomList.chatList}">
+														메세지 없음
+													</c:when>
+														<c:otherwise>
+															<c:forEach var="chatVO" items="${roomList.chatList}"
+																varStatus="status">
+																<c:if test="${status.last}">
+       																${chatVO.createTime}
+    															</c:if>
+															</c:forEach>
+														</c:otherwise>
+													</c:choose></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -194,7 +209,8 @@
 
 												<div class="collapse" id="collapse${deptList.deptNum}">
 													<c:forEach items="${empList}" var="empList">
-														<c:if test="${deptList.deptNum eq empList.deptNum}">
+														<c:if
+															test="${deptList.deptNum eq empList.deptNum and empList.empNum ne vo.empNum}">
 															<div onclick="manageMember(${empList.empNum})"
 																style="cursor: pointer;" id="addMember${empList.empNum}">
 																<i class="fas fa-user" id="icon${deptList.deptNum}"

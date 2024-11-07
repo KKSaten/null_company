@@ -36,7 +36,7 @@ public class NotificationService {
 		SseEmitter emitter = new SseEmitter(DEFAULT_TIMEOUT);
 
 		log.info("SseEmitter: {}", employeeVO.getEmpNum());
-		String emitterId = employeeVO.getEmpNum().toString()+System.currentTimeMillis();;
+		String emitterId = employeeVO.getEmpNum().toString()+System.currentTimeMillis();
 		
 		// 시간 초과나 비동기 요청이 안되면 자동으로 삭제
 		emitter.onCompletion(() -> {

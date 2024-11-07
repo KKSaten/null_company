@@ -5,51 +5,106 @@
 
 <mapper namespace="com.team2.app.haerin.vacation.VacationMapper">
 	<select id="list" resultType="VacationVO">
-	SELECT 
-    E.EMP_NAME AS empName,
-    E.EMP_NUM AS empNum,
-    P.POS_NAME AS posName,
-    D.DEPT_NAME AS deptName,
-    COALESCE(V.VACATION_LEFTOVER_DATE, 0) AS vacationLeftoverDate
-FROM 
-    EMPLOYEE E
-JOIN 
-    POSITIONS P ON E.POS_NUM = P.POS_NUM
-JOIN 
-    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
-LEFT JOIN 
-    VACATION V ON E.EMP_NUM = V.EMP_NUM
-LEFT JOIN 
-    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM;
-
+		SELECT 
+	    E.EMP_NAME AS empName,
+	    E.EMP_NUM AS empNum,
+	    P.POS_NAME AS posName,
+	    D.DEPT_NAME AS deptName,
+	    COALESCE(V.VACATION_LEFTOVER_DATE, 0) AS vacationLeftoverDate
+	FROM 
+	    EMPLOYEE E
+	JOIN 
+	    POSITIONS P ON E.POS_NUM = P.POS_NUM
+	JOIN 
+	    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
+	LEFT JOIN 
+	    VACATION V ON E.EMP_NUM = V.EMP_NUM
+	LEFT JOIN 
+	    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM;
 	</select>
 
 	<select id="listDetail" resultType="VacationVO">
-SELECT 
-    E.EMP_NAME ,
-    E.EMP_NUM ,
-    D.DEPT_NAME,
-    P.POS_NAME ,
-    CONCAT(DATE_FORMAT(VC.VACATION_START_DATE, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(VC.VACATION_END_DATE, '%Y-%m-%d')) AS date,
-    DATEDIFF(VC.VACATION_END_DATE, VC.VACATION_START_DATE) + 1 AS dating
-FROM 
-    EMPLOYEE E
-JOIN 
-    VACATION V ON E.EMP_NUM = V.EMP_NUM
-JOIN    
-    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM 
-JOIN 
-    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
-JOIN 
-    POSITIONS P ON E.POS_NUM = P.POS_NUM;
-    
-
+		SELECT 
+		    E.EMP_NAME ,
+		    E.EMP_NUM ,
+		    D.DEPT_NAME,
+		    P.POS_NAME ,
+		    VC.CREATED_DATE ,
+		    CONCAT(DATE_FORMAT(VC.VACATION_START_DATE, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(VC.VACATION_END_DATE, '%Y-%m-%d')) AS date,
+		    DATEDIFF(VC.VACATION_END_DATE, VC.VACATION_START_DATE) + 1 AS dating
+		FROM 
+		    EMPLOYEE E
+		JOIN 
+		    VACATION V ON E.EMP_NUM = V.EMP_NUM
+		JOIN    
+		    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM 
+		JOIN 
+		    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
+		JOIN  
+		    POSITIONS P ON E.POS_NUM = P.POS_NUM;	    
 	</select>
-<update id="updateVacation" parameterType="VacationVO">
-    UPDATE VACATION
-    SET VACATION_LEFTOVER_DATE = #{vacationLeftoverDate}
-    WHERE EMP_NUM = #{empNum}
-</update>
+	
+	<update id="updateVacation" parameterType="VacationVO">
+	    UPDATE VACATION
+	    SET VACATION_LEFTOVER_DATE = #{vacationLeftoverDate}
+	    WHERE EMP_NUM = #{empNum}
+	</update>
 
 
+	
+	<select id="myVacation" resultType="VacationVO" parameterType="VacationVO">
+			SELECT 
+		    E.EMP_NAME AS empName,
+		    E.EMP_NUM AS empNum,
+		    P.POS_NAME AS posName,
+		    VC.CREATED_DATE ,
+		    D.DEPT_NAME AS deptName,
+		    COALESCE(V.VACATION_LEFTOVER_DATE, 0) AS vacationLeftoverDate
+		FROM 
+		    EMPLOYEE E
+		JOIN 
+		    POSITIONS P ON E.POS_NUM = P.POS_NUM
+		JOIN 
+		    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
+		LEFT JOIN 
+		    VACATION V ON E.EMP_NUM = V.EMP_NUM
+		LEFT JOIN 
+		    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM
+		 WHERE E.EMP_NUM = #{empNum};    
+	</select>
+
+	<select id="myListDetail" resultType="VacationVO">
+		SELECT 
+		    E.EMP_NAME ,
+		    E.EMP_NUM ,
+		    D.DEPT_NAME,
+		    P.POS_NAME ,
+		    VC.CREATED_DATE ,
+		    CONCAT(DATE_FORMAT(VC.VACATION_START_DATE, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(VC.VACATION_END_DATE, '%Y-%m-%d')) AS date,
+		    DATEDIFF(VC.VACATION_END_DATE, VC.VACATION_START_DATE) + 1 AS dating
+		FROM 
+		    EMPLOYEE E
+		JOIN 
+		    VACATION V ON E.EMP_NUM = V.EMP_NUM
+		JOIN    
+		    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM 
+		JOIN 
+		    DEPARTMENT D ON E.DEPT_NUM = D.DEPT_NUM
+		JOIN 
+		    POSITIONS P ON E.POS_NUM = P.POS_NUM
+				 WHERE E.EMP_NUM = #{empNum};    
+	</select>
+	
+	
+<insert id="vacationAdd" parameterType="com.team2.app.haerin.vacation.VacationVO">
+    INSERT INTO VACATION_COUNT (VACATION_NUM,CREATED_DATE, VACATION_START_DATE, VACATION_END_DATE)
+    VALUES (
+        (SELECT VACATION_NUM FROM VACATION WHERE EMP_NUM = #{empNum}),
+        CURDATE(),
+        #{vacationCountVO.vacationStartDate},  <!-- vacationStartDate -->
+        #{vacationCountVO.vacationEndDate}    <!-- vacationEndDate -->
+    );
+</insert>
+
+	
 </mapper>

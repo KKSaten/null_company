@@ -107,8 +107,10 @@
 														</td>
 														
 														<td> <!-- 문서 제목, 보고서 유형 -->
-															<div style="font-weight:bold; ">${item.docTitle}</div>
-															<div style="font-size:14px; color:gray; ">${item.templateName}</div>
+															<a href="/approval/apprDocDetail?docNum=${item.docNum}">
+																<div style="font-weight:bold; color: #333;">${item.docTitle}</div>
+																<div style="font-size:14px; color:gray; ">${item.templateName}</div>
+															</a>
 														</td>
 														
 														<td> <!-- 기안자 -->

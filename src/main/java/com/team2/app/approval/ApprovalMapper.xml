@@ -7,43 +7,43 @@
 <mapper namespace="com.team2.app.approval.ApprovalMapper">
 	
 	<select id="getList" parameterType="EmployeeVO" resultMap="ApprDocInfo">
-	SELECT A.*, AL.*,
-		(SELECT E.EMP_NAME
-		FROM EMPLOYEE E
-		WHERE A.DOC_WRITER = E.EMP_NUM
-		)AS EMP_NAME,	
-		(SELECT T.TEMPLATE_NAME
-		FROM DOC_TEMPLATE T
-		WHERE A.DOC_TEMPLATECODE = T.DOC_TEMPLATECODE
-		)AS TEMPLATE_NAME,
-		(SELECT D.DEPT_NAME 
-		FROM DEPARTMENT D 
-		JOIN
-		EMPLOYEE E
-		ON E.DEPT_NUM = D.DEPT_NUM 
-		WHERE E.EMP_NUM = A.DOC_WRITER
-		) AS DEPT_NAME,
-		(SELECT P.POS_NAME 
-		FROM POSITIONS P 
-		JOIN
-		EMPLOYEE E
-		ON E.POS_NUM = P.POS_NUM 
-		WHERE E.EMP_NUM = A.DOC_WRITER
-		) AS POS_NAME,
-		(SELECT EF.FILE_NAME 
-		FROM EMP_FILE EF 
-		WHERE EF.EMP_NUM = A.DOC_WRITER
-		) AS FILE_NAME,
-		E2.EMP_NAME AS APPROVER_NAME
-	FROM APPROVAL_DOCBOX A
-	LEFT JOIN
-	APPROVAL_LINE AL
-	ON A.DOC_NUM = AL.DOC_NUM
-	LEFT JOIN
-	EMPLOYEE E2
-	ON AL.APPROVER = E2.EMP_NUM 
-	WHERE A.DOC_WRITER = #{empNum}
-	ORDER BY AL.AL_NUM ASC
+		SELECT A.*, AL.*,
+			(SELECT E.EMP_NAME
+			FROM EMPLOYEE E
+			WHERE A.DOC_WRITER = E.EMP_NUM
+			)AS EMP_NAME,	
+			(SELECT T.TEMPLATE_NAME
+			FROM DOC_TEMPLATE T
+			WHERE A.DOC_TEMPLATECODE = T.DOC_TEMPLATECODE
+			)AS TEMPLATE_NAME,
+			(SELECT D.DEPT_NAME 
+			FROM DEPARTMENT D 
+			JOIN
+			EMPLOYEE E
+			ON E.DEPT_NUM = D.DEPT_NUM 
+			WHERE E.EMP_NUM = A.DOC_WRITER
+			) AS DEPT_NAME,
+			(SELECT P.POS_NAME 
+			FROM POSITIONS P 
+			JOIN
+			EMPLOYEE E
+			ON E.POS_NUM = P.POS_NUM 
+			WHERE E.EMP_NUM = A.DOC_WRITER
+			) AS POS_NAME,
+			(SELECT EF.FILE_NAME 
+			FROM EMP_FILE EF 
+			WHERE EF.EMP_NUM = A.DOC_WRITER
+			) AS FILE_NAME,
+			E2.EMP_NAME AS APPROVER_NAME
+		FROM APPROVAL_DOCBOX A
+		LEFT JOIN
+		APPROVAL_LINE AL
+		ON A.DOC_NUM = AL.DOC_NUM
+		LEFT JOIN
+		EMPLOYEE E2
+		ON AL.APPROVER = E2.EMP_NUM 
+		WHERE A.DOC_WRITER = #{empNum}
+		ORDER BY AL.AL_NUM ASC
 	</select>
 	<resultMap type="ApprDocVO" id="ApprDocInfo">
 		<id property="docNum" column="DOC_NUM"/>
@@ -72,6 +72,126 @@
 			<result property="apprProgress" column="APPR_PROGRESS"/>
 		</collection>	
 	</resultMap>	
+	
+	
+	<select id="getReceivedList" parameterType="EmployeeVO" resultMap="ApprReceivedDocInfo">
+		SELECT A.*, AL.*,
+			(SELECT E.EMP_NAME
+			FROM EMPLOYEE E
+			WHERE A.DOC_WRITER = E.EMP_NUM
+			)AS EMP_NAME,	
+			(SELECT T.TEMPLATE_NAME
+			FROM DOC_TEMPLATE T
+			WHERE A.DOC_TEMPLATECODE = T.DOC_TEMPLATECODE
+			)AS TEMPLATE_NAME,
+			(SELECT D.DEPT_NAME 
+			FROM DEPARTMENT D 
+			JOIN
+			EMPLOYEE E
+			ON E.DEPT_NUM = D.DEPT_NUM 
+			WHERE E.EMP_NUM = A.DOC_WRITER
+			) AS DEPT_NAME,
+			(SELECT P.POS_NAME 
+			FROM POSITIONS P 
+			JOIN
+			EMPLOYEE E
+			ON E.POS_NUM = P.POS_NUM 
+			WHERE E.EMP_NUM = A.DOC_WRITER
+			) AS POS_NAME,
+			(SELECT EF.FILE_NAME 
+			FROM EMP_FILE EF 
+			WHERE EF.EMP_NUM = A.DOC_WRITER
+			) AS FILE_NAME,
+			E2.EMP_NAME AS APPROVER_NAME
+		FROM APPROVAL_DOCBOX A
+			 LEFT JOIN
+			 APPROVAL_LINE AL
+			 ON A.DOC_NUM = AL.DOC_NUM
+			 LEFT JOIN
+			 EMPLOYEE E2
+			 ON AL.APPROVER = E2.EMP_NUM 
+		WHERE AL.APPROVER = #{empNum}
+		ORDER BY AL.AL_NUM ASC
+	</select>
+	<resultMap type="ApprDocVO" id="ApprReceivedDocInfo">
+		<id property="docNum" column="DOC_NUM"/>
+		<result property="docWriter" column="DOC_WRITER"/>
+		<result property="empName" column="EMP_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		<result property="posName" column="POS_NAME"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="docTypecode" column="DOC_TYPECODE"/>
+		<result property="docTemplatecode" column="DOC_TEMPLATECODE"/>
+		<result property="templateName" column="TEMPLATE_NAME"/>
+		<result property="docTitle" column="DOC_TITLE"/>
+		<result property="docContent" column="DOC_CONTENT" jdbcType="BLOB"/>
+		<result property="docUpdatedate" column="DOC_UPDATEDATE"/>
+		<result property="docDraftdate" column="DOC_DRAFTDATE"/>
+		<result property="docExpirydate" column="DOC_EXPIRYDATE"/>
+		<result property="tempStorage" column="TEMP_STORAGE"/>
+		<result property="approvalResult" column="APPROVAL_RESULT"/>
+		
+		<collection property="apprLineVO" javaType="java.util.List" ofType="ApprLineVO">
+			<id property="alNum" column="AL_NUM"/>
+			<result property="docNum" column="DOC_NUM"/>
+			<result property="docTemplatecode" column="DOC_TEMPLATECODE"/>
+			<result property="approver" column="APPROVER"/>
+			<result property="approverName" column="APPROVER_NAME"/>
+			<result property="apprProgress" column="APPR_PROGRESS"/>
+		</collection>	
+	</resultMap>
+	
+	<select id="getDetail" parameterType="ApprDocVO" resultMap="ApprDocDetailInfo">
+		SELECT AD.*, AL.*, AH.*
+		FROM APPROVAL_DOCBOX AD
+			 LEFT JOIN
+			 APPROVAL_LINE AL
+			 ON AD.DOC_NUM = AL.DOC_NUM
+			 LEFT JOIN
+			 APPROVAL_HISTORY AH
+			 ON AD.DOC_NUM = AH.DOC_NUM
+		WHERE AD.DOC_NUM = #{docNum}
+	</select>
+	<resultMap type="ApprDocVO" id="ApprDocDetailInfo">
+		<id property="docNum" column="DOC_NUM"/>
+		<result property="docWriter" column="DOC_WRITER"/>
+		<result property="empName" column="EMP_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		<result property="posName" column="POS_NAME"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="docTypecode" column="DOC_TYPECODE"/>
+		<result property="docTemplatecode" column="DOC_TEMPLATECODE"/>
+		<result property="templateName" column="TEMPLATE_NAME"/>
+		<result property="docTitle" column="DOC_TITLE"/>
+		<result property="docContent" column="DOC_CONTENT" jdbcType="BLOB"/>
+		<result property="docUpdatedate" column="DOC_UPDATEDATE"/>
+		<result property="docDraftdate" column="DOC_DRAFTDATE"/>
+		<result property="docExpirydate" column="DOC_EXPIRYDATE"/>
+		<result property="tempStorage" column="TEMP_STORAGE"/>
+		<result property="approvalResult" column="APPROVAL_RESULT"/>
+		
+		<collection property="apprLineVO" javaType="java.util.List" ofType="ApprLineVO">
+			<id property="alNum" column="AL_NUM"/>
+			<result property="docNum" column="DOC_NUM"/>
+			<result property="docTemplatecode" column="DOC_TEMPLATECODE"/>
+			<result property="approver" column="APPROVER"/>
+			<result property="apprProgress" column="APPR_PROGRESS"/>
+			<result property="apprTurn" column="APPR_TURN"/>
+			<result property="approverName" column="APPROVER_NAME"/>
+		</collection>
+		<collection property="apprHistoryVO" javaType="java.util.List" ofType="ApprHistoryVO">
+			<id property="apprNum" column="APPR_NUM"/>
+			<result property="docNum" column="DOC_NUM"/>
+			<result property="approver" column="APPROVER"/>
+			<result property="apprLevel" column="APPR_LEVEL"/>
+			<result property="apprDate" column="APPR_DATE"/>
+			<result property="apprComment" column="APPR_COMMENT"/>
+			<result property="apprResult" column="APPR_RESULT"/>
+		</collection>	
+	</resultMap>
+	
+	
+	
 	
 		
 	<select id="getApprLine" parameterType="ApprDocVO" resultType="ApprLineVO">
@@ -143,7 +263,22 @@
 	</delete>
 	
 	
+	<insert id="draftDoc" parameterType="ApprDocVO" useGeneratedKeys="true" keyProperty="docNum">
+		INSERT INTO APPROVAL_DOCBOX
+		VALUES(null, #{docWriter}, #{docTypecode}, #{docTemplatecode}, null, #{docTitle}, #{docContent}, now(), now(), #{docExpirydate}, '진행')
+	</insert>
 	
+	
+	<insert id="saveApprLine" parameterType="ApprLineVO">
+		INSERT INTO APPROVAL_LINE
+		VALUES(null, #{docNum}, #{docTemplatecode}, #{approver}, '대기', #{apprTurn})
+	</insert>
+	
+	<update id="aprlStart" parameterType="ApprLineVO">
+		UPDATE APPROVAL_LINE
+		SET APPR_PROGRESS = '진행'
+		WHERE DOC_NUM = #{docNum} AND APPR_TURN = 1	
+	</update>
 	
 	
 

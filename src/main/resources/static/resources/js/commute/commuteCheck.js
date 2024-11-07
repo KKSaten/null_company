@@ -26,20 +26,23 @@ if (clockInButton) {
         method: "POST",
     })
     .then((response) => {
-        return response.json();
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.text();  // 먼저 텍스트로 응답 읽기
+    })
+    .then((text) => {
+        return text ? JSON.parse(text) : null;  // 빈 응답일 경우 null로 반환
     })
     .then((response) => {
-        // 0: 결근(출근 안해서 자동으로 결근 처리)  --> 아무것도 안뜸 (인사과에서 처리 후 출근상태로 변경됨)
-        // 1: 출근                                --> 퇴근
-        // 2: 퇴근                                --> 아무것도 안뜸
-        // null: 출근 안했고, 출근시간도 안지남     --> 출근
-        if (response == 0 || response == 2) {
+        // 0: 결근, 1: 출근, 2: 퇴근, null: 출근 안했고, 출근시간도 안지남
+        if (response === 0 || response === 2) {
             clockInButton.style.display = 'none';
             clockOutButton.style.display = 'none';
-        } else if (response == 1) {
+        } else if (response === 1) {
             clockInButton.style.display = 'none';
             clockOutButton.style.display = 'block'; // 퇴근 버튼 보이기
-        } else {
+        } else if (response === null) {
             clockInButton.style.display = 'block'; // 출근 버튼 보이기
             clockOutButton.style.display = 'none';
         }
@@ -48,6 +51,7 @@ if (clockInButton) {
         console.error("Error fetching status:", error);
     });
 }
+
 // 출근하기 버튼 클릭 이벤트 추가
 clockInButton.addEventListener("click", function (e) {
     swal({
