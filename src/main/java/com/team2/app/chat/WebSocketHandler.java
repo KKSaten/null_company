@@ -77,6 +77,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		
 		// session, 사원 연결 저장
 		sessionUserMap.putIfAbsent(session, employeeVO.getEmpNum());
+		log.info("session 길이 : {}",sessionUserMap.size());
+		
+		
 		
 	}
 
@@ -97,21 +100,29 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		
 		//채팅 작성 후 채팅방에 websocket이 살아있는 사람 읽음 표시
 		Set<WebSocketSession> set = sessionList.get(roomNum);
+		log.info("set size : {}", set.size());
 		if(!set.isEmpty()) {
 			for(WebSocketSession socket:set) {
 				Integer empNum = sessionUserMap.get(socket);
+				log.info("socket socket: {}", socket);
+				log.info("socket empNum: {}", empNum);
 				
 				if(empNum != employeeVO.getEmpNum()) {
 					EmployeeVO vo = new EmployeeVO();
 					vo.setEmpNum(empNum);
 					
-					ChatVO chatVO2 = getChatVO(vo, roomNum, message);
+					ChatVO chatVO2 = getChatVO(vo, roomNum, null);
+					chatVO2.setChatNum(chatVO.getChatNum());
+					log.info("ch Read Status vo: {}" ,chatVO2);
 					chatMapper.chReadStatus(chatVO2);
-					
 					log.info("ch Read Status");
 				}
 			}
 		}
+		
+		int read = chatMapper.getReadCount(chatVO);
+		chatVO.setReadCount(read);
+		
 		
 		//Json으로 Message 전송
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -149,11 +160,18 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		roomMemberVO = chatService.getMemberDetail(roomMemberVO);
 		
 		ChatVO chatVO = new ChatVO();
-		chatVO.setMemberNum(roomMemberVO.getMemberNum());
-		chatVO.setChatContents(message.getPayload());
-		chatVO.setEmployeeVO(employeeVO);
 		
-		return chatService.addChat(chatVO, roomMemberVO);
+		if(message != null) {
+			chatVO.setMemberNum(roomMemberVO.getMemberNum());
+			chatVO.setEmployeeVO(employeeVO);
+			chatVO.setChatContents(message.getPayload());
+			ChatVO vo = chatService.addChat(chatVO, roomMemberVO);
+			chatVO.setChatNum(vo.getChatNum());
+		}
+		
+		chatVO.setMemberNum(roomMemberVO.getMemberNum());
+		
+		return chatVO;
 	}
 	
 }

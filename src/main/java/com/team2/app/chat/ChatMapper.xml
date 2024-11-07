@@ -5,8 +5,13 @@
 
 <mapper namespace="com.team2.app.chat.ChatMapper">
 
-	<select id="getList" resultType="RoomVO">
-		SELECT * FROM ROOM
+	<select id="getList" parameterType="EmployeeVO" resultType="RoomVO">
+		SELECT *
+		FROM ROOM R
+		LEFT JOIN 
+		ROOM_MEMBER RM
+		USING (ROOM_NUM)
+		WHERE RM.EMP_NUM = #{empNum}
 	</select>
 
 	<insert id="makeRoom" parameterType="RoomVO">
@@ -33,6 +38,17 @@
 		FROM ROOM
 		WHERE ROOM_NUM=#{roomNum}
 	</select>
+	
+	<select id="getPreChat" parameterType="RoomVO" resultType="ChatVO">
+		SELECT CHAT_NUM
+		FROM CHAT
+	</select>
+	
+	<update id="chPreStatus" parameterType="ChatVO">
+		UPDATE READ_STATUS
+		SET IS_READ = 1
+		WHERE CHAT_NUM = #{chatNum} AND MEMBER_NUM = #{memberNum}
+	</update>
 
 	<select id="getRoomMember" parameterType="RoomVO"
 		resultType="RoomMemberVO">

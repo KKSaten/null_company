@@ -27,6 +27,11 @@ body {
 	background-color: #ffffff;
 }
 
+.message-container {
+    position: relative; /* 자식 요소의 위치를 상대적으로 설정 */
+    margin-bottom: 20px; /* 메시지와 시간 사이의 여백 */
+}
+
 .message {
 	display: flex;
 	align-items: center;
@@ -71,6 +76,12 @@ body {
 	object-fit: cover; /* 이미지 비율 유지 */
 	margin-right: 10px; /* 이미지와 텍스트 간격 */
 }
+.timestamp {
+    bottom: -20px; /* 메시지 박스의 아래쪽으로 나가게 설정 */
+    right: 10px; /* 오른쪽에 위치 */
+    font-size: 12px; /* 작은 글씨 크기 */
+    color: #777; /* 연한 회색 글자 */
+}
 </style>
 
 <title>채팅방 리스트</title>
@@ -94,13 +105,18 @@ body {
 						<div class="card-body d-flex justify-content-center">
 							<div class="container mt-5">
 								<div class="chat-container" id="chatContainer">
+									<c:set var="previousItem" value="${null}" />
 									<c:forEach items="${vo.chatList}" var="chatVO">
 										<c:if test="${chatVO.employeeVO.empNum ne empVO.empNum}">
+										<c:if test="${chatVO.employeeVO.empNum ne previousItem}">
+											
 											<img
 												src="/file/employee/${chatVO.employeeVO.employeeFileVO.fileName}"
 												class="rounded-image" alt="Employee Image">
 											<strong>${chatVO.employeeVO.empName}</strong>
+											</c:if>
 										</c:if>
+										<div class="message-container">
 										<div
 											class="message ${chatVO.employeeVO.empNum eq empVO.empNum ? 'my-message' : 'other-message'}"
 											style="width: fit-content;">
@@ -120,6 +136,9 @@ body {
 											</c:choose>
 
 										</div>
+										<div class="timestamp" style="${chatVO.employeeVO.empNum eq empVO.empNum ?'position:absolute;':''}">${chatVO.createTime}</div>
+										</div>
+										<c:set var="previousItem" value="${chatVO.employeeVO.empNum}" />
 									</c:forEach>
 								</div>
 								<div class="input-group">
@@ -135,7 +154,9 @@ body {
 							type="hidden" value="${empVO.empName}" id="empName"><input
 							type="hidden" value="${empVO.employeeFileVO.fileName}"
 							id="fileName">
-						<div class="card-footer"></div>
+						<div class="card-footer">
+							<a class="btn btn-secondary" href="list">채팅방 리스트</a>
+						</div>
 					</div>
 				</div>
 				<c:import url="../templates/footer.jsp" />

@@ -1,9 +1,7 @@
 package com.team2.app.chat;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.team2.app.employee.EmployeeVO;
 
 import lombok.Data;
@@ -13,7 +11,7 @@ public class ChatVO {
     private Integer chatNum;
     private Integer memberNum;
     private String chatContents;
-    private Date createTime;
+    private Timestamp createTime;
     private Integer readCount;
     private EmployeeVO employeeVO;
     

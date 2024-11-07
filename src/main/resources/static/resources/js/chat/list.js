@@ -38,8 +38,20 @@ makeChatBtn.addEventListener("click", () => {
 
 //채팅 멤버 추가,삭제
 function manageMember(empNum) {
+  let flag = false;
+
   //roomMember 배열에 포함되어있는지 확인
-  let flag = roomMember.includes(empNum);
+  if (roomMember.length != 0) {
+    for (member of roomMember) {
+      if (member.empNum == empNum) {
+        flag = true;
+
+        break;
+      } else {
+        flag = false;
+      }
+    }
+  }
 
   const addMember = document.getElementById("addMember" + empNum);
   addMember.classList.toggle("addMemberColor");
@@ -80,10 +92,17 @@ function manageMember(empNum) {
         roomMemberdiv.append(div);
       });
   } else {
-    roomMember = roomMember.filter((value) => value != empNum);
+    roomMember = roomMember.filter((value) => value.empNum != empNum);
     const selMember = document.getElementById("selMember" + empNum);
     console.log(selMember);
+
+    console.log(roomMember);
+
     selMember.remove();
+
+    if (roomMember.length == 0) {
+      roomMemberdiv.classList.toggle("roomMemberdiv");
+    }
   }
 
   //class 추가
