@@ -28,4 +28,7 @@ public class VacationService {
 	public void updateVacation(VacationVO vacationVO) {
         vacationMapper.updateVacation(vacationVO);
     }
+	public void vacationAdd(VacationVO vacationVO)throws Exception{
+		vacationMapper.vacationAdd(vacationVO);
+	}
 }

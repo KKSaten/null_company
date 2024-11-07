@@ -1,5 +1,7 @@
 package com.team2.app.approval;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team2.app.employee.DeptEmpVO;
@@ -35,58 +38,109 @@ public class ApprovalController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	
+	// 수신 문서함
 	@GetMapping("approvalReceivedbox")
-	public void approvalReceivedbox(Model model) throws Exception {
+	public void approvalReceivedbox(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+		
+		// 수신 문서 리스트
+		List<ApprDocVO> list = approvalService.getReceivedList(empVO);
+		model.addAttribute("list", list);
 		
 	}	
 	
-	// 기안 상신함
+	// 기안 문서함
 	@GetMapping("approvalDocbox")
-	public void approvalDocbox(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO appr, Model model, HttpSession session) throws Exception {
+	public void approvalDocbox(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
 		
 		//접속 중인 ID의 정보를 @AuthenticationPrincipal로 가져옴
 		
 		// 기안서 리스트
 		List<ApprDocVO> list = approvalService.getList(empVO); 
-		for(ApprDocVO li : list) {
-			log.info("list :" + ""+li.getApprLineVO().size());
-		}
 		model.addAttribute("list", list);
 		
 		// 기안서 작성시 문서 유형 리스트
 		List<DocTypeVO> docList = approvalService.getDocType();
-		for(DocTypeVO dcli : docList) {
-			log.info("docList :" + dcli.getDocTemplateVO().size());
-		}
 		model.addAttribute("docList", docList);	
 	}
+	
+	// 결재 문서 상세 페이지
+	@GetMapping("apprDocDetail")
+	public void apprDocDetail(ApprDocVO apprDocVO, Model model) throws Exception {
+		
+		ApprDocVO detail = approvalService.getDetail(apprDocVO);
+				
+	    // docContent byte[] 데이터를 문자열로 변환
+	    if (detail.getDocContent() != null) {
+	        String docContentText = new String(detail.getDocContent(), StandardCharsets.UTF_8);
+	        model.addAttribute("docContentText", docContentText);
+	    }		
+	    
+		model.addAttribute("detail", detail);
+		
+	}
+	
+	
+	
 	
 	
 	// 기안서 작성 페이지
 	@GetMapping("write")
-	public String writePage(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
-		
+	public String writePage(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO apprDocVO, Model model) throws Exception {
 		model.addAttribute("empVO", empVO);
 		
 		// 서명 리스트 모달
 		List<SignVO> signList = approvalService.signList(empVO);	
 		model.addAttribute("signList", signList);
 		
-		
 		// 결재선 사원 리스트 모달
 		List<DeptEmpVO> deptEmpList = employeeService.deptEmpList();
 		model.addAttribute("deptEmpList", deptEmpList);
+		
+		// 문서 타입
+		model.addAttribute("apprDocVO", apprDocVO);
 		
 		
 		return "approval/draftDoc";
 		
 	}
-	
+	// 기안서 상신
 	@PostMapping("write")
-	public void write(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+	@ResponseBody
+	public int write(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO apprDocVO, ApprLineVO apprLineVO,
+				@RequestParam Integer[] approver, Model model) throws Exception {
+		
+		int result = 0;
+
+		result = approvalService.draftDoc(apprDocVO);
+		
+		Long generatedDocNum = apprDocVO.getDocNum();
+		
+		apprLineVO.setDocNum(generatedDocNum);
+		
+		if(approver.length == 0) {
+			log.error("결재자가 없습니다");
+			return 0;
+		}
+		else if(approver.length >= 1) {
+			int i = 1;
+			for(Integer appr : approver) {
+				if(appr == null) {
+					break;
+				}
+				apprLineVO.setApprover(appr);
+				apprLineVO.setApprTurn(i);
+				int r = approvalService.saveApprLine(apprLineVO);
+				if(i == 1) {
+					approvalService.aprlStart(apprLineVO);
+				}
+				i++;
+				
+				result += r*10;
+			}
+		}
 		
 		
+		return result;
 		
 	}
 	

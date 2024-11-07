@@ -17,11 +17,11 @@ public class ApprLineVO {
 
 	private Integer approver;
 	
-	private String approverName;
-	
-	private String apprTurn;
-	
 	private String apprProgress;
+	
+	private Integer apprTurn;
+	
+	private String approverName;
 	
 
 }
