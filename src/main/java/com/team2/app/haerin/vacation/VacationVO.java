@@ -1,4 +1,4 @@
-package com.team2.app.haerin.vacation;
+	package com.team2.app.haerin.vacation;
 
 import java.sql.Date;
 
@@ -8,8 +8,9 @@ import lombok.Data;
 public class VacationVO {
 
 	private Long vacationNum;
-	private String vacationTotal;
-	private String vacationLeftoverDate;
+	private Long vacationCountNum;
+	private Integer vacationTotal;
+	private Integer vacationLeftoverDate;
 	private String empName;
 	private Integer empNum;
 	private String posName;

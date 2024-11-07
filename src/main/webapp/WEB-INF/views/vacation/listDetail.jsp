@@ -82,7 +82,7 @@
 															<td>${vo.posName}</td>
 															<td>${vo.date} (${vo.dating}일)</td>
 															<td>${vo.createdDate}</td>
-															 <td><button><a herf="/vacation/update"></a></button>
+															 <td><button><a herf="/vacation/update">승인</a></button>
 													        </td>
 													    </tr>
 					                          </c:forEach>

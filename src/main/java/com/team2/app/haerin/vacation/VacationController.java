@@ -43,7 +43,6 @@ public class VacationController {
 				List<VacationVO>list = vacationService.myListDetail(vacationVO);
 				model.addAttribute("ar",list);
 				List<VacationVO> ar = vacationService.myVacation(vacationVO);
-			
 				model.addAttribute("list", ar);
 
 	}
@@ -74,7 +73,7 @@ public class VacationController {
 		
 	}
 
-	@PostMapping("/vacation/vacationAdd")
+	@PostMapping("vacationAdd")
 	public String vacationAdd(@RequestParam("vacationStartDate") String vacationStartDateStr,
 	                          @RequestParam("vacationEndDate") String vacationEndDateStr,
 	                          @ModelAttribute VacationVO vacationVO) throws Exception {
@@ -112,7 +111,7 @@ public class VacationController {
 	    // vacationAdd 로직 처리
 	    vacationService.vacationAdd(vacationVO);
 
-	    return "redirect:/vacation/list";  // 적절한 리다이렉트
+	    return "redirect:/vacation/myVacation"; 
 	}
 
 

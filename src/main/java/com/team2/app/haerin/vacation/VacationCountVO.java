@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class VacationCountVO {
 
-	private Long vacationNum;
+	private Long vacationCountNum;
 	private Date createdDate;
 	private Date vacationStartDate;
 	private Date vacationEndDate;

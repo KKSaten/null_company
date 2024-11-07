@@ -53,7 +53,9 @@
 
 	
 	<select id="myVacation" resultType="VacationVO" parameterType="VacationVO">
-			SELECT 
+	SELECT * FROM VACATION
+	WHERE EMP_NUM =#{empNum}
+			<!--SELECT 
 		    E.EMP_NAME AS empName,
 		    E.EMP_NUM AS empNum,
 		    P.POS_NAME AS posName,
@@ -70,7 +72,7 @@
 		    VACATION V ON E.EMP_NUM = V.EMP_NUM
 		LEFT JOIN 
 		    VACATION_COUNT VC ON V.VACATION_NUM = VC.VACATION_NUM
-		 WHERE E.EMP_NUM = #{empNum};    
+		 WHERE E.EMP_NUM = #{empNum};    -->
 	</select>
 
 	<select id="myListDetail" resultType="VacationVO">
@@ -97,13 +99,12 @@
 	
 	
 <insert id="vacationAdd" parameterType="com.team2.app.haerin.vacation.VacationVO">
-    INSERT INTO VACATION_COUNT (VACATION_NUM,CREATED_DATE, VACATION_START_DATE, VACATION_END_DATE)
-    VALUES (
-        (SELECT VACATION_NUM FROM VACATION WHERE EMP_NUM = #{empNum}),
-        CURDATE(),
-        #{vacationCountVO.vacationStartDate},  <!-- vacationStartDate -->
-        #{vacationCountVO.vacationEndDate}    <!-- vacationEndDate -->
-    );
+INSERT INTO VACATION_COUNT (VACATION_NUM, CREATED_DATE, VACATION_START_DATE, VACATION_END_DATE)
+SELECT VACATION_NUM, NOW(), #{vacationCountVO.vacationStartDate}, #{vacationCountVO.vacationEndDate}
+FROM VACATION
+WHERE EMP_NUM = #{empNum}
+LIMIT 1;
+
 </insert>
 
 	
