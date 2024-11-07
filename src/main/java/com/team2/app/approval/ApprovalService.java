@@ -22,12 +22,16 @@ public class ApprovalService {
 	private String path;
 	
 	
-	public List<ApprDocVO> getReceivedList(EmployeeVO empVO) throws Exception {
-		return approvalMapper.getReceivedList(empVO);
-	}
-	
 	public List<ApprDocVO> getList(EmployeeVO empVO) throws Exception {
 		return approvalMapper.getList(empVO);
+	}
+	
+	public List<ApprDocVO> getTempStorage(EmployeeVO empVO) throws Exception {
+		return approvalMapper.getTempStorage(empVO);
+	}
+	
+	public List<ApprDocVO> getReceivedList(EmployeeVO empVO) throws Exception {
+		return approvalMapper.getReceivedList(empVO);
 	}
 	
 	public ApprDocVO getDetail(ApprDocVO apprDocVO) throws Exception {

@@ -38,16 +38,6 @@ public class ApprovalController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	// 수신 문서함
-	@GetMapping("approvalReceivedbox")
-	public void approvalReceivedbox(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
-		
-		// 수신 문서 리스트
-		List<ApprDocVO> list = approvalService.getReceivedList(empVO);
-		model.addAttribute("list", list);
-		
-	}	
-	
 	// 기안 문서함
 	@GetMapping("approvalDocbox")
 	public void approvalDocbox(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
@@ -63,9 +53,36 @@ public class ApprovalController {
 		model.addAttribute("docList", docList);	
 	}
 	
+	
+	// 임시 보관함
+	@GetMapping("approvalDocTempStorage")
+	public void docTempStorage(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+		
+		// 임시 보관함 리스트
+		List<ApprDocVO> list = approvalService.getTempStorage(empVO); 
+		model.addAttribute("list", list);
+		
+		// 기안서 작성시 문서 유형 리스트
+		List<DocTypeVO> docList = approvalService.getDocType();
+		model.addAttribute("docList", docList);	
+	}
+	
+	
+	// 수신 문서함
+	@GetMapping("approvalReceivedbox")
+	public void approvalReceivedbox(@AuthenticationPrincipal EmployeeVO empVO, Model model) throws Exception {
+		
+		// 수신 문서 리스트
+		List<ApprDocVO> list = approvalService.getReceivedList(empVO);
+		model.addAttribute("list", list);
+		
+	}
+	
 	// 결재 문서 상세 페이지
 	@GetMapping("apprDocDetail")
-	public void apprDocDetail(ApprDocVO apprDocVO, Model model) throws Exception {
+	public void apprDocDetailForApprover(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO apprDocVO, Model model) throws Exception {
+		
+		model.addAttribute("empVO", empVO);
 		
 		ApprDocVO detail = approvalService.getDetail(apprDocVO);
 				
@@ -73,7 +90,14 @@ public class ApprovalController {
 	    if (detail.getDocContent() != null) {
 	        String docContentText = new String(detail.getDocContent(), StandardCharsets.UTF_8);
 	        model.addAttribute("docContentText", docContentText);
-	    }		
+	    }
+	    
+	    int i = 1;
+	    for(ApprLineVO approver : detail.getApprLineVO() ) {
+	    	log.info("결재자 정보 : {}", approver);
+	    	Integer appr = approver.getApprover();
+	    	model.addAttribute("approver"+i, appr);
+	    }
 	    
 		model.addAttribute("detail", detail);
 		
@@ -103,7 +127,7 @@ public class ApprovalController {
 		return "approval/draftDoc";
 		
 	}
-	// 기안서 상신
+	// 기안서 상신 ( + 임시 저장)
 	@PostMapping("write")
 	@ResponseBody
 	public int write(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO apprDocVO, ApprLineVO apprLineVO,
@@ -130,7 +154,7 @@ public class ApprovalController {
 				apprLineVO.setApprover(appr);
 				apprLineVO.setApprTurn(i);
 				int r = approvalService.saveApprLine(apprLineVO);
-				if(i == 1) {
+				if(i == 1 && apprDocVO.getTempStorage() == null) {
 					approvalService.aprlStart(apprLineVO);
 				}
 				i++;

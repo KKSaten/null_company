@@ -176,9 +176,28 @@ document.getElementById('submitSign').addEventListener('click', function() {
 			defaultSignCheckbox.checked = true;
 		}	
 		
-		// 기안자 서명 이미지 삽입
+		// 기안자(혹은 결재자) 서명 이미지 삽입
 		const drafterSign = document.getElementById('drafterSign');
-		drafterSign.innerHTML = `<img src="${signImagePath}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;		
+		const midApprSign = document.getElementById('midApprSign');
+		const finApprSign = document.getElementById('finApprSign');
+		
+		const loginID = document.getElementById('hiddenLoginID');
+		const approver1 = document.getElementById('hiddenApprover1');
+		const approver2 = document.getElementById('hiddenApprover2');
+		const approver3 = document.getElementById('hiddenApprover3');
+		
+		if(loginID.value == approver1.value) {
+			midApprSign.innerHTML = `<img src="${signImagePath}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;		
+		}
+		else if(loginID.value == approver2.value) {
+			finApprSign.innerHTML = `<img src="${signImagePath}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;
+		}
+		else {
+			drafterSign.innerHTML = `<img src="${signImagePath}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;
+		}
+		
+		
+		// 결재자 서명 이미지 삽입
 		
 		// 모달 닫기
 		const signListModal = document.getElementById('signListModal');

@@ -10,9 +10,11 @@ import com.team2.app.employee.EmployeeVO;
 @Mapper
 public interface ApprovalMapper {
 	
-	public List<ApprDocVO> getReceivedList(EmployeeVO empVO) throws Exception;
-	
 	public List<ApprDocVO> getList(EmployeeVO empVO) throws Exception;
+	
+	public List<ApprDocVO> getTempStorage(EmployeeVO empVO) throws Exception;
+	
+	public List<ApprDocVO> getReceivedList(EmployeeVO empVO) throws Exception;
 	
 	public ApprDocVO getDetail(ApprDocVO apprDocVO) throws Exception;
 	

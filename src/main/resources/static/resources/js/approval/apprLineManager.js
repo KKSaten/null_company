@@ -92,6 +92,10 @@ let addedApprovers = [];
 let empNames = [];
 let posNames = [];
 
+// 문서별 결재자 최대 추가 제한
+const docTypecode = document.getElementById("hiddenDocTypecode");
+let maxApproverCount = 2;
+
 // 좌측 사원 리스트에 있는 추가 버튼
 $("#apprLineModalBody1").on("click", ".approverPlusBtn", function(){
 
@@ -133,9 +137,17 @@ $("#apprLineModalBody1").on("click", ".approverPlusBtn", function(){
 	empNames.push(empName);
 	posNames.push(posName);
 	
+	//alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);
+	
 	$(this).hide(); // 추가한 사원의 + 버튼 숨김
 	
-	if (approverCount >= 3) { // 결재자는 최대 3명까지만 추가
+	if(docTypecode.value == 2) {
+		maxApproverCount = 3;
+	}else {
+		maxApproverCount = 2;
+	}
+
+	if (approverCount >= maxApproverCount) { // 결재자는 최대 3명까지만 추가
 		$('.approverPlusBtn').hide();
 	    return;
 	}
@@ -195,10 +207,11 @@ $('#apprLineModalBody2').on('click','.removeApprover' , function() {
 	currentRow.remove(); // 현재 결재자 행을 삭제
 	
 	// 추가된 empNum 리스트에서 제거
-	addedApprovers = addedApprovers.filter(code => code !== empNum);
+	addedApprovers = addedApprovers.filter(numCode => numCode !== empNum);
 	console.log('결재자1: ' +  addedApprovers[0])
 	console.log('결재자2: ' +  addedApprovers[1])
 	console.log('결재자3: ' +  addedApprovers[2])
+	
 	
 	//요것들 지금 작동안함
 	//empNames = empNames.filter(code => code !== empName);
@@ -206,13 +219,20 @@ $('#apprLineModalBody2').on('click','.removeApprover' , function() {
 	empNames = empNames.filter(name => name !== empName);
 	posNames = posNames.filter(pos => pos !== posName)
 	
-
+	
+	
 	//alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);
 	
 	approverCount --;
+	
+	if(docTypecode.value == 2) {
+		maxApproverCount = 3;
+	}else {
+		maxApproverCount = 2;
+	}
 
     // 결재자 수가 3명 미만이 되면 추가 버튼 다시 보임
-    if (approverCount < 3) {
+    if (approverCount < maxApproverCount) {
         $('.approverPlusBtn').show();
     } else {
 		$('.approverPlusBtn').hide();
@@ -260,6 +280,9 @@ $('#submitApprLine').on('click', function() {
 		apprLineText += `(${posNames[2]}) ${empNames[2]}`;
 		document.getElementById('hiddenApprover3').value = addedApprovers[2];
 	}
+	console.log("addedApprovers[0] : " + document.getElementById('hiddenApprover1').value);
+	console.log("addedApprovers[1] : " + document.getElementById('hiddenApprover2').value);
+	console.log("addedApprovers[2] : " + document.getElementById('hiddenApprover3').value);
 	
 	//alert('결재자1: '+ empNames[0] + ' 결재자2: ' + empNames[1] + ' 결재자3: ' + empNames[2]);
 	
@@ -295,8 +318,14 @@ apprLineModal.addEventListener('show.bs.modal', function () {
 		empNames = [];
 		posNames = [];
 		$('.approverField').remove(); // 결재 라인 초기화
-		$('.approverPlusBtn').show(); // 모든 + 버튼 다시 보이기		
+		$('.approverPlusBtn').show(); // 모든 + 버튼 다시 보이기
+		
 	}
+	
+	//input에 저장된 값 비우기
+	document.getElementById('hiddenApprover1').value = "";
+	document.getElementById('hiddenApprover2').value = "";	
+	document.getElementById('hiddenApprover3').value = "";
 	
 });	
 

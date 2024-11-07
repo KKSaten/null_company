@@ -9,6 +9,7 @@
 	box-sizing: border-box;
 	cursor: pointer;
 	border: 1px solid #eaeaea;
+	text-align: left !important;
 }
 .table > tbody > tr > td, .table > tbody > tr > th {
 	padding: 8px 15px !important;
@@ -85,4 +86,19 @@
 }
 .draftDocumentTemplate > tbody > tr > .draftDocumentTemplateTitle, .draftDocumentTemplate > tbody > .hiddenSpace > td {
 	border: none !important;
+}
+.inputValue {
+	text-align: center;
+}
+textarea {
+	vertical-align: middle !important;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	resize: none;
+	margin: 10px !important;
+	position: relative;
+	top: 3px;
+	right: 10px;
+	border: none;
 }

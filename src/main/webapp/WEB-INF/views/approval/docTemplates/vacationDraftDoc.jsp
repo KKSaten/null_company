@@ -63,10 +63,10 @@
 					${empVO.posVO.posName}
 				</td>
 				<th colspan=3>
-					잔여&nbsp;연차
+					직&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;책
 				</th>
 				<td colspan=7>
-					
+					${empVO.roleVO.roleName}
 				</td>
 			</tr>
 			<tr>
@@ -97,8 +97,8 @@
 				<th colspan=3>
 					사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;유
 				</th>
-				<td colspan=17 style="height: 200px; padding: 3px !important;">
-					<textarea class="inputValue" style="width: 100%; height: 100%; margin: 3px !important; position: relative; top: 3px; right: 3px; border: none;" placeholder=" 사유를 입력해 주세요."></textarea>
+				<td colspan=17 style="height: 200px; padding: 10px !important;" onclick="focusTextarea(this)">
+					<textarea class="inputValue" rows="1" oninput="autoResize(this)"></textarea>
 				</td>
 			</tr>
 			<tr>

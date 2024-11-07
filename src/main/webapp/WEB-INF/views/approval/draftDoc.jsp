@@ -20,15 +20,6 @@
 	<!-- datepicker -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<!--     <script>
-        $(function() {
-            // datepicker 초기화
-            $("#expiryDate").datepicker({
-                dateFormat: "yy-mm-dd" // 날짜 형식 설정
-            });
-        });
-    </script> -->
-        
     
 	<link rel="stylesheet" href="/resources/css/draftDoc.css"/>	
 
@@ -56,7 +47,7 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">전자결재</a>
+								<a href="/approval/approvalDocbox">전자결재</a>
 							</li>							
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
@@ -466,6 +457,28 @@
 		$('#signListModal').on('shown.bs.modal', function () {
 		    updateSignList(); // 서명 목록 업데이트 함수 호출
 		});
+	</script>
+	
+	<script type="text/javascript">
+	    function focusTextarea(tdElement) {
+	        const textarea = tdElement.querySelector('textarea');
+	        if (textarea) {
+	            textarea.focus();
+	        }
+	    }	
+		function autoResize(textarea) {
+			textarea.style.height = 'auto'
+			textarea.style.height = textarea.scrollHeight + 'px'
+		}
+	</script>
+	
+	<script type="text/javascript">
+		//input 태그에서 엔터 입력시 submit 이벤트 발생 방지
+		document.addEventListener('keydown', function(event) {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+			};
+		}, true);	
 	</script>
 	
 

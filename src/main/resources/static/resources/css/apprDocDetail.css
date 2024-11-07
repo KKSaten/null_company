@@ -1,3 +1,16 @@
+.calendar-icon, .calendar-icon-vacSt, .calendar-icon-vacEnd, .calendar-icon-ordersDate {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #888;
+}
+.datepicker-input {
+	box-sizing: border-box;
+	cursor: pointer;
+	border: 1px solid #eaeaea;
+	text-align: left !important;
+}
 .table > tbody > tr > td, .table > tbody > tr > th {
 	padding: 8px 15px !important;
 	text-align: left !important;			
@@ -73,4 +86,34 @@
 }
 .draftDocumentTemplate > tbody > tr > .draftDocumentTemplateTitle, .draftDocumentTemplate > tbody > .hiddenSpace > td {
 	border: none !important;
+}
+
+
+
+
+#ordersDate {
+	cursor: default !important;
+	text-align: center !important;
+}
+.datepicker-input {
+	border: none;
+	font-size: 15px;
+}
+.fa-calendar-alt {
+	display: none;
+}
+.inputValue {
+	text-align: center;
+}
+textarea {
+	vertical-align: middle !important;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	resize: none;
+	margin: 10px !important;
+	position: relative;
+	top: 3px;
+	right: 10px;
+	border: none;
 }
