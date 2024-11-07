@@ -107,6 +107,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					
 					ChatVO chatVO2 = getChatVO(vo, roomNum, message);
 					chatMapper.chReadStatus(chatVO2);
+					
+					log.info("ch Read Status");
 				}
 			}
 		}
