@@ -114,5 +114,10 @@ public class VacationController {
 	    return "redirect:/vacation/myVacation"; 
 	}
 
-
+	@GetMapping("update")
+	public String update(VacationVO vacationVO) throws Exception {
+		vacationService.update(vacationVO);
+		return "redirect:/vacation/myVacation"; 
+	}
+	
 }
