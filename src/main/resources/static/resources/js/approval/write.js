@@ -89,7 +89,7 @@ document.getElementById('tempBtn').addEventListener('click', function(event) {
 	.then(data => {
 		alert("이후 임시보관함에서 수정하실 수 있습니다.")
 		console.log('성공: ', data);
-		location.href = '/approval/approvalDocbox';
+		location.href = '/approval/approvalDocTempStorage';
 	})
 	.catch(error => {
 		alert("Error");
@@ -113,7 +113,6 @@ document.getElementById('draftBtn').addEventListener('click', function(event) {
 		alert("빈칸 입력 바랍니다.");
 		return;
 	}
-	
 	
 	const inputs = document.querySelectorAll(".inputValue");
 	inputs.forEach(input => {

@@ -49,13 +49,13 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">전자결재</a>
+								<a href="/approval/approvalDocbox">전자결재</a>
 							</li>							
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">결재관리</a>
+								<a href="/approval/signaturePad">결재관리</a>
 							</li>
 							<li class="separator">
 								<i class="icon-arrow-right"></i>

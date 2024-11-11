@@ -228,7 +228,7 @@
 											</a>
 										</li>									
 										<li>
-											<a href="../approval/approvalDocbox">
+											<a href="../approval/approvalDocTempStorage">
 												<span class="col-sm-1"></span>
 												<span class="sub-item">임시 보관함</span>
 											</a>

@@ -74,21 +74,21 @@
 					발령&nbsp;부서
 				</th>
 				<td colspan=7 style="height: 30px; padding: 3px !important;">
-					<input type="text" class="inputValue" style="text-align: center !important; width: 100%; height: 100%; margin: 3px !important; position: relative; right: 3px; border: none;"	>
+					<input type="text" class="inputValue" style="width: 100%; height: 100%; margin: 3px !important; position: relative; right: 3px; border: none;"	>
 				</td>
 				<th colspan=3 style="padding-left: 10px !important; padding-right: 10px !important;">
 					발령&nbsp;직책
 				</th>
 				<td colspan=7 style="height: 30px; padding: 3px !important;">
-					<input type="text" class="inputValue" style="text-align: center !important; width: 100%; height: 100%; margin: 3px !important; position: relative; right: 3px; border: none;">
+					<input type="text" class="inputValue" style="width: 100%; height: 100%; margin: 3px !important; position: relative; right: 3px; border: none;">
 				</td>
 			</tr>
 			<tr>
 				<th colspan=3>
 					사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;유
 				</th>
-				<td colspan=17 style="height: 200px; padding: 3px !important;">
-					<textarea class="inputValue" style="width: 100%; height: 100%; margin: 3px !important; position: relative; top: 3px; right: 3px; border: none;"></textarea>
+				<td colspan=17 style="height: 200px; padding: 10px !important;" onclick="focusTextarea(this)">
+					<textarea class="inputValue" rows="1" oninput="autoResize(this)"></textarea>
 				</td>
 			</tr>
 			<tr>

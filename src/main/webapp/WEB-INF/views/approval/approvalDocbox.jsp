@@ -50,7 +50,7 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="/approval/approvalDocbox">??</a>
+								<a href="/approval/approvalDocbox">기안상신함</a>
 							</li>
 						</ul>
 					</div>
@@ -64,7 +64,7 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">결재함</h4>
+										<h4 class="card-title">기안 상신함</h4>
 										<button class="btn btn-primary ms-auto" id="alert_select_doc_type" data-bs-toggle="modal" data-bs-target="#docModal">
 											기안서 작성
 										</button>										
@@ -78,9 +78,9 @@
 												<tr>
 													<th style="width: 2%;" class="approval-result"></th>
 													<th style="font-size: 15px !important; letter-spacing:0px !important;">문서 제목</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 20%;">기안자</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; text-align:left !important; width: 13%;">기안일</th>
-													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 30%;">결재 처리</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 17%;">기안자</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; text-align:left !important; width: 11%;">기안일</th>
+													<th style="font-size: 15px !important; letter-spacing:0px !important; width: 35%;">결재 라인</th>
 												</tr>
 											</thead>
 
@@ -105,8 +105,10 @@
 														</td>
 														
 														<td> <!-- 문서 제목, 보고서 유형 -->
-															<div style="font-weight:bold; ">${item.docTitle}</div>
-															<div style="font-size:14px; color:gray; ">${item.templateName}</div>
+															<div onclick="location.href='/approval/apprDocDetail?docNum=${item.docNum}'" style="cursor: pointer;">
+																<div style="font-weight:bold; color: #333;">${item.docTitle}</div>
+																<div style="font-size:14px; color: gray;">${item.templateName}</div>
+															</div>													
 														</td>
 														
 														<td> <!-- 기안자 -->
@@ -118,7 +120,7 @@
 																</a>
 																</div>
 																<!-- 이름 및 직급 정보 -->
-																<div class="profile-info">
+																<div class="profile-info" onclick="location.href='/employee/detail'" style="cursor: pointer;">
 																	<p class="name" style="margin: 0; font-weight: bold;">${item.empName}</p>
 																	<p class="position" style="font-size: 14px; color: gray; margin: 0;">${item.deptName} - ${item.posName}</p>
 																</div>
