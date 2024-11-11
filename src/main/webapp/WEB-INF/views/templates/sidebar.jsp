@@ -83,10 +83,25 @@
 					<h4 class="text-section"></h4>
 				</li>
 
+
+				<li class="nav-item">
+					<a href="/notice/list">
+						<i class="fas fa-bullhorn"></i>
+						<p>공지사항</p>
+					</a>
+				</li>
+
+				
+				<li class="nav-item">
+					<a href="/schedule/calendar">
+						<i class="far fa-calendar-alt"></i>
+						<p>캘린더</p>
+					</a>
+				</li>
 				<li class="nav-item">
 					<a data-bs-toggle="collapse" href="#management">
 						<i class="fas fa-user-cog"></i>
-						<p>관리</p>
+						<p>조직관리</p>
 						<span class="caret"></span>
 					</a>
 					<div class="collapse" id="management">
@@ -113,26 +128,6 @@
 							</li>
 						</ul>
 					</div>
-				</li>
-
-				<li class="nav-item">
-					<a href="/notice/list">
-						<i class="fas fa-bullhorn"></i>
-						<p>공지사항</p>
-					</a>
-				</li>
-
-				<li class="nav-item">
-					<a data-bs-toggle="collapse" href="/">
-						<i class="fas fa-users"></i>
-						<p>구성원</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="/schedule/calendar">
-						<i class="far fa-calendar-alt"></i>
-						<p>캘린더</p>
-					</a>
 				</li>
 				<li class="nav-item">
 					<a data-bs-toggle="collapse" href="#commute">

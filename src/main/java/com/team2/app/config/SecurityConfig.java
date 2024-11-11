@@ -65,8 +65,21 @@ public class SecurityConfig {
 			.authorizeHttpRequests(
 					(authorizeRequests)->
 						authorizeRequests
-							.requestMatchers("/").permitAll()
+							.requestMatchers("/").authenticated()
 							.requestMatchers("/employee/mypage").authenticated()
+							.requestMatchers("/employee/list").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
+							.requestMatchers("/department/list").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
+							.requestMatchers("/role/list").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
+							.requestMatchers("/positions/list").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
+							.requestMatchers("/vacation/listDetail").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
+							.requestMatchers("/vacation/list").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
+							.requestMatchers("/vacation/myVacation").authenticated()
+							.requestMatchers("/schedule/calendat").authenticated()
+							.requestMatchers("/chat/list").authenticated()
+							.requestMatchers("/commute/userList").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
+							.requestMatchers("/commute/list").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
+							.requestMatchers("/orders/list").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
+							.requestMatchers("/employee/empList").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
 							.anyRequest().permitAll()
 					)
 			.formLogin(
