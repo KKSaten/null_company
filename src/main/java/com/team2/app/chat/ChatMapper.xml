@@ -122,7 +122,12 @@
 		IS_READ=1
 		WHERE CHAT_NUM = #{chatNum} AND MEMBER_NUM = #{memberNum}
 	</update>
-
+	
+	<select id="getChatTime" parameterType="ChatVO" resultType="ChatVO">
+		SELECT CREATETIME
+		FROM CHAT
+		WHERE CHAT_NUM = #{chatNum}
+	</select>
 
 	<select id="getEmpDetail" parameterType="EmployeeVO"
 		resultMap="EmpInfo">

@@ -70,15 +70,9 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a data-bs-toggle="collapse" href="/">
+					<a  href="/chat/list">
 						<i class="fas fa-comments"></i>
 						<p>메신저</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a data-bs-toggle="collapse" href="/">
-						<i class="fas fa-bell"></i>
-						<p>새로운 소식</p>
 					</a>
 				</li>
 

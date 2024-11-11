@@ -42,6 +42,9 @@ sock.onclose = function () {
 // 메시지를 채팅창에 추가하는 함수
 function addMessageToChat(message, isMyMessage) {
   const messageElement = document.createElement("div");
+  const messageContainer = document.createElement("div");
+
+  messageContainer.className = "message-container";
 
   messageElement.className =
     "message " + (isMyMessage ? "my-message" : "other-message");
@@ -51,6 +54,10 @@ function addMessageToChat(message, isMyMessage) {
   const p = document.createElement("p");
   const status = document.createElement("span");
   status.className = "read-count";
+
+  const timestamp = document.createElement("div");
+  timestamp.className = "timestamp";
+  timestamp.setAttribute("style", isMyMessage ? "position:absolute;" : "");
 
   if (!isMyMessage) {
     const img = document.createElement("img");
@@ -67,6 +74,10 @@ function addMessageToChat(message, isMyMessage) {
     chatContainer.appendChild(strong);
   }
 
+  let time = new Date(message.createTime);
+
+  timestamp.append(time.toLocaleString());
+
   p.append(message.chatContents);
   status.append(message.readCount);
   span.appendChild(p);
@@ -78,7 +89,11 @@ function addMessageToChat(message, isMyMessage) {
     messageElement.appendChild(status);
     messageElement.appendChild(span);
   }
-  chatContainer.appendChild(messageElement);
+
+  messageContainer.appendChild(messageElement);
+  messageContainer.appendChild(timestamp);
+
+  chatContainer.appendChild(messageContainer);
 
   chatContainer.scrollTop = chatContainer.scrollHeight; // 스크롤을 가장 아래로 이동
 }
