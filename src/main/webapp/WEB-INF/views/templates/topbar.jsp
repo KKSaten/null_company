@@ -10,21 +10,19 @@
 		<ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
 
 			<sec:authorize access="isAnonymous()">
-			<li class="nav-item topbar-user" style="margin-right: 50px;">
-				<a class="profile-pic" href="/employee/login">
-					<div class="avatar-lg" style="align-content: center;" align="right">
-						<i class="fas fa-key fa-2x" style="color: #a7a7a7;"></i>
-					</div>
-					<span class="profile-username">
-						<span class="fw-bold">로그인</span>
+				<li class="nav-item topbar-user" style="margin-right: 50px;"><a
+					class="profile-pic" href="/employee/login">
+						<div class="avatar-lg" style="align-content: center;"
+							align="right">
+							<i class="fas fa-key fa-2x" style="color: #a7a7a7;"></i>
+						</div> <span class="profile-username"> <span class="fw-bold">로그인</span>
 					</span>
-				</a>
-			</li>
+				</a></li>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
 
-				<!-- 메세지 -->
-				<li class="nav-item topbar-icon dropdown hidden-caret"><a
+				<!-- <!-- 메세지 -->
+				<!-- <li class="nav-item topbar-icon dropdown hidden-caret"><a
 					class="nav-link dropdown-toggle" href="#" id="messageDropdown"
 					role="button" data-bs-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> <i class="fa fa-envelope"></i>
@@ -81,10 +79,10 @@
 						<li><a class="see-all" href="javascript:void(0);">See all
 								messages<i class="fa fa-angle-right"></i>
 						</a></li>
-					</ul></li>
+					</ul></li> -->
 				<!-- 메세지 -->
 				<!-- 알림 -->
-				<li class="nav-item topbar-icon dropdown hidden-caret"><a
+				<!-- <li class="nav-item topbar-icon dropdown hidden-caret"><a
 					class="nav-link dropdown-toggle" href="#" id="notifDropdown"
 					role="button" data-bs-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> <i class="fa fa-bell"></i> <span
@@ -137,10 +135,10 @@
 						<li><a class="see-all" href="javascript:void(0);">See all
 								notifications<i class="fa fa-angle-right"></i>
 						</a></li>
-					</ul></li>
+					</ul></li> -->
 				<!-- 알림 -->
 				<!-- 빠른메뉴 -->
-				<li class="nav-item topbar-icon dropdown hidden-caret"><a
+				<!-- <li class="nav-item topbar-icon dropdown hidden-caret"><a
 					class="nav-link" data-bs-toggle="dropdown" href="#"
 					aria-expanded="false"> <i class="fas fa-layer-group"></i>
 				</a>
@@ -198,17 +196,16 @@
 								</div>
 							</div>
 						</div>
-					</div></li>
+					</div></li> -->
 				<!-- 빠른메뉴 -->
 				<!-- 사용자메뉴 -->
 				<sec:authentication property="principal" var="vo" />
 				<li class="nav-item topbar-user dropdown hidden-caret"
 					style="margin-right: 50px;"><a
 					class="dropdown-toggle profile-pic" data-bs-toggle="dropdown"
-					href="#" aria-expanded="false"><span class="profile-username"> <span class="op-7">Hi,</span>
-							<span class="fw-bold">${vo.empName}</span>
-					</span>
-				</a>
+					href="#" aria-expanded="false"><span class="profile-username">
+							<span class="op-7">Hi,</span> <span class="fw-bold">${vo.empName}</span>
+					</span> </a>
 					<ul class="dropdown-menu dropdown-user animated fadeIn">
 						<div class="dropdown-user-scroll scrollbar-outer">
 							<li>
@@ -219,18 +216,15 @@
 									</div>
 									<div class="u-text">
 										<h4>${vo.empName}</h4>
-										<p class="text-muted">hello@example.com</p>
 										<a href="/employee/detail"
 											class="btn btn-xs btn-secondary btn-sm">내 정보</a>
 									</div>
 								</div>
 							</li>
 							<li>
-								<div class="dropdown-divider"></div> <a class="dropdown-item"
-								href="#">결재함</a> <a class="dropdown-item" href="#">휴가</a>
-								<div class="dropdown-divider"></div> <a class="dropdown-item"
-								href="/employee/update">내 정보 수정</a><a class="dropdown-item"
-								href="/employee/chpass">비밀번호 변경</a>
+								<div class="dropdown-divider"></div><a class="dropdown-item" href="/vacation/myVacation">휴가</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/employee/chpass">비밀번호 변경</a>
 								<div class="dropdown-divider"></div> <a class="dropdown-item"
 								href="/employee/logout">로그아웃</a>
 							</li>

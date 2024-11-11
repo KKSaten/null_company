@@ -176,9 +176,28 @@ document.getElementById('submitSign').addEventListener('click', function() {
 			defaultSignCheckbox.checked = true;
 		}	
 		
-		// 기안자 서명 이미지 삽입
+		// 기안자(혹은 결재자) 서명 이미지 삽입
 		const drafterSign = document.getElementById('drafterSign');
-		drafterSign.innerHTML = `<img src="${signImagePath}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;		
+		const midApprSign = document.getElementById('midApprSign');
+		const finApprSign = document.getElementById('finApprSign');
+		
+		const loginID = document.getElementById('hiddenLoginID');
+		const approver1 = document.getElementById('hiddenApprover1');
+		const approver2 = document.getElementById('hiddenApprover2');
+		const approver3 = document.getElementById('hiddenApprover3');
+		
+		if(loginID.value == approver1.value) {
+			midApprSign.innerHTML = `<img src="${signImagePath}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;		
+		}
+		else if(loginID.value == approver2.value) {
+			finApprSign.innerHTML = `<img src="${signImagePath}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;
+		}
+		else {
+			drafterSign.innerHTML = `<img src="${signImagePath}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;
+		}
+		
+		
+		// 결재자 서명 이미지 삽입
 		
 		// 모달 닫기
 		const signListModal = document.getElementById('signListModal');
@@ -199,6 +218,17 @@ document.getElementById('submitSign').addEventListener('click', function() {
 
 // 대표 서명 체크박스 클릭 이벤트 추가
 document.getElementById('defaultSign').addEventListener('click', function() {
+	
+	
+	const drafterSign = document.getElementById('drafterSign');
+	const midApprSign = document.getElementById('midApprSign');
+	const finApprSign = document.getElementById('finApprSign');
+
+	const loginID = document.getElementById('hiddenLoginID');
+	const approver1 = document.getElementById('hiddenApprover1');
+	const approver2 = document.getElementById('hiddenApprover2');
+	const approver3 = document.getElementById('hiddenApprover3');
+	
     const isChecked = this.checked;
     if (isChecked) {
         // 대표 서명으로 설정된 서명 값 찾기
@@ -216,7 +246,17 @@ document.getElementById('defaultSign').addEventListener('click', function() {
                     document.getElementById('hiddenSignNum').value = data.signNum;
                     document.getElementById('signListModalBtn').innerText = data.signTitle;
 					// 기안자 서명 이미지 삽입
-					document.getElementById('drafterSign').innerHTML = `<img src="/file/signature/${data.signImage}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;					
+					if(loginID.value == approver1.value) {
+						midApprSign.innerHTML = `<img src="/file/signature/${data.signImage}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;		
+					}
+					else if(loginID.value == approver2.value) {
+						finApprSign.innerHTML = `<img src="/file/signature/${data.signImage}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;
+					}
+					else {
+						drafterSign.innerHTML = `<img src="/file/signature/${data.signImage}" alt="서명 이미지" style="height: 100%; width: 100%; margin: 0px !important;">`;
+					}
+					
+										
                 } else {
                     alert("대표 서명이 설정되지 않았습니다.");
                     this.checked = false; // 체크 해제
@@ -230,7 +270,19 @@ document.getElementById('defaultSign').addEventListener('click', function() {
         // 체크 해제 시 기본값으로 초기화
         document.getElementById('hiddenSignNum').value = '';
         document.getElementById('signListModalBtn').innerText = '서명 선택';
-		drafterSign.innerHTML = '';
+		
+		if(loginID.value == approver1.value) {
+			midApprSign.innerHTML = '';		
+		}
+		else if(loginID.value == approver2.value) {
+			finApprSign.innerHTML = '';
+		}
+		else {
+			drafterSign.innerHTML = '';
+		}		
+		
+		
+		
     }
 });
 

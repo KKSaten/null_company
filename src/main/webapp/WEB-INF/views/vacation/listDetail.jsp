@@ -75,17 +75,19 @@
 												</thead>
 												<tbody>
 													<c:forEach items="${list}" var="vo">
-							                        	<tr>
+													    <tr id="row-${vo.empNum}">
 													        <td>${vo.empName}</td>
-															<td>${vo.empNum}</td>
-															<td>${vo.deptName}</td>
-															<td>${vo.posName}</td>
-															<td>${vo.date} (${vo.dating}일)</td>
-															<td>${vo.createdDate}</td>
-															 <td><button><a herf="/vacation/update">승인</a></button>
+													        <td>${vo.empNum}</td>
+													        <td>${vo.deptName}</td>
+													        <td>${vo.posName}</td>
+													        <td>${vo.date} (${vo.dating}일)</td>
+													        <td>${vo.createdDate}</td>
+													        <td>
+													            <button id="approve-btn-${vo.empNum}" onclick="approve(${vo.dating}, ${vo.empNum})" style="cursor:pointer;">승인</button>
 													        </td>
 													    </tr>
-					                          </c:forEach>
+													</c:forEach>
+
 												</tbody>
 											</table>
 										</div>
@@ -104,7 +106,40 @@
 
 	<c:import url="../templates/bootfooter.jsp"></c:import>
 	
-	
+	<script>
+		function approve(dating, empNum) {
+		    console.log('approve 함수 호출됨');
+		    console.log("승인 요청: dating=" + dating + ", empNum=" + empNum);
+
+		    // 버튼 id 로그 출력
+		    const buttonId = "approve-btn-" + empNum;
+		    console.log("버튼 id: " + buttonId);
+
+		    if (confirm("승인하시겠습니까?")) {
+		        fetch("/vacation/update?dating=" + dating + "&empNum=" + empNum)
+		            .then(response => {
+		                console.log("Response received:", response);
+		                if (response.ok) {
+		                    const button = document.getElementById(buttonId);
+		                    if (button) {
+		                        console.log("Hiding button with empNum: " + empNum);
+		                        button.style.display = 'none'; // 버튼 숨기기
+		                    } else {
+		                        console.error("Error: Button with id " + buttonId + " not found.");
+		                    }
+		                } else {
+		                    alert("승인에 실패했습니다. 다시 시도해주세요.");
+		                }
+		            })
+		            .catch(error => {
+		                console.error("Error:", error);
+		                alert("승인 중 오류가 발생했습니다.");
+		            });
+		    }
+		}
+
+	</script>
+
     <script>
       $(document).ready(function () {
 

@@ -85,14 +85,14 @@
 						        <td>${vo.formattedCommuteInTime}</td>
 						        <td>${vo.formattedCommuteOutTime}</td>
 						        <td>
-						            <c:choose>
+									<c:choose>
 						                <c:when test="${vo.commuteStatus == 1}">
 						                  <div style="color: blue;font-weight: bold;">출근</div>
 						                </c:when>
 						                  <c:when test="${vo.commuteStatus == 2}">
 						                  <div style="color: red;font-weight: bold;">퇴근</div>
 						                </c:when>
-						               <c:when test="${vo.commuteStatus == null}">
+						               <c:when test="${vo.commuteStatus == null || vo.commuteStatus == 0}">
 						                  <div style="color: orange;font-weight: bold;">결근</div>
 						                </c:when>
 						            </c:choose>

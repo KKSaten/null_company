@@ -98,7 +98,7 @@
 	</select>
 	
 	
-<insert id="vacationAdd" parameterType="com.team2.app.haerin.vacation.VacationVO">
+<insert id="vacationAdd" parameterType="VacationVO">
 INSERT INTO VACATION_COUNT (VACATION_NUM, CREATED_DATE, VACATION_START_DATE, VACATION_END_DATE)
 SELECT VACATION_NUM, NOW(), #{vacationCountVO.vacationStartDate}, #{vacationCountVO.vacationEndDate}
 FROM VACATION
@@ -106,6 +106,9 @@ WHERE EMP_NUM = #{empNum}
 LIMIT 1;
 
 </insert>
-
+<update id="update" parameterType="VacationVO">
+	UPDATE VACATION SET VACATION_LEFTOVER_DATE = VACATION_LEFTOVER_DATE - #{dating}
+	WHERE EMP_NUM = #{empNum}
+</update>
 	
 </mapper>

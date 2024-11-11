@@ -11,7 +11,7 @@
 
 <c:import url="templates/header.jsp"></c:import>
 
-<title>Document</title>
+<title>Index</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -149,7 +149,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+<!-- 					<div class="row">
 						<div class="col-md-12">
 							<div class="card card-round">
 								<div class="card-header">
@@ -185,7 +185,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 			<script src="/resources/js/notice/preview.js"></script>
