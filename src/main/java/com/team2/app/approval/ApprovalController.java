@@ -3,7 +3,9 @@ package com.team2.app.approval;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -96,7 +98,18 @@ public class ApprovalController {
 	    for(ApprLineVO approver : detail.getApprLineVO() ) {
 	    	log.info("결재자 정보 : {}", approver);
 	    	Integer appr = approver.getApprover();
+	    	String apprName = approver.getApproverName();
+	    	String apprProgress = approver.getApprProgress();
 	    	model.addAttribute("approver"+i, appr);
+	    	model.addAttribute("approverName"+i, apprName);
+	    	model.addAttribute("apprProgress"+i, apprProgress);
+	    	i++;
+	    }
+	    int j = 1;
+	    for(ApprHistoryVO apprHistoryVO : detail.getApprHistoryVO()) {
+	    	String apprComment = apprHistoryVO.getApprComment();
+	    	model.addAttribute("apprComment"+j, apprComment);
+	    	j++;
 	    }
 	    
 		model.addAttribute("detail", detail);
@@ -130,8 +143,10 @@ public class ApprovalController {
 	// 기안서 상신 ( + 임시 저장)
 	@PostMapping("write")
 	@ResponseBody
-	public int write(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO apprDocVO, ApprLineVO apprLineVO,
+	public Map<String, Object> write(@AuthenticationPrincipal EmployeeVO empVO, ApprDocVO apprDocVO, ApprLineVO apprLineVO,
 				@RequestParam Integer[] approver, Model model) throws Exception {
+		
+		Map<String, Object> response = new HashMap<>();
 		
 		int result = 0;
 
@@ -143,7 +158,8 @@ public class ApprovalController {
 		
 		if(approver.length == 0) {
 			log.error("결재자가 없습니다");
-			return 0;
+			response.put("result", 0);
+		    return response;
 		}
 		else if(approver.length >= 1) {
 			int i = 1;
@@ -164,13 +180,55 @@ public class ApprovalController {
 		}
 		
 		
-		return result;
+	    response.put("result", result);
+	    return response;
 		
 	}
 	
 	
-	
-	
+	// 결재자 결재
+	@PostMapping("approval")
+	@ResponseBody
+	public Map<String, Object> approval(@AuthenticationPrincipal EmployeeVO empVO,
+			ApprDocVO apprDocVO, ApprLineVO apprLineVO, ApprHistoryVO apprHistoryVO, Model model) throws Exception {
+		
+		Map<String, Object> response = new HashMap<>();
+		
+		int result = 0;
+		
+		ApprDocVO detail = approvalService.getDetail(apprDocVO);
+		
+		int nextApprTurn = 0;
+		String nextApprPrg = "진행";
+		int nextApprNum = 0;
+		
+		for(ApprLineVO apprLine : detail.getApprLineVO()) {
+			if(apprLine.getApprover() == empVO.getEmpNum()) {
+				apprHistoryVO.setApprover(apprLine.getApprover());
+				apprHistoryVO.setApprLevel(apprLine.getApprTurn());
+				nextApprTurn = apprLine.getApprTurn() + 1;
+				apprLineVO.setApprover(apprLine.getApprover()); 
+			}
+			if(apprLine.getApprTurn() == nextApprTurn) {
+				nextApprNum = apprLine.getApprover();
+				
+			}
+		}
+		
+		log.info("결재 순서 체크: {}", apprHistoryVO.getApprLevel());
+		
+		result = approvalService.approval(apprDocVO, apprLineVO, apprHistoryVO);
+		
+		apprLineVO.setApprProgress(nextApprPrg);
+		apprLineVO.setApprover(nextApprNum);
+		
+		result += approvalService.nextApprTurn(apprLineVO);
+			
+	    response.put("result", result);
+	    
+	    return response;
+		
+	}
 	
 	
 	

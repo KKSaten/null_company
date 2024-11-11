@@ -108,6 +108,7 @@
 															<button type="button" class="btn btn-light paramBtn" id="apprLineBtn" data-bs-toggle="modal" data-bs-target="#apprLineModal">
 																결재선 설정
 															</button>
+															<input type="hidden" id="hiddenLoginID" value="${empVO.empNum}">														
 															<input type="hidden" name="approver" id="hiddenApprover1">
 															<input type="hidden" name="approver" id="hiddenApprover2">
 															<input type="hidden" name="approver" id="hiddenApprover3">

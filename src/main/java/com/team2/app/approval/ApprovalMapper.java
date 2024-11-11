@@ -33,6 +33,12 @@ public interface ApprovalMapper {
 	
 	public int draftDoc(ApprDocVO apprDocVO) throws Exception;
 	
+	public int approval(ApprDocVO apprDocVO) throws Exception;
+	
+	public int apprLineUpdate(ApprLineVO apprLineVO) throws Exception;
+	
+	public int apprHistoryUpdate(ApprHistoryVO apprHistoryVO) throws Exception;
+	
 	public int saveApprLine(ApprLineVO apprLineVO) throws Exception;
 	
 	public int aprlStart(ApprLineVO apprLineVO) throws Exception;

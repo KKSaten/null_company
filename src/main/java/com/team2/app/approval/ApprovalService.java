@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.team2.app.employee.EmployeeVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ApprovalService {
 	
 	@Autowired
@@ -89,6 +92,31 @@ public class ApprovalService {
 		
 		return result;
 	}
+	
+	public int approval(ApprDocVO apprDocVO, ApprLineVO apprLineVO, ApprHistoryVO apprHistoryVO) throws Exception {
+		
+		int result = 0;
+		
+		log.info("approvalResult : {}", apprDocVO);
+		result += approvalMapper.approval(apprDocVO);
+		result += approvalMapper.apprLineUpdate(apprLineVO);
+		result += approvalMapper.apprHistoryUpdate(apprHistoryVO);
+		
+		
+		return result;
+	}
+	
+	public int nextApprTurn(ApprLineVO apprLineVO) throws Exception {
+		
+		int result = 0;
+		
+		result = approvalMapper.apprLineUpdate(apprLineVO);
+		
+		return result;
+		
+	}
+	
+	
 	
 	public int saveApprLine(ApprLineVO apprLineVO) throws Exception {
 		

@@ -15,7 +15,7 @@ public class ApprHistoryVO {
 	
 	private Integer approver;
 	
-	private String apprLevel;
+	private Integer apprLevel;
 	
 	private Timestamp apprDate;
 	

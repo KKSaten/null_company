@@ -41,7 +41,10 @@
 			ON A.DOC_NUM = AL.DOC_NUM
 			LEFT JOIN
 			EMPLOYEE E2
-			ON AL.APPROVER = E2.EMP_NUM 
+			ON AL.APPROVER = E2.EMP_NUM
+			LEFT JOIN
+			EMPLOYEE E
+			ON E.EMP_NUM = E2.EMP_NUM
 	</sql>
 	
 	<select id="getList" parameterType="EmployeeVO" resultMap="ApprDocInfo">
@@ -118,11 +121,13 @@
 	
 	<select id="getReceivedList" parameterType="EmployeeVO" resultMap="ApprReceivedDocInfo">
 		<include refid="getListPiece"></include> 
-		WHERE AL.DOC_NUM IN
+		WHERE (AL.DOC_NUM IN
 			(SELECT DOC_NUM
-			 FROM APPROVAL_LINE
+			 FROM APPROVAL_LINE AL
 			 WHERE APPROVER = #{empNum}
 			)
+			OR
+			E.DEPT_NUM = 1)
 			AND
 			A.TEMP_STORAGE IS NULL
 		ORDER BY AL.AL_NUM ASC
@@ -171,7 +176,11 @@
 			EMPLOYEE E
 			ON E.DEPT_NUM = D.DEPT_NUM 
 			WHERE E.EMP_NUM = AD.DOC_WRITER
-			) AS DEPT_NAME			
+			) AS DEPT_NAME,
+			(SELECT E2.EMP_NAME
+			FROM EMPLOYEE E2
+			WHERE AL.APPROVER = E2.EMP_NUM
+			)AS APPROVER_NAME
 		FROM APPROVAL_DOCBOX AD
 			 LEFT JOIN
 			 APPROVAL_LINE AL
@@ -295,6 +304,25 @@
 	<insert id="draftDoc" parameterType="ApprDocVO" useGeneratedKeys="true" keyProperty="docNum">
 		INSERT INTO APPROVAL_DOCBOX
 		VALUES(null, #{docWriter}, #{docTypecode}, #{docTemplatecode}, #{tempStorage}, #{docTitle}, #{docContent}, now(), now(), #{docExpirydate}, '진행')
+	</insert>
+	
+	
+	<update id="approval" parameterType="ApprDocVO">
+		UPDATE APPROVAL_DOCBOX
+		SET APPROVAL_RESULT = #{approvalResult},
+			DOC_CONTENT = #{docContent}
+		WHERE DOC_NUM = #{docNum}
+	</update>
+	
+	<update id="apprLineUpdate" parameterType="ApprLineVO">
+		UPDATE APPROVAL_LINE
+		SET APPR_PROGRESS = #{apprProgress}
+		WHERE DOC_NUM = #{docNum} AND APPROVER = #{approver}
+	</update>
+	
+	<insert id="apprHistoryUpdate" parameterType="ApprHistoryVO">
+		INSERT INTO APPROVAL_HISTORY
+		VALUES(null, #{docNum}, #{approver}, #{apprLevel}, now(), #{apprComment}, #{apprResult})
 	</insert>
 	
 	
