@@ -82,7 +82,8 @@
 															<td>${vo.posName}</td>
 															<td>${vo.date} (${vo.dating}일)</td>
 															<td>${vo.createdDate}</td>
-															 <td><button><a herf="/vacation/update">승인</a></button>
+															 <td><button onclick="location.href='update?dating=${vo.dating}&empNum=${vo.empNum}'" style="cursor:pointer;">승인</button>
+															
 													        </td>
 													    </tr>
 					                          </c:forEach>

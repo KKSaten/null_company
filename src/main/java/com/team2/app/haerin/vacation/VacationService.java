@@ -31,4 +31,7 @@ public class VacationService {
 	public void vacationAdd(VacationVO vacationVO)throws Exception{
 		vacationMapper.vacationAdd(vacationVO);
 	}
+	public void update(VacationVO vacationVO)throws Exception{
+		vacationMapper.update(vacationVO);
+	}
 }

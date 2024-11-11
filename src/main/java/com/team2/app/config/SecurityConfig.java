@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.team2.app.config.security.LoginFailureHandler;
@@ -45,6 +47,13 @@ public class SecurityConfig {
 						.ignoring()
 							.requestMatchers("/resources/**"); // front자원에 대한 요청 분리
 
+	}
+	
+	@Bean
+	public HttpFirewall httpFirewall() {
+	    StrictHttpFirewall strictHttpFirewall = new StrictHttpFirewall();
+	    strictHttpFirewall.setAllowUrlEncodedDoubleSlash(true);
+	    return strictHttpFirewall;
 	}
 	
 	@Bean
