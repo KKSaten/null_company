@@ -145,20 +145,25 @@ public class EmployeeContoller {
 	}
 	
 	@PostMapping("chpass")
-	public String chpass(EmployeeVO employeeVO, String befpass, HttpSession session) throws Exception {
+	public String chpass(EmployeeVO employeeVO, String befpass, HttpSession session, Model model) throws Exception {
 				
 		EmployeeVO vo = getEmployeeVO(session);
 		
 		if(!passwordEncoder.matches(befpass, vo.getEmpPwd())) {
-			return "index";
+			model.addAttribute("result","새 비밀번호가 맞지 않습니다.");
+			model.addAttribute("url","/employee/chpass");
+			return "commons/message";
 		} else if (!employeeVO.getEmpPwd().equals(employeeVO.getEmpPwdCheck())) {
+			model.addAttribute("result","기존 비밀번호가 맞지 않습니다.");
+			model.addAttribute("url","/employee/chpass");
 			log.warn("pwdcheck");
-			return "index";
+			return "commons/message";
 		}
 		
 		employeeVO.setEmpId(vo.getEmpId());
 		
 		employeeService.chpass(employeeVO);
+		session.invalidate();
 		
 		return "redirect:/employee/login";
 	}

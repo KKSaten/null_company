@@ -115,6 +115,7 @@ public class SecurityConfig {
 							.logoutRequestMatcher(new AntPathRequestMatcher("/employee/logout"))
 							.logoutSuccessHandler(outSuccessHandler)
 							.invalidateHttpSession(true)
+							.deleteCookies("JSESSIONID")
 					)
 			.rememberMe(
 					(remember)->
