@@ -77,7 +77,7 @@
 												data-bs-dismiss="modal">취소</button>
 											<button type="submit" class="btn btn-success">휴가
 												신청</button>
-												</from>
+												</form>
 
 												</div>
 											</div>
@@ -176,6 +176,16 @@
 
 
 
+	<script>
+		function handleFormSubmit() {
+			// 폼이 제출될 때 이 함수가 실행됩니다.
+			// 폼 제출 이후 원하는 페이지로 이동
+			setTimeout(() => {
+				window.location.href = '/approval/write?docTypecode=1&docTemplatecode=10002';
+			}, 100); // 100ms 지연 후 이동
+			return true; // 폼 제출을 계속 진행
+		}
+	</script>
 
 	<script>
 		$(document)

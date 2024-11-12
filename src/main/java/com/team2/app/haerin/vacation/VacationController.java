@@ -111,7 +111,7 @@ public class VacationController {
 	    // vacationAdd 로직 처리
 	    vacationService.vacationAdd(vacationVO);
 
-	    return "redirect:/vacation/myVacation"; 
+	    return "redirect:/approval/write?docTypecode=1&docTemplatecode=10002"; 
 	}
 
 	@GetMapping("update")
