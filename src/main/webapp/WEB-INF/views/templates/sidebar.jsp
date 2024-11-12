@@ -28,7 +28,7 @@
 							- ${vo.posVO.posName}</p>
 					</div>
 				</div>
-				</sec:authorize>
+				
 
 
 
@@ -216,7 +216,7 @@
 								</div></li>
 
 
-							<c:if test="${vo.roleNum > 3}">
+							
 								<li><a data-bs-toggle="collapse" href="#approvalOption">
 										<span class="col-sm-1"></span> <i class="fas fa-pen-square"></i>
 										<p>결재 관리</p> <span class="caret"></span>
@@ -233,14 +233,12 @@
 										</ul>
 									</div></li>
 
-							</c:if>
-
 
 						</ul>
 					</div></li>
 
 
-
+</sec:authorize>
 
 
 
