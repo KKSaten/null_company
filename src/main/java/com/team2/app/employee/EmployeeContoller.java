@@ -199,7 +199,7 @@ public class EmployeeContoller {
 	}
 	
 	@PostMapping("join")
-	public String join(EmployeeVO employeeVO, MultipartFile attach) throws Exception {
+	public String join(EmployeeVO employeeVO, MultipartFile attach, Model model) throws Exception {
 			
 		log.info("=========================================");
 		log.info("join employee: {}", employeeVO);
@@ -209,7 +209,10 @@ public class EmployeeContoller {
 		log.info("=========================================");
 		log.info("등록 성공");
 		
-		return "redirect:/employee/join";
+		model.addAttribute("url","/");
+		model.addAttribute("result","사원 등록 완료");
+		
+		return "commons/message";
 		
 	}
 

@@ -91,6 +91,14 @@ public class SecurityConfig {
 							.requestMatchers("/employee/empList").hasAnyRole("인사팀원", "인사팀장", "사장", "임원")
 							.anyRequest().permitAll()
 					)
+			.exceptionHandling(
+					exceptionHandling -> 
+						exceptionHandling
+							.accessDeniedHandler(
+									(request, response, accessDeniedException) -> 
+										response.sendRedirect("/exceptions/403") // 403 에러 페이지로 리다이렉트
+									)
+					)
 			.formLogin(
 					(login)->
 						login
