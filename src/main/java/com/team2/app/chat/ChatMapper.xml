@@ -42,6 +42,7 @@
 	<select id="getPreChat" parameterType="RoomVO" resultType="ChatVO">
 		SELECT CHAT_NUM
 		FROM CHAT
+		ORDER BY CREATETIME DESC
 	</select>
 	
 	<update id="chPreStatus" parameterType="ChatVO">
@@ -74,6 +75,7 @@
 		<foreach collection="roomMemberVOs" item="roomMemberVO" open="(" separator="," close=")">
 			#{roomMemberVO.memberNum}
 		</foreach>
+		ORDER BY CREATETIME ASC
 	</select>
 
 	<resultMap type="ChatVO" id="ChatEmp">
